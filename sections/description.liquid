@@ -1,0 +1,87 @@
+<section class="description">
+  <div class="description_container md:px-20 px-6 mx-auto text-center text-[2rem] font-semibold leading-[35.2px] tracking-[0.32px] text-[#000]">
+    {{ section.settings.about_description }}
+  </div>
+</section>
+
+
+<style>
+  .description {
+    padding-top: {{ section.settings.description-padding-top-desktop }}px;
+    padding-bottom: {{ section.settings.description-padding-bottom-desktop }}px;
+  }
+  .description_container {
+    max-width: 1010px;
+    font-family: Aileron;
+   
+  }
+  @media screen and (max-width:768px){
+    .description {
+    padding-top: {{ section.settings.description-padding-top-mobile }}px;
+    padding-bottom: {{ section.settings.description-padding-bottom-mobile }}px;
+  }
+    .description_container{
+        font-size: 26px ;
+        line-height: 26px;
+    }
+  }
+  @media screen and (max-width:425px){
+    .description_container{
+        font-size: 18px ;
+        line-height: 18px;
+    }
+  }
+
+</style>
+
+{% schema %}
+  {
+    "name": "Description",
+    "settings": [
+      {
+        "type": "range",
+        "id": "description-padding-top-desktop",
+        "label": "Desktop Padding Top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      }, {
+        "type": "range",
+        "id": "description-padding-bottom-desktop",
+        "label": "Desktop Padding Bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "description-padding-top-mobile",
+        "label": "Mobile Padding Top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      }, {
+        "type": "range",
+        "id": "description-padding-bottom-mobile",
+        "label": "Mobile Padding Bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      },  
+      {
+        "type": "richtext",
+        "id": "about_description",
+        "label": "Description"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Description"
+      }
+    ]
+  }
+{% endschema %}

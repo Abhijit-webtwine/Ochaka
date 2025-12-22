@@ -1,0 +1,167 @@
+{%- liquid
+  assign promo_images = false
+  if block.settings.promo_image_1 != blank or block.settings.promo_image_2 != blank
+    assign promo_images = true
+  endif
+-%}
+{% if block.type == "mega_menu" %}
+<mega-menu class="is-megamenu{% if block.settings.show_menu_image %}{% if promo_images %} show-images{% else %} show-images-without-promo{% endif %}{% endif %}">
+  <a href="{{ link.url }}" class="header__menu-item{% if link.active or link.child_active %} header__active-menu-item{% endif %} header__menu-item--top list-menu__item focus-inset"{% if link.current %} aria-current="page"{% endif %}>
+    <span class="label">{{ link.title | escape }}</span>
+  </a>
+  {%- if link.links != blank or promo_images -%}
+    <div class="list-menu-dropdown hidden">
+      <div class="page-width{% if block.settings.narrow %} page-width--inner{% endif %}">
+        {%- capture sizes -%}(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 10rem) / 4), (min-width: 750px) calc((100vw - 10rem) / 3), calc(100vw - 3rem){%- endcapture -%}
+
+        {%- if link.links != blank -%}
+          <div class="list-mega-menu">
+            {%- for childlink in link.links -%}
+              <div class="mega-menu__item">
+                <a href="{{ childlink.url }}" class="mega-menu__item-link list-menu__item focus-inset{% if childlink.current %} list-menu__item--active{% endif %}"{% if childlink.current %} aria-current="page"{% endif %}>
+                  {%- if childlink.type == 'collection_link' and childlink.object.image and block.settings.show_menu_image -%}
+                    <div class="image-animate media media--wide">
+                      {{ childlink.object.image | image_url: width: 1100 | image_tag:
+                        loading: 'lazy',
+                        class: 'motion-reduce',
+                        sizes: sizes,
+                        widths: '165, 360, 535, 750, 940, 1100',
+                        is: 'lazy-image'
+                      }}
+                    </div>
+                  {%- endif -%}
+                  <div class="header__menu-item">
+                    <span class="label">{{ childlink.title | escape }}</span>
+                  </div>
+                </a>
+      
+                {%- if childlink.links != blank -%}
+                  <ul class="list-menu-child list-menu">
+                    {%- for grandchildlink in childlink.links -%}
+                      <li>
+                        <a href="{{ grandchildlink.url }}" class="header__menu-item list-menu__item focus-inset{% if grandchildlink.current %} list-menu__item--active{% endif %}"{% if grandchildlink.current %} aria-current="page"{% endif %}>
+                          <span class="label">{{ grandchildlink.title | escape }}</span>
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+            {%- if link.links.size < 4 -%}
+              <div class="mega-menu__item mega-menu__item--blank"></div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if block.settings.promo_image_1 != blank -%}
+          <div class="mega-menu__promo{% if block.settings.promo_overlay_content_1 %} mega-menu__promo--overlay{% endif %}">
+            <a class="mega-menu__promo-link media-wrapper"{% if block.settings.promo_link_1 != blank %} href="{{ block.settings.promo_link_1 }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+              <div class="image-animate media media--{{ block.settings.promo_image_ratio_1 }}"
+                style="--image-position: {{ block.settings.promo_image_position_1 }};{% if block.settings.promo_image_ratio_1 == 'adapt' %}--image-ratio-percent: {{ 1 | divided_by: block.settings.promo_image_1.aspect_ratio | times: 100 }}%;{% endif %}"
+              >
+                {{ block.settings.promo_image_1 | image_url: width: 1100 | image_tag:
+                  loading: 'lazy',
+                  class: 'motion-reduce',
+                  sizes: sizes,
+                  widths: '165, 360, 535, 750, 940, 1100',
+                  is: 'lazy-image'
+                }}
+              </div>
+              {%- if block.settings.promo_heading_1 != blank or block.settings.promo_text_1 != blank -%}
+                <div class="mega-menu__promo-content">
+                  {%- if block.settings.promo_heading_1 != blank -%}
+                    <div class="mega-menu__promo-heading">
+                      <span class="label">{{ block.settings.promo_heading_1 | escape }}</span>
+                    </div>
+                  {%- endif -%}
+                  <div class="mega-menu__promo-subheading">{{ block.settings.promo_text_1 | escape }}</div>
+                </div>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- endif -%}
+
+        {%- if block.settings.promo_image_2 != blank -%}
+          <div class="mega-menu__promo{% if block.settings.promo_overlay_content_2 %} mega-menu__promo--overlay{% endif %}">
+            <a class="mega-menu__promo-link media-wrapper"{% if block.settings.promo_link_2 != blank %} href="{{ block.settings.promo_link_2 }}"{% else %} role="link" aria-disabled="true"{% endif %}>
+              <div class="image-animate media media--{{ block.settings.promo_image_ratio_2 }}"
+                style="--image-position: {{ block.settings.promo_image_position_2 }};{% if block.settings.promo_image_ratio_2 == 'adapt' %}--image-ratio-percent: {{ 1 | divided_by: block.settings.promo_image_2.aspect_ratio | times: 100 }}%;{% endif %}"
+              >
+                {{ block.settings.promo_image_2 | image_url: width: 1100 | image_tag:
+                  loading: 'lazy',
+                  class: 'motion-reduce',
+                  sizes: sizes,
+                  widths: '165, 360, 535, 750, 940, 1100',
+                  is: 'lazy-image'
+                }}
+              </div>
+              {%- if block.settings.promo_heading_2 != blank or block.settings.promo_text_2 != blank -%}
+                <div class="mega-menu__promo-content">
+                  {%- if block.settings.promo_heading_2 != blank -%}
+                    <div class="mega-menu__promo-heading">
+                      <span class="label">{{ block.settings.promo_heading_2 | escape }}</span>
+                    </div>
+                  {%- endif -%}
+                  <div class="mega-menu__promo-subheading">{{ block.settings.promo_text_2 | escape }}</div>
+                </div>
+              {%- endif -%}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</mega-menu>
+{%- endif -%}
+{% if block.type == "collection_products" %} 
+<mega-menu class="collection_products is-megamenu{% if block.settings.show_menu_image %}{% if promo_images %} show-images{% else %} show-images-without-promo{% endif %}{% endif %}">
+  <a href="{{ link.url }}" class="header__menu-item{% if link.active or link.child_active %} header__active-menu-item{% endif %} header__menu-item--top list-menu__item focus-inset"{% if link.current %} aria-current="page"{% endif %}>
+    <span class="label">{{ link.title | escape }}</span>
+  </a>
+  
+  <div class="list-menu-dropdown hidden flex-col">
+    <div class="flex px-9 mb-9">
+      {%- for link in block.settings.block_menu.links -%}   
+        <a href="{{ link.url }}" class="collections_name_outer inline-block cursor-pointer" index="{{ forloop.index }}" >{{ link.title }}</a>
+      {%- endfor -%}
+    </div>
+    <div>
+      {%- for link in block.settings.block_menu.links -%} 
+        <div class="collection_products_wrap "> 
+          <div class="mega-menu-collection" index="{{ forloop.index }}">
+            {% assign plp =  link.url | split: '/collections/' | last %}
+            <div class="hidden mega-menu-products_wrap"> 
+              <div class="swiper mega-swiper-container" > 
+                <div class="swiper-wrapper" > 
+                  {% for product in collections[plp].products %}
+                    {% assign colName = block.settings.collection.url %}  
+                    <div  class="swiper-slide">
+                      {% render 'card-product',
+                        card_product: product,
+                        card_collection: collections[plp], 
+                        media_size: 'square',   
+                        show_secondary_image: true,
+                        show_quick_buy: true, 
+                        show_vendor: false,  
+                        show_rating: block.settings.show_rating,
+                        enable_quick_view: false,
+                        enable_color_swatches: true, 
+                        enable_countdown: false, 
+                        enable_image_fill: true,  
+                        lazy_load: true, 
+                        hide_soldout_button: true,
+                        custom_button: true
+                      %}
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div> 
+          </div> 
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</mega-menu>
+{%- endif -%}

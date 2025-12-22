@@ -1,0 +1,29 @@
+{
+  "name": "template-minimal",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --",
+    "check": "adastra check",
+    "deploy": "run-s \"vite:build\" \"shopify:push -- {@}\" --",
+    "shopify:dev": "shopify theme dev",
+    "shopify:push": "shopify theme push",
+    "vite:dev": "vite",
+    "vite:build": "vite build"
+  },
+  "devDependencies": {
+    "@shopify/cli": "latest",
+    "@shopify/theme": "latest",
+    "vite": "^4.1.4"
+  },
+  "dependencies": {
+    "@by-association-only/vite-plugin-shopify-clean": "^2.0.0",
+    "autoprefixer": "^10.4.19",
+    "jquery": "^3.7.1",
+    "lazysizes": "^5.3.2",
+    "sass": "^1.75.0",
+    "sass-loader": "^14.2.1",
+    "swiper": "^11.1.1"
+  },
+  "type": "module"
+}

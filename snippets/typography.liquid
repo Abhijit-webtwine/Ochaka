@@ -1,0 +1,431 @@
+{% comment %}
+Add font face declarations here.
+They will reference static fonts files in the assets folder.
+Must append .static. to the file name to stop it being removed by webpack.
+{% endcomment %}
+
+<link rel="preload" as="font" href="{{ 'Union-Regular.woff2'  | asset_url }}" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="{{ 'Union-BoldItalic.woff2'  | asset_url }}" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="{{ 'Union-Italic.woff2'  | asset_url }}" type="font/woff2" crossorigin>
+<link rel="preload" as="font" href="{{ 'Union-Bold.woff2'  | asset_url }}" type="font/woff2" crossorigin>
+
+<style>
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Italic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Italic.woff' | asset_url }}) format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Bold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Bold.woff' | asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL Hairline';
+    src: url({{ 'ESRebondGrotesqueTRIAL-HairlineItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-HairlineItalic.woff' | asset_url }}) format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL Exlight';
+    src: url({{ 'ESRebondGrotesqueTRIAL-ExtralightItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-ExtralightItalic.woff' | asset_url }}) format('woff');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL Exlight';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Extralight.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Extralight.woff' | asset_url }}) format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-BoldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-BoldItalic.woff' | asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL ExBd';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Extrabold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Extrabold.woff' | asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL Hairline';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Hairline.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Hairline.woff' | asset_url }}) format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL ExBd';
+    src: url({{ 'ESRebondGrotesqueTRIAL-ExtraboldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-ExtraboldItalic.woff' | asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Thin.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Thin.woff' | asset_url }}) format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-ThinItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-ThinItalic.woff' | asset_url }}) format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-MediumItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-MediumItalic.woff' | asset_url }}) format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL SmBd';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Semibold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Semibold.woff' | asset_url }}) format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL SmBd';
+    src: url({{ 'ESRebondGrotesqueTRIAL-SemiboldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-SemiboldItalic.woff' | asset_url }}) format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Regular.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Regular.woff' | asset_url }}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Medium.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Medium.woff' | asset_url }}) format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-LightItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-LightItalic.woff' | asset_url }}) format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'ES Rebond Grotesque TRIAL';
+    src: url({{ 'ESRebondGrotesqueTRIAL-Light.woff2' | asset_url }}) format('woff2'),
+        url({{ 'ESRebondGrotesqueTRIAL-Light.woff' | asset_url }}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+    @font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Bold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Bold.woff'| asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-SemiBold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-SemiBold.woff'| asset_url }}) format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Light.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Light.woff'| asset_url }}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-BlackItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-BlackItalic.woff'| asset_url }}) format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-BoldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-BoldItalic.woff'| asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-HeavyItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-HeavyItalic.woff'| asset_url }}) format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-LightItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-LightItalic.woff'| asset_url }}) format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-SemiBoldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-SemiBoldItalic.woff'| asset_url }}) format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Italic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Italic.woff'| asset_url }}) format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Heavy.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Heavy.woff'| asset_url }}) format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Regular.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Regular.woff'| asset_url }}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Black.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Black.woff'| asset_url }}) format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-UltraLightItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-UltraLightItalic.woff'| asset_url }}) format('woff');
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-UltraLight.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-UltraLight.woff'| asset_url }}) format('woff');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-Thin.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-Thin.woff'| asset_url }}) format('woff');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Aileron';
+    src: url({{ 'Aileron-ThinItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'Aileron-ThinItalic.woff'| asset_url }}) format('woff');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+}
+
+
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-BlackItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-BlackItalic.woff' | asset_url }}) format('woff');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-Black.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-Black.woff' | asset_url }}) format('woff');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-Medium.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-Medium.woff' | asset_url }}) format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-Regular.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-Regular.woff' | asset_url }}) format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-MediumItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-MediumItalic.woff' | asset_url }}) format('woff');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-BoldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-BoldItalic.woff' | asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-Bold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-Bold.woff' | asset_url }}) format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline Regular';
+    src: url({{ 'TiemposHeadline-RegularItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-RegularItalic.woff' | asset_url }}) format('woff');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-Light.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-Light.woff' | asset_url }}) format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-LightItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-LightItalic.woff' | asset_url }}) format('woff');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-SemiboldItalic.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-SemiboldItalic.woff' | asset_url }}) format('woff');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Tiempos Headline';
+    src: url({{ 'TiemposHeadline-Semibold.woff2' | asset_url }}) format('woff2'),
+        url({{ 'TiemposHeadline-Semibold.woff' | asset_url }}) format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+</style>

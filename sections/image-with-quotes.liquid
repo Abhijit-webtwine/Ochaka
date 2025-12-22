@@ -1,0 +1,116 @@
+<div class="image-with-quotes">
+  <div class="flex md:{{ section.settings.image_position }} flex-col-reverse items-center md:pb-0 pb-8 md:gap-0 gap-10" style="background-color: {{ section.settings.bgcolor }};">
+    <div class="swiper swiper-quotes-container md:w-2/4 w-full flex-1 px-5 relative !pb-[2.875rem] md:px-0">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide !flex items-center justify-center">
+            <blockquote class="flex flex-col max-w-[33rem] items-center gap-[1.688rem] border-s-0 px-8">
+              {% render '_icon_quotation' %}
+              <div class="md:text-3xl text-xl font-light text-center quote-title">{{ block.settings.title }}</div>
+              <h5 class="text-[0.875rem] font-normal text-black leading-none tracking-normal">
+                <cite>{{ block.settings.author }}</cite>
+              </h5>
+            </blockquote>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="swiper-pagination flex justify-center gap-4 h-3"></div>
+    </div>
+    <div class="swiper swiper-image-container  md:w-2/4 w-full">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="image-section aspect-square">
+              {% if block.settings.quote_slide_image != blank %}
+                <figure class="w-full h-full">
+                  <picture>
+                    {% assign img = block.settings.quote_slide_image %}
+                    <source media="(max-width: 640px)" 
+                            srcset="{{ img | image_url: width: 800 }} 1x, {{ img | image_url: width: 1600 }} 2x"
+                            width="800"
+                            height="{{ 800 | divided_by: img.aspect_ratio | round }}">
+                            
+                    <source media="(max-width: 1024px)" 
+                            srcset="{{ img | image_url: width: 1200 }} 1x, {{ img | image_url: width: 2400 }} 2x"
+                            width="1200"
+                            height="{{ 1200 | divided_by: img.aspect_ratio | round }}">
+                            
+                    <img src="{{ img | image_url: width: 300 }}"
+                         data-src="{{ img | image_url: width: 2000 }}"
+                         class="w-full h-full object-cover lazyload"
+                         alt="{{ img.alt | escape }}"
+                         width="{{ img.width }}"
+                         height="{{ img.height }}"
+                         loading="lazy"
+                         onerror="this.style.display='none'">
+                  </picture>
+                </figure>
+              {% else %}
+                <div class="bg-gray-100 w-full h-full flex items-center justify-center">
+                  <span class="text-gray-400">Quote Image</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Image with Quotes",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }, {
+        "type": "select",
+        "id": "image_position",
+        "label": "Image Position",
+        "options": [
+          {
+            "label": "Left",
+            "value": "flex-row"
+          }, {
+            "label": "Right",
+            "value": "flex-row-reverse"
+          }
+        ],
+        "default": "flex-row"
+      }, {
+        "type": "color",
+        "id": "bgcolor",
+        "label": "Background color"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "block",
+        "name": "block",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "title",
+            "label": "Title"
+          }, {
+            "type": "text",
+            "id": "author",
+            "label": "Subtitle"
+          }, {
+            "type": "image_picker",
+            "id": "quote_slide_image",
+            "label": "Quote Image"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with Quotes"
+      }
+    ]
+  }
+{% endschema %}

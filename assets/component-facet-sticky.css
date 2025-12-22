@@ -1,0 +1,21 @@
+body:not(.facet-drawer--open, .facet-drawer--opening, .facet-drawer--closing) #shopify-section-header.shopify-section-header-sticky:not(.shopify-section-header-hidden) + .transition-content .shopify-section-filters-sticky {
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+.shopify-section-filters-sticky {
+  z-index: 90;
+  transition: opacity var(--duration-default) ease;
+}
+
+.shopify-section-filters-sticky > .page-width::after {
+  content: '';
+  position: absolute;
+  right: 1.5rem;
+  bottom: 0;
+  left: 1.5rem;
+  z-index: -2;
+  height: 2rem;
+  border-radius: 100%;
+  box-shadow: 0 0 4rem rgba(var(--color-foreground), 0.2);
+}

@@ -1,0 +1,81 @@
+<section class="sticky-image-with-text">
+  <div class="image-with-text-container page-width">
+    <div class="image-with-text-wrapper">
+      <div class="sticky_image">
+        <picture>
+          <source
+            srcset="{{ section.settings.sticky-img_mobile-img |  image_url }}"
+            width=""
+            height=""
+            alt
+            media="(max-width: 768px)">
+
+          <img
+            src="{{ section.settings.sticky-img_desktop-img |  image_url}}"
+            class="lazyload"
+            alt
+            width=""
+            height=""
+            loading="eager">
+        </picture>
+      </div>
+
+      <div class="sticky-text_content">
+        {{ section.settings.sticky-text_content }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sticky-image-with-text {
+    padding-top: {{ section.settings.sticky-image-section-padding-top }}px;
+    padding-bottom: {{ section.settings.sticky-image-section-padding-bottom }}px;
+    background-color: white;
+  }
+</style>
+
+  {% schema %}
+    {
+      "name": "Sticky Image With Text",
+      "settings": [
+        {
+          "type": "range",
+          "id": "sticky-image-section-padding-top",
+          "label": "Section Padding Top",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "default": 36
+        },
+        {
+          "type": "range",
+          "id": "sticky-image-section-padding-bottom",
+          "label": "Section Padding Bottom",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "default": 36
+        },
+        {
+          "type": "image_picker",
+          "id": "sticky-img_desktop-img",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "sticky-img_mobile-img",
+          "label": "Mobile Image"
+        }, {
+          "type": "richtext",
+          "id": "sticky-text_content",
+          "label": "Description"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Sticky Image With Text"
+        }
+      ]
+    }
+  {% endschema %}

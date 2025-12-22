@@ -1,0 +1,356 @@
+<section
+  id="home-reviews-carousel-{{ section.id }}"
+  class="home-reviews-carousel md:pt-[7.3rem] pt-9 md:pb-[6.813rem] pb-9 {{section.settings.customclass}}">
+  <div class="review-wrapper relative">
+    <div class="home-reviews-carousel-heading text-[42px] leading-none !-tracking-[0.02em] text-center mb-8 main-header px-4 font-light">{{ section.settings.headline }}</div>
+    {% if section.settings.description != blank %}
+      <p class="text-[1rem] text-center mb-8">{{ section.settings.description }}</p>
+    {% endif %}
+    <div class="swiper swiper-container"> 
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <article class="swiper-slide home-reviews-item">
+            {% comment %} <a href="{{ block.settings.link_url }}{% if block.settings.show_anchor %}{{settings.pdp_reviews_id}}{% endif %}" class="block"> {% endcomment %}
+              <div class="relative ratio--9x16">
+                {% if block.settings.image != blank %}
+                <picture class="block">
+                  <source
+                    media="(min-width: 1920px)"
+                    srcset="{{ block.settings.image.src | img_url: '640x' }}, {{ block.settings.image.src | img_url: '640x', scale: 2 }} 2x">
+                  <source
+                    media="(min-width: 1200px)"
+                    srcset="{{ block.settings.image.src | img_url: '480x' }}, {{ block.settings.image.src | img_url: '480x', scale: 2 }} 2x">        
+                  <source
+                    media="(min-width: 1024px)"
+                    srcset="{{ block.settings.image.src  | img_url: '320x' }}, {{ block.settings.image.src  | img_url: '320x', scale: 2 }} 2x">        
+                  <source
+                    media="(min-width: 768px)"
+                    srcset="{{ block.settings.image.src | img_url: '320x' }}, {{ block.settings.image.src | img_url: '320x', scale: 2 }} 2x">        
+                  <source
+                    media="(min-width: 414px)"
+                    srcset="{{ block.settings.image.src | img_url: '414x' }}, {{ block.settings.image.src | img_url: '414x', scale: 2 }} 2x">        
+                  <source
+                    media="(min-width: 1px)"
+                    srcset="{{ block.settings.image.src | img_url: '375x' }}, {{ block.settings.image.src | img_url: '375x', scale: 2 }} 2x">         
+                  <img
+                    class="h-auto w-full block lazyload object-cover mb-5"
+                    data-src="{{ block.settings.image | img_url: '414x' }}"
+                    alt="{{ block.settings.image.alt }}"
+                    width="{{block.settings.image.width}}"
+                    height="{{block.settings.image.height}}"
+                    />
+                </picture>
+                {% elsif block.settings.video != blank  %}
+                <figure class="relative click-video-wrapper ratio--9x16">
+                  {{ block.settings.video | 
+                    video_tag: 
+                    class: "w-full h-full object-cover js-click-video-play",
+                    image_size: '768x',
+                    controls: false,
+                    playsinline: true
+                  }}
+                  </figure>
+                {% endif %}
+                {% if block.settings.hover_text != blank %}
+                <div class="absolute bottom-0 h-auto left-0 px-3 py-6 review-hover-content text-base text-white w-full text-center font-semibold">
+                  <div class="whitespace-pre-line">
+                    {{ block.settings.hover_text }}
+                  </div>
+                  {% if block.settings.hover_btn_text != blank %}
+                    <span class="small-text-cta inline-block mt-4">{{ block.settings.hover_btn_text }}</span>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+              <div class="home-reviews-carousel__description text-center">
+                
+                {% if block.settings.username != '' %}
+                  <h2 class="text-xs leading-tight font-semibold text-center tracking-[0.17em] !uppercase username mb-3">
+                    {{ block.settings.username }}
+                  </h2>
+                {% endif %}
+
+                {% if block.settings.star_rating > 0 %}
+                  <div class="flex justify-center mb-2">
+                    {% assign number = block.settings.star_rating %}
+                    {% for i in (1..number) -%}
+                      <span class="px-0.5">{% render '_star_full' %}</span>
+                    {%- endfor %}
+                  </div>
+                {% endif %}
+
+                {% if block.settings.message != '' %}
+                  <p class="text-[1rem] text-center font-graphik-regular leading-[1.55] mt-2 text-sm message">
+                    {{ block.settings.message }}
+                  </p>
+                {% endif %}
+                {% if block.settings.reviewer_title != blank %}
+                  <span class="reviewer_title mt-4 mx-auto inline-block font-graphik-medium text-[0.625rem] pt-[0.5rem] pb-[0.375rem] px-4 border rounded-md">{{ block.settings.reviewer_title }}</span>
+                {% endif %}
+              </div>
+            {% comment %} </a> {% endcomment %}
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+$(document).on('click','.js-click-video-play', function(e){
+  
+  e.preventDefault()
+{% comment %}   
+  $('.js-click-video-play').not($(this)).each(function(element){
+    $(element).parent().removeClass('playing');
+    $(element)[0].pause();
+  }); {% endcomment %}
+
+  $('.js-click-video-play').not($(this)).parent().removeClass('playing')
+  $('.js-click-video-play').not($(this))[0].pause()
+
+  if($(this)[0].paused) {
+    $(this).parent().addClass('playing')
+    $(this)[0].play()
+  }
+  else {
+    $(this).parent().removeClass('playing')
+    $(this)[0].pause();
+  }
+    
+})
+
+
+</script>
+
+<style>
+  .review-hover-content {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 39.58%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .home-reviews-item:hover .review-hover-content {
+    opacity: 1;
+  }
+
+  .review-hover-content{
+    font-family: Aileron;
+  }
+
+  .home-reviews-carousel-heading{
+    font-family: Tiempos Headline;
+  }
+
+  .home-reviews-carousel .username {
+    font-family: "ES Rebond Grotesque TRIAL" !important;
+    font-size: 1rem;
+  }
+
+</style>
+
+
+{% style %} 
+
+  #shopify-section-{{section.id}} .ratio--9x16 {
+    aspect-ratio: 9 / 16;
+    margin-bottom: .75rem;
+  }
+  #shopify-section-{{section.id}} .click-video-wrapper:after,
+  #shopify-section-{{section.id}} .click-video-wrapper:before {
+    transition: opacity ease .3s;
+  }
+  #shopify-section-{{section.id}} .click-video-wrapper:hover:after,
+  #shopify-section-{{section.id}} .click-video-wrapper:hover:before {
+    opacity: 1 !important;
+  }
+  #shopify-section-{{section.id}} .click-video-wrapper:before{
+    content:"";
+    display: block;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background-color: white;
+    opacity: .5;
+  }
+  #shopify-section-{{section.id}} .click-video-wrapper:after {
+    content:"";
+    display: block;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0; 
+    height: 0; 
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;   
+    border-left: 8px solid black;
+    opacity: .5;
+  } 
+  #shopify-section-{{section.id}} .click-video-wrapper.playing:after ,
+  #shopify-section-{{section.id}} .click-video-wrapper.playing:before {
+    display: none;
+  }
+
+  #shopify-section-{{section.id}} .home-reviews-carousel {
+      padding-top: {{ section.settings.padding_top_mo }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mo }}px;
+      padding-left: {{ section.settings.padding_left_mo }}px;
+      padding-right: {{ section.settings.padding_right_mo }}px;
+  } 
+  #shopify-section-{{section.id}} .review-carousel-custom h2.main-header {
+      margin-bottom: 29px;
+  }
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{section.id}} .home-reviews-carousel {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-left: {{ section.settings.padding_left }}px;
+      padding-right: {{ section.settings.padding_right }}px;
+    }
+    #shopify-section-{{section.id}} .review-carousel-custom h2.main-header {
+      margin-bottom: 34px;
+    }
+  }
+  #shopify-section-{{section.id}} .review-carousel-custom article.home-reviews-item img {
+    margin-bottom: 37px;
+  }
+  #shopify-section-{{section.id}} .review-carousel-custom .username {
+    margin-top: 10px;
+  }
+{% endstyle %}
+
+
+{% schema %}
+  {
+    "name": "People Saying Carousel",
+    "settings": [
+      {
+        "type": "text",
+        "id": "customclass",
+        "label": "Custom Class",
+        "info": "use 'review-carousel-custom' class for custom css"
+      },
+      {
+        "type": "number",
+        "id": "padding_top",
+        "label": "Padding Top"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom",
+        "label": "Padding Bottom"
+      },
+      {
+        "type": "number",
+        "id": "padding_left",
+        "label": "Padding Left"
+      },
+      {
+        "type": "number",
+        "id": "padding_right",
+        "label": "Padding Right"
+      },
+      {
+        "type": "number",
+        "id": "padding_top_mo",
+        "label": "Padding Top Mobile"
+      },
+      {
+        "type": "number",
+        "id": "padding_bottom_mo",
+        "label": "Padding Bottom Mobile"
+      },
+      {
+        "type": "number",
+        "id": "padding_left_mo",
+        "label": "Padding Left Mobile"
+      },
+      {
+        "type": "number",
+        "id": "padding_right_mo",
+        "label": "Padding Right Mobile"
+      },
+      {
+        "type": "richtext",
+        "id": "headline",
+        "label": "Headline"
+      },
+      {
+        "type": "textarea",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Block",
+        "name": "Block",
+        "settings": [
+          {
+            "type": "video",
+            "id": "video",
+            "label": "Video"
+          },           
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },  
+          {
+            "type": "text",
+            "id": "username",
+            "label": "Username"
+          },
+          {
+            "type": "textarea",
+            "id": "message",
+            "label": "Message"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "URL Link"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_anchor",
+            "label": "Show Anchor",
+            "default": true,
+            "info": "Set to false, if the link does not link to a product"
+          },
+          {
+            "type": "number",
+            "id": "star_rating",
+            "label": "Star rating (*optional)",
+            "default": 0 
+          },
+          {
+            "type": "text",
+            "id": "reviewer_title",
+            "label": "Reviewer title",
+            "default": "Verified buyer"
+          },
+          {
+            "type": "textarea",
+            "id": "hover_text",
+            "label": "Hover text"
+          },
+          {
+            "type": "text",
+            "id": "hover_btn_text",
+            "label": "Hover button text (Link same as 'URL Link')"
+          }           
+        ]
+      }      
+    ],
+    "presets": [
+      {
+        "name": "People Saying Carousel",
+        "category": "Home"
+      }
+    ]    
+  }
+{% endschema %}

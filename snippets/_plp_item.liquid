@@ -1,0 +1,118 @@
+{%- liquid
+  assign loading = "eager"
+  assign fetchpriority = "auto"
+  if section.index == 1
+  	assign fetchpriority = "high"
+  elsif section.index > 2
+  	assign loading = "lazy"
+  endif
+-%}
+<plp-item
+	data-product-id="{{ product.id }}">
+	<div
+		class="
+			plp-item
+			flex
+			flex-col
+			{% unless product.available %}
+				plp-item--sold-out
+			{% endunless %}
+		">
+
+
+			<figure class="plp-item__fig">
+				{% unless product.available -%}
+					<span class="plp-item__sold-out-badge">sold out</span>
+				{%- endunless %}
+				
+				<a
+					href="{{ product.url }}"
+					class="block plp-item__fig-link"
+					aria-label="{{ 'actions.links_to' | t }} {{ product.title }}"
+				>
+
+					<picture class="w-full h-full">
+						<source
+							media="(min-width: 1920px)"
+							srcset="{{ product.featured_image | image_url: width: 480, format: 'pjpg' }},
+									{{ product.featured_image | image_url: width: 960, format: 'pjpg' }} 2x,
+									{{ product.featured_image | image_url: width: 1440, format: 'pjpg' }} 3x"
+						>
+						<source
+							media="(min-width: 1280px)"
+							srcset="{{ product.featured_image | image_url: width: 320, format: 'pjpg' }},
+									{{ product.featured_image | image_url: width: 640, format: 'pjpg' }} 2x,
+									{{ product.featured_image | image_url: width: 960, format: 'pjpg' }} 3x"
+						>
+						<source
+							media="(min-width: 1024px)"
+							srcset="{{ product.featured_image | image_url: width: 340, format: 'pjpg' }},
+									{{ product.featured_image | image_url: width: 680, format: 'pjpg' }} 2x,
+									{{ product.featured_image | image_url: width: 1020, format: 'pjpg' }} 3x"
+						>
+						<source
+							media="(min-width: 768px)"
+							srcset="{{ product.featured_image | image_url: width: 380, format: 'pjpg' }},
+									{{ product.featured_image | image_url: width: 760, format: 'pjpg' }} 2x,
+									{{ product.featured_image | image_url: width: 1140, format: 'pjpg' }} 3x"
+						>
+						<source
+							media="(max-width: 767px)"
+							srcset="{{ product.featured_image | image_url: width: 300, format: 'pjpg' }},
+									{{ product.featured_image | image_url: width: 600, format: 'pjpg' }} 2x,
+									{{ product.featured_image | image_url: width: 900, format: 'pjpg' }} 3x"
+						>
+						<img
+							data-src="{{ product.featured_image | image_url: width: 300, format: 'pjpg' }}"
+							width="500"
+							height="700"
+							loading="{{ loading }}"
+							class="w-full h-auto block plp-item__primary-img lazyload fooburger"
+							alt="{{ product.title | escape }}"
+							fetchpriority="{{ fetchpriority }}"
+						>
+					</picture>
+				</a>
+				
+			</figure>
+		
+		<div
+			class="
+				plp-item__header
+				grow
+				justify-center md:justify-between
+			"
+		>
+			<div class="flex flex-wrap w-full pr-1 justify-between
+			">
+			<h2 class="plp-item__title">
+				{{ product.title | replace: '-', '<br>' }}
+			</h2>	
+			</div>
+		</div>
+		<form
+			action="/cart/add"
+			method="post"
+			enctype="multipart/form-data"
+			class="text-center">
+			<select
+				name="id"
+				id="productSelect--{{product.id}}">
+				{% for variant in product.variants %}
+				{% if variant.available %}
+				<option value="{{ variant.id }}">
+					{{ variant.title }} - {{ variant.price | money_with_currency }}
+				</option>
+				{% else %}
+				<option disabled="disabled">{{ variant.title }} - sold out</option>
+				{% endif %}
+				{% endfor %}
+			</select>
+			<label for="Quantity--{{product.id}}">quantity</label>
+			<input type="number" id="Quantity--{{product.id}}" name="quantity" value="1" min="1">
+			<button type="submit" name="add">
+				Add to cart
+			</button>
+		</form>
+	</div>
+</plp-item>

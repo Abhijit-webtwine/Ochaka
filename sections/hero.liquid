@@ -1,0 +1,213 @@
+{% liquid
+  assign image = section.settings.image
+  if section.settings.use_image_or_video == 'image'
+    assign use_image = true
+  elsif section.settings.use_image_or_video == 'video'
+    assign use_image = false
+  endif
+%}
+<section
+  class="
+    relative
+    hero
+  "
+  data-use-image="{{ use_image }}">
+  <figure
+    class="
+      w-full
+      h-full
+      md:absolute md:top-[-1.875rem] md:bottom-0 md:left-0 md:right-0
+      hero__fig
+    ">
+    {% if use_image and image != blank %}
+      <picture>
+        {% assign image_url_1x = image | image_url: width: 1000 %}
+        {% assign image_url_2x = image | image_url: width: 2000 %}
+        <source media="(max-width: 640px)" 
+                srcset="{{ image_url_1x }} 1x, {{ image_url_2x }} 2x"
+                width="1000"
+                height="{{ 1000 | divided_by: image.aspect_ratio | round }}">
+                
+        <source media="(max-width: 1024px)" 
+                srcset="{{ image | image_url: width: 1500 }} 1x, {{ image | image_url: width: 3000 }} 2x"
+                width="1500"
+                height="{{ 1500 | divided_by: image.aspect_ratio | round }}">
+                
+        <img src="{{ image | image_url: width: 300 }}"
+             data-src="{{ image | image_url: width: 2000 }}"
+             class="hero__media lazyload"
+             alt="{{ image.alt | escape }}"
+             width="{{ image.width }}"
+             height="{{ image.height }}"
+             loading="eager"
+             onerror="this.style.display='none'">
+      </picture>
+    {% else %}
+      <div class="bg-gray-100 w-full h-full flex items-center justify-center">
+        <span class="text-gray-400">Hero Image</span>
+      </div>
+    {% endif %}
+    {% comment %}
+      {{ section.settings.video | json -}}
+      <br>
+      {{ section.settings.video_url -}}
+      <br>
+    {% endcomment %}
+  </figure>
+
+  <header
+    class="
+      absolute bottom-0 md:top-0 md:bottom-0 md:left-0 md:right-0
+      hero__header
+      p-4
+      lg:p-10
+      md:flex
+      items-end
+      z-10
+      w-full
+    ">
+    <div class="hero__inner text-center flex flex-col items-center justify-center">
+      {% if section.settings.sub_heading != blank %}
+        <p class="text-sm mb-7 tracking-wide">{{ section.settings.sub_heading }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2
+          class="white-space-pre hero__title heading-xl text-white whitespace-pre-line
+          {% if section.settings.text == '' %}
+            mb-4
+          {% endif %}
+        ">{{- section.settings.heading -}}</h2>
+      {% endif %}
+      {% if section.settings.text != '' %}
+        <div class="hero__text my-5 tracking-normal leading-none text-base">
+          {{ section.settings.text }}
+        </div>
+      {% endif %}
+      {% if section.settings.link != blank and section.settings.link_text != blank %}
+        <div class="hero__cta">
+          <a
+            href="{{ section.settings.link }}"
+            class="button hero__link !py-[1.125rem] !px-[3.75rem]"
+          > 
+            {{ section.settings.link_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </header>
+  {% if section.settings.gradient %}
+    <div class="hero-gradiant absolute bottom-0 w-full h-2/5">
+    </div>
+  {% endif %}
+</section>
+
+<style>
+  .hero-gradiant{
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "sub_heading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "The big headline"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "3200x1666"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image mobile",
+      "info": "1000x1500"
+    },
+    {
+      "type": "video_url",
+      "id": "video_url",
+      "label": "Video",
+      "accept": ["vimeo", "youtube"]
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video"
+    },
+    {
+      "type": "select",
+      "id": "use_image_or_video",
+      "label": "Use image or video",
+      "options": [
+        {
+          "value": "video",
+          "label": "Video"
+        },
+        {
+          "value": "image",
+          "label": "Image"
+        }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "LInk Text",
+      "info": "eg. Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },{
+       "type": "range",
+       "id": "section_height",
+       "label": "Section Height",
+       "min": 50,
+       "max": 100,
+       "step": 0.5,
+       "default": 100,
+       "unit": "vh"
+    },
+    {
+      "type": "checkbox",
+      "id": "gradient",
+      "default": false,
+      "label": "Show gradient"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}
+
+{% style %}
+@media (min-width:768px){
+  .hero {
+    height: {{ section.settings.section_height }}vh;
+  }
+}
+{% endstyle %}
+
+{% javascript %}
+{% endjavascript %}

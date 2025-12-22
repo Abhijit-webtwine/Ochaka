@@ -1,0 +1,109 @@
+<div class="image-with-list">
+  <div class="flex md:{{ section.settings.imageposition }} flex-col"
+       style="background-color: {{ section.settings.bgcolor }};">
+    <div class="image-section flex-1">
+      {% if section.settings.image != blank %}
+        <figure class="w-full h-full">
+          <picture>
+            {% assign img = section.settings.image %}
+            <source media="(max-width: 640px)" 
+                    srcset="{{ img | image_url: width: 800 }} 1x, {{ img | image_url: width: 1600 }} 2x"
+                    width="800"
+                    height="{{ 800 | divided_by: img.aspect_ratio | round }}">
+                    
+            <source media="(max-width: 1024px)" 
+                    srcset="{{ img | image_url: width: 1200 }} 1x, {{ img | image_url: width: 2400 }} 2x"
+                    width="1200"
+                    height="{{ 1200 | divided_by: img.aspect_ratio | round }}">
+                    
+            <img src="{{ img | image_url: width: 300 }}"
+                 data-src="{{ img | image_url: width: 2000 }}"
+                 class="w-full h-full object-cover lazyload"
+                 alt="{{ img.alt | escape }}"
+                 width="{{ img.width }}"
+                 height="{{ img.height }}"
+                 loading="lazy"
+                 onerror="this.style.display='none'">
+          </picture>
+        </figure>
+      {% else %}
+        <div class="bg-gray-100 w-full h-full flex items-center justify-center">
+          <span class="text-gray-400">Image with List</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="list-section flex-1 flex items-center md:justify-center md:py-5 md:px-0 p-8">
+      <div class="list-content md:pl-3 pl-0">
+        <div class="list-title mb-4 md:mb-[2.125rem]">
+          <div class="heading md:text-[2.625rem] text-2xl !capitalize tracking-wide font-light">
+            {{ section.settings.title | capitalize }}   
+          </div>
+        </div>
+        <div class="lists flex flex-col gap-[1.188rem]">
+          {% for block in section.blocks %}
+            <div class="list flex gap-[1.188rem]">
+              {% render '_tick_logo' %}
+              <p class="">{{ block.settings.title }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image-with-Lists",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Select Image"
+    },
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Title"
+    },{
+        "type": "color",
+        "id": "bgcolor",
+        "label": "Background Color"
+    },{
+        "type": "select",
+        "id": "imageposition",
+        "label": "Image Position",
+        "options": [
+          {
+            "label": "Left",
+            "value": "flex-row"
+          },{
+            "label": "Right",
+            "value": "flex-row-reverse"
+          }
+       ],
+       "default" : "flex-row"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "block",
+      "type": "block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Lists"
+    }
+  ]
+}
+{% endschema %}

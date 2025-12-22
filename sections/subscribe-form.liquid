@@ -1,0 +1,158 @@
+<section id="subscribe-{{ section.id }}" class="subscribe bg-[#30360d]">
+  <div class="subscribe_container flex flex-col items-center gap-[30px] mx-auto px-[20px]">
+    <div class="subscribe_heading">
+      <div class="subscribe_main_heading text-center text-[2.625rem] font-light leading-[42px] !tracking-[-0.84px] capitalize text-[#f9f8f5]">{{ section.settings.subscirbe_heading }}</div>
+    </div>
+
+   
+    <div class="subscribe_email">
+      <div class="klaviyo-form-XPJBNS"></div>
+      {% comment %}
+        {% unless section.settings.klaviyo_form != blank  %}
+          <form action="">
+            <input
+              type="email"
+              name="subscribe_email"
+              placeholder="YOUR EMAIL...">
+            <button type="submit" class="subscribe_btn text-[1.25rem] font-semibold uppercase">{{ section.settings.subscirbe_btn_text }}</button>
+          </form>
+        {% else %}  
+          <div class="klaviyo-form-XPJBNS"></div>
+        {% endunless %}
+      {% endcomment %}
+    </div>
+    
+    
+    <div class="subscribe_agreement flex items-center">
+      <div class="subscribe_agreement_btn">
+        <label for="" class="radio_container block relative pl-8 mb-[18px] cursor-pointer text-[1.375rem]">
+          <input
+            type="radio"
+            checked="checked"
+            name="radio">
+          <span class="checkmark absolute top-0 left-0 "></span>
+        </label>
+      </div>
+      <div class="agreement_text font-medium text-[0.75rem] leading-4">
+        {{ section.settings.subscribe_agreement_text }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #subscribe-{{ section.id }} .subscribe_email * {
+    font-family: "ES Rebond Grotesque TRIAL", Arial, Helvetica, sans-serif  !important;
+  }
+  #subscribe-{{ section.id }} .subscribe_email {
+    padding: 0 20px 4px 0;
+    font-family: "ES Rebond Grotesque TRIAL", Arial, Helvetica, sans-serif !important;
+  }
+  #subscribe-{{ section.id }} form.needsclick > div.needsclick {
+    padding: 0 !important;
+    min-height: unset !important;
+  }
+  #subscribe-{{ section.id }} [data-testid="form-component"] {
+    padding: 0 !important; 
+  }
+  #subscribe-{{ section.id }} input[name="email"].needsclick {
+    background-color: transparent !important;
+    border: none !important;
+    font-size: 1.15rem !important;
+  }
+  #subscribe-{{ section.id }} input[name="email"].needsclick::placeholder {
+    text-transform: uppercase;
+    font-size: 1.15rem !important;
+    color: #9ca3af !important
+  }
+  #subscribe-{{ section.id }} label.needsclick {
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: 0 !important;
+  }
+  #subscribe-{{ section.id }} button.needsclick {
+    background: transparent !important;
+    font-weight: normal !important;
+    text-transform: uppercase;
+    font-size: 1.15rem !important;
+    padding: 0 !important;
+  }
+  #subscribe-{{ section.id }} {
+    padding-top: {{ section.settings.subscribe-padding-top }}px;
+    padding-bottom: {{ section.settings.subscribe-padding-bottom }}px;
+  }
+  @media screen and (max-width: 768px) {
+    #subscribe-{{ section.id }} {
+      padding-top: {{ section.settings.subscribe-padding-top-mobile }}px;
+      padding-bottom: {{ section.settings.subscribe-padding-bottom-mobile }}px;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Subscribe Form",
+    "settings": [
+      {
+        "type": "range",
+        "id": "subscribe-padding-top",
+        "label": "Section Padding Top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "subscribe-padding-bottom",
+        "label": "Section Padding Bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      },{
+        "type": "range",
+        "id": "subscribe-padding-top-mobile",
+        "label": "Section Mobile Padding Top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "subscribe-padding-bottom-mobile",
+        "label": "Section Mobile Padding Bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 36
+      },
+      {
+        "type": "richtext",
+        "id": "subscirbe_heading",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "subscirbe_btn_text",
+        "label": "Button Text"
+      }, {
+        "type": "text",
+        "id": "subscribe_agreement_text",
+        "label": "Agreement Text"
+      },
+    {
+        "type": "textarea",
+        "id": "klaviyo_form",
+        "label": "Klaviyo embed form"
+      }     
+    ],
+    "presets": [
+      {
+        "name": "Subscribe Form"
+      }
+    ]
+  }
+{% endschema %}

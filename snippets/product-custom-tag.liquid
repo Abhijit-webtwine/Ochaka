@@ -1,0 +1,23 @@
+<style>
+  .product-custom-tag{
+    text-transform: uppercase;
+    margin-bottom:1rem;
+  }
+  .tag-text {
+    background-color: #ff8bb9;
+    padding: 5px 15px;
+    font-size: 11px;
+    border-radius: 50px;
+    color: #fff;
+    font-weight: 700;
+    font-family: var(--font-heading-family);
+  }
+</style>
+
+{% if product.metafields.custom.product_custom_tag %}
+    <div class="product-custom-tag">
+     <span class="tag-text">
+       {{ product.metafields.custom.product_custom_tag }}
+     </span>
+    </div>
+{% endif %}

@@ -1,0 +1,109 @@
+.price {
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  color: var(--color-price);
+}
+
+.price.price--unavailable {
+  visibility: hidden;
+}
+
+.price--end {
+  justify-content: flex-end;
+}
+
+.price bdi {
+  line-height: 1;
+  font-family: var(--font-price-family);
+}
+
+.price .price__suffix {
+  font-size: 60%;
+  line-height: calc(1 + 0.6 / var(--font-price-scale));
+  margin-inline-start: 0.1rem;
+}
+
+.price price-money+price-money::before {
+  content: '\2013';
+  margin-inline-end: 0.7rem;
+}
+
+.price dl {
+  margin: 0;
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.price dd {
+  margin-inline-start: 0;
+  margin-inline-end: 0.438rem;
+}
+
+.price .price__last:last-of-type {
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .price {
+    margin-bottom: 0;
+  }
+}
+
+.price--sold-out .price__availability,
+.price__regular {
+  display: block;
+}
+
+.price__sale,
+.price__availability,
+.price .price__badge-sale,
+.price .price__badge-sold-out,
+.price--on-sale .price__regular,
+.price--on-sale .price__availability,
+.price--no-compare .price__compare,
+.card-wrapper .price__compare {
+  display: none;
+}
+
+.price--sold-out .price__badge-sold-out,
+.price--on-sale .price__badge-sale {
+  display: inline-flex;
+  color: #000;
+  font-family: "ES Rebond Grotesque TRIAL", Arial, Helvetica, sans-serif;
+  font-size: .75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  padding: 0.438rem 0.625rem 0.313rem 0.625rem;
+}
+
+.price--on-sale .price__sale {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.price--center {
+  display: flex;
+  justify-content: center;
+}
+
+
+.price--on-sale .price-item--regular bdi {
+  font-weight: 300;
+}
+
+.unit-price {
+  margin-top: 0.6rem;
+  color: rgba(var(--color-foreground), 0.7);
+  font-size: calc(var(--font-heading-scale) * 1.3rem);
+}
+
+.unit-price bdi {
+  font-weight: 400;
+  font-family: var(--font-heading-family);
+  font-size: calc(var(--font-heading-scale) * 1.3rem);
+}

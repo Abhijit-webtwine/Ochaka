@@ -1,0 +1,231 @@
+{% style %}
+  #shopify-section-{{ section.id }} {
+    padding-top:{{ section.settings.paddingtop }}px;
+    padding-bottom:{{ section.settings.paddingbottom }}px;
+    padding-right:{{ section.settings.paddingright }}px;
+    padding-left:{{ section.settings.paddingleft }}px;
+  }
+
+  @media (max-width:768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top:{{ section.settings.mobilept }}px;
+      padding-bottom:{{ section.settings.mobilepb }}px;
+      padding-right:{{ section.settings.mobilepr }}px;
+      padding-left:{{ section.settings.mobilepl }}px;
+   }
+  }
+  {% endstyle %}
+
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<products-carousel class="products-carousel">
+  <section>
+    <header class="flex-col md:flex md:flex-row flex-wrap justify-between items-end pl-4 md:px-8">
+      <h2 class="heading-l lg:max-w-[21.563rem] !-tracking-[0.020em] mb-4 !font-light">{{ section.settings.heading }}</h2>
+      <nav class="whitespace-nowrap overflow-x-auto mb-5 products-carousel__nav pr-4 md:pr-0">
+        {% for block in section.blocks %}
+          {% liquid
+            if block.settings.title != blank
+              assign collectionTitle = block.settings.title
+            else
+              assign collectionTitle = block.settings.collection.title
+            endif
+          %}
+          <button
+            data-url="{{ block.settings.collection.url }}"
+            data-title="{{ collectionTitle }}"
+            class="
+              button--small
+              uppercase
+              js-switch-collection
+              !text-[0.813rem]
+              {% if forloop.first %}active{% endif %}
+            "
+          >
+            {{ collectionTitle }}
+          </button>
+        {% endfor %}
+        {% if section.settings.btnname != blank %}
+          <a
+            href="{{ section.settings.btnlink }}"
+            class="button--small uppercase js-switch-url"
+          >
+            <span class="js-switch-url-title">{{ section.settings.btnname }}</span>
+          </a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <div class="">
+      <swiper-container
+        init="true"
+        class="mySwiper " 
+        pagination="false" 
+      > 
+        {% for block in section.blocks %}
+          
+          {% for product in block.settings.collection.products %}
+          {% assign tags = product.tags | join: ' ' %} 
+
+          {% if tags contains 'no_search' or tags contains 'is_sample' %}
+           {% continue %}
+          {% endif %}  
+            {% assign colName = block.settings.collection.url %}
+            <swiper-slide data-collection="{{ colName }}"  class="swiper-slide">
+              {% render 'card-product',
+                card_product: product,
+                card_collection: collection, 
+                media_size: 'square',  
+                show_secondary_image: true,
+                show_quick_buy: true,
+                show_vendor: false,  
+                show_rating: section.settings.show_rating,
+                enable_quick_view: true,
+                enable_color_swatches: true, 
+                enable_countdown: false,
+                enable_image_fill: true,
+                lazy_load: true
+              %}
+            </swiper-slide>
+          {% endfor %}
+        {% endfor %}
+      </swiper-container>
+    </div>
+  </section>
+</products-carousel>
+
+{% schema %}
+{
+  "name": "Products carousel",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "info": "The big headline"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },{
+      "type": "text",
+      "id": "btnname",
+      "label": "Button name",
+      "default" : "Shop all"
+    },{
+      "type": "text",
+      "id": "btnlink",
+      "label": "Button link"
+    },{
+      "type": "range",
+      "label": "Padding Top",
+      "id": "paddingtop",
+      "min": 0,
+      "max":100,
+      "step": 1, 
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "label": "Padding Bottom",
+      "id": "paddingbottom",
+      "min": 0,
+      "max":100,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "label": "Padding Right",
+      "id": "paddingright",
+      "min": 0,
+      "max":100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "label": "Padding Left",
+      "id": "paddingleft",
+      "min": 0,
+      "max":100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },{
+        "type": "range",
+        "label": "Mobile Padding Top",
+        "id": "mobilept",
+        "min": 0,
+        "max":100,
+        "step": 1,
+        "unit": "px",
+        "default": 32
+    },{
+        "type": "range",
+        "label": "Mobile Padding Bottom",
+        "id": "mobilepb",
+        "min": 0,
+        "max":100,
+        "step": 1,
+        "unit": "px",
+        "default": 32
+    },{
+        "type": "range",
+        "label": "Mobile Padding Right",
+        "id": "mobilepr",
+        "min": 0,
+        "max":100,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+    },{
+        "type": "range",
+        "label": "Mobile Padding Left",
+        "id": "mobilepl",
+        "min": 0,
+        "max":100,
+        "step": 1,
+        "unit": "px",
+        "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "Show rating"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "title",
+          "info": "If different form collection"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Pick collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Products carousel"
+    }
+  ]
+}
+{% endschema %}
+
+{% javascript %}
+{% endjavascript %}
