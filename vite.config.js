@@ -7,5 +7,8 @@ export default defineConfig({
   ],
   build: {
     emptyOutDir: false
-  }
+  },
+  watch: {
+    include: ['src/**/*', 'sections/**/*', 'snippets/**/*', 'templates/**/*'],
+  },
 })
