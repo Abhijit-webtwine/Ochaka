@@ -147,8 +147,24 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
       <noscript>{{ 'component-gift-wrapping.css' | asset_url | stylesheet_tag }}</noscript>
     {%- endif -%}
 
+    {% comment %} google fonts import {% endcomment %}
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap");
+    </style>
+    {% comment %} google fonts import ends{% endcomment %}
+
+
     <link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
+
+
+    <script src="{{ 'bootstrap.min.js' |  asset_url}}"></script>
+    <script src="{{ 'jquery.min.js' | asset_url }}"></script>
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
+    <script src="{{ 'carousel.js' |  asset_url }}"></script>
 
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
     <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/S8kz502svVqAmAvMaqfXEw" async></script>
