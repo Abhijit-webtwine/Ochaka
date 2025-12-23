@@ -1,0 +1,149 @@
+<div class="flat-spacing flat-animate-tab">
+  <div class="container">
+    <div class="sect-title wow fadeInUp">
+      <div class="h1 title text-center mb-24">{{ section.settings.title | default: 'Featured Products' }}</div>
+      <ul class="tab-product_list" role="tablist">
+        {% for block in section.blocks %}
+          {% assign tab_id = block.settings.tab_title | handleize | prepend: 'tab-' %}
+          <li class="nav-tab-item" role="presentation">
+            <a 
+              href="#{{ tab_id }}" 
+              data-bs-toggle="tab" 
+              class="tf-btn-line tf-btn-tab {% if forloop.first %}active{% endif %}"
+            >
+              {{ block.settings.tab_title | upcase }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+    <div class="tab-content">
+      {% for block in section.blocks %}
+        {% assign tab_id = block.settings.tab_title | handleize | prepend: 'tab-' %}
+        <div 
+          class="tab-pane {% if forloop.first %}active show{% endif %}" 
+          id="{{ tab_id }}" 
+          role="tabpanel"
+          {{ block.shopify_attributes }}
+        >
+          <div
+            dir="ltr"
+            class="swiper tf-swiper wrap-sw-over wow fadeInUp"
+            data-preview="4"
+            data-tablet="3"
+            data-mobile-sm="2"
+            data-mobile="2"
+            data-space-lg="48"
+            data-space-md="30"
+            data-space="12"
+            data-pagination="2"
+            data-pagination-sm="2"
+            data-pagination-md="3"
+            data-pagination-lg="4"
+            data-grid="2"
+          >
+            <div class="swiper-wrapper">
+              {% if block.settings.collection != blank %}
+                {% assign collection_products = collections[block.settings.collection].products %}
+                {% for product in collection_products limit: block.settings.products_limit %}
+                  <div class="swiper-slide">
+                    {% render 'card-product', product: product %}
+                  </div>
+                {% endfor %}
+              {% else %}
+                {% for i in (1..4) %}
+                  <div class="swiper-slide">
+                    <div class="card-product">
+                      <div class="card-product_wrapper">
+                        <div class="product-img placeholder">
+                          {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                      </div>
+                      <div class="card-product_info">
+                        <div class="name-product h4 link">{{ 'onboarding.product_title' | t }}</div>
+                        <div class="price-wrap">
+                          <span class="price-new h6">{{ 1999 | money }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <div class="sw-dot-default tf-sw-pagination"></div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Tab Products",
+  "class": "section-tab-products",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Products"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_title",
+          "label": "Tab Title",
+          "default": "New Tab"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "products_limit",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 8,
+          "label": "Maximum products to show"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tab Products",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Trending"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Best Sellers"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_title": "On Sale"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
