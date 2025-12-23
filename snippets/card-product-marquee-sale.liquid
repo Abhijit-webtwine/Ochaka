@@ -1,0 +1,17 @@
+<div class="product-marquee_sale">
+  <div class="marquee-wrapper">
+  <div class="initial-child-container">
+    {% assign marquee_text = product.metafields.custom.marquee_text %}
+    {% for i in (1..10) %}
+      <div class="marquee-child-item">
+        <p class="text-small">{{ marquee_text }}</p>
+      </div>
+      <div class="marquee-child-item">
+        <span class="icon">
+          {% render 'icon-fire' %}
+        </span>
+      </div>
+    {% endfor %}
+  </div>
+  </div>
+</div>
