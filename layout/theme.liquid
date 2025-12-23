@@ -161,10 +161,16 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
 
 
-    <script src="{{ 'bootstrap.min.js' |  asset_url}}"></script>
-    <script src="{{ 'jquery.min.js' | asset_url }}"></script>
-    <script src="{{ 'swiper-bundle.min.js' | asset_url }}"></script>
-    <script src="{{ 'carousel.js' |  asset_url }}"></script>
+    <script src="{{ 'bootstrap.min.js' |  asset_url}}" defer></script>
+    <script src="{{ 'jquery.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+    <script src="{{ 'carousel.js' |  asset_url }}" defer></script>
+    <script src="{{ 'bootstrap-select.min.js' |  asset_url }}" defer></script>
+    <script src="{{ 'lazysize.min.js' | asset_url}}" defer></script>
+    <script src="{{ 'wow.min.js' | asset_url}}" defer></script>
+    <script src="{{ 'parallaxie.js' | asset_url}}" defer></script>
+    <script src="{{ 'count-down.js' | asset_url}}" defer></script>
+    <script src="{{ 'main.js' | asset_url}}" defer></script>
 
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
     <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/S8kz502svVqAmAvMaqfXEw" async></script>
@@ -205,12 +211,7 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
 
 {% render 'gp-head' %}
 
-
-<!--Gem_Page_Header_Script-->
-{% render 'gem-app-header-scripts' %}
-<!--End_Gem_Page_Header_Script-->
-
-  {% render 'shogun-head' %}
+{% render 'shogun-head' %}
 
 {%- render 'header-scripts.zipifypages', renderctx: 'thm' -%}{{ content_for_header }}
 
@@ -265,13 +266,6 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
   <script id="lk-store-locator-script" type="module" crossorigin src="https://cdn.luckylabs.io/prd/store-locator/org/index.js"></script>
 
   <!-- INJECTED CODE BY LUCKY -->
-
-  
-<!-- --------------------------- Slick slider JS --------------------------- -->
-   <script src="{{ 'jquery-3.7.1.min.js' | asset_url }}"></script>
-    <script src="{{ 'slick.js' | asset_url }}"></script>
-  
-
  
   {% comment %}{% endcomment %}
   <script>
