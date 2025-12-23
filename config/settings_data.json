@@ -1,12 +1,12 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "colors_solid_button_labels": "#30360d",
@@ -65,13 +65,13 @@
     "cart_recommendations_show_vendor": false,
     "predictive_search_show_vendor": false,
     "share_telegram": false,
-    "social_facebook_link": "https:\/\/www.facebook.com\/beautystat\/",
+    "social_facebook_link": "https://www.facebook.com/beautystat/",
     "social_twitter_link": "",
     "social_pinterest_link": "",
-    "social_instagram_link": "https:\/\/www.instagram.com\/BeautyStat\/",
-    "social_tiktok_link": "https:\/\/www.tiktok.com\/@beautystat",
-    "social_youtube_link": "https:\/\/www.youtube.com\/beautystat",
-    "favicon": "shopify:\/\/shop_images\/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
+    "social_instagram_link": "https://www.instagram.com/BeautyStat/",
+    "social_tiktok_link": "https://www.tiktok.com/@beautystat",
+    "social_youtube_link": "https://www.youtube.com/beautystat",
+    "favicon": "shopify://shop_images/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
     "gift_card_logo_height": 70,
     "sections": {
       "announcement-bar": {
@@ -94,18 +94,148 @@
       },
       "header": {
         "type": "header",
-
+        "blocks": {
+          "mega_menu_gEFpEf": {
+            "type": "mega_menu",
+            "settings": {
+              "menu-handle": "product",
+              "menu-type": "col-product",
+              "demo_1_url": "",
+              "demo_1_name": "",
+              "demo_2_url": "",
+              "demo_2_name": "",
+              "demo_3_url": "",
+              "demo_3_name": "",
+              "demo_4_url": "",
+              "demo_4_name": "",
+              "demo_5_url": "",
+              "demo_5_name": "",
+              "demo_6_url": "",
+              "demo_6_name": "",
+              "demo_7_url": "",
+              "demo_7_name": "",
+              "demo_8_url": "",
+              "demo_8_name": "",
+              "demo_9_url": "",
+              "demo_9_name": "",
+              "demo_10_url": "",
+              "demo_10_name": "",
+              "demo_11_url": "",
+              "demo_11_name": "",
+              "demo_12_url": "",
+              "demo_12_name": "",
+              "btn_text": "",
+              "mega_link_list": "",
+              "mega_collection_1": "",
+              "mega_collection_2": "",
+              "mega_col_btn_text": "Shop Now",
+              "mega_prod_title": "",
+              "mega_prod_link_list": "shop-mega-menu",
+              "mega_product_1": "half-sleeve-crop-top",
+              "mega_product_2": "summer-two-piece-set-copy"
+            }
+          },
+          "mega_menu_wjCKdA": {
+            "type": "mega_menu",
+            "settings": {
+              "menu-handle": "shop",
+              "menu-type": "col-collection",
+              "demo_1_url": "",
+              "demo_1_name": "",
+              "demo_2_url": "",
+              "demo_2_name": "",
+              "demo_3_url": "",
+              "demo_3_name": "",
+              "demo_4_url": "",
+              "demo_4_name": "",
+              "demo_5_url": "",
+              "demo_5_name": "",
+              "demo_6_url": "",
+              "demo_6_name": "",
+              "demo_7_url": "",
+              "demo_7_name": "",
+              "demo_8_url": "",
+              "demo_8_name": "",
+              "demo_9_url": "",
+              "demo_9_name": "",
+              "demo_10_url": "",
+              "demo_10_name": "",
+              "demo_11_url": "",
+              "demo_11_name": "",
+              "demo_12_url": "",
+              "demo_12_name": "",
+              "btn_text": "",
+              "mega_link_list": "shop-mega-menu",
+              "mega_collection_1": "men",
+              "mega_collection_2": "men-copy",
+              "mega_col_btn_text": "Shop Now",
+              "mega_prod_title": "",
+              "mega_prod_link_list": "",
+              "mega_product_1": "",
+              "mega_product_2": ""
+            }
+          },
+          "mega_menu_WEr9KC": {
+            "type": "mega_menu",
+            "settings": {
+              "menu-handle": "home",
+              "menu-type": "grid-layout",
+              "demo_1_image": "shopify://shop_images/home-fashion-1.jpg",
+              "demo_1_url": "",
+              "demo_1_name": "Home Fashion 1",
+              "demo_2_image": "shopify://shop_images/home-fashion-2.jpg",
+              "demo_2_url": "",
+              "demo_2_name": "Home Fashion  2",
+              "demo_3_image": "shopify://shop_images/home-fashion-3.jpg",
+              "demo_3_url": "",
+              "demo_3_name": "Home Fashion 3",
+              "demo_4_image": "shopify://shop_images/home-fashion-4.jpg",
+              "demo_4_url": "",
+              "demo_4_name": "Home Fashion 4",
+              "demo_5_image": "shopify://shop_images/home-cosmetic.jpg",
+              "demo_5_url": "",
+              "demo_5_name": "Home Cosmetic",
+              "demo_6_image": "shopify://shop_images/home-skin-care.jpg",
+              "demo_6_url": "",
+              "demo_6_name": "Home Skincare",
+              "demo_7_image": "shopify://shop_images/home-decor.jpg",
+              "demo_7_url": "",
+              "demo_7_name": "Home Decor",
+              "demo_8_image": "shopify://shop_images/home-jewelry.jpg",
+              "demo_8_url": "",
+              "demo_8_name": "Home Jewelry",
+              "demo_9_image": "shopify://shop_images/home-electronic-market.jpg",
+              "demo_9_url": "",
+              "demo_9_name": "Home Electric Market",
+              "demo_10_image": "shopify://shop_images/home-pet-store.jpg",
+              "demo_10_url": "",
+              "demo_10_name": "Home Pet Store",
+              "demo_11_image": "shopify://shop_images/home-sneaker.jpg",
+              "demo_11_url": "",
+              "demo_11_name": "Home Sneaker",
+              "demo_12_image": "shopify://shop_images/home-book.jpg",
+              "demo_12_url": "",
+              "demo_12_name": "Home Book",
+              "btn_text": "View all demos",
+              "mega_link_list": "",
+              "mega_collection_1": "",
+              "mega_collection_2": "",
+              "mega_col_btn_text": "Shop Now",
+              "mega_prod_title": "",
+              "mega_prod_link_list": "",
+              "mega_product_1": "",
+              "mega_product_2": ""
+            }
+          }
+        },
+        "block_order": [
+          "mega_menu_gEFpEf",
+          "mega_menu_wjCKdA",
+          "mega_menu_WEr9KC"
+        ],
         "settings": {
-          "logo": "shopify:\/\/shop_images\/BeautyStatNakedLogo_3.png",
-          "mobile_logo": "shopify:\/\/shop_images\/BeautyStatNakedLogo_3.png",
-          "logo_height": 50,
-          "mobile_logo_height": 44,
-          "logo_position": "middle-left",
-          "menu": "header-menu-july-2024",
-          "enable_dropdown_menu": true,
-          "show_line_separator": true,
-          "cart_icon": "bag",
-          "icon_weight": "1.1",
+          "logo": "shopify://shop_images/logo.svg",
+          "menu": "main-menu",
           "enable_country_selector": true,
           "enable_language_selector": false,
           "enable_sticky_header": true,
@@ -127,7 +257,6 @@
       },
       "footer": {
         "type": "footer",
-
         "settings": {
           "footer-padding-top": 138,
           "footer-padding-bottom": 36,
@@ -229,11 +358,7 @@
         }
       }
     },
-    "content_for_index": [
-
-    ],
+    "content_for_index": []
   },
-  "presets": {
-
-  }
+  "presets": {}
 }
