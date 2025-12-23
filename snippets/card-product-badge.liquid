@@ -1,0 +1,10 @@
+{% assign custom_badge = product.metafields.custom.tag.value %}
+{% if custom_badge != blank %}
+  {% assign badge_class = custom_badge | handleize %}
+
+  <ul class="product-badge_list">
+    <li class="product-badge_item h6 {{ badge_class }} sale">
+      {{ custom_badge }}
+    </li>
+  </ul>
+{% endif %}
