@@ -1,0 +1,58 @@
+{% if product.variants.size > 1 and product.options contains 'Color' %}
+<ul class="product-color_list color_swatch_Value">
+  {%- assign colorlist = '' -%}
+
+  {%- for option in product.options_with_values -%}
+    {% if option.name == 'Color' %}
+      {%- for value in option.values -%}
+        {% assign color_value = value | strip %}
+        {% assign color_handle = color_value | handleize %}
+        {%- capture color_key -%}{{ color_value | downcase }}{%- endcapture -%}
+
+        {% unless colorlist contains color_key %}
+          {%- assign variant = product.variants | where: "option1", value | first -%}
+          {%- assign color_rgb = value.swatch.color.rgb | default: '' -%}
+
+          <li class="product-color-item color-swatch hover-tooltip tooltip-bot{% if forloop.first %} active{% endif %}"
+              data-variant-id="{{ variant.id }}"
+              {% if variant.image %}
+                data-image="{{ variant.image | image_url }}"
+              {% endif %}>
+
+            <span class="tooltip color-filter">{{ color_value }}</span>
+
+            <span class="swatch-value"
+              style="
+                {% if color_rgb != blank %}
+                  background-color: rgb({{ color_rgb }}) !important;
+                {% else %}
+                  background-color: {{ color_handle }} !important;
+                {% endif %}
+                {% if color_handle == 'white' or color_handle == 'whitesmoke' %}
+                  border: 1px solid #cbcbcb;
+                {% endif %}
+              ">
+            </span>
+
+            {% if variant.image %}
+              <img
+                src="{{ variant.image | image_url: width: 100 }}"
+                data-src="{{ variant.image | image_url: width: 300 }}"
+                alt="{{ value }}"
+                class="lazyload"
+                width=""
+                height=""
+                loading="lazy"
+              >
+            {% endif %}
+          </li>
+
+          {% capture colorlist %}
+            {{ colorlist | append: color_key | append: ' ' }}
+          {% endcapture %}
+        {% endunless %}
+      {%- endfor -%}
+    {% endif %}
+  {%- endfor -%}
+</ul>
+{% endif %}
