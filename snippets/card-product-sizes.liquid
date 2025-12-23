@@ -1,0 +1,32 @@
+    {% if product.variants.size > 1 and product.options contains 'Size' %}
+
+      {% assign size_index = nil %}
+      {% for opt in product.options %}
+        {% if opt == 'Size' %}
+          {% assign size_index = forloop.index0 %}
+        {% endif %}
+      {% endfor %}
+
+      {% if size_index != nil %}
+        <div class="variant-box">
+          <ul class="product-size_list">
+            {% assign shown_sizes = '' %}
+
+            {% for variant in product.variants %}
+              {% if variant.available %}
+                {% assign size_value = variant.options[size_index] %}
+
+                {% unless shown_sizes contains size_value %}
+                  <li class="size-item h6">{{ size_value }}</li>
+
+                  {% capture shown_sizes %}
+                    {{ shown_sizes | append: size_value | append: ',' }}
+                  {% endcapture %}
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+    {% endif %}
