@@ -1,0 +1,17 @@
+{% assign end_date = product.metafields.custom.countdown_timer.value %}
+
+{% if end_date != blank %}
+  {% assign now_ts = 'now' | date: '%s' %}
+  {% assign end_ts = end_date | date: '%s' %}
+  {% assign remaining = end_ts | minus: now_ts %}
+
+  {% if remaining > 0 %}
+    <div class="product-countdown">
+      <div
+        class="js-countdown cd-has-zero"
+        data-timer="{{ remaining }}"
+        data-labels="d : ,h : ,m : ,s">
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
