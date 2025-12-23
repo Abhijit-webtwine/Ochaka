@@ -1099,6 +1099,10 @@
         background-color: #499F30;
     }
 
+    &.new-arrival {
+      background-color: #499F30;
+    }
+
     &.flash-sale {
         display: flex;
         gap: 4px;
@@ -1122,7 +1126,15 @@
         background-color: #6265FE;
     }
 
+    &.trending {
+        background-color: #6265FE;
+    }
+
     &.limit {
+        background-color: #8809E3;
+    }
+
+    &.limited {
         background-color: #8809E3;
     }
 
