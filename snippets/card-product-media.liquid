@@ -1,0 +1,24 @@
+<a href="{{ product.url }}" class="product-img">
+  {%- assign main_image = product.featured_image | default: product.images[0] -%}
+  {%- assign hover_image = product.images[1] | default: main_image -%}
+
+  <img
+    class="lazyload img-product"
+    src="{{ main_image | image_url }}"
+    data-src="{{ main_image | image_url }}"
+    alt="{{ main_image.alt | escape }}"
+    loading="lazy"
+    width=""
+    height=""
+  >
+
+  <img
+    class="lazyload img-hover"
+    src="{{ hover_image | image_url }}"
+    data-src="{{ hover_image | image_url }}"
+    alt="{{ hover_image.alt | escape }}"
+    loading="lazy"
+    width=""
+    height=""
+  >
+</a>
