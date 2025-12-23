@@ -1,0 +1,21 @@
+{% if product != blank %}
+<li class="prd-recent hover-img">
+  <a href="{{ product.url }}" class="image img-style">
+    <img
+      src="{{ product.featured_image |  image_url  }}"
+      data-src="{{ product.featured_image | image_url  }}"
+      alt="Image"
+      class="lazyload"
+      width=""
+      height=""
+    >
+  </a>
+  <div class="content">
+    <span class="badge-tag">T-shirt</span>
+    <a href="{{ product.url }}" class="name-prd h6 fw-medium link">
+      {{ product.title }}
+    </a>
+    <span class="price-wrap h6 fw-semibold text-black">{{ product.price | money }} </span>
+  </div>
+</li>
+{% endif %}

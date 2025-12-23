@@ -1,0 +1,25 @@
+<div class="col-2">
+  <div class="mega-menu-item">
+
+    <!-- Level 1 = Heading -->
+    <h4 class="menu-heading">
+      {{ level1.title }}
+    </h4>
+
+    {% if level1.links != blank %}
+      <ul class="sub-menu_list">
+        {% for level2 in level1.links %}
+          <li>
+            <a
+              href="{{ level2.url }}"
+              class="sub-menu_link"
+            >
+              {{ level2.title }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+  </div>
+</div>
