@@ -7622,7 +7622,7 @@ fieldset:disabled .btn {
     background-color: var(--bs-offcanvas-bg);
     background-clip: padding-box;
     outline: 0;
-    transition: var(--bs-offcanvas-transition);
+    transition: all 0.3s ease-in-out;
 }
 
 @media (prefers-reduced-motion: reduce) {

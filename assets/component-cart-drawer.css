@@ -124,7 +124,7 @@ details[open].menu-opening>.cart-drawer {
 
 @media screen and (min-width: 750px) {
   .cart-drawer {
-    width: 28.125rem;
+    width: 794px;
   }
 
   .cart-drawer .mini-cart {
