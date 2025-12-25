@@ -100,7 +100,6 @@ header {
     padding-top: 8px;
     padding-bottom: 8px;
 
-    &.style-white {}
 
     @include res(xl, min) {
         &.type-space-2 {
@@ -273,6 +272,10 @@ header {
 }
 
 .menu-item {
+    &:has(.mega-dropdown) {
+        position: relative;
+    }
+
     &:hover {
         .item-link {
             color: var(--primary);
@@ -584,7 +587,6 @@ header {
         }
     }
 
-    &.style-2 {}
 
     &.style-3 {
         .item-link {
@@ -806,7 +808,6 @@ header {
         @include transition3;
     }
 
-    .icon {}
 
     &:hover,
     &.active {

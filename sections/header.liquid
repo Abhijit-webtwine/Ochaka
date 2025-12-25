@@ -26,7 +26,13 @@
               <li class="menu-item">
                 <a href="{{ link.url }}" class="item-link">
                   {{- link.title | upcase }}
-                  {% if link.links != blank %}<i class="icon icon-caret-down"></i>{% endif %}
+                  {%- assign has_mega_menu = false -%}
+                  {% for block in section.blocks %}
+                    {% if block.settings.menu-handle == link.handle %}
+                      {% assign has_mega_menu = true %}
+                    {% endif %}
+                  {% endfor %}
+                  {% if has_mega_menu %}<i class="icon icon-caret-down"></i>{% endif %}
                 </a>
 
                 {% comment %}Mega Menu{% endcomment %}
@@ -131,6 +137,10 @@
             {
               "value": "col-product",
               "label": "Column Product Layout"
+            },
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
             }
           ]
         },
@@ -373,7 +383,16 @@
           "type": "product",
           "id": "mega_product_2",
           "label": "Product 2"
-        }
+        },
+        {
+          "type": "header",
+          "content": "If Dropdown"
+        },
+        {
+          "type": "link_list",
+          "id": "dropdown_link_list",
+          "label": "Link List"
+        },
       ]
     }
   ]

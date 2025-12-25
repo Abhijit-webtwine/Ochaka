@@ -88,4 +88,23 @@
       </div>
     </div>
   {% endif %}
+
+  {% comment %} Default Dropdown {% endcomment %}
+  {% if block.settings['menu-type'] == 'dropdown' %}
+    <div class="sub-menu mega-dropdown">
+      <ul class="sub-menu_list">
+        {% assign shop_menu = block.settings.dropdown_link_list %}
+
+        {% if shop_menu != blank %}
+          {% for child_link in shop_menu.links %}
+            <li>
+              <a href="{{ child_link.url }}" class="sub-menu_link">
+                {{ child_link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+  {% endif %}
 {% endif %}
