@@ -193,10 +193,24 @@ class CartNote extends HTMLElement {
   constructor() {
     super();
 
-    this.addEventListener('change', debounce((event) => {
-      const body = JSON.stringify({ note: event.target.value });
-      fetch(`${window.routes.cart_update_url}`, {...fetchConfig(), ...{ body }});
-    }, 300));
+    // this.addEventListener('change', debounce((event) => {
+    //   const body = JSON.stringify({ note: event.target.value });
+    //   fetch(`${window.routes.cart_update_url}`, { ...fetchConfig(), ...{ body } });
+    // }, 300));
+
+    const textarea = this.querySelector('textarea[name="note"]');
+    const saveButton = this.querySelector('button[type="submit"]');
+
+    if (textarea && saveButton) {
+      saveButton.addEventListener('click', (event) => {
+        event.preventDefault();
+
+        const body = JSON.stringify({ note: textarea.value });
+        fetch(`${window.routes.cart_update_url}`, { ...fetchConfig(), ...{ body } });
+
+        this.classList.remove('open');
+      });
+    }
   }
 }
 customElements.define('cart-note', CartNote);

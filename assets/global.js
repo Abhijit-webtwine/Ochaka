@@ -718,7 +718,7 @@ class MenuDrawer extends HTMLElement {
       this.mainDetailsToggle.setAttribute('open', '');
       setTimeout(() => {
         this.mainDetailsToggle.classList.add('menu-opening');
-        document.querySelector('.collection_products').classList.remove('is-active');
+        document.querySelector('.collection_products')?.classList.remove('is-active');
       }, 10);
     });
   }

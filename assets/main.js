@@ -332,7 +332,8 @@
             $(".tf-add-cart-success").removeClass("active");
         });
 
-        $(".btn-add-note, .btn-estimate-shipping, .btn-add-gift").on("click", function () {
+        $(document).on("click", ".btn-add-note, .btn-estimate-shipping, .btn-add-gift", function (event) {
+
             var classList = {
                 "btn-add-note": ".add-note",
                 "btn-estimate-shipping": ".estimate-shipping",
@@ -346,7 +347,7 @@
             });
         });
 
-        $(".tf-mini-cart-tool-close").on("click", function () {
+        $(document).on("click", ".tf-mini-cart-tool-close", function () {
             $(".tf-mini-cart-tool-openable").removeClass("open");
         });
     };
