@@ -665,95 +665,95 @@
     };
     /* Estimate Shipping
     -------------------------------------------------------------------------*/
-    var estimateShipping = function () {
-        if ($(".estimate-shipping").length) {
-            const $countrySelect = $("#shipping-country-form");
-            const $provinceSelect = $("#shipping-province-form");
-            const $zipcodeInput = $("#zipcode");
-            const $zipcodeMessage = $("#zipcode-message");
-            const $zipcodeSuccess = $("#zipcode-success");
-            const $shippingForm = $("#shipping-form");
+    // var estimateShipping = function () {
+    //     if ($(".estimate-shipping").length) {
+    //         const $countrySelect = $("#shipping-country-form");
+    //         const $provinceSelect = $("#shipping-province-form");
+    //         const $zipcodeInput = $("#zipcode");
+    //         const $zipcodeMessage = $("#zipcode-message");
+    //         const $zipcodeSuccess = $("#zipcode-success");
+    //         const $shippingForm = $("#shipping-form");
 
-            function updateProvinces() {
-                const selectedCountry = $countrySelect.val();
-                const $selectedOption = $countrySelect.find("option:selected");
-                const provincesData = $selectedOption.attr("data-provinces");
+    //         function updateProvinces() {
+    //             const selectedCountry = $countrySelect.val();
+    //             const $selectedOption = $countrySelect.find("option:selected");
+    //             const provincesData = $selectedOption.attr("data-provinces");
 
-                const provinces = JSON.parse(provincesData);
-                $provinceSelect.empty();
+    //             const provinces = JSON.parse(provincesData);
+    //             $provinceSelect.empty();
 
-                if (provinces.length === 0) {
-                    $provinceSelect.append($("<option>").text("------"));
-                } else {
-                    provinces.forEach(function (province) {
-                        $provinceSelect.append($("<option>").val(province[0]).text(province[1]));
-                    });
-                }
-            }
+    //             if (provinces.length === 0) {
+    //                 $provinceSelect.append($("<option>").text("------"));
+    //             } else {
+    //                 provinces.forEach(function (province) {
+    //                     $provinceSelect.append($("<option>").val(province[0]).text(province[1]));
+    //                 });
+    //             }
+    //         }
 
-            $countrySelect.on("change", updateProvinces);
+    //         $countrySelect.on("change", updateProvinces);
 
-            function validateZipcode(zipcode, country) {
-                let regex;
+    //         function validateZipcode(zipcode, country) {
+    //             let regex;
 
-                switch (country) {
-                    case "Australia":
-                    case "Austria":
-                    case "Belgium":
-                    case "Denmark":
-                        regex = /^\d{4}$/;
-                        break;
-                    case "Canada":
-                        regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
-                        break;
-                    case "Czech Republic":
-                    case "Finland":
-                    case "France":
-                    case "Germany":
-                    case "Mexico":
-                    case "South Korea":
-                    case "Spain":
-                    case "Italy":
-                        regex = /^\d{5}$/;
-                        break;
-                    case "United States":
-                        regex = /^\d{5}(-\d{4})?$/;
-                        break;
-                    case "United Kingdom":
-                        regex = /^[A-Za-z]{1,2}\d[A-Za-z\d]? \d[A-Za-z]{2}$/;
-                        break;
-                    case "India":
-                    case "Vietnam":
-                        regex = /^\d{6}$/;
-                        break;
-                    case "Japan":
-                        regex = /^\d{3}-\d{4}$/;
-                        break;
-                    default:
-                        return true;
-                }
+    //             switch (country) {
+    //                 case "Australia":
+    //                 case "Austria":
+    //                 case "Belgium":
+    //                 case "Denmark":
+    //                     regex = /^\d{4}$/;
+    //                     break;
+    //                 case "Canada":
+    //                     regex = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+    //                     break;
+    //                 case "Czech Republic":
+    //                 case "Finland":
+    //                 case "France":
+    //                 case "Germany":
+    //                 case "Mexico":
+    //                 case "South Korea":
+    //                 case "Spain":
+    //                 case "Italy":
+    //                     regex = /^\d{5}$/;
+    //                     break;
+    //                 case "United States":
+    //                     regex = /^\d{5}(-\d{4})?$/;
+    //                     break;
+    //                 case "United Kingdom":
+    //                     regex = /^[A-Za-z]{1,2}\d[A-Za-z\d]? \d[A-Za-z]{2}$/;
+    //                     break;
+    //                 case "India":
+    //                 case "Vietnam":
+    //                     regex = /^\d{6}$/;
+    //                     break;
+    //                 case "Japan":
+    //                     regex = /^\d{3}-\d{4}$/;
+    //                     break;
+    //                 default:
+    //                     return true;
+    //             }
 
-                return regex.test(zipcode);
-            }
+    //             return regex.test(zipcode);
+    //         }
 
-            $shippingForm.on("submit", function (event) {
-                const zipcode = $zipcodeInput.val().trim();
-                const country = $countrySelect.val();
+    //         $shippingForm.on("submit", function (event) {
+    //             const zipcode = $zipcodeInput.val().trim();
+    //             const country = $countrySelect.val();
 
-                if (!validateZipcode(zipcode, country)) {
-                    $zipcodeMessage.show();
-                    $zipcodeSuccess.hide();
-                    event.preventDefault();
-                } else {
-                    $zipcodeMessage.hide();
-                    $zipcodeSuccess.show();
-                    event.preventDefault();
-                }
-            });
+    //             if (!validateZipcode(zipcode, country)) {
+    //                 $zipcodeMessage.show();
+    //                 $zipcodeSuccess.hide();
+    //                 event.preventDefault();
+    //             } else {
+    //                 $zipcodeMessage.hide();
+    //                 $zipcodeSuccess.show();
+    //                 event.preventDefault();
+    //             }
+    //         });
 
-            $(window).on("load", updateProvinces);
-        }
-    };
+    //         $(window).on("load", updateProvinces);
+    //     }
+    // };
 
     /* Coupon Copy
     -------------------------------------------------------------------------*/
