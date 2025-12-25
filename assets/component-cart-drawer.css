@@ -984,3 +984,17 @@ details[open].menu-opening:not(:has(.shop-empty_top))>.cart-drawer [data-animate
 }
 
   }
+
+.cart-recommendations__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}
+
+cart-recommendations.is-loaded .cart-recommendations__loading {
+  display: none;
+}

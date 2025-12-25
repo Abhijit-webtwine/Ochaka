@@ -6,6 +6,12 @@
     data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ cart.items.first.product_id }}&limit=4"
     data-animate>
 
+    <div class="cart-recommendations__loading loading-overlay w-100 {% if recommendations.products_count > 0 %} hidden{% endif %}">
+      <div class="loading-overlay__spinner">
+        {% render 'icon', icon: 'spinner' %}
+      </div>
+    </div>
+
     <h4 class="title">{{ settings.cart_recommendations_heading | escape }}</h4>
 
     <div class="wrap-recommendations">
@@ -162,6 +168,12 @@
                             <span class="price text-primary tf-mini-card-price">
                               {{ item.final_line_price | money }}
                             </span>
+                          </div>
+
+                          <div class="loading-overlay hidden">
+                            <div class="loading-overlay__spinner">
+                              {% render 'icon', icon: 'spinner' %}
+                            </div>
                           </div>
 
                           <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">

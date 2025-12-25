@@ -501,7 +501,6 @@
 .popup-shopping-cart {
     flex-direction: row;
 
-
     .popup-header {
         padding: 32px 32px 24px;
         display: flex;
@@ -570,6 +569,30 @@
         flex-direction: column;
         flex-grow: 1;
         position: relative;
+    }
+
+    .tf-mini-cart-item {
+        .d-flex {
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loading-overlay {
+            position: static; 
+            width: 1.4rem;
+            line-height: 0;
+        }
+
+        .loading-overlay__spinner {
+            width: 1.4rem;
+        }
+
+        .loading-overlay:not(.hidden) + cart-remove-button,
+        .loading-overlay:not(.hidden) + cart-remove-button a {
+            opacity: 0.4;
+            pointer-events: none;
+            cursor: default;
+        }
     }
 
     .tf-cart-totals-discounts {
