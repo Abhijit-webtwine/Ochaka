@@ -294,8 +294,14 @@ class ShippingCalculator extends HTMLElement {
           
           parsedState.shipping_rates.forEach((rate) => {
             const child = document.createElement('p');
-            child.innerHTML = `${rate.name}: ${rate.price} ${Shopify.currency.active}`;
-            this.success.appendChild(child);
+            const staticChild = document.createElement('p');
+            staticChild.innerText = 'We found an available shipping rate for your address:';
+            child.classList.add('standard');
+            if(rate.name == 'Standard'){
+              child.innerHTML = `${rate.name}: ${rate.price} ${Shopify.currency.active}`;
+              this.success.appendChild(staticChild);
+              this.success.appendChild(child);
+            }
           });
         }
         else {
@@ -305,7 +311,7 @@ class ShippingCalculator extends HTMLElement {
           });
 
           this.errors.classList.remove('hidden');
-          this.errors.querySelector('.errors').innerHTML = errors.join('; ');
+          this.errors.querySelector('.errors').innerHTML = 'Enter a valid ZIP code for the country';
         }
       })
       .catch((e) => {
