@@ -72,7 +72,7 @@
         "button": "Calculate"
       },
       "free_shipping": {
-        "remaining_html": "Spend {{ remaining_amount }} more to reach free shipping",
+        "remaining_html": "Add {{ remaining_amount }} to cart and get free shipping!",
         "congratulations_html": "You are eligible for free shipping."
       }
     },

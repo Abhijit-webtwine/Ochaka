@@ -508,12 +508,6 @@
     "settings": [
       {
         "type": "checkbox",
-        "id": "cart_drawer_enabled",
-        "default": true,
-        "label": "t:settings_schema.cart-drawer.settings.cart_drawer_enabled.label"
-      },
-      {
-        "type": "checkbox",
         "id": "show_cart_note",
         "default": true,
         "label": "t:settings_schema.cart-drawer.settings.show_cart_note.label"
@@ -523,13 +517,6 @@
         "id": "show_shipping_calculator",
         "default": true,
         "label": "t:settings_schema.cart-drawer.settings.show_shipping_calculator.label"
-      },
-      {
-        "type": "text",
-        "id": "shipping_calculator_default_country",
-        "default": "United States",
-        "label": "t:settings_schema.cart-drawer.settings.shipping_calculator_default_country.label",
-        "info": "t:settings_schema.cart-drawer.settings.shipping_calculator_default_country.info"
       },
       {
         "type": "checkbox",

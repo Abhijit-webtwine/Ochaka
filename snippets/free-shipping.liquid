@@ -30,14 +30,16 @@
   endif
 -%}
 <div class="free-shipping{% if is_last %} is-last{% endif %} typeset0">
+  {%- capture progress_percent -%}{{ total_price | times: 1.0 | divided_by: minimum_amount_in_cents | at_most: 1 | times: 100 | round }}%{%- endcapture -%}
+
+  <div class="tf-progress-bar tf-progress-ship">
+    <div class="value" style="--progress: {{ progress_percent }};"></div>
+  </div>
+
   {%- if total_price >= minimum_amount_in_cents -%}
     <span class="free-shipping__text free-shipping__text--success">{{ 'general.cart.free_shipping.congratulations_html' | t }}</span>
-    <span class="free-shipping__progress free-shipping__progress--success" style="--progress: 100%;"></span>
   {%- else -%}
     {%- capture remaining_amount -%}<price-money class="price"><bdi>{{ total_price | minus: minimum_amount_in_cents | abs | money }}</bdi></price-money>{%- endcapture -%}
-    <span class="free-shipping__text">{{ 'general.cart.free_shipping.remaining_html' | t: remaining_amount: remaining_amount }}</span>
-
-    {%- capture progress_percent -%}{{ total_price | times: 1.0 | divided_by: minimum_amount_in_cents | at_most: 1 | times: 100 | round }}%{%- endcapture -%}
-    <span class="free-shipping__progress" style="--progress: {{ progress_percent }};"></span>
+    <span class="desc text-main">{{ 'general.cart.free_shipping.remaining_html' | t: remaining_amount: remaining_amount }}</span>
   {%- endif -%}
 </div>
