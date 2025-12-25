@@ -355,37 +355,41 @@
     /* Header Sticky
   -------------------------------------------------------------------------*/
     var headerSticky = function () {
+        const $header = $(".header-fix.header--sticky-enabled");
+        if ($header.length === 0) return; // sticky header disabled by setting
+
         let lastScrollTop = 0;
         let delta = 5;
-        let navbarHeight = $(".header-fix").outerHeight();
+        let navbarHeight = $header.outerHeight();
         let didScroll = false;
 
-        $(window).scroll(function () {
+        $(window).on("scroll", function () {
             didScroll = true;
         });
 
         setInterval(function () {
-            if (didScroll) {
-                let st = $(window).scrollTop();
-                navbarHeight = $(".header-fix").outerHeight();
+            if (!didScroll) return;
 
-                if (st > navbarHeight) {
-                    if (st > lastScrollTop + delta) {
-                        $(".header-fix").css("top", `-${navbarHeight}px`);
-                        $(".sticky-top").css("top", "15px");
-                    } else if (st < lastScrollTop - delta) {
-                        $(".header-fix").css("top", "0");
-                        $(".header-fix").addClass("header-sticky");
-                        $(".sticky-top").css("top", `${15 + navbarHeight}px`);
-                    }
-                } else {
-                    $(".header-fix").css("top", "unset");
-                    $(".header-fix").removeClass("header-sticky");
+            let st = $(window).scrollTop();
+            navbarHeight = $header.outerHeight();
+
+            if (st > navbarHeight) {
+                if (st > lastScrollTop + delta) {
+                    $header.css("top", `-${navbarHeight}px`);
                     $(".sticky-top").css("top", "15px");
+                } else if (st < lastScrollTop - delta) {
+                    $header.css("top", "0");
+                    $header.addClass("header-sticky");
+                    $(".sticky-top").css("top", `${15 + navbarHeight}px`);
                 }
-                lastScrollTop = st;
-                didScroll = false;
+            } else {
+                $header.css("top", "unset");
+                $header.removeClass("header-sticky");
+                $(".sticky-top").css("top", "15px");
             }
+
+            lastScrollTop = st;
+            didScroll = false;
         }, 250);
     };
 
