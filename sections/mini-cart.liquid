@@ -189,151 +189,153 @@
             </div>
           </div>
         {%- endif -%}
+        
+        {% if cart != empty %}
+          <div class="tf-mini-cart-bottom box-empty_clear">
+            <div class="tf-mini-cart-tool">
+              {% if settings.show_cart_note %}
+                <div class="tf-mini-cart-tool-btn btn-add-note">
+                    <div class="h6">Note</div>
+                    <i class="icon icon-note-pencil"></i>
+                </div>
+              {% endif %}
 
-        <div class="tf-mini-cart-bottom box-empty_clear">
-          <div class="tf-mini-cart-tool">
-            {% if settings.show_cart_note %}
-              <div class="tf-mini-cart-tool-btn btn-add-note">
-                  <div class="h6">Note</div>
-                  <i class="icon icon-note-pencil"></i>
+              {% if settings.show_shipping_calculator %}
+                <div class="tf-mini-cart-tool-btn btn-estimate-shipping">
+                    <div class="h6">Shipping</div>
+                    <i class="icon icon-truck"></i>
+                </div>
+              {% endif %}
+              
+              <div class="tf-mini-cart-tool-btn btn-add-gift">
+                  <div class="h6">Gift</div>
+                  <i class="icon icon-gift"></i>
               </div>
-            {% endif %}
+            </div>
 
-            {% if settings.show_shipping_calculator %}
-              <div class="tf-mini-cart-tool-btn btn-estimate-shipping">
-                  <div class="h6">Shipping</div>
-                  <i class="icon icon-truck"></i>
+            <div class="tf-mini-cart-threshold">
+              <div class="text">
+                <h6 class="subtotal">
+                  {{ 'sections.cart.subtotal' | t }}
+                  ({{ cart.item_count }})
+                </h6>
+                <h4 class="text-primary total-price tf-totals-total-value">
+                  {{ cart.total_price | money_without_trailing_zeros }}
+                </h4>
               </div>
-            {% endif %}
-            
-            <div class="tf-mini-cart-tool-btn btn-add-gift">
-                <div class="h6">Gift</div>
-                <i class="icon icon-gift"></i>
+              
+              {% render 'free-shipping', minimum_amount: settings.free_shipping_minimum_amount %}
             </div>
-          </div>
 
-          <div class="tf-mini-cart-threshold">
-            <div class="text">
-              <h6 class="subtotal">
-                {{ 'sections.cart.subtotal' | t }}
-                ({{ cart.item_count }})
-              </h6>
-              <h4 class="text-primary total-price tf-totals-total-value">
-                {{ cart.total_price | money_without_trailing_zeros }}
-              </h4>
-            </div>
-            
-            {% render 'free-shipping', minimum_amount: settings.free_shipping_minimum_amount %}
-          </div>
-
-          <div class="tf-mini-cart-bottom-wrap">
-            <div class="tf-mini-cart-view-checkout">
-              {% unless settings.disable_view_cart %}
-                <a href="{{ routes.cart_url }}" class="tf-btn btn-white animate-btn animate-dark line">
-                  {{ 'general.cart.view' | t }}
+            <div class="tf-mini-cart-bottom-wrap">
+              <div class="tf-mini-cart-view-checkout">
+                {% unless settings.disable_view_cart %}
+                  <a href="{{ routes.cart_url }}" class="tf-btn btn-white animate-btn animate-dark line">
+                    {{ 'general.cart.view' | t }}
+                  </a>
+                {% endunless %}
+                <a href="{{ routes.checkout_url }}" class="tf-btn animate-btn bg-dark-2 w-100">
+                  {{ 'sections.cart.checkout' | t }}
                 </a>
-              {% endunless %}
-              <a href="{{ routes.checkout_url }}" class="tf-btn animate-btn bg-dark-2 w-100">
-                {{ 'sections.cart.checkout' | t }}
-              </a>
+              </div>
+              {% if settings.show_free_shipping_message %}
+                <div class="free-shipping">
+                  <i class="icon icon-truck"></i>
+                  Free shipping on all orders over {{ cart.currency.symbol }}{{ settings.free_shipping_minimum_amount }}
+              </div>
+            {% endif %}
             </div>
-            {% if settings.show_free_shipping_message %}
-              <div class="free-shipping">
-                <i class="icon icon-truck"></i>
-                Free shipping on all orders over {{ cart.currency.symbol }}{{ settings.free_shipping_minimum_amount }}
-            </div>
-          {% endif %}
           </div>
-        </div>
-        
-        {% comment %} cart note {% endcomment %}
-        <cart-note class="tf-mini-cart-tool-openable add-note">
-          <div class="overlay tf-mini-cart-tool-close"></div>
-          <form action="#" class="tf-mini-cart-tool-content">
-              <label for="Cart-note" class="tf-mini-cart-tool-text h5 fw-semibold">
-                  <i class="icon icon-note-pencil"></i>
-                  Note
-              </label>
-              <textarea name="note" id="Cart-note" placeholder="Note about your order"></textarea>
-              <div class="tf-cart-tool-btns">
-                  <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100" type="submit">Save</button>
-                  <div class="tf-btn btn-white animate-btn animate-dark line tf-mini-cart-tool-close">Cancel</div>
+          
+          {% comment %} cart note {% endcomment %}
+          <cart-note class="tf-mini-cart-tool-openable add-note">
+            <div class="overlay tf-mini-cart-tool-close"></div>
+            <form action="#" class="tf-mini-cart-tool-content">
+                <label for="Cart-note" class="tf-mini-cart-tool-text h5 fw-semibold">
+                    <i class="icon icon-note-pencil"></i>
+                    Note
+                </label>
+                <textarea name="note" id="Cart-note" placeholder="Note about your order"></textarea>
+                <div class="tf-cart-tool-btns">
+                    <button class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100" type="submit">Save</button>
+                    <div class="tf-btn btn-white animate-btn animate-dark line tf-mini-cart-tool-close">Cancel</div>
+                </div>
+            </form>
+          </cart-note>
+          
+          {% comment %} shipping calculator {% endcomment %}
+          <shipping-calculator class="tf-mini-cart-tool-openable estimate-shipping">
+
+            <div class="overlay tf-mini-cart-tool-close"></div>
+
+            <form class="tf-mini-cart-tool-content" novalidate>
+
+              <div class="tf-mini-cart-tool-text h5 fw-semibold">
+                <i class="icon icon-truck"></i>
+                Shipping
               </div>
-          </form>
-        </cart-note>
-        
-        {% comment %} shipping calculator {% endcomment %}
-        <shipping-calculator class="tf-mini-cart-tool-openable estimate-shipping">
 
-          <div class="overlay tf-mini-cart-tool-close"></div>
+              <!-- COUNTRY -->
+              <div class="field">
+                <div class="tf-select w-100">
+                  <select
+                    id="ShippingCalculatorCountry"
+                    name="address[country]"
+                    class="w-100"
+                  >
+                    {{ country_option_tags }}
+                  </select>
+                </div>
+              </div>
 
-          <form class="tf-mini-cart-tool-content" novalidate>
+              <!-- PROVINCE -->
+              <div class="field" id="ShippingCalculatorProvinceContainer">
+                <div class="tf-select w-100">
+                  <select
+                    id="ShippingCalculatorProvince"
+                    name="address[province]"
+                    class="w-100"
+                  ></select>
+                </div>
+              </div>
 
-            <div class="tf-mini-cart-tool-text h5 fw-semibold">
-              <i class="icon icon-truck"></i>
-              Shipping
-            </div>
-
-            <!-- COUNTRY -->
-            <div class="field">
-              <div class="tf-select w-100">
-                <select
-                  id="ShippingCalculatorCountry"
-                  name="address[country]"
-                  class="w-100"
+              <!-- ZIP -->
+              <div class="field">
+                <input
+                  type="text"
+                  id="ShippingCalculatorZip"
+                  name="address[zip]"
+                  placeholder="Postal code"
                 >
-                  {{ country_option_tags }}
-                </select>
               </div>
-            </div>
 
-            <!-- PROVINCE -->
-            <div class="field" id="ShippingCalculatorProvinceContainer">
-              <div class="tf-select w-100">
-                <select
-                  id="ShippingCalculatorProvince"
-                  name="address[province]"
-                  class="w-100"
-                ></select>
+              
+              <!-- ERRORS -->
+              <div id="ShippingCalculatorErrors" class="error hidden">
+                <p class="errors"></p>
               </div>
-            </div>
 
-            <!-- ZIP -->
-            <div class="field">
-              <input
-                type="text"
-                id="ShippingCalculatorZip"
-                name="address[zip]"
-                placeholder="Postal code"
-              >
-            </div>
+              <!-- SUCCESS -->
+              <div id="ShippingCalculatorSuccess" class="success hidden"></div>
 
-            
-            <!-- ERRORS -->
-            <div id="ShippingCalculatorErrors" class="error hidden">
-              <p class="errors"></p>
-            </div>
+              <!-- BUTTONS -->
+              <div class="tf-cart-tool-btns">
+                <button
+                  type="submit"
+                  class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                >
+                  Calculate shipping
+                </button>
 
-            <!-- SUCCESS -->
-            <div id="ShippingCalculatorSuccess" class="success hidden"></div>
-
-            <!-- BUTTONS -->
-            <div class="tf-cart-tool-btns">
-              <button
-                type="submit"
-                class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
-              >
-                Calculate shipping
-              </button>
-
-              <div class="tf-btn btn-white animate-btn animate-dark line tf-mini-cart-tool-close">
-                Cancel
+                <div class="tf-btn btn-white animate-btn animate-dark line tf-mini-cart-tool-close">
+                  Cancel
+                </div>
               </div>
-            </div>
 
-          </form>
+            </form>
 
-        </shipping-calculator>
+          </shipping-calculator>
+        {% endif %}
 
       </div>
     </div>
