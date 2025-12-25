@@ -28,16 +28,6 @@
   padding-inline-end: var(--scrollbar-width);
 }
 
-@media screen and (min-width: 750px) {
-
-  .mini-cart--open #MainContent,
-  .mini-cart--open #shopify-section-footer,
-  .mini-cart--opening #MainContent,
-  .mini-cart--opening #shopify-section-footer {
-    transform: translateX(-4rem);
-  }
-}
-
 .mini-cart--open #shopify-section-header:not(.shopify-section-header-sticky) .header-wrapper,
 .mini-cart--opening #shopify-section-header:not(.shopify-section-header-sticky) .header-wrapper,
 .mini-cart--closing #shopify-section-header:not(.shopify-section-header-sticky) .header-wrapper {
@@ -85,9 +75,8 @@
   top: 0;
   width: calc(100% - 2.5rem);
   height: var(--max-height);
-  overflow: hidden;
-  background-color: rgb(var(--color-background));
   --max-height: 100%;
+  background-color: white;
 }
 
 .shopify-section-header-sticky.shopify-section-header-hidden .cart-drawer {
@@ -124,7 +113,7 @@ details[open].menu-opening>.cart-drawer {
 
 @media screen and (min-width: 750px) {
   .cart-drawer {
-    width: 794px;
+    width: 530px;
   }
 
   .cart-drawer .mini-cart {
@@ -224,11 +213,6 @@ details[open].menu-opening>.cart-drawer {
   list-style: none;
 }
 
-@media screen and (min-width: 750px) {
-  .mini-cart__navigation {
-    padding-inline-end: 1rem;
-  }
-}
 
 .mini-cart__navigation:empty {
   display: block;
@@ -550,10 +534,6 @@ details[open].menu-opening>.cart-drawer {
     color: white !important;
   }
 
-  .cart-drawer .free-shipping span {
-    font-size: 0.813rem !important;
-  }
-
   .mini-cart__footer .button-container .button-checkout-cart {
     margin-top: 0;
     margin-inline-start: -.2rem;
@@ -865,7 +845,7 @@ details[open].menu-opening>.cart-drawer {
   transition-delay: calc(var(--duration-default) + 600ms);
 }
 
-details[open].menu-opening>.cart-drawer [data-animate] {
+details[open].menu-opening:not(:has(.shop-empty_top))>.cart-drawer [data-animate] {
   opacity: 1;
   transform: none;
 }
@@ -912,12 +892,6 @@ details[open].menu-opening>.cart-drawer [data-animate] {
   text-align: start;
   font-size: 0.875rem;
   line-height: 1.2;
-}
-
-.cart-drawer .free-shipping span {
-  font-size: 0.875rem;
-  letter-spacing: 0.038rem;
-  line-height: 1.225rem;
 }
 
 .cart-drawer .free-shipping__progress {
