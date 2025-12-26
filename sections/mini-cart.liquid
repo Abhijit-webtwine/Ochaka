@@ -135,30 +135,31 @@
 
                         {% if item.options_with_values.size > 0 and show_options %}
                           <div class="size">
-                            {% for option in item.options_with_values %}
+                            {% assign size_option = item.options_with_values | where: "name", "Size" | first %}
+                            {% assign color_option = item.options_with_values | where: "name", "Color" | first %}
 
-                              {% if option.name == 'Size' %}
-                                <div class=" text-small text-main-2 sub">{{ option.name }}: {{ option.value }}</div>
-                              {% endif %}
+                            {% if size_option %}
+                              <div class="text-small text-main-2 sub">
+                                {{ size_option.name }}: {{ size_option.value }}
+                              </div>
+                            {% endif %}
 
-                              {% if option.name == 'Color' %}
-                                {%- assign color_rgb = option.value.swatch.color.rgb | default: '' -%}
-                                {%- assign color_handle = option.value | handleize -%}
-                                <div class="text-small text-main-2 sub">
-                                  {{ option.name }}:
-                                </div>
-                                <div class="dot-color"
+                            {% if color_option %}
+                              {%- assign color_rgb = color_option.value.swatch.color.rgb | default: '' -%}
+                              {%- assign color_handle = color_option.value | handleize -%}
+                              <div class="text-small text-main-2 sub">
+                                {{ color_option.name }}:
+                              </div>
+                              <div class="dot-color"
                                   style="
                                   {% if color_rgb != blank %}
                                     background-color: rgb({{ color_rgb }}) !important;
                                   {% else %}
                                     background-color: {{ color_handle }} !important;
                                   {% endif %}"
-                                >
-                                </div>
-                              {% endif %}
-                              
-                            {% endfor %}
+                              >
+                              </div>
+                            {% endif %}
                           </div>
                         {% endif %}
 
