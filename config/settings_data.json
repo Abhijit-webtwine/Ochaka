@@ -37,7 +37,7 @@
     "price_superscript": false,
     "page_width": 1600,
     "spacing_sections": 0,
-    "page_transition_enabled": true,
+    "page_transition_enabled": false,
     "image_zoom_effect_enabled": false,
     "image_loading_bar_enabled": true,
     "button_border_thickness": 1,
@@ -61,7 +61,6 @@
     "free_shipping_minimum_amount": "75",
     "cart_recommendations_enabled": true,
     "cart_recommendations_heading": "You may also like",
-    "cart_recommendations_show_vendor": false,
     "predictive_search_show_vendor": false,
     "share_telegram": false,
     "social_facebook_link": "https://www.facebook.com/beautystat/",
@@ -72,6 +71,7 @@
     "social_youtube_link": "https://www.youtube.com/beautystat",
     "favicon": "shopify://shop_images/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
     "gift_card_logo_height": 70,
+    "cart_recommendations_show_vendor": false,
     "cart_drawer_enabled": true,
     "sections": {
       "announcement-bar": {
