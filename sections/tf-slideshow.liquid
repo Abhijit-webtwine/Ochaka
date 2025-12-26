@@ -1,0 +1,123 @@
+<div class="tf-slideshow type-abs tf-btn-swiper-main hover-sw-nav">
+  <div
+    dir="ltr"
+    class="swiper tf-swiper sw-slide-show slider_effect_fade"
+    data-auto="true"
+    data-loop="true"
+    data-effect="fade"
+    data-delay="3000"
+  >
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide">
+          <div class="slider-wrap">
+            <div class="sld_image">
+              {% if block.settings.slide_image != blank %}
+                <img 
+                  src="{{ block.settings.slide_image | image_url  }}" 
+                  data-src="{{ block.settings.slide_image | image_url  }}" 
+                  alt="{{ block.settings.slide_title }}" 
+                  class="lazyload"
+                  width=""
+                  height=""
+                >
+              {% endif %}
+            </div>
+            <div class="sld_content">
+              <div class="container">
+                <div class="content-sld_wrap">
+                  {% if block.settings.slide_title != blank %}
+                    <h1 class="title_sld text-display fade-item fade-item-1">
+                      {{ block.settings.slide_title | newline_to_br }}
+                    </h1>
+                  {% endif %}
+                  {% if block.settings.slide_subtitle != blank %}
+                    <p class="sub-text_sld h5 text-black fade-item fade-item-2">
+                      {{ block.settings.slide_subtitle }}
+                    </p>
+                  {% endif %}
+                  {% if block.settings.slide_link != blank %}
+                    <div class="fade-item fade-item-3">
+                      <a href="{{ block.settings.slide_link }}" class="tf-btn animate-btn fw-semibold">
+                        {{ block.settings.slide_button_text }}
+                        <i class="icon icon-arrow-right"></i>
+                      </a>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="sw-dot-default tf-sw-pagination"></div>
+  </div>
+  {% if section.blocks.size > 1 %}
+    <div class="tf-sw-nav nav-prev-swiper">
+      <i class="icon icon-caret-left"></i>
+    </div>
+    <div class="tf-sw-nav nav-next-swiper">
+      <i class="icon icon-caret-right"></i>
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "Slide Title",
+          "default": "Your Slide Title"
+        },
+        {
+          "type": "text",
+          "id": "slide_subtitle",
+          "label": "Slide Subtitle",
+          "default": "Your Slide Subtitle"
+        },
+        {
+          "type": "url",
+          "id": "slide_link",
+          "label": "Slide Link"
+        },
+        {
+          "type": "text",
+          "id": "slide_button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow",
+      "category": "Slider",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
