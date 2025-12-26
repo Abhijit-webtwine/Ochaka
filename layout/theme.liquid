@@ -146,13 +146,7 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
     <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/S8kz502svVqAmAvMaqfXEw" async></script>
     <script src="https://rapid-cdn.yottaa.com/rapid/lib/jqrv7RcuKv1iCw.js"></script>
-    <!-- Google Tag Manager BeautyStats -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WTKJBB6');</script>
-    <!-- End Google Tag Manager -->
+
 
     <meta name="google-site-verification" content="JeMyiYBXRrMqQVre27v0ZV8AzHuw8tGmPt2s3z78qmE" />
 
@@ -184,100 +178,8 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
 
 {% render 'shogun-head' %}
 
-{%- render 'header-scripts.zipifypages', renderctx: 'thm' -%}{{ content_for_header }}
+{{ content_for_header }}
 
-  <!-- INJECTED CODE BY LUCKY -->
-  <link rel="preconnect" href="https://pif.luckylabs.io">
-  <script>
-    // Define Lucky's variables
-    (function(){
-      {% assign firstVariantId = product.selected_or_first_available_variant.id %}
-      {% assign currentProductId = product.id %}
-      {% assign currentProductTitle = product.title %}
-      {% assign prodMetafields = all_products[product.metafields.lucky.originalProduct] %}
-      {% assign isCloned = product.metafields.lucky.cloned %}
-
-      {% if currentProductId %}
-        window.LUCKY_FIRST_VARIANT_ID = {{ firstVariantId }};
-        window.CURRENT_PRODUCT_ID = {{ currentProductId }};
-        window.CURRENT_PRODUCT_TITLE = `{{ currentProductTitle }}`;
-        window.PROD_METAFIELDS = {{ prodMetafields | json}};
-        window.PROD_IS_CLONED = {{ isCloned | default: 0 }};
-      {% endif %}
-
-      window.Lucky = {
-        appURL: 'https://pif.luckylabs.io'
-      }
-
-      window.Lucky.isLuckyProdPage = function() {
-        const PREFIX_LUCKY_PRODUCT_TITLE = '[Fulfilled by Lucky]';
-        const lcPrefixLuckyPrdTitle = PREFIX_LUCKY_PRODUCT_TITLE.toLowerCase();
-        const lcCurrentProdTitle =
-          window.CURRENT_PRODUCT_TITLE &&
-          window.CURRENT_PRODUCT_TITLE.toLowerCase();
-        return lcCurrentProdTitle.indexOf(lcPrefixLuckyPrdTitle) > -1;
-      }
-
-      window.Lucky.isSingleProdPage = !!window.LUCKY_FIRST_VARIANT_ID && !!window.CURRENT_PRODUCT_ID;
-
-    })()
-  </script>
-
-  <script>
-    // Redirect to original product
-    if (window.Lucky.isSingleProdPage && window.Lucky.isLuckyProdPage()) {
-      if (window.PROD_METAFIELDS && window.PROD_METAFIELDS.handle) {
-        window.location.href= window.location.origin + '/products/' + window.PROD_METAFIELDS.handle;
-      }
-    }
-  </script>
-
-  <script crossorigin src="https://cdn.luckylabs.io/prd/lucky-local/org/integration-scripts/index.js"></script>
-  <script type="module" crossorigin src="https://cdn.luckylabs.io/prd/lucky-local/org/built-sources/index.js"></script>
-  <script id="lk-store-locator-script" type="module" crossorigin src="https://cdn.luckylabs.io/prd/store-locator/org/index.js"></script>
-
-  <!-- INJECTED CODE BY LUCKY -->
- 
-  {% comment %}{% endcomment %}
-  <script>
-    window.Userback = window.Userback || {};
-    Userback.access_token = 'A-aY0LaYf1FiBxN0XEH36M3VDBP';
-    // identify your logged-in users (optional)
-    Userback.user_data = {
-      id: "123456", // example data
-      info: {
-        name: "someone", // example data
-        email: "someone@example.com" // example data
-      }
-    };
-    (function(d) {
-      var s = d.createElement('script');s.async = true;
-      s.src = 'https://static.userback.io/widget/v1.js';
-      (d.head || d.body).appendChild(s);
-    })(document);
-  </script> 
-  
-
-  <script>
-    window["friendbuyAPI"] = friendbuyAPI = window["friendbuyAPI"] || [];
-    // registers your merchant using your merchant ID found in the
-    // retailer app https://retailer.friendbuy.io/settings/general
-    friendbuyAPI.merchantId = "0c7a90f3-aae1-4cf7-a38a-ff7345e64ba3";
-    friendbuyAPI.push(["merchant", friendbuyAPI.merchantId]);
-
-    // load the merchant SDK and your campaigns
-    (function(f, r, n, d, b, u, y) {
-      while ((u = n.shift())) {
-        (b = f.createElement(r)), (y = f.getElementsByTagName(r)[0]);
-        b.async = 1;
-        b.src = u;
-        y.parentNode.insertBefore(b, y);
-      }
-    })(document, "script", [
-      "https://static.fbot.me/friendbuy.js",
-      "https://campaign.fbot.me/" + friendbuyAPI.merchantId + "/campaigns.js",
-    ]);
-  </script>
 </head>
 
 
@@ -387,19 +289,6 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     {%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
       <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-
-    <!-- Google Tag Manager (noscript) BeautyStats -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WTKJBB6"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) BeautyStats -->
-    <script defer src="https://static.myshlf.us/Affiliates/sms_aff_clicktrack.js"></script>
-  <!--Gem_Page_Footer_Script-->
-{% render 'gem-app-footer-scripts', GEM_FOOTER_SCRIPT: GEM_FOOTER_SCRIPT %}
-<!--End_Gem_Page_Footer_Script-->
-
-   
-{%- render 'page-footer.zipifypages', renderctx: 'thm', ocuapp: oneclickupsellapp -%}
-
 
 </body>
 </html>
