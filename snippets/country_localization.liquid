@@ -1,0 +1,18 @@
+<div class="dropdown bootstrap-select tf-dropdown-select style-default color-white type-currencies">
+  <select
+    name="country_code"
+    class="selectpicker tf-dropdown-select style-default color-white type-currencies"
+    onchange="this.form.submit()"
+  >
+    {%- for country in localization.available_countries -%}
+      <option
+        value="{{ country.iso_code }}"
+        data-content='<img src="{{ country | image_url: width: 32 }}" alt="Country" />
+          {{ country.currency.iso_code }}'
+        {% if country.iso_code == localization.country.iso_code %}selected{% endif %}
+      >
+        {{ country.currency.iso_code }}
+      </option>
+    {%- endfor -%}
+  </select>
+</div>

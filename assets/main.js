@@ -1420,7 +1420,7 @@
         infiniteSlide();
         addWishList();
         handleSidebarFilter();
-        estimateShipping();
+        // estimateShipping();
         textCopy();
         parallaxie();
         tableCompareRemove();

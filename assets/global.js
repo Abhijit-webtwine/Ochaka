@@ -3462,3 +3462,42 @@ document.addEventListener('ajaxProduct:added', function(event) {
 document.addEventListener('cart:updated', function(evt) {
     console.log(evt.detail.cart);
 });
+
+
+if (!customElements.get('localization-form')) {
+  customElements.define('localization-form',
+    class LocalizationForm extends HTMLElement {
+      constructor() {
+        super();
+        this.header = document.querySelector('.header-wrapper');
+
+        this.elements = {
+          button: this.querySelector('button.localization-form__select'),
+          panel: this.querySelector('.disclosure__list-wrapper'),
+          search: this.querySelector('input[name="country_filter"]'),
+        };
+
+        // 🔹 Add event listener for open/close (like currency dropdown)
+        if (this.elements.button) {
+          this.elements.button.addEventListener('click', this.toggleLocalization.bind(this));
+        }
+
+        // 🔹 Country click submit
+        this.querySelectorAll('a').forEach((item) =>
+          item.addEventListener('click', this.onItemClick.bind(this))
+        );
+      }
+
+      // --------------------------------------------
+      // 🔹 When selecting a country (submit form)
+      // --------------------------------------------
+      onItemClick(event) {
+        event.preventDefault();
+        const form = this.querySelector('form');
+        const input = this.querySelector('input[name="locale_code"], input[name="country_code"]');
+        input.value = event.currentTarget.dataset.value;
+        if (form) form.submit();
+      }
+    }
+  );
+}
