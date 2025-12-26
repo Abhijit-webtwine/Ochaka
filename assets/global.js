@@ -132,7 +132,7 @@ theme.initWhenVisible = function(options) {
   window.addEventListener('beforeunload', () => {
     document.body.classList.add('unloading');
   });
-  window.addEventListener('DOMContentLoaded', () => {
+  window.addEventListener('load', () => {
     document.body.classList.add('loaded');
 
     document.dispatchEvent(new CustomEvent('page:loaded'));
