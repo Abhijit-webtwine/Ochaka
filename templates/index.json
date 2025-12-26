@@ -18,7 +18,7 @@
             "slide_image": "shopify://shop_images/slider-1.jpg",
             "slide_title": "Fall Winter Collection",
             "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
-            "slide_link": "shopify://blogs/news",
+            "slide_link": "",
             "slide_button_text": "Shop now"
           }
         },
@@ -51,38 +51,20 @@
       "name": "Slideshow",
       "settings": {}
     },
-    "collection_slider_MeEmw6": {
-      "type": "collection-slider",
-      "blocks": {
-        "collection_item_JcTahb": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "clothing",
-            "button_text": "Shop now"
-          }
-        },
-        "collection_item_zQftea": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "new-arrivals",
-            "button_text": "Shop now"
-          }
-        },
-        "collection_item_DLnjHp": {
-          "type": "collection_item",
-          "settings": {
-            "collection": "dresses",
-            "button_text": "Shop now"
-          }
-        }
-      },
-      "block_order": [
-        "collection_item_JcTahb",
-        "collection_item_zQftea",
-        "collection_item_DLnjHp"
-      ],
-      "name": "Collection Slider",
-      "settings": {}
+    "hero_Xt8Y3h": {
+      "type": "hero",
+      "disabled": true,
+      "settings": {
+        "sub_heading": "",
+        "heading": "Buy One, Get One FREE*",
+        "text": "<h4></h4><p><strong>Use Code: Summer24</strong></p>",
+        "video_url": "",
+        "use_image_or_video": "image",
+        "link_text": "Shop All Products",
+        "link": "shopify://collections/all",
+        "section_height": 62,
+        "gradient": false
+      }
     },
     "tab_products_gmf7Gy": {
       "type": "tab-products",
@@ -91,7 +73,7 @@
           "type": "tab",
           "settings": {
             "tab_title": "Trending",
-            "collection": "new-arrivals",
+            "collection": "trending",
             "products_limit": 8
           }
         },
@@ -121,47 +103,11 @@
       "settings": {
         "title": "New Arrivals"
       }
-    },
-    "shop_the_look_xQPQHq": {
-      "type": "shop-the-look",
-      "blocks": {
-        "product_6eGPtD": {
-          "type": "product",
-          "settings": {
-            "product": "cotton-high-waisted-panties"
-          }
-        },
-        "product_Ci3VUQ": {
-          "type": "product",
-          "settings": {
-            "product": "half-sleeve-crop-top"
-          }
-        },
-        "product_mBzkX3": {
-          "type": "product",
-          "settings": {
-            "product": "sexy-lace-panties"
-          }
-        }
-      },
-      "block_order": [
-        "product_6eGPtD",
-        "product_Ci3VUQ",
-        "product_mBzkX3"
-      ],
-      "name": "Shop This Look",
-      "settings": {
-        "collection_image": "shopify://shop_images/box-image-1.jpg",
-        "heading": "Shop This Look",
-        "collection": "new-arrivals",
-        "collection_button_text": "EXPLORE NOW"
-      }
     }
   },
   "order": [
     "tf_slideshow_3gRCzK",
-    "collection_slider_MeEmw6",
-    "tab_products_gmf7Gy",
-    "shop_the_look_xQPQHq"
+    "hero_Xt8Y3h",
+    "tab_products_gmf7Gy"
   ]
 }
