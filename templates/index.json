@@ -9,6 +9,48 @@
  */
 {
   "sections": {
+    "tf_slideshow_3gRCzK": {
+      "type": "tf-slideshow",
+      "blocks": {
+        "slide_nexrYi": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/slider-1.jpg",
+            "slide_title": "Fall Winter Collection",
+            "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
+            "slide_link": "",
+            "slide_button_text": "Shop now"
+          }
+        },
+        "slide_arKxYr": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/slider-2.jpg",
+            "slide_title": "Spring Summer Collection",
+            "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
+            "slide_link": "",
+            "slide_button_text": "Shop now"
+          }
+        },
+        "slide_a34Ubq": {
+          "type": "slide",
+          "settings": {
+            "slide_image": "shopify://shop_images/slider-3.jpg",
+            "slide_title": "Urban Edge Series",
+            "slide_subtitle": "Bold cuts and minimalist design for the modern city lifestyle.",
+            "slide_link": "",
+            "slide_button_text": "Shop now"
+          }
+        }
+      },
+      "block_order": [
+        "slide_nexrYi",
+        "slide_arKxYr",
+        "slide_a34Ubq"
+      ],
+      "name": "Slideshow",
+      "settings": {}
+    },
     "hero_Xt8Y3h": {
       "type": "hero",
       "disabled": true,
@@ -64,6 +106,7 @@
     }
   },
   "order": [
+    "tf_slideshow_3gRCzK",
     "hero_Xt8Y3h",
     "tab_products_gmf7Gy"
   ]
