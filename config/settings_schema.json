@@ -559,46 +559,6 @@
         "default": "You may also like",
         "label": "t:settings_schema.cart-drawer.settings.cart_recommendations_heading.label",
         "info": "t:settings_schema.cart-drawer.settings.cart_recommendations_heading.info"
-      },
-      {
-        "type": "checkbox",
-        "id": "cart_recommendations_show_vendor",
-        "default": false,
-        "label": "t:settings_schema.cart-drawer.settings.cart_recommendations_show_vendor.label",
-        "info": "t:settings_schema.cart-drawer.settings.cart_recommendations_show_vendor.info"
-      },
-      {
-        "type": "checkbox",
-        "id": "cart_recommendations_show_price",
-        "default": true,
-        "label": "t:settings_schema.cart-drawer.settings.cart_recommendations_show_price.label",
-        "info": "t:settings_schema.cart-drawer.settings.cart_recommendations_show_price.info"
-      },
-      {
-        "type": "product_list",
-        "id": "cart_recommendations_products",
-        "label": "t:settings_schema.cart-drawer.settings.cart_recommendations_products.label",
-        "info": "t:settings_schema.cart-drawer.settings.cart_recommendations_products.info"
-      },
-      {
-        "type": "header",
-        "content": "t:settings_schema.cart-drawer.settings.header__3.content"
-      },
-      {
-        "type": "richtext",
-        "id": "empty_cart_message",
-        "label": "t:settings_schema.cart-drawer.settings.empty_cart_message.label"
-      },
-      {
-        "type": "collection_list",
-        "id": "empty_cart_collections",
-        "label": "t:settings_schema.cart-drawer.settings.empty_cart_collections.label"
-      },
-      {
-        "type": "checkbox",
-        "id": "empty_cart_button_secondary",
-        "default": true,
-        "label": "t:settings_schema.cart-drawer.settings.empty_cart_button_secondary.label"
       }
     ]
   },
