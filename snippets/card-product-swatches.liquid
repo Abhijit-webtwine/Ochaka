@@ -36,8 +36,8 @@
 
             {% if variant.image %}
               <img
-                src="{{ variant.image | image_url: width: 100 }}"
-                data-src="{{ variant.image | image_url: width: 300 }}"
+                src="{{ variant.image | image_url }}"
+                data-src="{{ variant.image | image_url }}"
                 alt="{{ value }}"
                 class="lazyload"
                 width=""
