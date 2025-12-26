@@ -1,0 +1,39 @@
+{% comment %} index {% endcomment %}
+<div class="slider-wrap">
+  <div class="sld_image">
+    {% if block.settings.slide_image != blank %}
+      <img
+        src="{{ block.settings.slide_image | image_url  }}"
+        data-src="{{ block.settings.slide_image | image_url  }}"
+        alt="{{ block.settings.slide_title }}"
+        class="lazyload"
+        width=""
+        height=""
+      >
+    {% endif %}
+  </div>
+  <div class="sld_content">
+    <div class="container">
+      <div class="content-sld_wrap">
+        {% if block.settings.slide_title != blank %}
+          <h1 class="title_sld text-display fade-item fade-item-1">
+            {{ block.settings.slide_title | newline_to_br }}
+          </h1>
+        {% endif %}
+        {% if block.settings.slide_subtitle != blank %}
+          <p class="sub-text_sld h5 text-black fade-item fade-item-2">
+            {{ block.settings.slide_subtitle }}
+          </p>
+        {% endif %}
+        {% if block.settings.slide_link != blank %}
+          <div class="fade-item fade-item-3">
+            <a href="{{ block.settings.slide_link }}" class="tf-btn animate-btn fw-semibold">
+              {{ block.settings.slide_button_text }}
+              <i class="icon icon-arrow-right"></i>
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
