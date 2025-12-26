@@ -54,10 +54,9 @@
     "color_swatches_enabled": true,
     "color_swatches_position": "top",
     "color_swatches_max_items": 4,
-    "cart_drawer_enabled": true,
     "show_cart_note": true,
     "show_shipping_calculator": true,
-    "disable_view_cart": false,
+    "disable_view_cart": true,
     "show_free_shipping_message": true,
     "free_shipping_minimum_amount": "75",
     "cart_recommendations_enabled": true,
@@ -73,23 +72,18 @@
     "social_youtube_link": "https://www.youtube.com/beautystat",
     "favicon": "shopify://shop_images/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
     "gift_card_logo_height": 70,
+    "cart_drawer_enabled": true,
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "only_homepage": false,
-          "layout": "carousel",
-          "mobile_layout": "carousel",
-          "autorotate": true,
-          "autorotate_speed": 5,
-          "show_navigation": false,
-          "direction": "left",
-          "speed": 1.6,
-          "colors_text": "#ffffff",
-          "colors_background": "#fff8f6",
-          "gradient_background": "",
-          "padding_top": 0,
-          "padding_bottom": 0
+          "topbar_text": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+          "collection_1": "",
+          "collection_2": "",
+          "link_1_label": "Help & FAQs",
+          "link_1_url": "",
+          "link_2_label": "Factory",
+          "link_2_url": ""
         }
       },
       "header": {
@@ -132,7 +126,8 @@
               "mega_prod_title": "",
               "mega_prod_link_list": "shop-mega-menu",
               "mega_product_1": "half-sleeve-crop-top",
-              "mega_product_2": "summer-two-piece-set-copy"
+              "mega_product_2": "summer-two-piece-set-copy",
+              "dropdown_link_list": ""
             }
           },
           "mega_menu_wjCKdA": {
@@ -172,7 +167,8 @@
               "mega_prod_title": "",
               "mega_prod_link_list": "",
               "mega_product_1": "",
-              "mega_product_2": ""
+              "mega_product_2": "",
+              "dropdown_link_list": ""
             }
           },
           "mega_menu_WEr9KC": {
@@ -224,7 +220,8 @@
               "mega_prod_title": "",
               "mega_prod_link_list": "",
               "mega_product_1": "",
-              "mega_product_2": ""
+              "mega_product_2": "",
+              "dropdown_link_list": ""
             }
           }
         },
@@ -236,23 +233,7 @@
         "settings": {
           "logo": "shopify://shop_images/logo.svg",
           "menu": "main-menu",
-          "enable_country_selector": true,
-          "enable_language_selector": false,
-          "enable_sticky_header": true,
-          "show_sticky_header_scroll_up": true,
-          "enable_transparent_header": false,
-          "enable_transparent_header_collection": false,
-          "enable_transparent_header_custom": "",
-          "show_transparent_header_border": false,
-          "transparent_text_color": "#ffffff",
-          "mobile_logo_position": "center",
-          "transparent_header": false,
-          "colors_text": "#282828",
-          "colors_border": "#d2d5d9",
-          "colors_background": "#ffffff",
-          "gradient_background": "",
-          "padding_top": 12,
-          "padding_bottom": 12
+          "enable_sticky_header": true
         }
       },
       "footer": {
