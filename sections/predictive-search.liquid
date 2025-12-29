@@ -3,7 +3,7 @@
     {%- if predictive_search.resources.products.size > 0 -%} 
       <p id="predictive-search-products" class="predictive-search__heading h4">{{ 'templates.search.products' | t }}</p>
     {%- else -%}
-      <div class="title-wrapper center">
+      <div class="my-5 center">
         <p class="title h3 title--primary">{{ 'templates.search.no_results' | t: terms: predictive_search.terms }}</p>
         <p class="typeset">{{ 'templates.search.check_the_spelling' | t }}</p>
       </div>

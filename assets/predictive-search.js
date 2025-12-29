@@ -15,6 +15,21 @@ class PredictiveSearch extends HTMLElement {
     this.querySelector('button[type="button"]').addEventListener('click', this.close.bind(this));
     this.querySelector('button[type="reset"]').addEventListener('click', this.clear.bind(this));
 
+    // Add click handlers for quick search links
+    this.querySelectorAll('.quick-search-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const searchTerm = e.currentTarget.getAttribute('data-search-term');
+        if (searchTerm) {
+          this.input.value = searchTerm;
+          this.input.focus();
+          this.getSearchResults(searchTerm);
+          this.open();
+        }
+      });
+    });
+    // ends
+
     this.input.addEventListener('input', debounce((event) => {
       this.onChange(event);
     }, 300).bind(this));

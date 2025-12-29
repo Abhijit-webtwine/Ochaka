@@ -38,7 +38,7 @@
         data-per-page="4"
         data-loading-text="Loading..."
       >
-        <form class="search" role="search">
+        <form class="search form-search style-2" role="search">
           <input type="search" name="q" placeholder="Search item">
           <button class="visually-hidden" type="submit">Search</button>
           <button class="visually-hidden" type="reset">Clear</button>
@@ -46,38 +46,39 @@
         </form>
 
         <!-- Quick links -->
-        <div>
+        {% if settings.quick_search_terms != blank %}
           <ul class="quick-link-list">
-            {% for link in linklists['quick-search'].links %}
+            {% for link in linklists[settings.quick_search_terms].links %}
               <li>
-                <a href="{{ link.url }}" class="link-item text-main h6 link">
+                <a href="#" class="link-item text-main h6 link quick-search-link" data-search-term="{{ link.title | escape }}">
                   {{ link.title }}
                 </a>
               </li>
             {% endfor %}
           </ul>
-        </div>
-
-        <!-- Search history (static placeholder – Shopify has no native history) -->
-        <div class="view-history-wrap">
-          <h4 class="title">History</h4>
-          <div class="view-history-list">
-            {% for item in search.results limit: 6 %}
-              {% if item.object_type == 'product' %}
-                <a class="item text-main link h6" href="{{ item.url }}">
-                  <span>{{ item.title }}</span>
-                  <i class="icon icon-arrow-top-right"></i>
-                </a>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
+        {% endif %}
 
         <div class="predictive-search" data-predictive-search></div>
         <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
 
       </predictive-search>
 
+      
+      <!-- Search history (static placeholder – Shopify has no native history) -->
+      <div class="view-history-wrap">
+        <h4 class="title">History</h4>
+        <div class="view-history-list">
+          {% for item in search.results limit: 6 %}
+            {% if item.object_type == 'product' %}
+              <a class="item text-main link h6" href="{{ item.url }}">
+                <span>{{ item.title }}</span>
+                <i class="icon icon-arrow-top-right"></i>
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+        
       <!-- Trending products -->
       <div class="trend-product-wrap">
         <div class="heading">

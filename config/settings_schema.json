@@ -609,6 +609,11 @@
         "label": "t:settings_schema.search-behavior.settings.predictive_search_collection.label"
       },
       {
+        "type": "link_list",
+        "id": "quick_search_terms",
+        "label": "Quick Search Terms"
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.search-behavior.settings.header.content"
       },
