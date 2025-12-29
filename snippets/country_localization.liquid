@@ -1,7 +1,6 @@
-<div class="dropdown bootstrap-select tf-dropdown-select style-default color-white type-currencies">
   <select
     name="country_code"
-    class="selectpicker tf-dropdown-select style-default color-white type-currencies"
+    class="selectpicker tf-dropdown-select style-default {% if color_white %} color-white {% endif %} type-currencies"
     onchange="this.form.submit()"
   >
     {%- for country in localization.available_countries -%}
@@ -15,4 +14,3 @@
       </option>
     {%- endfor -%}
   </select>
-</div>
