@@ -409,6 +409,7 @@ header {
     .count {
         width: 24px;
         height: 24px;
+        z-index: 9;
         display: block;
         border-radius: 50%;
         background: var(--primary);
