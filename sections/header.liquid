@@ -2,6 +2,11 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
 <header class="tf-header header-fix header-abs-1{% if section.settings.enable_sticky_header %} header--sticky-enabled{% endif %}">
+  {%- liquid
+    if section.settings.menu != blank
+      render 'header-drawer', main_menu: section.settings.menu
+    endif
+  -%}
   <div class="container-full">
     <div class="row align-items-center">
       <div class="col-md-4 col-3 d-xl-none">
@@ -37,7 +42,9 @@
 
                 {% comment %}Mega Menu{% endcomment %}
                 {% for block in section.blocks %}
-                  {% render 'mega-menu', block: block, link: link %}
+                  {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
+                    {% render 'mega-menu', block: block, link: link %}
+                  {% endif %}
                 {% endfor %}
               </li>
             {% endfor %}
@@ -93,6 +100,13 @@
       </div>
     </div>
   </div>
+  {%- for link in section.settings.menu.links -%}
+    {% for block in section.blocks %}
+      {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
+        {% render 'megamenu-modal', block: block, link: link, modal_title: section.settings.modal_title %}
+      {% endif %}
+    {% endfor %}
+  {%- endfor -%}
 </header>
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
@@ -103,6 +117,12 @@
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+      "type": "text",
+      "id": "modal_title",
+      "label": "Modal Title",
+      "default": "Ultimate HTML Theme"
+    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -160,7 +180,8 @@
         },
         {
           "type": "header",
-          "content": "If Grid Layout"
+          "content": "If Grid Layout",
+          "info": "Mega menu will only show 12, Modal will show all demos."
         },
         {
           "type": "image_picker",
@@ -344,6 +365,126 @@
           "id": "demo_12_name",
           "label": "Demo 12 Name"
         },
+        {
+          "type": "image_picker",
+          "id": "demo_13_image",
+          "label": "Demo 13 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_13_url",
+          "label": "Demo 13 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_13_name",
+          "label": "Demo 13 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_14_image",
+          "label": "Demo 14 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_14_url",
+          "label": "Demo 14 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_14_name",
+          "label": "Demo 14 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_15_image",
+          "label": "Demo 15 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_15_url",
+          "label": "Demo 15 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_15_name",
+          "label": "Demo 15 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_16_image",
+          "label": "Demo 16 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_16_url",
+          "label": "Demo 16 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_16_name",
+          "label": "Demo 16 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_17_image",
+          "label": "Demo 17 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_17_url",
+          "label": "Demo 17 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_17_name",
+          "label": "Demo 17 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_18_image",
+          "label": "Demo 18 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_18_url",
+          "label": "Demo 18 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_18_name",
+          "label": "Demo 18 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_19_image",
+          "label": "Demo 19 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_19_url",
+          "label": "Demo 19 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_19_name",
+          "label": "Demo 19 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_20_image",
+          "label": "Demo 20 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_20_url",
+          "label": "Demo 20 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_20_name",
+          "label": "Demo 20 Name"
+        },  
         {
           "type": "text",
           "id": "btn_text",
