@@ -505,51 +505,6 @@
         "default": true,
         "label": "t:settings_schema.product_tiles.settings.color_swatches_enabled.label",
         "info": "t:settings_schema.product_tiles.settings.color_swatches_enabled.info"
-      },
-      {
-        "type": "select",
-        "id": "color_swatches_position",
-        "options": [
-          {
-            "value": "top",
-            "label": "t:settings_schema.product_tiles.settings.color_swatches_position.options__1.label"
-          },
-          {
-            "value": "bottom",
-            "label": "t:settings_schema.product_tiles.settings.color_swatches_position.options__2.label"
-          }
-        ],
-        "default": "top",
-        "label": "t:settings_schema.product_tiles.settings.color_swatches_position.label"
-      },
-      {
-        "type": "select",
-        "id": "color_swatches_size",
-        "options": [
-          {
-            "value": "small",
-            "label": "t:settings_schema.product_tiles.settings.color_swatches_size.options__1.label"
-          },
-          {
-            "value": "medium",
-            "label": "t:settings_schema.product_tiles.settings.color_swatches_size.options__2.label"
-          },
-          {
-            "value": "large",
-            "label": "t:settings_schema.product_tiles.settings.color_swatches_size.options__3.label"
-          }
-        ],
-        "default": "small",
-        "label": "t:settings_schema.product_tiles.settings.color_swatches_size.label"
-      },
-      {
-        "type": "range",
-        "id": "color_swatches_max_items",
-        "min": 1,
-        "max": 6,
-        "step": 1,
-        "label": "t:settings_schema.product_tiles.settings.color_swatches_max_items.label",
-        "default": 4
       }
     ]
   },

@@ -22,7 +22,10 @@
       {% endif %}
       <span class="price-new h6">{{ product.price | money }}</span>
     </div>
-    {% render 'card-product-swatches', product: product %}
+    
+    {% if settings.color_swatches_enabled %}
+      {% render 'card-product-swatches', product: product %}
+    {% endif %}
 
   </div>
 </div>
