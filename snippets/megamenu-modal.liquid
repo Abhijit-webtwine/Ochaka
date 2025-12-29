@@ -1,0 +1,37 @@
+{% if block.settings['menu-type'] == 'grid-layout' %}
+<div class="modal fade modalDemo" id="modalDemo">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="header">
+        <h3 class="demo-title">{{ modal_title }}</h3>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      <div class="mega-menu">
+        <div class="row-demo">
+          {% for i in (1..20) %}
+            {% assign demo_image = 'demo_' | append: i | append: '_image' %}
+            {% assign demo_url = 'demo_' | append: i | append: '_url' %}
+            {% assign demo_name = 'demo_' | append: i | append: '_name' %}
+            {% if block.settings[demo_image] != blank %}
+              <div class="demo-item">
+                <a href="{{ block.settings[demo_url] }}" class="demo-img">
+                  <img
+                    src="{{ block.settings[demo_image] | image_url: width: 600 }}"
+                    alt="Demo {{ i }}"
+                    loading="lazy"
+                    width=""
+                    height=""
+                  >
+                </a>
+                <a href="{{ block.settings[demo_url] }}" class="demo-name">
+                  {{ block.settings[demo_name] }}
+                </a>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
