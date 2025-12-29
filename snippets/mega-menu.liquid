@@ -1,4 +1,3 @@
-{% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
   {% comment %} Grid Layout {% endcomment %}
   {% if block.settings['menu-type'] == 'grid-layout' %}
     <div class="sub-menu mega-menu mega-home">
@@ -9,9 +8,9 @@
             {% assign demo_url = 'demo_' | append: i | append: '_url' %}
             {% assign demo_name = 'demo_' | append: i | append: '_name' %}
 
-            {% if demo_image != blank %}
+            {% if block.settings[demo_image] != blank %}
               <div class="demo-item">
-                <a href="index.html" class="demo-img">
+                <a href="{{ block.settings[demo_url] }}" class="demo-img">
                   <img
                     src="{{ block.settings[demo_image] | image_url: width: 600 }}"
                     alt="Demo {{ i }}"
@@ -107,4 +106,3 @@
       </ul>
     </div>
   {% endif %}
-{% endif %}
