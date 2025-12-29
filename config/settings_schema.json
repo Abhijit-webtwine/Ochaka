@@ -604,6 +604,11 @@
         "label": "t:settings_schema.search-behavior.settings.search_recommendation.label"
       },
       {
+        "type": "collection",
+        "id": "search_trending_collection",
+        "label": "t:settings_schema.search-behavior.settings.predictive_search_collection.label"
+      },
+      {
         "type": "header",
         "content": "t:settings_schema.search-behavior.settings.header.content"
       },

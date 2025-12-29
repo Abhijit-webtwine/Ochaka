@@ -186,6 +186,7 @@
     "search-behavior": {
       "name": "Search behavior",
       "settings": {
+        "predictive_search_collection": { "label": "Search Trending collection" },
         "search_results": {
           "options__1": { "label": "Products only" },
           "options__2": { "label": "Products and pages" },

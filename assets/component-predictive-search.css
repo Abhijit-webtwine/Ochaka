@@ -12,6 +12,14 @@
   scrollbar-width: thin;
 }
 
+.predictive-search__results-list .prd-recent {
+  margin-bottom: 15px;
+}
+
+.predictive-search__results-list .prd-recent .image img {
+  object-fit: contain;
+}
+
 .predictive-search__results-list::-webkit-scrollbar {
   appearance: none;
   width: 0.25rem;
@@ -159,7 +167,7 @@ predictive-search[open] .predictive-search--search-template {
 
 .predictive-search__heading {
   margin: 0;
-  padding-bottom: 1.25rem;
+  padding-block: 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
