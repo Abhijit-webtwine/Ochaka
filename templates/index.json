@@ -64,7 +64,7 @@
         "collection_item_zQftea": {
           "type": "collection_item",
           "settings": {
-            "collection": "new-arrivals",
+            "collection": "trending",
             "button_text": "Shop now"
           }
         },
@@ -91,7 +91,7 @@
           "type": "tab",
           "settings": {
             "tab_title": "Trending",
-            "collection": "new-arrivals",
+            "collection": "trending",
             "products_limit": 8
           }
         },
@@ -119,6 +119,7 @@
       ],
       "name": "Tab Products",
       "settings": {
+        "spacing": true,
         "title": "New Arrivals"
       }
     },
@@ -151,10 +152,88 @@
       ],
       "name": "Shop This Look",
       "settings": {
+        "spacing": true,
         "collection_image": "shopify://shop_images/box-image-1.jpg",
         "heading": "Shop This Look",
-        "collection": "new-arrivals",
+        "collection": "trending",
         "collection_button_text": "EXPLORE NOW"
+      }
+    },
+    "featured_blog_3cC7JF": {
+      "type": "featured-blog",
+      "name": "Featured Blog",
+      "settings": {
+        "spacing": true,
+        "heading": "Read Our Blog",
+        "blog": "news",
+        "posts_limit": 4,
+        "read_more_text": "Read more"
+      }
+    },
+    "instagram_slider_7xBiQT": {
+      "type": "instagram-slider",
+      "blocks": {
+        "image_g7abax": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-1_a25d4efd-4333-477e-9cf0-201c0241f35f.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_tCXVYq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-2_05ca70ad-4a7a-43a1-a492-bee2a4119a61.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_YGfYPR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-3_7597afa5-4f54-4577-9a54-a20e86bc3958.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_EarP6h": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-4_6bc1ff7a-0156-4c3e-9fd0-0b4d3409692d.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_t49TDL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-5_4b403f5f-3ca5-4566-8da2-f9afd211d485.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_KMApKn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-6_89e5ee59-16e2-4518-8d9d-2b72ba884769.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "image_g7abax",
+        "image_tCXVYq",
+        "image_YGfYPR",
+        "image_EarP6h",
+        "image_t49TDL",
+        "image_KMApKn"
+      ],
+      "name": "Instagram Slider",
+      "settings": {
+        "heading": "Follow Us On Instagram",
+        "subheading": "<p>@ochaka:Follow us and get20% off coupon</p>"
       }
     }
   },
@@ -162,6 +241,8 @@
     "tf_slideshow_3gRCzK",
     "collection_slider_MeEmw6",
     "tab_products_gmf7Gy",
-    "shop_the_look_xQPQHq"
+    "shop_the_look_xQPQHq",
+    "featured_blog_3cC7JF",
+    "instagram_slider_7xBiQT"
   ]
 }

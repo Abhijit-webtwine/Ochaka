@@ -961,20 +961,20 @@ a {
     border-radius: 20px !important;
 }
 
-.flat-spacing {
-    padding-top: 112px;
-    padding-bottom: 112px;
+// .flat-spacing {
+//     padding-top: 112px;
+//     padding-bottom: 112px;
 
-    @include res(llg) {
-        padding-top: 80px;
-        padding-bottom: 80px;
-    }
+//     @include res(llg) {
+//         padding-top: 80px;
+//         padding-bottom: 80px;
+//     }
 
-    @include res(md) {
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
-}
+//     @include res(md) {
+//         padding-top: 60px;
+//         padding-bottom: 60px;
+//     }
+// }
 
 .flat-spacing-2 {
     padding-top: 118px;

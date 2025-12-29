@@ -1,4 +1,4 @@
-<div class="flat-spacing">
+<div class="{% if section.settings.spacing %}flat-spacing{% endif %}">
   <div class="container">
 
     {% if section.settings.heading != blank %}
@@ -81,6 +81,11 @@
 {
   "name": "Featured Blog",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "spacing",
+      "label": "Enable Section Spacing"
+    },
     {
       "type": "text",
       "id": "heading",

@@ -1,4 +1,4 @@
-<div class="flat-spacing flat-animate-tab">
+<div class="{% if section.settings.spacing %}flat-spacing{% endif %} flat-animate-tab">
   <div class="container">
     <div class="sect-title wow fadeInUp">
       <div class="h1 title text-center mb-24">{{ section.settings.title | default: 'Featured Products' }}</div>
@@ -85,6 +85,11 @@
   "class": "section-tab-products",
   "tag": "section",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "spacing",
+      "label": "Enable Section Spacing"
+    },
     {
       "type": "text",
       "id": "title",

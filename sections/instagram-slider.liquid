@@ -1,4 +1,4 @@
-<section class="flat-spacing pt-0 pb-xl-0">
+<section class="{% if section.settings.spacing %}flat-spacing{% endif %} pt-0 pb-xl-0">
   <div class="container">
     <div class="sect-title text-center wow fadeInUp">
       {% if section.settings.heading != blank %}
@@ -68,6 +68,11 @@
 {
   "name": "Instagram Slider",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "spacing",
+      "label": "Enable Section Spacing"
+    },
     {
       "type": "text",
       "id": "heading",
