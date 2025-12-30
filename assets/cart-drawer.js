@@ -6,29 +6,33 @@ class MiniCart extends HTMLElement {
   connectedCallback() {
     this.header = document.querySelector('sticky-header');
     this.drawer = document.querySelector('cart-drawer');
-    new IntersectionObserver(this.handleIntersection.bind(this)).observe(this);
+    
+    // Load cart immediately when component is connected
+    this.loadCart();
   }
 
-  handleIntersection(entries, observer) {
-    if (!entries[0].isIntersecting) return;
-    observer.unobserve(this);
-
-    fetch(this.dataset.url)
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById('mini-cart').innerHTML =
-          this.getSectionInnerHTML(html, '.shopify-section');
-          
-          document.dispatchEvent(new CustomEvent('cartdrawer:opened'));
-      })
-      .catch(e => {
-        console.error(e);
-      });
+  async loadCart() {
+    try {
+      const response = await fetch(this.dataset.url);
+      const html = await response.text();
+      
+      // Update the mini-cart content
+      const miniCart = document.getElementById('mini-cart');
+      if (miniCart) {
+        miniCart.innerHTML = this.getSectionInnerHTML(html, '.shopify-section');
+      }
+      
+      // Dispatch event to notify other components
+      document.dispatchEvent(new CustomEvent('cartdrawer:loaded'));
+      
+    } catch (e) {
+      console.error('Error loading cart:', e);
+    }
   }
 
   open() {
-    const detailsElement = this.drawer.querySelector('details');
-    if (detailsElement.hasAttribute('open')) {
+    const detailsElement = this.drawer?.querySelector('details');
+    if (!detailsElement || detailsElement.hasAttribute('open')) {
       return;
     }
     
@@ -37,12 +41,15 @@ class MiniCart extends HTMLElement {
 
   renderContents(parsedState) {
     this.productId = parsedState.id;
-    this.getSectionsToRender().forEach((section => {
-      if (document.getElementById(section.id)) {
-        document.getElementById(section.id).innerHTML =
-          this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
+    this.getSectionsToRender().forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) {
+        element.innerHTML = this.getSectionInnerHTML(
+          parsedState.sections[section.id], 
+          section.selector
+        );
       }
-    }));
+    });
 
     this.open();
   }
@@ -59,7 +66,6 @@ class MiniCart extends HTMLElement {
         section: 'cart-icon-bubble',
         selector: '.shopify-section'
       },
-      // section file and id must match
       {
         id: 'bottom-toolbar',
         section: 'cart-icon-bubble',
@@ -74,9 +80,9 @@ class MiniCart extends HTMLElement {
   }
 
   getSectionInnerHTML(html, selector = '.shopify-section') {
-    return new DOMParser()
-      .parseFromString(html, 'text/html')
-      .querySelector(selector).innerHTML;
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const element = doc.querySelector(selector);
+    return element ? element.innerHTML : '';
   }
 }
 
