@@ -517,6 +517,7 @@
 
         price-money{
           color: var(--primary);
+          font-weight: 700;
         }
 
         .text {
@@ -637,8 +638,12 @@
     }
 
     @include res(sm, min) {
-        max-width: 530px;
+        max-width: 504px;
         width: 100% !important;
+    }
+
+    @include res(lg, min) {
+      max-width: 530px;
     }
 
     @include res(md) {

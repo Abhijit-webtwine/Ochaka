@@ -73,7 +73,7 @@
   z-index: 100;
   right: 0;
   top: 0;
-  width: calc(100% - 2.5rem);
+  width: 530px;
   height: var(--max-height);
   --max-height: 100%;
   background-color: white;
@@ -111,15 +111,15 @@ details[open].menu-opening>.cart-drawer {
   visibility: visible;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (max-width: 767px) {
   .cart-drawer {
-    width: 530px;
+    width: 340px;
   }
 
-  .cart-drawer .mini-cart {
+  /* .cart-drawer .mini-cart {
     position: relative;
     z-index: 2;
-  }
+  } */
 }
 
 .cart-drawer>cart-items {
@@ -890,8 +890,6 @@ details[open].menu-opening:not(:has(.shop-empty_top))>.cart-drawer [data-animate
   margin-top: 0.625rem;
   margin-bottom: 0;
   text-align: start;
-  font-size: 0.875rem;
-  line-height: 1.2;
 }
 
 .cart-drawer .free-shipping__progress {
