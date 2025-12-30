@@ -1,0 +1,54 @@
+<div class="tf-toolbar-bottom">
+  <div class="toolbar-item">
+    <a href="{{ routes.collections_url }}">
+      <span class="toolbar-icon">
+        <i class="icon icon-storefront"></i>
+      </span>
+      <span class="toolbar-label">Shop</span>
+    </a>
+  </div>
+  <div class="toolbar-item">
+    <a href="#search" data-bs-toggle="modal">
+      <span class="toolbar-icon">
+        <i class="icon icon-magnifying-glass"></i>
+      </span>
+      <span class="toolbar-label">Search</span>
+    </a>
+  </div>
+  <div class="toolbar-item">
+    <a href="{{ routes.account_login_url }}">
+      <span class="toolbar-icon">
+        <i class="icon icon-user"></i>
+      </span>
+      <span class="toolbar-label">Account</span>
+    </a>
+  </div>
+  <div class="toolbar-item">
+    <a href="wishlist.html">
+      <span class="toolbar-icon">
+        <i class="icon icon-heart"></i>
+        <span class="toolbar-count">7</span>
+      </span>
+      <span class="toolbar-label">Wishlist</span>
+    </a>
+  </div>
+  <div class="toolbar-item">
+    <a href="{{ routes.cart_url }}">
+      <span class="toolbar-icon">
+        <i class="icon icon-shopping-cart-simple"></i>
+          <span class="" id="bottom-toolbar">
+            <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+            {%- if cart != empty -%}
+              <span class="toolbar-count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+                {%- if cart.item_count < 100 -%}
+                  <span aria-hidden="true">{{ cart.item_count }}</span>
+                {%- endif -%}
+                <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
+              </span>
+            {%- endif -%}
+          </span>
+      </span>
+      <span class="toolbar-label">Cart</span>
+    </a>
+  </div>
+</div>
