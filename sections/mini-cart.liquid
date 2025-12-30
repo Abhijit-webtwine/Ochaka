@@ -1,7 +1,7 @@
 {% if cart != empty and settings.cart_recommendations_enabled %}
 
   <cart-recommendations
-    class="tf-minicart-recommendations"
+    class="tf-minicart-recommendations position-relative"
     data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ cart.items.first.product_id }}&limit=4"
     data-animate>
 
