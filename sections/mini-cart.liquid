@@ -1,4 +1,4 @@
-<div class="offcanvas offcanvas-end popup-shopping-cart show" id="shoppingCart">
+<div class="popup-shopping-cart" id="shoppingCart">
 {% if cart != empty and settings.cart_recommendations_enabled %}
 
   <cart-recommendations
@@ -71,7 +71,6 @@
           type="button"
           class="icon-close icon-close-popup"
           data-close
-          data-bs-dismiss="offcanvas"
           aria-label="{{ 'accessibility.close' | t }}"
         ></button>
       </drawer-close-button>

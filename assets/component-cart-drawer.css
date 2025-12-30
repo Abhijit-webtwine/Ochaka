@@ -106,7 +106,8 @@ details[open]>.cart-drawer {
   transition-timing-function: ease;
 }
 
-details[open].menu-opening>.cart-drawer {
+details[open].menu-opening>.cart-drawer,
+details[open].menu-opening .popup-shopping-cart {
   transform: translateX(0);
   visibility: visible;
 }
