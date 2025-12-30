@@ -278,10 +278,10 @@ predictive-search[loading] .search-modal__form .search__button[type=reset] {
   text-align: start;
 }
 
-.predictive-search--focus:not(.search-modal--open) .transition-body::after {
+/* .predictive-search--focus:not(.search-modal--open) .transition-body::after {
   opacity: 1;
   pointer-events: visible;
-}
+} */
 
 .predictive-search--focus:not(.search-modal--open) .template-search__search .search-modal__form .field {
   z-index: 35;
