@@ -1,4 +1,3 @@
-<div class="popup-shopping-cart" id="shoppingCart">
 {% if cart != empty and settings.cart_recommendations_enabled %}
 
   <cart-recommendations
@@ -66,7 +65,7 @@
         {{ 'sections.cart.title' | t }}
       </span>
 
-      <drawer-close-button class="header__icon header__icon--summary header__icon--cart">
+      <drawer-close-button>
         <button
           type="button"
           class="icon-close icon-close-popup"
@@ -341,4 +340,3 @@
       </div>
     </div>
   </div>
-</div>

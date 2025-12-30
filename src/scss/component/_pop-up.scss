@@ -394,17 +394,6 @@
     display: flex;
     flex-direction: column;
     margin-top: 0;
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    right: 100%;
-    height: 100%;
-    background-color: rgb(var(--color-background));
-    overflow-x: hidden;
-    overflow-y: auto;
-    scroll-snap-type: y mandatory;
-    scroll-behavior: smooth;
-    scrollbar-width: thin;
 
     .title {
         margin-bottom: 24px;
@@ -500,12 +489,16 @@
 
 .popup-shopping-cart {
     flex-direction: row;
+    display: flex;
     position: fixed;
     bottom: 0;
-    transform: translateX(0);
-    visibility: visible;
+    transform: translateX(100%);
+    visibility: hidden;
     top: 0;
     right: 0;
+    z-index: 100;
+    background-color: #fff;
+    @include transition3;
 
     .popup-header {
         padding: 32px 32px 24px;
@@ -644,18 +637,15 @@
     }
 
     @include res(sm, min) {
-        max-width: 504px;
+        max-width: 794px;
         width: 100% !important;
-    }
-
-    @include res(lg, min) {
-      max-width: 530px;
     }
 
     @include res(md) {
         flex-direction: column;
         max-width: min(500px, 100vw);
         max-width: 340px;
+        width: 100%;
 
         .tf-minicart-recommendations {
             padding: 16px 16px 0;

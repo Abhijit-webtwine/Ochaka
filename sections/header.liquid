@@ -85,13 +85,12 @@
                     <i class="icon icon-shopping-cart-simple"></i>
                   </span>
                 </summary>
-                <mini-cart class="cart-drawer focus-inset" id="mini-cart" data-url="?section_id=mini-cart">
-                  <div class="loading-overlay">
-                    <div class="loading-overlay__spinner">
-                      {% render 'icon', icon: 'spinner' %}
-                    </div>
-                  </div>
+
+                <mini-cart class="popup-shopping-cart" id="mini-cart" data-url="?section_id=mini-cart">
+                    {% comment %} mini cart items will be rendered {% endcomment %}
+                     {% comment %} remove the offcanvas coz of id conflict {% endcomment %}
                 </mini-cart>
+
               </details>
             </cart-drawer>
             {% comment %} <span class="count">{{ cart.item_count }}</span> {% endcomment %}
