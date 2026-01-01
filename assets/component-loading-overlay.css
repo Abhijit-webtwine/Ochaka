@@ -67,3 +67,16 @@
   pointer-events: none;
   cursor: default;
 }
+
+.collection-loading-overlay {
+  inset: 0;
+  position: absolute;
+  background-color: #fff;
+  opacity: 0.7;
+  z-index: 25;
+  display: none;
+}
+
+#ProductGridContainer.loading .collection-loading-overlay{
+  display: block;
+}

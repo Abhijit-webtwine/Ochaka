@@ -1,4 +1,4 @@
-<div class="card-product">
+<div class="card-product grid" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
     {% render 'card-product-sizes', product: product %}

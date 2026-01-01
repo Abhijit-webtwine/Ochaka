@@ -9,6 +9,6 @@ export default defineConfig({
     emptyOutDir: false
   },
   watch: {
-    include: ['src/**/*', 'sections/**/*', 'snippets/**/*', 'templates/**/*'],
+    include: ['src/**/*', 'sections/**/*', 'snippets/**/*', 'templates/**/*', 'assets/**/*'],
   },
 })

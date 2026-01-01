@@ -704,8 +704,8 @@
     };
     $(function () {
         rangeTwoPrice();
-        filterProducts();
-        filterSort();
+        // filterProducts();
+        // filterSort();
         swLayoutShop();
         loadProduct();
         handleDropdownFilter();
