@@ -83,7 +83,7 @@
         <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
           {%- paginate collection.products by 12 -%}
             {%- for product in collection.products -%}
-              {% render 'card-product-horizontal', product: product %}
+              {% render 'card-product-horizontal', product: product, truncate_words: section.settings.truncate_words %}
             {%- endfor -%}
             
             {%- if paginate.pages > 1 -%}
@@ -307,3 +307,17 @@
     </div>
   </div>
 {% endcomment %}
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "settings": [
+      {
+        "type": "number",
+        "id": "truncate_words",
+        "label": "Truncate words",
+        "default": 30
+      }
+    ]
+}
+{% endschema %}
