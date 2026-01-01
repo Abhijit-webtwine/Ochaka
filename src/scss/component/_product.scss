@@ -1211,6 +1211,10 @@
         line-height: clamp(26px, 4vw, 32px);
     }
 
+    .countdown__sep {
+      margin-inline: 5px;
+    }
+
     &.type-2 {
         left: 7px;
         right: 7px;

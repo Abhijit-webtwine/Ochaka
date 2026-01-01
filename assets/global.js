@@ -2466,10 +2466,16 @@ class CountdownTimer extends HTMLElement {
     const secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
 
     if (this.dataset.compact == 'true') {
-      const dayHTML = days > 0 ? `<div class="countdown__item"><span>${days}${window.dateStrings.d}</span></div>` : '';
-      const otherHTML = `<div class="countdown__item"><span>${hours > 9 ? hours : '0' + hours}:${mins > 9 ? mins : '0' + mins}:${secs > 9 ? secs : '0' + secs}</span></div>`;
-  
-      this.innerHTML = dayHTML + otherHTML;
+      this.innerHTML =
+        `<div class="countdown__item">` +
+        `<span class="countdown__value">${days}</span><span class="countdown__unit">d</span>` +
+        `<span class="countdown__sep">:</span>` +
+        `<span class="countdown__value">${hours}</span><span class="countdown__unit">h</span>` +
+        `<span class="countdown__sep">:</span>` +
+        `<span class="countdown__value">${mins}</span><span class="countdown__unit">m</span>` +
+        `<span class="countdown__sep">:</span>` +
+        `<span class="countdown__value">${secs}</span><span class="countdown__unit">s</span>` +
+        `</div>`;
     }
     else {
       const dayHTML = days > 0 ? `<div class="countdown__item"><span>${days}</span> ${days == 1 ? window.dateStrings.day : window.dateStrings.days}</div>` : '';

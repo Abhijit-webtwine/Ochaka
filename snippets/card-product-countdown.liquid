@@ -7,11 +7,7 @@
 
   {% if remaining > 0 %}
     <div class="product-countdown">
-      <div
-        class="js-countdown cd-has-zero"
-        data-timer="{{ remaining }}"
-        data-labels="d : ,h : ,m : ,s">
-      </div>
+      <countdown-timer data-compact="true" data-date="{{ end_date | date: '%Y-%m-%dT%H:%M:%S%z' }}"></countdown-timer>
     </div>
   {% endif %}
 {% endif %}
