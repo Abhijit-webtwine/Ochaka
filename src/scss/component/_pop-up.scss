@@ -57,7 +57,7 @@
 }
 
 .modal {
-    cursor: url(../images/cursor-close.svg), auto;
+    cursor: url(/assets/cursor-close.svg), auto;
 
     .icon-close-popup {
         @include transition3;
