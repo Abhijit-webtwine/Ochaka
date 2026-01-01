@@ -371,7 +371,17 @@
 
 .product-style_list {
     flex-direction: row;
-
+    .variant-box {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+    }
+    .variant-box,
+    .product-size_list li {
+      opacity: 1;
+      transform: none;
+      visibility: visible;
+    }
     .product-img {
         height: 100%;
     }
