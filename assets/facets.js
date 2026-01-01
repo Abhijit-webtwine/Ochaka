@@ -25,6 +25,40 @@ class FacetFiltersForm extends HTMLElement {
       FacetFiltersForm.renderPage(searchParams, null, false);
     };
     window.addEventListener('popstate', onHistoryChange);
+
+    FacetFiltersForm.bindPaginationLinks();
+  }
+
+  // Pagination
+  static bindPaginationLinks() {
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('.wg-pagination a');
+      if (!link) return;
+
+      // Allow cmd/ctrl click or open in new tab behavior
+      if (event.metaKey || event.ctrlKey || event.button === 1) return;
+
+      const href = link.getAttribute('href');
+      if (!href) return;
+
+      event.preventDefault();
+
+      let searchParams = '';
+      const qIndex = href.indexOf('?');
+      if (qIndex !== -1) {
+        searchParams = href.slice(qIndex + 1);
+      }
+
+      // Ensure we always carry over current params if pagination URL is missing them
+      if (!searchParams) {
+        searchParams = window.location.search.slice(1);
+      }
+
+      const productGrid = document.getElementById('ProductGridContainer');
+      if (productGrid) productGrid.classList.add('loading');
+
+      FacetFiltersForm.renderPage(searchParams, event);
+    });
   }
 
   static toggleActiveFacets(disable = true) {
