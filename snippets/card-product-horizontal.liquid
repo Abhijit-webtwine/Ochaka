@@ -1,0 +1,49 @@
+<div class="card-product product-style_list" data-availability="In stock" data-brand="automet">
+  <div class="card-product_wrapper">
+    {% render 'card-product-media', product: product %}
+
+    <ul class="product-action_list">
+      {% render 'icon-compare', product: product %}
+      {% render 'icon-quick-view', product: product %}
+    </ul>
+
+    {% render 'card-product-countdown', product: product %}
+
+    {% render 'card-product-badge', product: product %}
+  </div>
+
+  <div class="card-product_info">
+    <div class="product-info_list">
+      <a href="{{ product.url }}" class="name-product h3 link">{{ product.title }}</a>
+      <div class="price-wrap">
+        <span class="price-old h6 fw-normal">{{ product.compare_at_price | money }}</span>
+        <span class="price-new h6">{{ product.price | money }}</span>
+      </div>
+
+      {% if settings.color_swatches_enabled %}
+        {% render 'card-product-swatches', product: product %}
+      {% endif %}
+
+      <div class="product-desc_list d-none d-sm-grid">
+        <p class="product-desc">
+          {{ product.description | truncatewords: truncate_words }}
+        </p>
+      </div>
+      
+    </div>
+
+    <div class="product-action_list">
+      {% render 'card-product-sizes', product: product %}
+
+      <div class="group-btn">
+        {% render 'icon-add-to-cart', type: 'button', product: product %}
+
+        <a href="#" class="tf-btn style-line btn-add-wishlist2">
+          <span class="text">Add to List</span>
+          <i class="icon icon-heart"></i>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
