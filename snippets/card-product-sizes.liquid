@@ -1,30 +1,31 @@
-    {% if product.variants.size > 1 and product.options contains 'Size' %}
+{%- assign size_option = nil -%}
 
-      {% assign size_index = nil %}
-      {% for opt in product.options %}
-        {% if opt == 'Size' %}
-          {% assign size_index = forloop.index0 %}
-        {% endif %}
-      {% endfor %}
+{%- for option in product.options_with_values -%}
+  {%- if option.name == 'Size' -%}
+    {%- assign size_option = option -%}
+  {%- endif -%}
+{%- endfor -%}
 
-      {% if size_index != nil %}
-        <div class="variant-box">
-          <ul class="product-size_list">
-            {% assign shown_sizes = '' %}
+{%- if size_option -%}
+  <div class="variant-box">
+    <ul class="product-size_list">
+      {%- for value in size_option.values -%}
+        {%- assign is_available = false -%}
 
-            {% for variant in product.variants %}
-              {% assign size_value = variant.options[size_index] %}
+        {%- for variant in product.variants -%}
+          {%- if variant.available and variant.options contains value -%}
+            {%- assign is_available = true -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
 
-              {% unless shown_sizes contains size_value %}
-                <li class="size-item h6">{{ size_value }}</li>
-
-                {% capture shown_sizes %}
-                  {{ shown_sizes | append: size_value | append: ',' }}
-                {% endcapture %}
-              {% endunless %}
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-
-    {% endif %}
+        <li
+          class="size-item h6{% unless is_available %} disabled{% endunless %}"
+          data-value="{{ value | escape }}"
+        >
+          {{ value }}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+{%- endif -%}
