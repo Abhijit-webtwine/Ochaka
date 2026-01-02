@@ -33,7 +33,7 @@
 
       {% comment %} Sorting Controller {% endcomment %}
       <facet-filters-form>
-        <form id="FacetFiltersForm" method="get" class="facet-filters-form">
+        <form id="FacetSortForm" method="get" class="facet-filters-form position-static">
           <div class="tf-control-sorting">
             <p class="h6 d-none d-lg-block">Sort by:</p>
             <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
@@ -64,7 +64,62 @@
     <div id="ProductGridContainer" class="position-relative">
       <div class="collection-loading-overlay"></div>
       <div id="product-grid" data-id="{{ section.id }}">
-        
+
+        {% comment %} individual remove buttons {% endcomment %}
+        <div class="meta-filter-shop">
+          <span id="ProductCount">
+            {%- if collection.results_count -%}
+              {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
+            {%- elsif collection.products_count == collection.all_products_count -%}
+              {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+            {%- else -%}
+              {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
+            {%- endif -%}
+          </span>
+
+          <div class="active-facets active-facets-desktop d-flex flex-wrap gap-2">
+            {%- for filter in collection.filters -%}
+              {%- for value in filter.active_values -%}
+                <facet-remove>
+                  <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                    <span class="active-facets__button-inner filter-tag remove-tag ">
+                      <span class="icon icon-close">
+                      </span>
+                      {{ filter.label | escape }}: {{ value.label | escape }}
+                      <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                    </span>
+                  </a>
+                </facet-remove>
+              {%- endfor -%}
+              
+              {% comment %} {% if filter.type == 'price_range' %}
+                {% assign min = filter.min_value.value %}
+                {% assign max = filter.max_value.value %}
+                {%- if min != null or max != null -%}
+                  <facet-remove>
+                    <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                      <span class="active-facets__button-inner button button--tertiary">
+                        {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                        <span class="svg-wrapper">
+                          {{- 'icon-close-small.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                      </span>
+                    </a>
+                  </facet-remove>
+                {%- endif -%}
+              {% endif %} {% endcomment %}
+            {%- endfor -%}
+            <facet-remove class="active-facets__button-wrapper">
+              <a href="{{ collection.url }}" class="active-facets__button-remove underlined-link">
+                <span class="remove-all-filters">
+                  <span class="icon icon-close"></span>
+                  {{ 'products.facets.clear_all' | t }}</span>
+              </a>
+            </facet-remove>
+          </div>
+        </div>
+
         {% comment %} Grid layouts {% endcomment %}
         <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
           {%- paginate collection.products by 12 -%}
@@ -78,6 +133,7 @@
             {%- endif -%}
           {%- endpaginate -%}
         </div>
+        {% comment %} Grid layouts ends {% endcomment %}
 
         {% comment %} List layout {% endcomment %}
         <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
@@ -92,221 +148,147 @@
             {%- endif -%}
           {%- endpaginate -%}
         </div>
+        {% comment %} List layout ends{% endcomment %}
+
       </div>
     </div>
   </div>
 </div>
 
-{% comment %}
-  <div class="offcanvas offcanvas-start canvas-filter" id="filterShop">
-    <div class="canvas-wrapper">
+{% comment %} filter Sidebar {% endcomment %}
+<facet-filters-form>
+  <form id="FacetFiltersForm" method="get" class="facet-filters-form position-static">
+    {%- if collection.terms -%}
+      <input type="hidden" name="q" value="{{ collection.terms | escape }}">
+      <input name="options[prefix]" type="hidden" value="last">
+    {%- endif -%}
+    <div class="offcanvas offcanvas-start canvas-filter" id="filterShop">
+      <div class="canvas-wrapper">
         <div class="canvas-header">
-            <span class="title h3 fw-medium">Filter</span>
-            <span class="icon-close link icon-close-popup fs-24" data-bs-dismiss="offcanvas"></span>
+          <span class="title h3 fw-medium">Filter</span>
+          <span class="icon-close link icon-close-popup fs-24" data-bs-dismiss="offcanvas"></span>
         </div>
+
         <div class="canvas-body">
-            <div class="widget-facet">
-                <div class="facet-title" data-bs-target="#category" role="button" data-bs-toggle="collapse" aria-expanded="true"
-                    aria-controls="category">
-                    <span class="h4 fw-semibold">Category</span>
-                    <span class="icon icon-caret-down fs-20"></span>
-                </div>
-                <div id="category" class="collapse show">
-                    <ul class="collapse-body filter-group-check group-category">
-                        <li class="list-item">
-                            <a href="shop-default.html" class="link h6">T-shirts<span class="count">23</span></a>
-                        </li>
-                        <li class="list-item">
-                            <a href="shop-default.html" class="link h6">Footwear<span class="count">44</span></a>
-                        </li>
-                        <li class="list-item">
-                            <a href="shop-default.html" class="link h6">Shirts<span class="count">75</span></a>
-                        </li>
-                        <li class="list-item">
-                            <a href="shop-default.html" class="link h6">Dresses<span class="count">33</span></a>
-                        </li>
-                        <li class="list-item">
-                            <a href="shop-default.html" class="link h6">Underwear<span class="count">45</span></a>
-                        </li>
-                        <li class="list-item">
-                            <a href="shop-default.html" class="link h6">Accessories<span class="count">32</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="widget-facet">
-                <div class="facet-title" data-bs-target="#availability" role="button" data-bs-toggle="collapse" aria-expanded="true"
-                    aria-controls="availability">
-                    <span class="h4 fw-semibold">Availability</span>
-                    <span class="icon icon-caret-down fs-20"></span>
-                </div>
-                <div id="availability" class="collapse show">
-                    <ul class="collapse-body filter-group-check current-scrollbar">
-                        <li class="list-item">
-                            <input type="radio" name="availability" class="tf-check" id="inStock">
-                            <label for="inStock" class="label">
-                                <span>In Stock</span><span class="count">23</span>
+
+          {% for filter in collection.filters %}
+
+            <div class="widget-facet js-filter" id="Filter-{{ filter.param_name | handle }}">
+              <div
+                class="facet-title"
+                data-bs-target="#filter-{{ filter.param_name | handle }}"
+                role="button"
+                data-bs-toggle="collapse"
+                aria-expanded="true"
+              >
+                <span class="h4 fw-semibold">{{ filter.label }}</span>
+                <span class="icon icon-caret-down fs-20"></span>
+              </div>
+
+              <div id="filter-{{ filter.param_name | handle }}" class="collapse show">
+
+                {% case filter.type %}
+
+                  {% when 'list' %}
+
+                    {%- assign filter_label = filter.label | downcase -%}
+
+                    {%- if filter_label == 'color' -%}
+                      <!-- COLOR (swatches) -->
+                      <div class="collapse-body filter-color-box flat-check-list">
+                        {% for value in filter.values %}
+                          <label
+                            class="check-item color-item color-check position-relative {% if value.active %}active{% endif %}"
+                            for="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                          >
+                            <input
+                              type="checkbox"
+                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              class="appearance-hidden"
+                              {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                            >
+                            {%- assign color_rgb = value.swatch.color.rgb | default: '' -%}
+                            <span class="color" 
+                            style="
+                              {% if color_rgb != blank %}
+                                background-color: rgb({{ color_rgb }}) !important;
+                              {% else %}
+                                background-color: {{ value.value }} !important;
+                              {% endif %}
+                            "></span>
+                            <span class="color-text">{{ value.label | escape }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+
+                    {%- elsif filter_label == 'size' -%}
+                      <!-- SIZE (boxes) -->
+                      <div class="collapse-body filter-size-box flat-check-list">
+                        {% for value in filter.values %}
+                          <label
+                            class="check-item size-item size-check position-relative {% if value.active %}active{% endif %}"
+                            for="size-{{ forloop.index }}"
+                          >
+                            <input
+                              type="checkbox"
+                              id="size-{{ forloop.index }}"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              class="appearance-hidden"
+                              {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                            >
+                            <span class="size h6">{{ value.label }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+
+                    {%- else -%}
+                      <!-- DEFAULT LIST (brand, availability, etc.) -->
+                      <ul class="collapse-body filter-group-check current-scrollbar">
+                        {% for value in filter.values %}
+                          <li class="list-item {% if value.count == 0 and value.active == false %}disabled{% endif %}">
+                            <input
+                              type="checkbox"
+                              class="tf-check"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              id="{{ value.param_name | handle }}-{{ forloop.index }}"
+                              {% if value.active %}checked{% endif %}
+                              {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                            >
+                            <label for="{{ value.param_name | handle }}-{{ forloop.index }}" class="label">
+                              <span>{{ value.label }}</span>
+                              <span class="count">{{ value.count }}</span>
                             </label>
-                        </li>
-                        <li class="list-item disabled">
-                            <input type="radio" name="availability" class="tf-check" id="outStock">
-                            <label for="outStock" class="label">
-                                <span>Out of Stock</span><span class="count">34</span>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
+                          </li>
+                        {% endfor %}
+                      </ul>
+
+                    {%- endif -%}
+
+                {% endcase %}
+
+              </div>
             </div>
-            <div class="widget-facet">
-                <div class="facet-title" data-bs-target="#price" role="button" data-bs-toggle="collapse" aria-expanded="true"
-                    aria-controls="price">
-                    <span class="h4 fw-semibold">Price</span>
-                    <span class="icon icon-caret-down fs-20"></span>
-                </div>
-                <div id="price" class="collapse show">
-                    <div class="collapse-body widget-price filter-price">
-                        <div class="price-val-range" id="price-value-range" data-min="0" data-max="500"></div>
-                        <div class="box-value-price">
-                            <span class="h6 text-main">Price:</span>
-                            <div class="price-box">
-                                <div class="price-val" id="price-min-value" data-currency="$"></div>
-                                <span>-</span>
-                                <div class="price-val" id="price-max-value" data-currency="$"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-facet">
-                <div class="facet-title" data-bs-target="#brand" role="button" data-bs-toggle="collapse" aria-expanded="true"
-                    aria-controls="brand">
-                    <span class="h4 fw-semibold">Brand</span>
-                    <span class="icon icon-caret-down fs-20"></span>
-                </div>
-                <div id="brand" class="collapse show">
-                    <ul class="collapse-body filter-group-check current-scrollbar">
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="automet">
-                            <label for="automet" class="label">AUTOMET</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="trendy-queen">
-                            <label for="trendy-queen" class="label">Trendy Queen</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="wiholl">
-                            <label for="wiholl" class="label">WIHOLL</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="real-essentials">
-                            <label for="real-essentials" class="label">Real Essentials</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="dokotoo">
-                            <label for="dokotoo" class="label">Dokotoo</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="hanes">
-                            <label for="hanes" class="label">Hanes</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="zeagoo">
-                            <label for="zeagoo" class="label">Zeagoo</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="shewin">
-                            <label for="shewin" class="label">SHEWIN</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="blooming-jelly">
-                            <label for="blooming-jelly" class="label">Blooming Jelly</label>
-                        </li>
-                        <li class="list-item">
-                            <input type="checkbox" name="brand" class="tf-check" id="fisoew">
-                            <label for="fisoew" class="label">Fisoew</label>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="widget-facet">
-                <div class="facet-title" data-bs-target="#size" role="button" data-bs-toggle="collapse" aria-expanded="true" aria-controls="size">
-                    <span class="h4 fw-semibold">Size</span>
-                    <span class="icon icon-caret-down fs-20"></span>
-                </div>
-                <div id="size" class="collapse show">
-                    <div class="collapse-body filter-size-box flat-check-list">
-                        <div class="check-item size-item size-check"><span class="size h6">XS</span></div>
-                        <div class="check-item size-item size-check"><span class="size h6">S</span></div>
-                        <div class="check-item size-item size-check"><span class="size h6">L</span></div>
-                        <div class="check-item size-item size-check"><span class="size h6">M</span></div>
-                        <div class="check-item size-item size-check"><span class="size h6">XL</span></div>
-                        <div class="check-item size-item size-check"><span class="size h6">2XL</span></div>
-                        <div class="check-item size-item size-check over-size"><span class="size h6">Over size</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="widget-facet">
-                <div class="facet-title" data-bs-target="#color" role="button" data-bs-toggle="collapse" aria-expanded="true"
-                    aria-controls="size">
-                    <span class="h4 fw-semibold">Color</span>
-                    <span class="icon icon-caret-down fs-20"></span>
-                </div>
-                <div id="color" class="collapse show">
-                    <div class="collapse-body filter-color-box flat-check-list">
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-light-purple"></span>
-                            <span class="color-text">Purple</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-dark-charcoal"></span>
-                            <span class="color-text">Dark</span>
-                        </div>
-                        <div class="check-item color-item color-check line">
-                            <span class="color bg-dark-jade"></span>
-                            <span class="color-text">Green</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-light-beige"></span>
-                            <span class="color-text">Beige</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-sage-green"></span>
-                            <span class="color-text">Sage Green</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-tomato"></span>
-                            <span class="color-text">Light Orange</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-honey-orange"></span>
-                            <span class="color-text">Orange</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-dark-olive"></span>
-                            <span class="color-text">Dark Olive</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-hot-pink"></span>
-                            <span class="color-text">Pink</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-muted-violet"></span>
-                            <span class="color-text">Dark Violet</span>
-                        </div>
-                        <div class="check-item color-item color-check">
-                            <span class="color bg-dusty-olive"></span>
-                            <span class="color-text">Dusty Olive</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          {% endfor %}
         </div>
+
         <div class="canvas-bottom">
-            <button id="reset-filter" class="tf-btn btn-reset">Reset Filters</button>
+          <facet-remove>
+            <a href="{{ collection.url }}" class="tf-btn btn-reset">
+              Reset Filters
+            </a>
+          </facet-remove>
         </div>
+      </div>
     </div>
-  </div>
-{% endcomment %}
+  </form>
+</facet-filters-form>
+{% comment %} filter Sidebar ends {% endcomment %}
 
 {% schema %}
 {

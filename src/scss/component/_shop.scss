@@ -652,6 +652,10 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     gap: 10px 20px;
     margin-bottom: 48px;
 
+    &:has(.active-facets facet-remove:only-child) {
+        display: none;
+    }
+
     #applied-filters {
         display: flex;
         align-items: center;

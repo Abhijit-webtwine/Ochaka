@@ -290,13 +290,19 @@
         }
     };
 
-    /* Check Active 
+    /* Check Active only for color and size filter
     -------------------------------------------------------------------------*/
     var checkClick = function () {
-        $(".flat-check-list").on("click", ".check-item", function () {
-            $(this).closest(".flat-check-list").find(".check-item").removeClass("active");
-            $(this).addClass("active");
-        });
+      $(document).on(
+        "change",
+        ".flat-check-list input[type='checkbox']",
+        function () {
+          const $input = $(this);
+          const $label = $input.closest(".check-item");
+
+          $label.toggleClass("active", $input.is(":checked"));
+        }
+      );
     };
 
     /* Stagger Wrap

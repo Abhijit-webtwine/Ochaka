@@ -104,7 +104,7 @@ class FacetFiltersForm extends HTMLElement {
         FacetFiltersForm.filterData = [...FacetFiltersForm.filterData, { html, url }];
         FacetFiltersForm.renderFilters(html, event);
         FacetFiltersForm.renderProductGridContainer(html);
-        // FacetFiltersForm.renderProductCount(html);
+        FacetFiltersForm.renderProductCount(html);
         document.getElementById('ProductGridContainer').classList.remove('loading');
         if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
       });
@@ -114,7 +114,7 @@ class FacetFiltersForm extends HTMLElement {
     const html = FacetFiltersForm.filterData.find(filterDataUrl).html;
     FacetFiltersForm.renderFilters(html, event);
     FacetFiltersForm.renderProductGridContainer(html);
-    // FacetFiltersForm.renderProductCount(html);
+    FacetFiltersForm.renderProductCount(html);
     document.getElementById('ProductGridContainer').classList.remove('loading');
 
     if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
@@ -270,7 +270,7 @@ class FacetFiltersForm extends HTMLElement {
 
       if (closestJSFilterID) {
         FacetFiltersForm.renderCounts(countsToRender, event.target.closest('.js-filter'));
-        FacetFiltersForm.renderMobileCounts(countsToRender, document.getElementById(closestJSFilterID));
+        // FacetFiltersForm.renderMobileCounts(countsToRender, document.getElementById(closestJSFilterID));
 
         const newFacetDetailsElement = document.getElementById(closestJSFilterID);
         const newElementSelector = newFacetDetailsElement.classList.contains('mobile-facets__details')
@@ -338,14 +338,14 @@ class FacetFiltersForm extends HTMLElement {
     }
   }
 
-  static renderMobileCounts(source, target) {
-    const targetFacetsList = target.querySelector('.mobile-facets__list');
-    const sourceFacetsList = source.querySelector('.mobile-facets__list');
+  // static renderMobileCounts(source, target) {
+  //   const targetFacetsList = target.querySelector('.mobile-facets__list');
+  //   const sourceFacetsList = source.querySelector('.mobile-facets__list');
 
-    if (sourceFacetsList && targetFacetsList) {
-      targetFacetsList.outerHTML = sourceFacetsList.outerHTML;
-    }
-  }
+  //   if (sourceFacetsList && targetFacetsList) {
+  //     targetFacetsList.outerHTML = sourceFacetsList.outerHTML;
+  //   }
+  // }
 
   static updateURLHash(searchParams) {
     history.pushState({ searchParams }, '', `${window.location.pathname}${searchParams && '?'.concat(searchParams)}`);
