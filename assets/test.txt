@@ -1,0 +1,56 @@
+handleSortChange(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  
+  const sortValue = event.currentTarget.dataset.sortValue;
+  const form = this.closest('facet-filters-form').querySelector('form');
+  const sortInput = form.querySelector('input[name="sort_by"]');
+  
+  if (sortInput && sortInput.value !== sortValue) {
+    // Update the hidden input value
+    sortInput.value = sortValue;
+    
+    // Show loading state
+    this.showLoadingState();
+    
+    // Get all current active filters from the URL
+    const currentUrl = new URL(window.location);
+    const currentFilters = {};
+    
+    // Preserve all existing URL parameters except the ones we're about to update
+    currentUrl.searchParams.forEach((value, key) => {
+      if (key !== 'sort_by') {  // We'll update sort_by separately
+        currentFilters[key] = value;
+      }
+    });
+    
+    // Update the URL with both existing filters and new sort value
+    const newUrl = new URL(window.location);
+    newUrl.searchParams.set('sort_by', sortValue);
+    
+    // Re-apply all existing filters to the new URL
+    Object.entries(currentFilters).forEach(([key, value]) => {
+      newUrl.searchParams.set(key, value);
+    });
+    
+    // Update URL without page reload
+    window.history.pushState({ path: newUrl.toString() }, '', newUrl);
+    
+    // Prepare form data with all current filters
+    const formData = new FormData(form);
+    
+    // Add all current filters to the form data
+    Object.entries(currentFilters).forEach(([key, value]) => {
+      // Special handling for array-like parameters (like filter.v.option.size)
+      if (key.includes('filter.v.option.')) {
+        formData.append(key, value);
+      } else {
+        formData.set(key, value);
+      }
+    });
+    
+    // Submit the form with all filters and new sort value
+    const searchParams = new URLSearchParams(formData).toString();
+    this.onSubmitForm(searchParams, event);
+  }
+}
