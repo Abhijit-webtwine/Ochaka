@@ -14,7 +14,9 @@ class FacetFiltersForm extends HTMLElement {
     const facetWrapper = this.querySelector('#FacetsWrapperDesktop');
     if (facetWrapper) facetWrapper.addEventListener('keyup', onKeyUpEscape);
 
-    // Initialize sorting functionality
+  }
+
+  connectedCallback() {
     this.initializeSorting();
   }
 
@@ -135,6 +137,11 @@ class FacetFiltersForm extends HTMLElement {
       });
 
     FacetFiltersForm.applyLayoutState(previousLayoutState);
+
+    // Re-initialize price slider after filter update
+    if (typeof window.reinitPriceSlider === 'function') {
+      window.reinitPriceSlider();
+    }
   }
 
   static getCurrentLayoutState() {
@@ -264,6 +271,11 @@ class FacetFiltersForm extends HTMLElement {
 
     FacetFiltersForm.renderActiveFacets(parsedHTML);
     FacetFiltersForm.renderAdditionalElements(parsedHTML);
+
+    // Re-initialize price slider after filter update
+    if (typeof window.reinitPriceSlider === 'function') {
+      window.reinitPriceSlider();
+    }
 
     if (countsToRender) {
       const closestJSFilterID = event.target.closest('.js-filter').id;
@@ -397,13 +409,43 @@ class FacetFiltersForm extends HTMLElement {
       // Show loading state
       this.showLoadingState();
       
-      // Update URL immediately without page reload
-      const url = new URL(window.location);
-      url.searchParams.set('sort_by', sortValue);
-      window.history.pushState({ path: url.toString() }, '', url);
+      // Get all current active filters from the URL
+      const currentUrl = new URL(window.location);
+      const currentFilters = {};
       
-      // Use the existing form submission logic from the facet-filters-form
+      // Preserve all existing URL parameters except the ones we're about to update
+      currentUrl.searchParams.forEach((value, key) => {
+        if (key !== 'sort_by') {  // We'll update sort_by separately
+          currentFilters[key] = value;
+        }
+      });
+      
+      // Update the URL with both existing filters and new sort value
+      const newUrl = new URL(window.location);
+      newUrl.searchParams.set('sort_by', sortValue);
+      
+      // Re-apply all existing filters to the new URL
+      Object.entries(currentFilters).forEach(([key, value]) => {
+        newUrl.searchParams.set(key, value);
+      });
+      
+      // Update URL without page reload
+      window.history.pushState({ path: newUrl.toString() }, '', newUrl);
+      
+      // Prepare form data with all current filters
       const formData = new FormData(form);
+      
+      // Add all current filters to the form data
+      Object.entries(currentFilters).forEach(([key, value]) => {
+        // Special handling for array-like parameters (like filter.v.option.size)
+        if (key.includes('filter.v.option.')) {
+          formData.append(key, value);
+        } else {
+          formData.set(key, value);
+        }
+      });
+      
+      // Submit the form with all filters and new sort value
       const searchParams = new URLSearchParams(formData).toString();
       this.onSubmitForm(searchParams, event);
     }
@@ -461,43 +503,59 @@ customElements.define('facet-filters-form', FacetFiltersForm);
 FacetFiltersForm.setListeners();
 
 class PriceRange extends HTMLElement {
-  constructor() {
-    super();
-    this.querySelectorAll('input').forEach((element) => {
-      element.addEventListener('change', this.onRangeChange.bind(this));
-      element.addEventListener('keydown', this.onKeyDown.bind(this));
+  connectedCallback() {
+    this.slider = this.querySelector('#price-value-range');
+    if (!this.slider) return;
+
+    if (this.slider.noUiSlider) {
+      this.slider.noUiSlider.destroy();
+    }
+
+    this.inputs = this.querySelectorAll('input');
+    if (this.inputs.length < 2) return;
+
+    this.minInput = this.inputs[0];
+    this.maxInput = this.inputs[1];
+    this.skipValues = [this.querySelector("#price-min-value"), this.querySelector("#price-max-value")];
+
+    this.initSlider();
+  }
+
+  initSlider() {
+    const min = Number(this.slider.dataset.min);
+    const max = Number(this.slider.dataset.max);
+
+    const startMin = this.minInput.value !== '' ? Number(this.minInput.value) : min;
+    const startMax = this.maxInput.value !== '' ? Number(this.maxInput.value) : max;
+
+    noUiSlider.create(this.slider, {
+      start: [startMin, startMax],
+      connect: true,
+      step: 1,
+      range: { min, max }
     });
-    this.setMinAndMaxValues();
-  }
 
-  onRangeChange(event) {
-    this.adjustToValidValues(event.currentTarget);
-    this.setMinAndMaxValues();
-  }
+    // Slider → Input
+    this.slider.noUiSlider.on('update', (values) => {
+      this.minInput.value = Math.round(values[0]);
+      this.maxInput.value = Math.round(values[1]);
+      this.skipValues[0].innerText = values[0];
+      this.skipValues[1].innerText = values[1];
+    });
 
-  onKeyDown(event) {
-    if (event.metaKey) return;
-    const pattern = /[0-9]|\.|,|'| |Tab|Backspace|Enter|ArrowUp|ArrowDown|ArrowLeft|ArrowRight|Delete|Escape/;
-    if (!event.key.match(pattern)) event.preventDefault();
-  }
+    // Slider → Filter
+    this.slider.noUiSlider.on('change', () => {
+      this.minInput.dispatchEvent(new Event('change', { bubbles: true }));
+      this.maxInput.dispatchEvent(new Event('change', { bubbles: true }));
 
-  setMinAndMaxValues() {
-    const inputs = this.querySelectorAll('input');
-    const minInput = inputs[0];
-    const maxInput = inputs[1];
-    if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
-    if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
-    if (minInput.value === '') maxInput.setAttribute('data-min', 0);
-    if (maxInput.value === '') minInput.setAttribute('data-max', maxInput.getAttribute('data-max'));
-  }
+      // Trigger input if your JS listens on input events
+      const form = this.slider.closest('form');
+      if (form) form.dispatchEvent(new Event('input', { bubbles: true }));
+    });
 
-  adjustToValidValues(input) {
-    const value = Number(input.value);
-    const min = Number(input.getAttribute('data-min'));
-    const max = Number(input.getAttribute('data-max'));
-
-    if (value < min) input.value = min;
-    if (value > max) input.value = max;
+    // Input → Slider
+    this.minInput.addEventListener('change', () => this.slider.noUiSlider.set([this.minInput.value, null]));
+    this.maxInput.addEventListener('change', () => this.slider.noUiSlider.set([null, this.maxInput.value]));
   }
 }
 

@@ -1,6 +1,3 @@
-<script src="{{ 'shop.js' |  asset_url }}" defer></script>
-<script src="{{ 'facets.js' |  asset_url }}" defer></script>
-
 <div class="flat-spacing">
   <div class="container">
     <div class="tf-shop-control">
@@ -92,26 +89,25 @@
                 </facet-remove>
               {%- endfor -%}
               
-              {% comment %} {% if filter.type == 'price_range' %}
+              {% if filter.type == 'price_range' %}
                 {% assign min = filter.min_value.value %}
                 {% assign max = filter.max_value.value %}
                 {%- if min != null or max != null -%}
                   <facet-remove>
                     <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                      <span class="active-facets__button-inner button button--tertiary">
-                        {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
-                        <span class="svg-wrapper">
-                          {{- 'icon-close-small.svg' | inline_asset_content -}}
+                      <span class="active-facets__button-inner filter-tag remove-tag">
+                        <span class="icon icon-close">
                         </span>
+                        {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
                         <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
                       </span>
                     </a>
                   </facet-remove>
                 {%- endif -%}
-              {% endif %} {% endcomment %}
+              {% endif %}
             {%- endfor -%}
             <facet-remove class="active-facets__button-wrapper">
-              <a href="{{ collection.url }}" class="active-facets__button-remove underlined-link">
+              <a href="{{ collection.url }}" class="active-facets__button-remove">
                 <span class="remove-all-filters">
                   <span class="icon icon-close"></span>
                   {{ 'products.facets.clear_all' | t }}</span>
@@ -188,7 +184,6 @@
               <div id="filter-{{ filter.param_name | handle }}" class="collapse show">
 
                 {% case filter.type %}
-
                   {% when 'list' %}
 
                     {%- assign filter_label = filter.label | downcase -%}
@@ -270,7 +265,104 @@
 
                     {%- endif -%}
 
-                {% endcase %}
+                  {% when 'price_range' %}
+
+                    {%- liquid
+                      assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                      assign uses_comma_decimals = false
+                      
+                      if currencies_using_comma_decimals contains cart.currency.iso_code
+                        assign uses_comma_decimals = true
+                      endif
+
+                      assign filter_range_max = filter.range_max
+                      assign filter_min_value = 0
+                      assign filter_max_value = filter_range_max
+
+                      if filter.min_value.value != nil
+                        assign filter_min_value = filter.min_value.value
+                      endif
+
+                      if filter.max_value.value != nil
+                        assign filter_max_value = filter.max_value.value
+                      endif
+
+                      assign filter_range_max_amount = filter_range_max | divided_by: 100.0 | ceil
+                      assign filter_min_value_amount = filter_min_value | money_without_trailing_zeros | remove: cart.currency.symbol
+                      assign filter_max_value_amount = filter_max_value | money_without_trailing_zeros | remove: cart.currency.symbol
+
+                      if uses_comma_decimals
+                        assign filter_min_value_amount = filter_min_value_amount | replace: '.', '' | replace: ',', '.'
+                        assign filter_max_value_amount = filter_max_value_amount | replace: '.', '' | replace: ',', '.'
+                      else
+                        assign filter_min_value_amount = filter_min_value_amount | replace: ',', ''
+                        assign filter_max_value_amount = filter_max_value_amount | replace: ',', ''
+                      endif
+                    -%}
+                    {% comment %} checkpoints {% endcomment %}
+                    <div class="price-range-filter">
+                      <!-- Price range filter content would go here -->
+                      <div class="widget-facet">
+                        <div id="price" class="collapse show">
+                          <div class="collapse-body widget-price filter-price">
+                            <price-range
+                              class="price-range"
+                              data-min="0"
+                              data-max="{{ filter_range_max_amount }}">
+
+                              <div
+                                id="price-value-range"
+                                class="price-val-range"
+                                data-min="0"
+                                data-max="{{ filter_range_max_amount }}">
+                              </div>
+
+                              <input class="field__input"
+                                name="{{ filter.min_value.param_name }}"
+                                id="Filter-{{ filter.label | escape }}-GTE"
+                                type="hidden"
+                                placeholder="0"
+                                min="0"
+                                max="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+                                {%- if filter.min_value.value -%}
+                                  {%- if uses_comma_decimals %}
+                                    value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                  {%- else -%}
+                                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                                  {% endif -%}
+                                {%- endif -%}
+                              />
+
+                              <input class="field__input"
+                                name="{{ filter.max_value.param_name }}"
+                                id="Filter-{{ filter.label | escape }}-LTE"
+                                type="hidden"
+                                placeholder="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+                                min="0"
+                                max="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+                                {%- if filter.max_value.value -%}
+                                  {%- if uses_comma_decimals %}
+                                    value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                  {%- else -%}
+                                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                                  {% endif -%}
+                                {%- endif -%}
+                              />
+                              <div class="box-value-price">
+                                <span class="h6 text-main">Price:</span>
+                                <div class="price-box">
+                                  <div class="price-val" id="price-min-value" data-currency="{{ cart.currency.symbol }}"></div>
+                                  <span>-</span>
+                                  <div class="price-val" id="price-max-value" data-currency="{{ cart.currency.symbol }}"></div>
+                                </div>
+                              </div>
+                            </price-range>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endcase %}
 
               </div>
             </div>
@@ -279,7 +371,7 @@
 
         <div class="canvas-bottom">
           <facet-remove>
-            <a href="{{ collection.url }}" class="tf-btn btn-reset">
+            <a href="{{ collection.url }}" class="tf-btn btn-reset w-100">
               Reset Filters
             </a>
           </facet-remove>

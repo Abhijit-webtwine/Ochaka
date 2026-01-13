@@ -63,28 +63,28 @@
 
             applyFilters();
             updateMetaFilter();
-            updatePagination();
+            // updatePagination();
         });
 
         $(".size-check").on("click", function () {
             filters.size = $(this).find(".size").text().trim();
             applyFilters();
             updateMetaFilter();
-            updatePagination();
+            // updatePagination();
         });
 
         $(".color-check").on("click", function () {
             filters.color = $(this).find(".color-text").text().trim();
             applyFilters();
             updateMetaFilter();
-            updatePagination();
+            // updatePagination();
         });
 
         $('input[name="availability"]').on("change", function () {
             filters.availability = $(this).attr("id") === "inStock" ? "In stock" : "Out of stock";
             applyFilters();
             updateMetaFilter();
-            updatePagination();
+            // updatePagination();
         });
 
         $('input[name="brand"]').change(function () {
@@ -99,7 +99,7 @@
             }
             applyFilters();
             updateMetaFilter();
-            updatePagination();
+            // updatePagination();
         });
         $('input[name="sale"]').on("change", function () {
             if ($(this).is(":checked")) {
@@ -109,20 +109,20 @@
             }
             applyFilters();
             updateMetaFilter();
-            updatePagination();
+            // updatePagination();
         });
 
-        function updatePagination() {
-            if ($(".meta-filter-shop").hasClass("active") == true) {
-                $("#listLayout .wg-pagination").css("display", "none");
-                $("#gridLayout .wg-pagination").css("display", "none");
-            }
-        }
+        // function updatePagination() {
+        //     if ($(".meta-filter-shop").hasClass("active") == true) {
+        //         $("#listLayout .wg-pagination").css("display", "none");
+        //         $("#gridLayout .wg-pagination").css("display", "none");
+        //     }
+        // }
         function updateMetaFilter() {
             const appliedFilters = $("#applied-filters");
             const metaFilterShop = $(".meta-filter-shop");
             appliedFilters.empty();
-            // $(".meta-filter-shop").removeClass("active");
+            $(".meta-filter-shop").removeClass("active");
 
             if (filters.availability) {
                 appliedFilters.append(
@@ -696,14 +696,14 @@
             }
         });
 
-        if (gridItems.length <= maxItems - 1) {
-            $(".wg-pagination").hide();
-        } else {
-            $(".wg-pagination").css("display", "flex");
-        }
+        // if (gridItems.length <= maxItems - 1) {
+        //     $(".wg-pagination").hide();
+        // } else {
+        //     $(".wg-pagination").css("display", "flex");
+        // }
     };
     $(function () {
-        rangeTwoPrice();
+        // rangeTwoPrice();
         // filterProducts();
         // filterSort();
         swLayoutShop();
