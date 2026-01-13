@@ -305,11 +305,11 @@
                       <!-- Price range filter content would go here -->
                       <div class="widget-facet">
                         <div id="price" class="collapse show">
+                          <price-range
+                          class="price-range"
+                          data-min="0"
+                          data-max="{{ filter_range_max_amount }}">
                           <div class="collapse-body widget-price filter-price">
-                            <price-range
-                              class="price-range"
-                              data-min="0"
-                              data-max="{{ filter_range_max_amount }}">
 
                               <div
                                 id="price-value-range"
@@ -357,9 +357,8 @@
                                   <div class="price-val" id="price-max-value" data-currency="{{ cart.currency.symbol }}"></div>
                                 </div>
                               </div>
+                              </div>
                             </price-range>
-
-                          </div>
                         </div>
                       </div>
                     </div>
