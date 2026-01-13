@@ -539,8 +539,8 @@ class PriceRange extends HTMLElement {
     this.slider.noUiSlider.on('update', (values) => {
       this.minInput.value = Math.round(values[0]);
       this.maxInput.value = Math.round(values[1]);
-      this.skipValues[0].innerText = values[0];
-      this.skipValues[1].innerText = values[1];
+      this.skipValues[0].innerText = Math.round(values[0]);
+      this.skipValues[1].innerText = Math.round(values[1]);
     });
 
     // Slider → Filter

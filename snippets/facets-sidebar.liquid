@@ -1,106 +1,244 @@
-{%- for block in blocks -%}
-  {%- case block.type -%}
-    {%- when 'text' -%}
-      {%- capture block_content -%}
-        <div class="facets__list typeset rte" {{ block.shopify_attributes }}>
-          {{ block.settings.subtext }}
+<facet-filters-form>
+  <form id="FacetFiltersForm" method="get" class="facet-filters-form position-static">
+    {%- if collection.terms -%}
+      <input type="hidden" name="q" value="{{ collection.terms | escape }}">
+      <input name="options[prefix]" type="hidden" value="last">
+    {%- endif -%}
+    <div class=" canvas-filter" id="filterShop">
+      <div class="canvas-wrapper">
+        <div class="canvas-header">
+          <span class="title h3 fw-medium">Filter</span>
+          <drawer-close-button>
+            <button type="button" class="icon-close link icon-close-popup fs-24" data-bs-dismiss="offcanvas"></button>
+          </drawer-close-button>
         </div>
-      {%- endcapture -%}
-      {%- if block.settings.heading != blank -%}
-        <details open aria-expanded="false" {{ block.shopify_attributes }}>
-          <summary class="facets__header">
-            <span class="facets__selected">
-              {{ block.settings.heading | escape }}
-            </span>
-            {% render 'icon', icon: 'caret' %}
-          </summary>
-          {{ block_content }}
-        </details>
-      {%- else -%}
-        {{ block_content }}
-      {%- endif -%}
-      
-    {%- when 'link_list' -%}
-      {%- capture block_content -%}
-        {%- if block.settings.menu != blank -%}
-          <ul class="facets__list list-unstyled" role="list" {{ block.shopify_attributes }}>
-            {%- for link in block.settings.menu.links -%}
-              <li>
-                <a href="{{ link.url }}" class="link list-menu__item{% if link.active %} list-menu__item--active{% endif %} list-menu__item--top focus-inset">
-                  {{ link.title }}
-                </a>
-                {%- if link.links != blank -%}
-                  {%- if link.active or link.child_active -%}
-                    <ul class="list-menu" role="list" tabindex="-1">
-                      {%- for childlink in link.links -%}
-                        <li>
-                          {%- if childlink.links != blank -%}
-                            <a href="{{ childlink.url }}" class="link list-menu__item{% if childlink.active %} list-menu__item--active{% endif %} focus-inset">
-                              {{ childlink.title | escape }}
-                            </a>
-                            <ul class="list-menu">
-                              {%- for grandchildlink in childlink.links -%}
-                                <li>
-                                  <a href="{{ grandchildlink.url }}" class="link list-menu__item{% if grandchildlink.active %} list-menu__item--active{% endif %} focus-inset"{% if grandchildlink.active %} aria-current="page"{% endif %}>
-                                    {{ grandchildlink.title | escape }}
-                                  </a>
-                                </li>
-                              {%- endfor -%}
-                            </ul>
-                          {%- else -%}
-                            <a href="{{ childlink.url }}" class="link list-menu__item{% if childlink.active %} list-menu__item--active{% endif %} focus-inset"{% if childlink.active %} aria-current="page"{% endif %}>
-                              {{ childlink.title | escape }}
-                            </a>
-                          {%- endif -%}
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  {%- endif -%}
-                {%- endif -%}
-              </li>
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
-      {%- endcapture -%}
-      {%- if block.settings.heading != blank -%}
-        <details open aria-expanded="false" {{ block.shopify_attributes }}>
-          <summary class="facets__header">
-            <span class="facets__selected">
-              {{ block.settings.heading | escape }}
-            </span>
-            {% render 'icon', icon: 'caret' %}
-          </summary>
-          {{ block_content }}
-        </details>
-      {%- else -%}
-        {{ block_content }}
-      {%- endif -%}
 
-    {%- when 'image' -%}
-      <div class="facets__list block-image" {{ block.shopify_attributes }}>
-        {%- if block.settings.link != blank -%}
-          <a href="{{ block.settings.link }}">
-        {%- endif -%}
-          {%- if block.settings.image != blank -%}
-            {%- liquid
-              assign image_width = block.settings.image_width
-              assign image_width_2x = block.settings.image_width | times: 2
-            -%}
-            <img
-              srcset= "{{ block.settings.image | image_url: width: image_width }}, {{ block.settings.image | image_url: width: image_width_2x }} 2x"
-              src="{{ block.settings.image | image_url: width: image_width }}"
-              alt="{{ block.settings.image.alt | escape }}"
-              loading="lazy"
-              width="{{ block.settings.image.width }}"
-              height="{{ block.settings.image.height }}"
-              style="max-width: min(100%, {{ image_width }}px);"
-            />
-          {%- else -%}
-            {{ 'image' | placeholder_svg_tag: 'placeholder' }}
-          {%- endif -%}
-        {%- if block.settings.link != blank -%}
-          </a>
-        {%- endif -%}
+        <div class="canvas-body">
+          {% for filter in collection.filters %}
+            <div class="widget-facet js-filter" id="Filter-{{ filter.param_name | handle }}">
+              <div
+                class="facet-title"
+                data-bs-target="#filter-{{ filter.param_name | handle }}"
+                role="button"
+                data-bs-toggle="collapse"
+                aria-expanded="true"
+              >
+                <span class="h4 fw-semibold">{{ filter.label }}</span>
+                <span class="icon icon-caret-down fs-20"></span>
+              </div>
+
+              <div id="filter-{{ filter.param_name | handle }}" class="collapse show">
+                {% case filter.type %}
+                  {% when 'list' %}
+                    {%- assign filter_label = filter.label | downcase -%}
+
+                    {%- if filter_label == 'color' -%}
+                      <!-- COLOR (swatches) -->
+                      <div class="collapse-body filter-color-box flat-check-list">
+                        {% for value in filter.values %}
+                          <label
+                            class="check-item color-item color-check position-relative {% if value.active %}active{% endif %}"
+                            for="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                          >
+                            <input
+                              type="checkbox"
+                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              class="appearance-hidden"
+                              {% if value.active %}
+                                checked
+                              {% endif %}
+                              {% if value.count == 0 and value.active == false %}
+                                disabled
+                              {% endif %}
+                            >
+                            {%- assign color_rgb = value.swatch.color.rgb | default: '' -%}
+                            <span
+                              class="color"
+                              style="
+                                {% if color_rgb != blank %}
+                                  background-color: rgb({{ color_rgb }}) !important;
+                                {% else %}
+                                  background-color: {{ value.value }} !important;
+                                {% endif %}
+                              "
+                            ></span>
+                            <span class="color-text">{{ value.label | escape }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+
+                    {%- elsif filter_label == 'size' -%}
+                      <!-- SIZE (boxes) -->
+                      <div class="collapse-body filter-size-box flat-check-list">
+                        {% for value in filter.values %}
+                          <label
+                            class="check-item size-item size-check position-relative {% if value.active %}active{% endif %}"
+                            for="size-{{ forloop.index }}"
+                          >
+                            <input
+                              type="checkbox"
+                              id="size-{{ forloop.index }}"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              class="appearance-hidden"
+                              {% if value.active %}
+                                checked
+                              {% endif %}
+                              {% if value.count == 0 and value.active == false %}
+                                disabled
+                              {% endif %}
+                            >
+                            <span class="size h6">{{ value.label }}</span>
+                          </label>
+                        {% endfor %}
+                      </div>
+
+                    {%- else -%}
+                      <!-- DEFAULT LIST (brand, availability, etc.) -->
+                      <ul class="collapse-body filter-group-check current-scrollbar">
+                        {% for value in filter.values %}
+                          <li class="list-item {% if value.count == 0 and value.active == false %}disabled{% endif %}">
+                            <input
+                              type="checkbox"
+                              class="tf-check"
+                              name="{{ value.param_name }}"
+                              value="{{ value.value }}"
+                              id="{{ value.param_name | handle }}-{{ forloop.index }}"
+                              {% if value.active %}
+                                checked
+                              {% endif %}
+                              {% if value.count == 0 and value.active == false %}
+                                disabled
+                              {% endif %}
+                            >
+                            <label for="{{ value.param_name | handle }}-{{ forloop.index }}" class="label">
+                              <span>{{ value.label }}</span>
+                              <span class="count">{{ value.count }}</span>
+                            </label>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {%- endif -%}
+
+                  {% when 'price_range' %}
+                    {%- liquid
+                      assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                      assign uses_comma_decimals = false
+
+                      if currencies_using_comma_decimals contains cart.currency.iso_code
+                        assign uses_comma_decimals = true
+                      endif
+
+                      assign filter_range_max = filter.range_max
+                      assign filter_min_value = 0
+                      assign filter_max_value = filter_range_max
+
+                      if filter.min_value.value != null
+                        assign filter_min_value = filter.min_value.value
+                      endif
+
+                      if filter.max_value.value != null
+                        assign filter_max_value = filter.max_value.value
+                      endif
+
+                      assign filter_range_max_amount = filter_range_max | divided_by: 100.0 | ceil
+                      assign filter_min_value_amount = filter_min_value | money_without_trailing_zeros | remove: cart.currency.symbol
+                      assign filter_max_value_amount = filter_max_value | money_without_trailing_zeros | remove: cart.currency.symbol
+
+                      if uses_comma_decimals
+                        assign filter_min_value_amount = filter_min_value_amount | replace: '.', '' | replace: ',', '.'
+                        assign filter_max_value_amount = filter_max_value_amount | replace: '.', '' | replace: ',', '.'
+                      else
+                        assign filter_min_value_amount = filter_min_value_amount | replace: ',', ''
+                        assign filter_max_value_amount = filter_max_value_amount | replace: ',', ''
+                      endif
+                    -%}
+                    {% comment %} checkpoints {% endcomment %}
+                    <div class="price-range-filter">
+                      <!-- Price range filter content would go here -->
+                      <div class="widget-facet">
+                        <div id="price" class="collapse show">
+                          <price-range
+                            class="price-range"
+                            data-min="0"
+                            data-max="{{ filter_range_max_amount }}"
+                          >
+                            <div class="collapse-body widget-price filter-price">
+                              <div
+                                id="price-value-range"
+                                class="price-val-range"
+                                data-min="0"
+                                data-max="{{ filter_range_max_amount }}"
+                              ></div>
+
+                              <input
+                                class="field__input"
+                                name="{{ filter.min_value.param_name }}"
+                                id="Filter-{{ filter.label | escape }}-GTE"
+                                type="hidden"
+                                placeholder="0"
+                                min="0"
+                                max="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+                                {%- if filter.min_value.value -%}
+                                  {%- if uses_comma_decimals %}
+                                    value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                  {%- else -%}
+                                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                                  {% endif -%}
+                                {%- endif -%}
+                              >
+
+                              <input
+                                class="field__input"
+                                name="{{ filter.max_value.param_name }}"
+                                id="Filter-{{ filter.label | escape }}-LTE"
+                                type="hidden"
+                                placeholder="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+                                min="0"
+                                max="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+                                {%- if filter.max_value.value -%}
+                                  {%- if uses_comma_decimals %}
+                                    value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                  {%- else -%}
+                                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                                  {% endif -%}
+                                {%- endif -%}
+                              >
+                              <div class="box-value-price">
+                                <span class="h6 text-main">Price:</span>
+                                <div class="price-box">
+                                  <div
+                                    class="price-val"
+                                    id="price-min-value"
+                                    data-currency="{{ cart.currency.symbol }}"
+                                  ></div>
+                                  <span>-</span>
+                                  <div
+                                    class="price-val"
+                                    id="price-max-value"
+                                    data-currency="{{ cart.currency.symbol }}"
+                                  ></div>
+                                </div>
+                              </div>
+                            </div>
+                          </price-range>
+                        </div>
+                      </div>
+                    </div>
+                {% endcase %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="canvas-bottom">
+          <facet-remove>
+            <a href="{{ collection.url }}" class="tf-btn btn-reset w-100"> Reset Filters </a>
+          </facet-remove>
+        </div>
       </div>
-  {%- endcase -%}
-{%- endfor -%}
+    </div>
+  </form>
+</facet-filters-form>

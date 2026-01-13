@@ -468,6 +468,30 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     }
 }
 
+.canvas-filter {
+  flex-direction: row;
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  width: 400px;
+  transform: translate(-100%);
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: #fff;
+  -webkit-transition: all .3s ease;
+  -moz-transition: all .3s ease;
+  -ms-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.menu-opening .canvas-filter {
+    transform: translate(0);
+    visibility: visible;
+}
+
 .widget-facet {
     &:not(:last-child) {
 
