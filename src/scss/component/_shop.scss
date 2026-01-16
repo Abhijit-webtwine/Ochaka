@@ -468,7 +468,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     }
 }
 
-.canvas-filter {
+.full_width {
   flex-direction: row;
   display: flex;
   position: fixed;
@@ -486,7 +486,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
   -o-transition: all .3s ease;
   transition: all .3s ease;
 }
-
+  
 .menu-opening .canvas-filter {
     transform: translate(0);
     visibility: visible;

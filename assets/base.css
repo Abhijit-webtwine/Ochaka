@@ -508,18 +508,6 @@ table:not([class]) th {
   }
 }
 
-.center {
-  text-align: center;
-}
-
-.left {
-  text-align: start;
-}
-
-.right {
-  text-align: end;
-}
-
 @media screen and (max-width: 749px) {
   add-to-cart.button.button--small {
     letter-spacing: 1px;

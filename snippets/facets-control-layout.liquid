@@ -1,0 +1,48 @@
+{% assign allowed = allowed_layouts | default: "2,3,4,5,6,list" | split: "," %}
+
+<ul class="tf-control-layout">
+
+  {% if allowed contains '2' %}
+    <li class="tf-view-layout-switch sw-layout-2"
+        data-value-layout="tf-col-2">
+      <i class="icon-grid-2"></i>
+    </li>
+  {% endif %}
+
+  {% if allowed contains '3' %}
+    <li class="tf-view-layout-switch sw-layout-3 d-none d-md-flex"
+        data-value-layout="tf-col-3">
+      <i class="icon-grid-3"></i>
+    </li>
+  {% endif %}
+
+  {% if allowed contains '4' %}
+    <li class="tf-view-layout-switch sw-layout-4 d-none d-xl-flex active"
+        data-value-layout="tf-col-4">
+      <i class="icon-grid-4"></i>
+    </li>
+  {% endif %}
+
+  {% if allowed contains '5' %}
+    <li class="tf-view-layout-switch sw-layout-5 d-none d-xxl-flex"
+        data-value-layout="tf-col-5">
+      <i class="icon-grid-5"></i>
+    </li>
+  {% endif %}
+
+  {% if allowed contains '6' %}
+    <li class="tf-view-layout-switch sw-layout-6 d-none d-xxl-flex"
+        data-value-layout="tf-col-6">
+      <i class="icon-grid-6"></i>
+    </li>
+  {% endif %}
+
+  {% if allowed contains 'list' %}
+    <li class="br-line type-vertical"></li>
+    <li class="tf-view-layout-switch sw-layout-list list-layout"
+        data-value-layout="list">
+      <i class="icon-list"></i>
+    </li>
+  {% endif %}
+
+</ul>

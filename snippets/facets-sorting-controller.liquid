@@ -1,0 +1,26 @@
+<facet-filters-form>
+  <form id="FacetSortForm" method="get" class="facet-filters-form position-static">
+    <div class="tf-control-sorting">
+      <p class="h6 d-none d-lg-block">Sort by:</p>
+      <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        {%- assign selected_option = collection.sort_options | where: 'value', sort_by | first -%}
+        <div class="btn-select">
+          <span class="text-sort-value">{{ selected_option.name }}</span>
+          <span class="icon icon-caret-down"></span>
+        </div>
+        <div class="dropdown-menu">
+          {%- for option in collection.sort_options -%}
+            <div
+              class="select-item{% if option.value == sort_by %} active{% endif %}"
+              data-sort-value="{{ option.value | escape }}"
+            >
+              <span class="text-value-item">{{ option.name | escape }}</span>
+            </div>
+          {%- endfor -%}
+        </div>
+        <input type="hidden" name="sort_by" value="{{ sort_by }}">
+      </div>
+    </div>
+  </form>
+</facet-filters-form>

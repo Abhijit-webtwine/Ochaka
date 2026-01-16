@@ -1,0 +1,90 @@
+<div id="ProductGridContainer" class="position-relative">
+  <div class="collection-loading-overlay"></div>
+  <div id="product-grid" data-id="{{ section.id }}">
+    {% comment %} individual remove buttons {% endcomment %}
+    <div class="meta-filter-shop">
+      <span id="ProductCount">
+        {%- if collection.results_count -%}
+          {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
+        {%- elsif collection.products_count == collection.all_products_count -%}
+          {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
+        {%- else -%}
+          {{
+            'products.facets.product_count'
+            | t: product_count: collection.products_count, count: collection.all_products_count
+          }}
+        {%- endif -%}
+      </span>
+
+      <div class="active-facets active-facets-desktop d-flex flex-wrap gap-2">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <facet-remove>
+              <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                <span class="active-facets__button-inner filter-tag remove-tag ">
+                  <span class="icon icon-close"> </span>
+                  {{ filter.label | escape }}: {{ value.label | escape }}
+                  <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                </span>
+              </a>
+            </facet-remove>
+          {%- endfor -%}
+
+          {% if filter.type == 'price_range' %}
+            {% assign min = filter.min_value.value %}
+            {% assign max = filter.max_value.value %}
+            {%- if min != null or max != null -%}
+              <facet-remove>
+                <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
+                  <span class="active-facets__button-inner filter-tag remove-tag">
+                    <span class="icon icon-close"> </span>
+                    {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
+                    <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
+                  </span>
+                </a>
+              </facet-remove>
+            {%- endif -%}
+          {% endif %}
+        {%- endfor -%}
+        <facet-remove class="active-facets__button-wrapper">
+          <a href="{{ collection.url }}" class="active-facets__button-remove">
+            <span class="remove-all-filters">
+              <span class="icon icon-close"></span>
+              {{ 'products.facets.clear_all' | t -}}
+            </span>
+          </a>
+        </facet-remove>
+      </div>
+    </div>
+
+    {% comment %} Grid layouts {% endcomment %}
+    <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
+      {%- paginate collection.products by 12 -%}
+        {%- for product in collection.products -%}
+          {% render 'card-product', product: product %}
+        {%- endfor -%}
+
+        {%- if paginate.pages > 1 -%}
+          <!-- Pagination -->
+          {% render 'pagination', paginate: paginate %}
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+    {% comment %} Grid layouts ends {% endcomment %}
+
+    {% comment %} List layout {% endcomment %}
+    <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
+      {%- paginate collection.products by 12 -%}
+        {%- for product in collection.products -%}
+          {% render 'card-product-horizontal', product: product, truncate_words: section.settings.truncate_words %}
+        {%- endfor -%}
+
+        {%- if paginate.pages > 1 -%}
+          <!-- Pagination -->
+          {% render 'pagination', paginate: paginate %}
+        {%- endif -%}
+      {%- endpaginate -%}
+    </div>
+    {% comment %} List layout ends{% endcomment %}
+  </div>
+</div>

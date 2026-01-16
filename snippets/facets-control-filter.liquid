@@ -1,0 +1,13 @@
+<div class="tf-control-filter {{ class }}">
+  <facet-drawer class="facets__drawer">
+    <details class="disclosure-has-popup facets__disclosure">
+      <summary class="tf-btn-filter facets__summary">
+        <span class="icon icon-filter"></span>
+        <span class="text">Filter</span>
+      </summary>
+      {% comment %} filter Sidebar {% endcomment %}
+      {% render 'facets-sidebar', collection: collection, filter_class: filter_class, scope: scope %}
+      {% comment %} filter Sidebar ends {% endcomment %}
+    </details>
+  </facet-drawer>
+</div>

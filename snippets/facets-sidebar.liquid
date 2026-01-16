@@ -1,17 +1,19 @@
-<facet-filters-form>
+<facet-filters-form class="{{ class }}">
   <form id="FacetFiltersForm" method="get" class="facet-filters-form position-static">
     {%- if collection.terms -%}
       <input type="hidden" name="q" value="{{ collection.terms | escape }}">
       <input name="options[prefix]" type="hidden" value="last">
     {%- endif -%}
-    <div class=" canvas-filter" id="filterShop">
+    <div class="canvas-filter {{ filter_class }}" id="filterShop">
       <div class="canvas-wrapper">
-        <div class="canvas-header">
+        <div class="canvas-header {{ header_class }}">
           <span class="title h3 fw-medium">Filter</span>
           <drawer-close-button>
             <button type="button" class="icon-close link icon-close-popup fs-24" data-bs-dismiss="offcanvas"></button>
           </drawer-close-button>
         </div>
+
+        {%- assign filter_scope = scope | default: 'Desktop' -%}
 
         <div class="canvas-body">
           {% for filter in collection.filters %}
@@ -38,11 +40,11 @@
                         {% for value in filter.values %}
                           <label
                             class="check-item color-item color-check position-relative {% if value.active %}active{% endif %}"
-                            for="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                            for="Filter-{{ filter_scope }}-{{ filter.label | escape }}-{{ forloop.index }}"
                           >
                             <input
                               type="checkbox"
-                              id="Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                              id="Filter-{{ filter_scope }}-{{ filter.label | escape }}-{{ forloop.index }}"
                               name="{{ value.param_name }}"
                               value="{{ value.value }}"
                               class="appearance-hidden"
@@ -75,11 +77,11 @@
                         {% for value in filter.values %}
                           <label
                             class="check-item size-item size-check position-relative {% if value.active %}active{% endif %}"
-                            for="size-{{ forloop.index }}"
+                            for="Filter-{{ filter_scope }}-size-{{ forloop.index }}"
                           >
                             <input
                               type="checkbox"
-                              id="size-{{ forloop.index }}"
+                              id="Filter-{{ filter_scope }}-size-{{ forloop.index }}"
                               name="{{ value.param_name }}"
                               value="{{ value.value }}"
                               class="appearance-hidden"
@@ -105,7 +107,7 @@
                               class="tf-check"
                               name="{{ value.param_name }}"
                               value="{{ value.value }}"
-                              id="{{ value.param_name | handle }}-{{ forloop.index }}"
+                              id="Filter-{{ filter_scope }}-{{ value.param_name | handle }}-{{ forloop.index }}"
                               {% if value.active %}
                                 checked
                               {% endif %}
@@ -113,7 +115,7 @@
                                 disabled
                               {% endif %}
                             >
-                            <label for="{{ value.param_name | handle }}-{{ forloop.index }}" class="label">
+                            <label for="Filter-{{ filter_scope }}-{{ value.param_name | handle }}-{{ forloop.index }}" class="label">
                               <span>{{ value.label }}</span>
                               <span class="count">{{ value.count }}</span>
                             </label>
@@ -233,7 +235,7 @@
           {% endfor %}
         </div>
 
-        <div class="canvas-bottom">
+        <div class="canvas-bottom {{ bottom_class }}">
           <facet-remove>
             <a href="{{ collection.url }}" class="tf-btn btn-reset w-100"> Reset Filters </a>
           </facet-remove>

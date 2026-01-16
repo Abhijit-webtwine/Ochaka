@@ -1,163 +1,67 @@
 <script src="{{ 'shop.js' |  asset_url }}" defer></script>
 <div class="flat-spacing">
   <div class="container">
-    <div class="tf-shop-control">
-      <div class="tf-control-filter">
-      <facet-drawer class="facets__drawer">
-         <details class="disclosure-has-popup facets__disclosure">
-          <summary class="tf-btn-filter facets__summary">
-            <span class="icon icon-filter"></span>
-            <span class="text">Filter</span>
-          </summary>
-          {% comment %} filter Sidebar {% endcomment %}
-          {% render 'facets-sidebar', collection: collection %}
-          {% comment %} filter Sidebar ends {% endcomment %}
-        </details>
-      </facet-drawer>
+    {% if settings.collection_layout == 'full_width' %}
+      <div class="tf-shop-control">
+        {% render 'facets-control-filter', collection: collection, filter_class: 'full_width' %}
+
+        {% render 'facets-control-layout' %}
+
+        {% comment %} Sorting Controller {% endcomment %}
+        {% render 'facets-sorting-controller', collection: collection %}
       </div>
 
-      <ul class="tf-control-layout">
-        <li class="tf-view-layout-switch sw-layout-2" data-value-layout="tf-col-2">
-          <i class="icon-grid-2"></i>
-        </li>
-        <li class="tf-view-layout-switch sw-layout-3 d-none d-md-flex" data-value-layout="tf-col-3">
-          <i class="icon-grid-3"></i>
-        </li>
-        <li class="tf-view-layout-switch sw-layout-4 d-none d-xl-flex active" data-value-layout="tf-col-4">
-          <i class="icon-grid-4"></i>
-        </li>
-        <li class="tf-view-layout-switch sw-layout-5 d-none d-xxl-flex" data-value-layout="tf-col-5">
-          <i class="icon-grid-5"></i>
-        </li>
-        <li class="tf-view-layout-switch sw-layout-6 d-none d-xxl-flex" data-value-layout="tf-col-6">
-          <i class="icon-grid-6"></i>
-        </li>
-        <li class="br-line type-vertical"></li>
-        <li class="tf-view-layout-switch sw-layout-list list-layout" data-value-layout="list">
-          <i class="icon-list"></i>
-        </li>
-      </ul>
+      {% comment %} Layouts {% endcomment %}
+      {% render 'facets-layout', collection: collection %}
+    {% endif %}
 
-      {% comment %} Sorting Controller {% endcomment %}
-      <facet-filters-form>
-        <form id="FacetSortForm" method="get" class="facet-filters-form position-static">
-          <div class="tf-control-sorting">
-            <p class="h6 d-none d-lg-block">Sort by:</p>
-            <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
-              {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-              {%- assign selected_option = collection.sort_options | where: 'value', sort_by | first -%}
-              <div class="btn-select">
-                <span class="text-sort-value">{{ selected_option.name }}</span>
-                <span class="icon icon-caret-down"></span>
-              </div>
-              <div class="dropdown-menu">
-                {%- for option in collection.sort_options -%}
-                  <div 
-                    class="select-item{% if option.value == sort_by %} active{% endif %}" 
-                    data-sort-value="{{ option.value | escape }}"
-                  >
-                    <span class="text-value-item">{{ option.name | escape }}</span>
-                  </div>
-                {%- endfor -%}
-              </div>
-              <input type="hidden" name="sort_by" value="{{ sort_by }}">
+    {% comment %} Left Sidebar layout {% endcomment %}
+    {% if settings.collection_layout == 'left_sidebar' %}
+      <div class="row">
+        <div class="col-xl-3">
+          {% render 'facets-sidebar', collection: collection, class: 'd-none d-xl-block', filter_class: 'canvas-sidebar sidebar-filter', header_class: 'd-xl-none', bottom_class: 'd-xl-none', scope: 'Desktop' %}
+        </div>
+        <div class="col-xl-9">
+          <div class="tf-shop-control">
+            {% comment %} sale filter {% endcomment %}
+            <div class="shop-sale-text d-none d-xl-flex">
+              <input type="checkbox" name="sale" class="tf-check" id="sale">
+              <label for="sale" class="label">Show only products on sale</label>
             </div>
-          </div>
-        </form>
-      </facet-filters-form>
-    </div>
 
-    {% comment %} Column {% endcomment %}
-    <div id="ProductGridContainer" class="position-relative">
-      <div class="collection-loading-overlay"></div>
-      <div id="product-grid" data-id="{{ section.id }}">
-
-        {% comment %} individual remove buttons {% endcomment %}
-        <div class="meta-filter-shop">
-          <span id="ProductCount">
-            {%- if collection.results_count -%}
-              {{ 'templates.search.results_with_count' | t: terms: collection.terms, count: collection.results_count }}
-            {%- elsif collection.products_count == collection.all_products_count -%}
-              {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-            {%- else -%}
-              {{ 'products.facets.product_count' | t: product_count: collection.products_count, count: collection.all_products_count }}
-            {%- endif -%}
-          </span>
-
-          <div class="active-facets active-facets-desktop d-flex flex-wrap gap-2">
-            {%- for filter in collection.filters -%}
-              {%- for value in filter.active_values -%}
-                <facet-remove>
-                  <a href="{{ value.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                    <span class="active-facets__button-inner filter-tag remove-tag ">
-                      <span class="icon icon-close">
-                      </span>
-                      {{ filter.label | escape }}: {{ value.label | escape }}
-                      <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                    </span>
-                  </a>
-                </facet-remove>
-              {%- endfor -%}
-              
-              {% if filter.type == 'price_range' %}
-                {% assign min = filter.min_value.value %}
-                {% assign max = filter.max_value.value %}
-                {%- if min != null or max != null -%}
-                  <facet-remove>
-                    <a href="{{ filter.url_to_remove }}" class="active-facets__button active-facets__button--light">
-                      <span class="active-facets__button-inner filter-tag remove-tag">
-                        <span class="icon icon-close">
-                        </span>
-                        {{ min | default: 0 | money }} - {{ max | default: filter.range_max | money }}
-                        <span class="visually-hidden">{{ 'products.facets.clear_filter' | t }}</span>
-                      </span>
-                    </a>
-                  </facet-remove>
-                {%- endif -%}
-              {% endif %}
-            {%- endfor -%}
-            <facet-remove class="active-facets__button-wrapper">
-              <a href="{{ collection.url }}" class="active-facets__button-remove">
-                <span class="remove-all-filters">
-                  <span class="icon icon-close"></span>
-                  {{ 'products.facets.clear_all' | t }}</span>
-              </a>
-            </facet-remove>
-          </div>
+            {% render 'facets-control-filter', collection: collection, class: 'd-xl-none', filter_class: 'canvas-sidebar sidebar-filter left', scope: 'Mobile' %}
+            {% render 'facets-control-layout', allowed_layouts: '2,3,list' %}
+            {% render 'facets-sorting-controller', collection: collection %}
+            </div>
+            {% render 'facets-layout', collection: collection %}
+          
         </div>
-
-        {% comment %} Grid layouts {% endcomment %}
-        <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
-          {%- paginate collection.products by 12 -%}
-            {%- for product in collection.products -%}
-              {% render 'card-product', product: product %}
-            {%- endfor -%}
-
-            {%- if paginate.pages > 1 -%}
-              <!-- Pagination -->
-              {% render 'pagination', paginate: paginate %}
-            {%- endif -%}
-          {%- endpaginate -%}
-        </div>
-        {% comment %} Grid layouts ends {% endcomment %}
-
-        {% comment %} List layout {% endcomment %}
-        <div class="tf-list-layout wrapper-shop" id="listLayout" style="display: none;">
-          {%- paginate collection.products by 12 -%}
-            {%- for product in collection.products -%}
-              {% render 'card-product-horizontal', product: product, truncate_words: section.settings.truncate_words %}
-            {%- endfor -%}
-            
-            {%- if paginate.pages > 1 -%}
-              <!-- Pagination -->
-              {% render 'pagination', paginate: paginate %}
-            {%- endif -%}
-          {%- endpaginate -%}
-        </div>
-        {% comment %} List layout ends{% endcomment %}
-
       </div>
-    </div>
+    {% endif %}
+
+    {% comment %} Right Sidebar layout {% endcomment %}
+    {% if settings.collection_layout == 'right_sidebar' %}
+      <div class="row">
+        <div class="col-xl-9">
+          <div class="tf-shop-control">
+            {% comment %} sale filter {% endcomment %}
+            <div class="shop-sale-text d-none d-xl-flex">
+              <input type="checkbox" name="sale" class="tf-check" id="sale">
+              <label for="sale" class="label">Show only products on sale</label>
+            </div>
+
+            {% render 'facets-control-filter', collection: collection, class: 'd-xl-none', filter_class: 'canvas-sidebar sidebar-filter right', scope: 'Desktop' %}
+            {% render 'facets-control-layout', allowed_layouts: '2,3,list' %}
+            {% render 'facets-sorting-controller', collection: collection %}
+            </div>
+            {% render 'facets-layout', collection: collection %}
+          
+        </div>
+        <div class="col-xl-3">
+          {% render 'facets-sidebar', collection: collection, class: 'd-none d-xl-block', filter_class: 'canvas-sidebar sidebar-filter', header_class: 'd-xl-none', bottom_class: 'd-xl-none', scope: 'Mobile' %}
+        </div>
+      </div>
+    {% endif %}
   </div>
 </div>
 

@@ -509,6 +509,31 @@
     ]
   },
   {
+    "name": "Collection Layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "collection_layout",
+        "options": [
+          {
+            "value": "full_width",
+            "label": "Full width"
+          },
+          {
+            "value": "left_sidebar",
+            "label": "Left sidebar"
+          },
+          {
+            "value": "right_sidebar",
+            "label": "Right sidebar"
+          }
+        ],
+        "default": "full_width",
+        "label": "Collection Layout"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.cart-drawer.name",
     "settings": [
       {
