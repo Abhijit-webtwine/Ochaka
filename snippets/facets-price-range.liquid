@@ -1,0 +1,97 @@
+{%- liquid
+  assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+  assign uses_comma_decimals = false
+
+  if currencies_using_comma_decimals contains cart.currency.iso_code
+    assign uses_comma_decimals = true
+  endif
+
+  assign filter_range_max = filter.range_max
+  assign filter_min_value = 0
+  assign filter_max_value = filter_range_max
+
+  if filter.min_value.value != null
+    assign filter_min_value = filter.min_value.value
+  endif
+
+  if filter.max_value.value != null
+    assign filter_max_value = filter.max_value.value
+  endif
+
+  assign filter_range_max_amount = filter_range_max | divided_by: 100.0 | ceil
+  assign filter_min_value_amount = filter_min_value | money_without_trailing_zeros | remove: cart.currency.symbol
+  assign filter_max_value_amount = filter_max_value | money_without_trailing_zeros | remove: cart.currency.symbol
+
+  if uses_comma_decimals
+    assign filter_min_value_amount = filter_min_value_amount | replace: '.', '' | replace: ',', '.'
+    assign filter_max_value_amount = filter_max_value_amount | replace: '.', '' | replace: ',', '.'
+  else
+    assign filter_min_value_amount = filter_min_value_amount | replace: ',', ''
+    assign filter_max_value_amount = filter_max_value_amount | replace: ',', ''
+  endif
+-%}
+
+<price-range
+  class="price-range"
+  data-min="0"
+  data-max="{{ filter_range_max_amount }}"
+>
+  <div class="collapse-body widget-price filter-price">
+    <div
+      id="price-value-range"
+      class="price-val-range"
+      data-min="0"
+      data-max="{{ filter_range_max_amount }}"
+    ></div>
+
+    <input
+      class="field__input"
+      name="{{ filter.min_value.param_name }}"
+      id="Filter-{{ filter.label | escape }}-GTE"
+      type="hidden"
+      placeholder="0"
+      min="0"
+      max="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+      {%- if filter.min_value.value -%}
+        {%- if uses_comma_decimals %}
+          value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {%- else -%}
+          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+        {% endif -%}
+      {%- endif -%}
+    >
+
+    <input
+      class="field__input"
+      name="{{ filter.max_value.param_name }}"
+      id="Filter-{{ filter.label | escape }}-LTE"
+      type="hidden"
+      placeholder="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+      min="0"
+      max="{{ filter.range_max | divided_by: 100.0 | ceil }}"
+      {%- if filter.max_value.value -%}
+        {%- if uses_comma_decimals %}
+          value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {%- else -%}
+          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+        {% endif -%}
+      {%- endif -%}
+    >
+    <div class="box-value-price">
+      <span class="h6 text-main">Price:</span>
+      <div class="price-box">
+        <div
+          class="price-val"
+          id="price-min-value"
+          data-currency="{{ cart.currency.symbol }}"
+        ></div>
+        <span>-</span>
+        <div
+          class="price-val"
+          id="price-max-value"
+          data-currency="{{ cart.currency.symbol }}"
+        ></div>
+      </div>
+    </div>
+  </div>
+</price-range>
