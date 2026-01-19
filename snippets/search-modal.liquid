@@ -1,91 +1,79 @@
-{%- liquid
-  assign uniqueId = "now" | date: "%N" | modulo: 1000
-  assign sectionId = "Search-In-Modal-" | append: uniqueId
-  assign hasRecommendation = false
+<div class="modal modalCentered fade modal-search" id="search">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
 
-  if settings.search_recommendation != blank and settings.search_recommendation.links != blank
-    assign hasRecommendation = true
-  endif
--%}
-<div class="search-modal modal__content" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
-  <div class="page-width">
-    <div class="search-modal__content" tabindex="-1">
-      {%- if settings.predictive_search_enabled -%}
-        <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}" data-per-page="{{ settings.predictive_search_per_page }}">
-      {%- endif -%}
-        <form action="{{ routes.search_url }}" method="get" role="search" class="search search-modal__form">
-          <div class="field{% if hasRecommendation %} has-recommendation{% endif %}">
-            <button type="submit" class="search__button focus-inset" aria-label="{{ 'general.search.search' | t }}" tabindex="-1">
-              {% render 'icon', icon: 'search' %}
-            </button>
-            <input
-              id="{{ sectionId }}"
-              class="search__input field__input"
-              type="search"
-              name="q"
-              value="{{ search.terms | escape }}"
-              placeholder="{{ 'general.search.placeholder' | t }}"
-              {%- if settings.predictive_search_enabled %}
-                role="combobox"
-                aria-expanded="false"
-                aria-owns="predictive-search-results-list"
-                aria-controls="predictive-search-results-list"
-                aria-haspopup="listbox"
-                aria-autocomplete="list"
-                autocorrect="off"
-                autocomplete="off"
-                autocapitalize="off"
-                spellcheck="false" 
-              {% endif -%}
-            />
-            <label class="visually-hidden" for="{{ sectionId }}">{{ 'general.search.search' | t }}</label>
-            <input type="hidden" name="type" value="{{ settings.search_results }}"/>
-            <input type="hidden" name="options[prefix]" value="last"/>
-            {%- if settings.predictive_search_enabled -%}
-              <div class="predictive-search__loading-state">
-                {% render 'icon', icon: 'spinner' %}
-              </div>
-            {%- endif -%}
-            {%- if hasRecommendation -%}
-              <ul class="search__recommendation list-unstyled">
-                {%- for link in settings.search_recommendation.links -%}
-                  <li class="menu-item{% if link.links != blank %} is-parent{% endif %}">
-                    <a href="{{ link.url }}">
-                      {{ link.title }}
-                    </a>
-                    {%- if link.links != blank -%}
-                      <ul class="list-unstyled">
-                        {%- for childlink in link.links -%}
-                          <li>
-                            <a href="{{ childlink.url }}">
-                              {{ childlink.title }}
-                            </a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-              </ul>
-            {%- endif -%}
-
-            {%- if settings.predictive_search_enabled -%}
-              <button type="reset" class="search__button focus-inset">{{ 'general.search.clear' | t }}</button>
-            {%- endif -%}
-            <button type="button" class="search__button focus-inset" aria-label="{{ 'accessibility.close' | t }}" tabindex="-1">
-              {% render 'icon', icon: 'close-alt' %}
-            </button>
-          </div>
-          {%- if settings.predictive_search_enabled -%}
-            <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search></div>
-            <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
-          {%- endif -%}
+      <!-- Search form -->
+      <predictive-search
+        data-per-page="4"
+        data-loading-text="Loading..."
+      >
+        <form class="search form-search style-2" role="search">
+          <input type="search" name="q" placeholder="Search item">
+          <button class="visually-hidden" type="submit">Search</button>
+          <button class="visually-hidden" type="reset">Clear</button>
+          <button class="visually-hidden" type="button">Close</button>
         </form>
-      {%- if settings.predictive_search_enabled -%}
-        </predictive-search>
-      {%- endif -%} 
+
+        <!-- Quick links -->
+        {% if settings.quick_search_terms != blank %}
+          <ul class="quick-link-list">
+            {% for link in linklists[settings.quick_search_terms].links %}
+              <li>
+                <a href="#" class="link-item text-main h6 link quick-search-link" data-search-term="{{ link.title | escape }}">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="predictive-search" data-predictive-search></div>
+        <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+
+      </predictive-search>
+
+      
+      <!-- Search history (static placeholder – Shopify has no native history) -->
+      <div class="view-history-wrap">
+        <h4 class="title">History</h4>
+        <search-history
+          class="view-history-list"
+          data-max-items="10"
+          data-render-limit="6">
+        </search-history>
+      </div>
+        
+      <!-- Trending products -->
+      <div class="trend-product-wrap">
+        <div class="heading">
+          <h4 class="title flex-grow-1">Trending product</h4>
+          <a href="{{ collections.all.url }}" class="tf-btn-line has-icon none-line fw-medium fs-18 text-normal">
+            View All Product
+            <i class="icon icon-caret-circle-right"></i>
+          </a>
+        </div>
+
+        {% assign trending_collection = collections[settings.search_trending_collection] %}
+
+        <div class="trend-product-inner">
+          {% if trending_collection != blank %}
+            {% for product in trending_collection.products limit: 4 %}
+              {% if forloop.index0 == 0 or forloop.index0 == 2 %}
+                <div class="trend-product-list">
+              {% endif %}
+
+              <div class="trend-product-item">
+                {% render 'mega-product-horizontal', product: product %}
+              </div>
+
+              {% if forloop.index0 == 1 or forloop.index0 == 3 %}
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="modal-overlay"></div>
 </div>
