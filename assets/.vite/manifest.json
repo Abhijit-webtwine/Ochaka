@@ -6,7 +6,7 @@
     "isEntry": true
   },
   "frontend/entrypoints/main.scss": {
-    "file": "theme.css",
+    "file": "main.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   }

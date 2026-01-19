@@ -9,5 +9,5 @@
 {% if path == "/frontend/entrypoints/main.js" or path == "main.js" %}
   <script src="{{ 'theme.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
 {% elsif path == "/frontend/entrypoints/main.scss" or path == "main.scss" %}
-  {{ 'theme.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'main.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% endif %}
