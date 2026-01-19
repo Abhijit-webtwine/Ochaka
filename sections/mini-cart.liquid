@@ -166,12 +166,12 @@
                           <div class="h6 fw-semibold">
                             <span class="number">{{ item.quantity }}×</span>
                             <span class="price text-primary tf-mini-card-price d-inline-flex gap-2">
-                              {% if item.line_price != item.final_price %}
+                              {% if item.original_line_price > item.final_line_price %}
                                 <s>
                                   {{ item.original_line_price | money }}
                                 </s>
                                 <span>
-                                  {{ item.discounted_price | money }}
+                                  {{ item.final_line_price  | money }}
                                 </span>
                               {% else %}
                               <span>
@@ -237,16 +237,29 @@
                   {% endif %}
                 {% endfor %}
               {% endif %}
-              
+
               <div class="text">
                 <h6 class="subtotal">
                   {{ 'sections.cart.subtotal' | t }}
                   ({{ cart.item_count }} item)
                 </h6>
-                <h4 class="text-primary total-price tf-totals-total-value">
-                  {{ cart.total_price | money_without_trailing_zeros }}
-                </h4>
+                
+                {% if cart.total_discount > 0 %}
+
+                  <div class="price-wrap">
+                    <s class="price-old h6 fw-normal">{{ cart.original_total_price | money_without_trailing_zeros }}</s>
+                    <h4 class="text-primary total-price tf-totals-total-value">
+                      {{ cart.total_price | money_without_trailing_zeros }}
+                    </h4>
+                  </div>
+
+                {% else %}
+                  <h4 class="text-primary total-price tf-totals-total-value">
+                    {{ cart.items_subtotal_price | money_without_trailing_zeros }}
+                  </h4>
+                {% endif %}
               </div>
+
               
               {% render 'free-shipping', minimum_amount: settings.free_shipping_minimum_amount %}
             </div>
