@@ -338,12 +338,13 @@
             $(".tf-add-cart-success").removeClass("active");
         });
 
-        $(document).on("click", ".btn-add-note, .btn-estimate-shipping, .btn-add-gift", function (event) {
+        $(document).on("click", ".btn-add-note, .btn-estimate-shipping, .btn-add-gift, .btn-add-discount", function (event) {
 
             var classList = {
                 "btn-add-note": ".add-note",
                 "btn-estimate-shipping": ".estimate-shipping",
                 "btn-add-gift": ".add-gift",
+                "btn-add-discount": ".add-discount",
             };
 
             $.each(classList, function (btnClass, targetClass) {

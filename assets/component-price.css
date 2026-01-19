@@ -1,10 +1,10 @@
-.price {
+/* .price {
   display: flex;
   font-size: 0.875rem;
   font-weight: 400;
   letter-spacing: 0.1rem;
   color: var(--color-price);
-}
+} */
 
 .price.price--unavailable {
   visibility: hidden;

@@ -165,8 +165,19 @@
                         <div class="d-flex justify-content-between align-items-center">
                           <div class="h6 fw-semibold">
                             <span class="number">{{ item.quantity }}×</span>
-                            <span class="price text-primary tf-mini-card-price">
-                              {{ item.final_line_price | money }}
+                            <span class="price text-primary tf-mini-card-price d-inline-flex gap-2">
+                              {% if item.line_price != item.final_price %}
+                                <s>
+                                  {{ item.original_line_price | money }}
+                                </s>
+                                <span>
+                                  {{ item.discounted_price | money }}
+                                </span>
+                              {% else %}
+                              <span>
+                                {{ item.final_line_price | money }}
+                              </span>
+                              {% endif %}
                             </span>
                           </div>
 
@@ -207,13 +218,26 @@
                 </div>
               {% endif %}
               
-              <div class="tf-mini-cart-tool-btn btn-add-gift">
-                  <div class="h6">Gift</div>
-                  <i class="icon icon-gift"></i>
+              <div class="tf-mini-cart-tool-btn btn-add-discount">
+                  <div class="h6">Discount</div>
+                  <i class="icon icon-best-choice"></i>
               </div>
             </div>
 
+
+
             <div class="tf-mini-cart-threshold">
+              {% comment %} Discount Message {% endcomment %}
+              {% if cart.discount_applications.size > 0 %}
+                {% for discount_application in cart.discount_applications %}
+                  {% if discount_application.title %}
+                    <div class="cart-discount mb-16 text-primary">
+                      <span>Discount applied</span>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+              
               <div class="text">
                 <h6 class="subtotal">
                   {{ 'sections.cart.subtotal' | t }}
@@ -335,6 +359,60 @@
             </form>
 
           </shipping-calculator>
+
+          {% comment %} discount code {% endcomment %}
+           <cart-discount data-url="?section_id=mini-cart">
+            <div class="tf-mini-cart-tool-openable add-discount">
+              <div class="overlay tf-mini-cart-tool-close"></div>
+
+              <form action="{{ routes.cart_update_url }}" class="tf-mini-cart-tool-content">
+                <div class="tf-mini-cart-tool-text h5 fw-semibold">
+                  <i class="icon icon-discount"></i>
+                  Discount Code
+                </div>
+
+                <div class="wrap mb-24">
+                  <i class="icon icon-discount-2"></i>
+                  <h3>Apply a <span class="text-primary">discount code</span></h3>
+                  {% if cart.discount_applications.size > 0 %}
+                    {% for discount_application in cart.discount_applications %}
+                      {% if discount_application.title %}
+                        <div class="cart-discount d-flex gap-3">
+                          <span>
+                            <strong class="text-primary">{{ discount_application.title }}</strong>
+                            <span> successfully applied </span>
+                          </span>
+                          <button type="button" class="cart-discount-remove icon-close align-items-center"></button>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+
+                  <input
+                    type="text"
+                    name="discount"
+                    class="tf-input w-100 mt-3"
+                    placeholder="Enter discount code"
+                    autocomplete="off"
+                  >
+                </div>
+
+                <div class="tf-cart-tool-btns">
+                  <button
+                    class="subscribe-button tf-btn animate-btn d-inline-flex bg-dark-2 w-100"
+                    type="submit"
+                  >
+                    Apply discount
+                  </button>
+
+                  <div class="tf-btn btn-white animate-btn animate-dark line tf-mini-cart-tool-close">
+                    Cancel
+                  </div>
+                </div>
+              </form>
+            </div>
+          </cart-discount>
+
         {% endif %}
 
       </div>
