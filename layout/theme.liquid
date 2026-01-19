@@ -212,6 +212,7 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
 
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
+          {% render 'breadcrumbs' %}
           {{ content_for_layout }}
         </main>
 
@@ -224,7 +225,7 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     {% section 'popup' %}
     {% section 'cookie-banner' %}
     {% section 'age-verifier' %}
-    {% section 'main-search' %}
+    {% render 'search-modal' %}
     {% section 'bottom-toolbar' %}
 
 

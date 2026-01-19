@@ -1,79 +1,81 @@
-<div class="modal modalCentered fade modal-search" id="search">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
 
-      <!-- Search form -->
-      <predictive-search
-        data-per-page="4"
-        data-loading-text="Loading..."
-      >
-        <form class="search form-search style-2" role="search">
-          <input type="search" name="q" placeholder="Search item">
-          <button class="visually-hidden" type="submit">Search</button>
-          <button class="visually-hidden" type="reset">Clear</button>
-          <button class="visually-hidden" type="button">Close</button>
-        </form>
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
 
-        <!-- Quick links -->
-        {% if settings.quick_search_terms != blank %}
-          <ul class="quick-link-list">
-            {% for link in linklists[settings.quick_search_terms].links %}
-              <li>
-                <a href="#" class="link-item text-main h6 link quick-search-link" data-search-term="{{ link.title | escape }}">
-                  {{ link.title }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-
-        <div class="predictive-search" data-predictive-search></div>
-        <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
-
-      </predictive-search>
-
-      
-      <!-- Search history (static placeholder – Shopify has no native history) -->
-      <div class="view-history-wrap">
-        <h4 class="title">History</h4>
-        <search-history
-          class="view-history-list"
-          data-max-items="10"
-          data-render-limit="6">
-        </search-history>
-      </div>
-        
-      <!-- Trending products -->
-      <div class="trend-product-wrap">
-        <div class="heading">
-          <h4 class="title flex-grow-1">Trending product</h4>
-          <a href="{{ collections.all.url }}" class="tf-btn-line has-icon none-line fw-medium fs-18 text-normal">
-            View All Product
-            <i class="icon icon-caret-circle-right"></i>
-          </a>
-        </div>
-
-        {% assign trending_collection = collections[settings.search_trending_collection] %}
-
-        <div class="trend-product-inner">
-          {% if trending_collection != blank %}
-            {% for product in trending_collection.products limit: 4 %}
-              {% if forloop.index0 == 0 or forloop.index0 == 2 %}
-                <div class="trend-product-list">
-              {% endif %}
-
-              <div class="trend-product-item">
-                {% render 'mega-product-horizontal', product: product %}
-              </div>
-
-              {% if forloop.index0 == 1 or forloop.index0 == 3 %}
+<div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
+  {% if search.performed %}
+    {% paginate search.results by 12 %}
+      <div class="search-products">
+        <div class="container">
+          {% if search.results_count == 0 %}
+            <!-- No Results Found -->
+            <h1 class="text--left section-header__title">
+              We couldn't find any matching products
+            </h1>
+            <p class="no-results-message">
+              Try adjusting your search or browse our collections for more options.
+            </p>
+          {% else %}
+            <!-- Search Results -->
+              <div class="search-result-product">
+                <div class="grid-uniform product-grid col-main">
+                  <div class="products-grid-view">
+                    <div class="tf-grid-layout tf-col-4">
+                      {% for item in search.results %}
+                        {% render 'card-product', product: item %}
+                      {% endfor %}
+                    </div>
+                  </div>
                 </div>
-              {% endif %}
-            {% endfor %}
+              </div>
+          {% endif %}
+
+          {% if paginate.pages > 1 %}
+            <!-- Pagination -->
+            <div class="text-center pagination-wrap">
+              {% render 'pagination', paginate: paginate %}
+            </div>
           {% endif %}
         </div>
       </div>
-    </div>
-  </div>
+    {% endpaginate %}
+  {% endif %}
 </div>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": [
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ]
+}
+{% endschema %}
