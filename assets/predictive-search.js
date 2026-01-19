@@ -56,7 +56,12 @@ class PredictiveSearch extends HTMLElement {
   }
 
   onFormSubmit(event) {
-    if (!this.getQuery().length || this.querySelector('[aria-selected="true"] a')) event.preventDefault();
+    if (!this.getQuery().length || this.querySelector('[aria-selected="true"] a')) {
+      event.preventDefault();
+    } else {
+      // Save search to history before submitting
+      this.saveSearch(this.getQuery());
+    }
   }
 
   onFocus() {
@@ -105,6 +110,15 @@ class PredictiveSearch extends HTMLElement {
     }
   }
 
+  saveSearch(query) {
+    let searches = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    if (!searches.includes(query) && query.trim() !== '') {
+      searches.unshift(query); // Add to beginning
+      searches = searches.slice(0, 10); // Keep last 10 searches
+      localStorage.setItem('searchHistory', JSON.stringify(searches));
+    }
+  }
+
   switchOption(direction) {
     if (!this.getAttribute('open')) return;
     
@@ -135,7 +149,10 @@ class PredictiveSearch extends HTMLElement {
   selectOption() {
     const selectedProduct = this.querySelector('[aria-selected="true"] a, [aria-selected="true"] button');
 
-    if (selectedProduct) selectedProduct.click();
+    if (selectedProduct) {
+      this.saveSearch(this.getQuery()); // Save before clicking
+      selectedProduct.click();
+    }
   }
 
   getSearchResults(searchTerm) {
@@ -232,3 +249,34 @@ class PredictiveSearch extends HTMLElement {
 }
 
 customElements.define('predictive-search', PredictiveSearch);
+
+
+class SearchHistory extends HTMLElement {
+  constructor() {
+    super();
+    this.storageKey = this.dataset.storageKey || 'searchHistory';
+    this.maxItems = Number(this.dataset.maxItems || 10);
+    this.renderLimit = Number(this.dataset.renderLimit || 6);
+  }
+
+  connectedCallback() {
+    this.render();
+  }
+
+  getHistory() {
+    return JSON.parse(localStorage.getItem(this.storageKey)) || [];
+  }
+
+  render() {
+    const history = this.getHistory().slice(0, this.renderLimit);
+
+    this.innerHTML = history.map(item => `
+      <a class="item text-main link h6" href="/search?q=${encodeURIComponent(item)}">
+        <span>${item}</span>
+        <i class="icon icon-arrow-top-right"></i>
+      </a>
+    `).join('');
+  }
+}
+
+customElements.define('search-history', SearchHistory);

@@ -3,36 +3,6 @@
     <div class="modal-content">
       <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
 
-      {% comment %}
-        <div>
-          <!-- Quick links -->
-          <ul class="quick-link-list">
-            {% for link in linklists['quick-search'].links %}
-              <li>
-                <a href="{{ link.url }}" class="link-item text-main h6 link">
-                  {{ link.title }}
-                </a>
-              </li>
-            {% endfor %}
-          </ul>
-        </div>
-
-        <!-- Search history (static placeholder – Shopify has no native history) -->
-        <div class="view-history-wrap">
-          <h4 class="title">History</h4>
-          <div class="view-history-list">
-            {% for item in search.results limit: 6 %}
-              {% if item.object_type == 'product' %}
-                <a class="item text-main link h6" href="{{ item.url }}">
-                  <span>{{ item.title }}</span>
-                  <i class="icon icon-arrow-top-right"></i>
-                </a>
-              {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      {% endcomment %}
-
       <!-- Search form -->
       <predictive-search
         data-per-page="4"
@@ -67,16 +37,11 @@
       <!-- Search history (static placeholder – Shopify has no native history) -->
       <div class="view-history-wrap">
         <h4 class="title">History</h4>
-        <div class="view-history-list">
-          {% for item in search.results limit: 6 %}
-            {% if item.object_type == 'product' %}
-              <a class="item text-main link h6" href="{{ item.url }}">
-                <span>{{ item.title }}</span>
-                <i class="icon icon-arrow-top-right"></i>
-              </a>
-            {% endif %}
-          {% endfor %}
-        </div>
+        <search-history
+          class="view-history-list"
+          data-max-items="10"
+          data-render-limit="6">
+        </search-history>
       </div>
         
       <!-- Trending products -->
