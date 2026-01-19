@@ -1,12 +1,12 @@
 {
   "frontend/entrypoints/main.js": {
-    "file": "theme.js",
+    "file": "main-B5Qt9EMX.js",
     "name": "main",
     "src": "frontend/entrypoints/main.js",
     "isEntry": true
   },
   "frontend/entrypoints/main.scss": {
-    "file": "theme.css",
+    "file": "main-e-bgYPUj.css",
     "src": "frontend/entrypoints/main.scss",
     "isEntry": true
   }
