@@ -6,7 +6,13 @@ export default defineConfig({
     shopify(),
   ],
   build: {
-    emptyOutDir: false
+    emptyOutDir: false,
+    rollupOptions: {
+      output: {
+        entryFileNames: 'theme.js',
+        assetFileNames: 'theme.css',
+      }
+    }
   },
   watch: {
     include: ['src/**/*', 'sections/**/*', 'snippets/**/*', 'templates/**/*', 'assets/**/*'],
