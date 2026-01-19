@@ -526,6 +526,14 @@
           {
             "value": "right_sidebar",
             "label": "Right sidebar"
+          },
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "dropdown",
+            "label": "Dropdown"
           }
         ],
         "default": "full_width",

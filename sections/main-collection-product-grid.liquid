@@ -15,6 +15,165 @@
       {% render 'facets-layout', collection: collection %}
     {% endif %}
 
+    {% comment %} Drawer layout {% endcomment %}
+    {% if settings.collection_layout == 'drawer' %}
+      <div class="tf-shop-control wrapper-filter-dropdown position-relative">
+        <div class="tf-control-filter">
+          <button class="btn-filterDropdown tf-btn-filter">
+            <span class="icon icon-filter"></span><span class="text">Filter</span>
+          </button>
+        </div>
+        <div class="overlay-filter type-drawer" id="overlay-filter"></div>
+        {% render 'facets-sidebar', collection: collection, filter_class: 'filter-drawer-wrap filter-drawer canvas-sidebar sidebar-filter canvas-filter left', header_class: 'd-xl-none', bottom_class: 'd-xl-none', scope: 'Mobile' %}
+        {% render 'facets-control-layout' %}
+
+        {% comment %} Sorting Controller {% endcomment %}
+        {% render 'facets-sorting-controller', collection: collection %}
+        
+      </div>
+      {% render 'facets-layout', collection: collection %}
+    {% endif %}
+
+    {% comment %} Dropdown layout {% endcomment %}
+    {% if settings.collection_layout == 'dropdown' %}
+      <div class="tf-shop-control">
+        <div class="tf-filter-dropdown">
+          <div class="tf-btn-filter border-0 px-0 min-w-unset">
+            <span class="icon icon-filter text-black"></span><span class="text text-black">Filter:</span>
+          </div>
+          <facet-filters-form>
+            <form id="FacetFiltersForm" method="get" class="facet-filters-form position-static">
+              <div class="meta-dropdown-filter">
+                {% assign filters = collection.filters %}
+                {%- assign filter_scope = 'Desktop' -%}
+
+                {% for filter in filters, limit: 5%}
+                  {% assign id = filter.label | handle %}
+
+                  <div class="dropup dropdown-filter js-filter" data-index="{{ forloop.index }}" id="Filter-{{ filter_scope }}-{{ filter.label | escape }}">
+                    <div class="dropdown-toggle"
+                        id="{{ id }}"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                        data-bs-auto-close="outside"
+                        role="button">
+                      <span class="text-value">{{ filter.label }}</span>
+                    </div>
+
+                    <div class="dropdown-menu" aria-labelledby="{{ id }}">
+
+                    {% case filter.type %}
+                      {% when 'list' %}
+                        {%- assign filter_label = filter.label | downcase -%}
+
+                        {%- if filter_label == 'color' -%}
+                        <!-- COLOR (swatches) -->
+                          <div class="collapse-body filter-color-box flat-check-list">
+                            {% for value in filter.values %}
+                              <label
+                                class="check-item color-item color-check position-relative {% if value.active %}active{% endif %}"
+                                for="Filter-{{ filter_scope }}-{{ filter.label | escape }}-{{ forloop.index }}"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id="Filter-{{ filter_scope }}-{{ filter.label | escape }}-{{ forloop.index }}"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value }}"
+                                  class="appearance-hidden"
+                                  {% if value.active %}
+                                    checked
+                                  {% endif %}
+                                  {% if value.count == 0 and value.active == false %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                {%- assign color_rgb = value.swatch.color.rgb | default: '' -%}
+                                <span
+                                  class="color"
+                                  style="
+                                    {% if color_rgb != blank %}
+                                      background-color: rgb({{ color_rgb }}) !important;
+                                    {% else %}
+                                      background-color: {{ value.value }} !important;
+                                    {% endif %}
+                                  "
+                                ></span>
+                                <span class="color-text">{{ value.label | escape }}</span>
+                              </label>
+                            {% endfor %}
+                          </div>
+
+                        {%- elsif filter_label == 'size' -%}
+                          <!-- SIZE (boxes) -->
+                          <div class="collapse-body filter-size-box flat-check-list">
+                            {% for value in filter.values %}
+                              <label
+                                class="check-item size-item size-check position-relative {% if value.active %}active{% endif %}"
+                                for="Filter-{{ filter_scope }}-size-{{ forloop.index }}"
+                              >
+                                <input
+                                  type="checkbox"
+                                  id="Filter-{{ filter_scope }}-size-{{ forloop.index }}"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value }}"
+                                  class="appearance-hidden"
+                                  {% if value.active %}
+                                    checked
+                                  {% endif %}
+                                  {% if value.count == 0 and value.active == false %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                <span class="size h6">{{ value.label }}</span>
+                              </label>
+                            {% endfor %}
+                          </div>
+
+                        {%- else -%}
+                          <!-- DEFAULT LIST (brand, availability, etc.) -->
+                          <ul class="collapse-body filter-group-check current-scrollbar">
+                            {% for value in filter.values %}
+                              <li class="list-item {% if value.count == 0 and value.active == false %}disabled{% endif %}">
+                                <input
+                                  type="checkbox"
+                                  class="tf-check"
+                                  name="{{ value.param_name }}"
+                                  value="{{ value.value }}"
+                                  id="Filter-{{ filter_scope }}-{{ value.param_name | handle }}-{{ forloop.index }}"
+                                  {% if value.active %}
+                                    checked
+                                  {% endif %}
+                                  {% if value.count == 0 and value.active == false %}
+                                    disabled
+                                  {% endif %}
+                                >
+                                <label for="Filter-{{ filter_scope }}-{{ value.param_name | handle }}-{{ forloop.index }}" class="label">
+                                  <span>{{ value.label }}</span>
+                                  <span class="count">{{ value.count }}</span>
+                                </label>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                        {%- endif -%}
+
+                      {% when 'price_range' %}
+                        {% render 'facets-price-range', filter: filter %}
+                      {% endcase %}
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </form>
+          </facet-filters-form>
+        </div>
+        <div class="tf-shop-change">
+          {% render 'facets-control-layout' %}
+          {% render 'facets-sorting-controller', collection: collection %}
+        </div>
+      </div>
+      {% render 'facets-layout', collection: collection %}
+    {% endif %}
+
     {% comment %} Left Sidebar layout {% endcomment %}
     {% if settings.collection_layout == 'left_sidebar' %}
       <div class="row">
