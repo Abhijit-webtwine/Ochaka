@@ -111,11 +111,11 @@ class PredictiveSearch extends HTMLElement {
   }
 
   saveSearch(query) {
-    let searches = JSON.parse(localStorage.getItem('searchHistory')) || [];
+    let searches = JSON.parse(sessionStorage.getItem('searchHistory')) || [];
     if (!searches.includes(query) && query.trim() !== '') {
       searches.unshift(query); // Add to beginning
       searches = searches.slice(0, 10); // Keep last 10 searches
-      localStorage.setItem('searchHistory', JSON.stringify(searches));
+      sessionStorage.setItem('searchHistory', JSON.stringify(searches));
     }
   }
 
@@ -264,7 +264,7 @@ class SearchHistory extends HTMLElement {
   }
 
   getHistory() {
-    return JSON.parse(localStorage.getItem(this.storageKey)) || [];
+    return JSON.parse(sessionStorage.getItem(this.storageKey)) || [];
   }
 
   render() {
