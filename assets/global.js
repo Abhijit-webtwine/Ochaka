@@ -1994,205 +1994,205 @@ class PriceMoney extends HTMLElement {
 }
 customElements.define('price-money', PriceMoney);
 
-class SlideshowComponent extends HTMLElement {
-  constructor() {
-    super();
+// class SlideshowComponent extends HTMLElement {
+//   constructor() {
+//     super();
 
-    this.elements = {
-      small: this.querySelector('.slideshow__left'),
-      content: this.querySelector('.slideshow__content'),
-      large: this.querySelector('.slideshow__right')
-    }
-    this.settings = {
-      autorotate: this.dataset.autorotate == 'true',
-      autorotateSpeed: parseInt(this.dataset.autorotateSpeed),
-      slidesSmall: this.elements.small.querySelectorAll('.slideshow__image'),
-      slidesLarge: this.elements.large.querySelectorAll('.slideshow__image')
-    };
+//     this.elements = {
+//       small: this.querySelector('.slideshow__left'),
+//       content: this.querySelector('.slideshow__content'),
+//       large: this.querySelector('.slideshow__right')
+//     }
+//     this.settings = {
+//       autorotate: this.dataset.autorotate == 'true',
+//       autorotateSpeed: parseInt(this.dataset.autorotateSpeed),
+//       slidesSmall: this.elements.small.querySelectorAll('.slideshow__image'),
+//       slidesLarge: this.elements.large.querySelectorAll('.slideshow__image')
+//     };
 
-    theme.initWhenVisible({
-      element: this,
-      callback: this.init.bind(this),
-      threshold: 600
-    });
-    this.matchMedia();
-  }
+//     theme.initWhenVisible({
+//       element: this,
+//       callback: this.init.bind(this),
+//       threshold: 600
+//     });
+//     this.matchMedia();
+//   }
 
-  init() {
-    setTimeout(() => {
-      this.flickitySmall = new Flickity(this.elements.small, {
-        accessibility: false,
-        rightToLeft: theme.config.rtl,
-        prevNextButtons: false,
-        pageDots: false,
-        wrapAround: true,
-        draggable: false,
-        setGallerySize: false,
-        autoPlay: this.settings.autorotate ? this.settings.autorotateSpeed : false,
-      });
+//   init() {
+//     setTimeout(() => {
+//       this.flickitySmall = new Flickity(this.elements.small, {
+//         accessibility: false,
+//         rightToLeft: theme.config.rtl,
+//         prevNextButtons: false,
+//         pageDots: false,
+//         wrapAround: true,
+//         draggable: false,
+//         setGallerySize: false,
+//         autoPlay: this.settings.autorotate ? this.settings.autorotateSpeed : false,
+//       });
 
-      this.flickityContent = new Flickity(this.elements.content, {
-        accessibility: false,
-        rightToLeft: theme.config.rtl,
-        prevNextButtons: true,
-        pageDots: true,
-        wrapAround: true,
-        draggable: theme.config.mqlSmall ? true : false,
-        asNavFor: this.elements.small,
-        adaptiveHeight: true,
-        arrowShape: 'M29.043 19.756l-28.125 28.125c-0.605 0.606-0.918 1.406-0.918 2.031s0.305 1.599 0.916 2.209l28.125 28.125c1.221 1.221 3.199 1.221 4.418 0s1.221-3.199 0-4.418l-22.793-22.793h86.209c1.727 0 3.125-1.398 3.125-2.949 0-1.727-1.398-3.125-3.125-3.125h-86.211l22.793-22.793c1.221-1.221 1.221-3.199 0-4.418s-3.203-1.217-4.414 0.006z',
-        on: {
-          ready: () => {
-            const prevNextButtons = this.querySelectorAll('.flickity-button');
-            if (prevNextButtons) {
-              prevNextButtons.forEach((button) => {
-                button.setAttribute('tabindex', '-1');
-              });
-            }
-          }
-        }
-      });
+//       this.flickityContent = new Flickity(this.elements.content, {
+//         accessibility: false,
+//         rightToLeft: theme.config.rtl,
+//         prevNextButtons: true,
+//         pageDots: true,
+//         wrapAround: true,
+//         draggable: theme.config.mqlSmall ? true : false,
+//         asNavFor: this.elements.small,
+//         adaptiveHeight: true,
+//         arrowShape: 'M29.043 19.756l-28.125 28.125c-0.605 0.606-0.918 1.406-0.918 2.031s0.305 1.599 0.916 2.209l28.125 28.125c1.221 1.221 3.199 1.221 4.418 0s1.221-3.199 0-4.418l-22.793-22.793h86.209c1.727 0 3.125-1.398 3.125-2.949 0-1.727-1.398-3.125-3.125-3.125h-86.211l22.793-22.793c1.221-1.221 1.221-3.199 0-4.418s-3.203-1.217-4.414 0.006z',
+//         on: {
+//           ready: () => {
+//             const prevNextButtons = this.querySelectorAll('.flickity-button');
+//             if (prevNextButtons) {
+//               prevNextButtons.forEach((button) => {
+//                 button.setAttribute('tabindex', '-1');
+//               });
+//             }
+//           }
+//         }
+//       });
 
-      this.flickityLarge = new Flickity(this.elements.large, {
-        accessibility: false,
-        rightToLeft: theme.config.rtl,
-        prevNextButtons: false,
-        pageDots: false,
-        wrapAround: true,
-        draggable: true,
-        setGallerySize: false,
-        asNavFor: this.elements.content
-      });
+//       this.flickityLarge = new Flickity(this.elements.large, {
+//         accessibility: false,
+//         rightToLeft: theme.config.rtl,
+//         prevNextButtons: false,
+//         pageDots: false,
+//         wrapAround: true,
+//         draggable: true,
+//         setGallerySize: false,
+//         asNavFor: this.elements.content
+//       });
 
-      this.bindEvents();
-    });
-  }
+//       this.bindEvents();
+//     });
+//   }
 
-  bindEvents() {
-    this.flickitySmall.on('scroll', () => {
-      this.flickitySmall.slides.forEach((slide, i) => {
-        const flickity = this.flickitySmall;
-        const image = this.settings.slidesSmall[i];
-        let x = 0;
+//   bindEvents() {
+//     this.flickitySmall.on('scroll', () => {
+//       this.flickitySmall.slides.forEach((slide, i) => {
+//         const flickity = this.flickitySmall;
+//         const image = this.settings.slidesSmall[i];
+//         let x = 0;
 
-        if (image) {
-          if( 0 === i ) {
-            x = Math.abs( flickity.x ) > flickity.slidesWidth ? ( flickity.slidesWidth + flickity.x + flickity.slides[flickity.slides.length - 1 ].outerWidth + slide.target ) : ( slide.target + flickity.x );
-          }
-          else if( i === flickity.slides.length - 1 ) {
-            x = Math.abs( flickity.x ) + flickity.slides[i].outerWidth < flickity.slidesWidth ? ( slide.target - flickity.slidesWidth + flickity.x - flickity.slides[i].outerWidth ) : ( slide.target + flickity.x );
-          }
-          else {
-            x = slide.target + flickity.x;
-          }
+//         if (image) {
+//           if( 0 === i ) {
+//             x = Math.abs( flickity.x ) > flickity.slidesWidth ? ( flickity.slidesWidth + flickity.x + flickity.slides[flickity.slides.length - 1 ].outerWidth + slide.target ) : ( slide.target + flickity.x );
+//           }
+//           else if( i === flickity.slides.length - 1 ) {
+//             x = Math.abs( flickity.x ) + flickity.slides[i].outerWidth < flickity.slidesWidth ? ( slide.target - flickity.slidesWidth + flickity.x - flickity.slides[i].outerWidth ) : ( slide.target + flickity.x );
+//           }
+//           else {
+//             x = slide.target + flickity.x;
+//           }
           
-          if (!theme.config.isTouch && !theme.config.rtl) {
-            image.style.transform = 'translateX(' + x * ( -1 / 2 ) + 'px)';
-          }
-        }
-      });
-    });
+//           if (!theme.config.isTouch && !theme.config.rtl) {
+//             image.style.transform = 'translateX(' + x * ( -1 / 2 ) + 'px)';
+//           }
+//         }
+//       });
+//     });
 
-    this.flickityLarge.on('scroll', () => {
-      this.flickityLarge.slides.forEach((slide, i) => {
-        const flickity = this.flickityLarge;
-        const image = this.settings.slidesLarge[i];
-        let x = 0;
+//     this.flickityLarge.on('scroll', () => {
+//       this.flickityLarge.slides.forEach((slide, i) => {
+//         const flickity = this.flickityLarge;
+//         const image = this.settings.slidesLarge[i];
+//         let x = 0;
 
-        if (image) {
-          if( 0 === i ) {
-            x = Math.abs( flickity.x ) > flickity.slidesWidth ? ( flickity.slidesWidth + flickity.x + flickity.slides[flickity.slides.length - 1 ].outerWidth + slide.target ) : ( slide.target + flickity.x );
-          }
-          else if( i === flickity.slides.length - 1 ) {
-            x = Math.abs( flickity.x ) + flickity.slides[i].outerWidth < flickity.slidesWidth ? ( slide.target - flickity.slidesWidth + flickity.x - flickity.slides[i].outerWidth ) : ( slide.target + flickity.x );
-          }
-          else {
-            x = slide.target + flickity.x;
-          }
+//         if (image) {
+//           if( 0 === i ) {
+//             x = Math.abs( flickity.x ) > flickity.slidesWidth ? ( flickity.slidesWidth + flickity.x + flickity.slides[flickity.slides.length - 1 ].outerWidth + slide.target ) : ( slide.target + flickity.x );
+//           }
+//           else if( i === flickity.slides.length - 1 ) {
+//             x = Math.abs( flickity.x ) + flickity.slides[i].outerWidth < flickity.slidesWidth ? ( slide.target - flickity.slidesWidth + flickity.x - flickity.slides[i].outerWidth ) : ( slide.target + flickity.x );
+//           }
+//           else {
+//             x = slide.target + flickity.x;
+//           }
 
-          if (!theme.config.isTouch && !theme.config.rtl) {
-            image.style.transform = 'translateX(' + x * ( -1 / 2 ) + 'px)';
-          }
-        }
-      });
-    });
+//           if (!theme.config.isTouch && !theme.config.rtl) {
+//             image.style.transform = 'translateX(' + x * ( -1 / 2 ) + 'px)';
+//           }
+//         }
+//       });
+//     });
 
-    this.elements.content.querySelector('.flickity-button.next').addEventListener('click', () => {
-      this.flickitySmall && this.flickitySmall.next();
-      this.stopPlayer();
-    });
+//     this.elements.content.querySelector('.flickity-button.next').addEventListener('click', () => {
+//       this.flickitySmall && this.flickitySmall.next();
+//       this.stopPlayer();
+//     });
 
-    this.elements.content.querySelector('.flickity-button.previous').addEventListener('click', () => {
-      this.flickitySmall && this.flickitySmall.previous();
-      this.stopPlayer();
-    });
+//     this.elements.content.querySelector('.flickity-button.previous').addEventListener('click', () => {
+//       this.flickitySmall && this.flickitySmall.previous();
+//       this.stopPlayer();
+//     });
 
-    this.elements.content.querySelectorAll('.flickity-page-dot').forEach((button) => {
-      button.addEventListener('click', () => {
-        this.stopPlayer();
-      });
-    });
+//     this.elements.content.querySelectorAll('.flickity-page-dot').forEach((button) => {
+//       button.addEventListener('click', () => {
+//         this.stopPlayer();
+//       });
+//     });
 
-    let currentIndex = null,
-      swipeDirection = null;
+//     let currentIndex = null,
+//       swipeDirection = null;
   
-    // Detect swipe direction
-    this.flickityLarge.on('dragMove',  (_event, _pointer, moveVector) => {
-      currentIndex = this.flickityLarge.selectedIndex;
-      swipeDirection = this.getSwipeDirection(moveVector);
+//     // Detect swipe direction
+//     this.flickityLarge.on('dragMove',  (_event, _pointer, moveVector) => {
+//       currentIndex = this.flickityLarge.selectedIndex;
+//       swipeDirection = this.getSwipeDirection(moveVector);
 
-      this.stopPlayer();
-    });
+//       this.stopPlayer();
+//     });
     
-    // Do stuff based on a successful swipe and it's direction
-    this.flickityLarge.on('dragEnd', () => {
-      if (this.flickityLarge.selectedIndex !== currentIndex) {
+//     // Do stuff based on a successful swipe and it's direction
+//     this.flickityLarge.on('dragEnd', () => {
+//       if (this.flickityLarge.selectedIndex !== currentIndex) {
         
-        if (swipeDirection === 'left') {
-          this.flickitySmall.next();
-        }
-        else {
-          this.flickitySmall.previous();
-        }
-      }
-    });
-  }
+//         if (swipeDirection === 'left') {
+//           this.flickitySmall.next();
+//         }
+//         else {
+//           this.flickitySmall.previous();
+//         }
+//       }
+//     });
+//   }
 
-  stopPlayer() {
-    if (this.settings.autorotate) {
-      this.flickitySmall && this.flickitySmall.stopPlayer();
-    }
-  }
+//   stopPlayer() {
+//     if (this.settings.autorotate) {
+//       this.flickitySmall && this.flickitySmall.stopPlayer();
+//     }
+//   }
 
-  getSwipeDirection(moveVector) {
-    return moveVector.x > 0 ? 'right' : 'left';
-  }
+//   getSwipeDirection(moveVector) {
+//     return moveVector.x > 0 ? 'right' : 'left';
+//   }
 
-  matchMedia() {
-    document.addEventListener('matchSmall', () => {
-      this.unload();
-      this.init();
-    });
+//   matchMedia() {
+//     document.addEventListener('matchSmall', () => {
+//       this.unload();
+//       this.init();
+//     });
 
-    document.addEventListener('unmatchSmall', () => {
-      this.unload();
-      this.init();
-    });
-  }
+//     document.addEventListener('unmatchSmall', () => {
+//       this.unload();
+//       this.init();
+//     });
+//   }
 
-  unload() {
-    if (this.flickitySmall && typeof this.flickitySmall.destroy === 'function') {
-      this.flickitySmall.destroy();
-    }
-    if (this.flickityContent && typeof this.flickityContent.destroy === 'function') {
-      this.flickityContent.destroy();
-    }
-    if (this.flickityLarge && typeof this.flickityLarge.destroy === 'function') {
-      this.flickityLarge.destroy();
-    }
-  }
-}
-customElements.define('slideshow-component', SlideshowComponent);
+//   unload() {
+//     if (this.flickitySmall && typeof this.flickitySmall.destroy === 'function') {
+//       this.flickitySmall.destroy();
+//     }
+//     if (this.flickityContent && typeof this.flickityContent.destroy === 'function') {
+//       this.flickityContent.destroy();
+//     }
+//     if (this.flickityLarge && typeof this.flickityLarge.destroy === 'function') {
+//       this.flickityLarge.destroy();
+//     }
+//   }
+// }
+// customElements.define('slideshow-component', SlideshowComponent);
 
 class TestimonialsComponent extends HTMLElement {
   constructor() {
