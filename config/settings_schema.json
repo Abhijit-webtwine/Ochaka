@@ -558,6 +558,12 @@
       },
       {
         "type": "checkbox",
+        "id": "show_cart_discount",
+        "default": true,
+        "label": "t:settings_schema.cart-drawer.settings.show_cart_discount.label"
+      },
+      {
+        "type": "checkbox",
         "id": "disable_view_cart",
         "default": false,
         "label": "t:settings_schema.cart-drawer.settings.disable_view_cart.label"

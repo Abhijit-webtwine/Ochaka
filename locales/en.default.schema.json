@@ -140,6 +140,7 @@
         "show_shipping_calculator": {
           "label": "Show shipping rates calculator"
         },
+        "show_cart_discount": { "label": "Show cart discount" },
         "shipping_calculator_default_country": {
           "label": "Default country to use",
           "info": "If your customer is logged-in, the country in his default shipping address will be selected."
