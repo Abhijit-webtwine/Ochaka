@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --",
-    "check": "adastra check",
     "deploy": "run-s \"vite:build\" \"shopify:push -- {@}\" --",
     "shopify:dev": "shopify theme dev",
     "shopify:push": "shopify theme push",
