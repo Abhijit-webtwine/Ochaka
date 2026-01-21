@@ -2599,7 +2599,9 @@
         color: var(--black);
         cursor: pointer;
         @include transition3;
-
+        i {
+          pointer-events: none;
+        }
         &:hover {
             color: var(--primary);
         }

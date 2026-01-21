@@ -36,12 +36,12 @@ class CartItems extends HTMLElement {
     let sections = [
       {
         id: 'mini-cart',
-        section: document.getElementById('mini-cart')?.id,
+        section: 'mini-cart',
         selector: '.shopify-section',
       },
       {
         id: 'main-cart-items',
-        section: document.getElementById('main-cart-items')?.dataset.id,
+        section: 'main-cart-items',
         selector: '.js-contents',
       },
       {
@@ -55,20 +55,15 @@ class CartItems extends HTMLElement {
         selector: '.shopify-section'
       },
       {
-        id: 'cart-live-region-text',
-        section: 'cart-live-region-text',
-        selector: '.shopify-section'
-      },
-      {
         id: 'main-cart-footer',
-        section: document.getElementById('main-cart-footer')?.dataset.id,
+        section: 'main-cart-footer',
         selector: '.js-contents',
       }
     ];
     if (document.querySelector('#main-cart-footer .free-shipping')) {
       sections.push({
         id: 'main-cart-footer',
-        section: document.getElementById('main-cart-footer')?.dataset.id,
+        section: 'main-cart-footer',
         selector: '.free-shipping',
       });
     }

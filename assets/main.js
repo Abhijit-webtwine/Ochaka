@@ -1414,8 +1414,8 @@
         headerSticky();
         headerFixed();
         dropdownSelect();
-        btnQuantity();
-        deleteFile();
+        // btnQuantity();
+        // deleteFile();
         deleteWishList();
         goTop();
         variantPicker();
