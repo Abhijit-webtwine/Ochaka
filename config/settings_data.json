@@ -60,7 +60,7 @@
     "collection_layout": "left_sidebar",
     "show_cart_note": true,
     "show_shipping_calculator": true,
-    "disable_view_cart": true,
+    "disable_view_cart": false,
     "show_free_shipping_message": true,
     "free_shipping_minimum_amount": "75",
     "cart_recommendations_enabled": true,
