@@ -10,6 +10,131 @@ class CartRemoveButton extends HTMLElement {
 }
 customElements.define('cart-remove-button', CartRemoveButton);
 
+class CartDiscount extends HTMLElement {
+  constructor() {
+    super();
+
+    this.onSubmitBound = this.onSubmit.bind(this);
+    this.onClickBound = this.onClick.bind(this);
+
+    this.addEventListener('submit', this.onSubmitBound);
+    this.addEventListener('click', this.onClickBound);
+  }
+
+  onClick(event) {
+    const removeBtn = event.target.closest('.cart-discount-remove');
+    if (!removeBtn || !this.contains(removeBtn)) return;
+    this.onRemove(event);
+  }
+
+  onRemove(event) {
+    console.log('done');
+    event.preventDefault();
+    
+    // Clear the input field if it exists
+    const input = this.querySelector('input[name="discount"]');
+    if (input) {
+      input.value = '';
+    }
+    
+    // Apply empty discount to remove
+    this.applyDiscount('');
+  }
+
+  // Shared function to handle discount error visibility
+  handleDiscountErrors(parsedState) {
+    const errorEl = document.querySelectorAll('.cart-discount-error');
+    if (!errorEl) return;
+
+    const hasInvalidDiscount = parsedState.discount_codes?.some(d => d.applicable === false);
+    
+    if (hasInvalidDiscount) {
+      errorEl.forEach(el => el.classList.remove('hidden'));
+
+      //Remove discount after wrong added
+      const body = JSON.stringify({
+        discount: '',
+      });
+      fetch(routes.cart_update_url, {...fetchConfig(), ...{ body }})
+      
+    } else {
+      errorEl.forEach(el => el.classList.add('hidden'));
+    }
+  }
+
+  applyDiscount(code) {
+    this.enableLoading();
+
+    const cartItems = document.querySelector('cart-items');
+    const sectionsToRender = cartItems?.getSectionsToRender() || [];
+      console.log(window.location.pathname,'window.location.pathname');
+
+    const body = JSON.stringify({
+      discount: code,
+      sections: sectionsToRender.map(s => s.section),
+      sections_url: window.location.pathname
+    });
+
+    fetch(routes.cart_update_url, {...fetchConfig(), ...{ body }})
+    .then(res => res.json())
+    .then(parsedState => {
+      
+      this.disableLoading();
+
+      // 1. Re-render sections
+      sectionsToRender.forEach(section => {
+        
+        const container = document.getElementById(section.id);
+        if (!container) return;
+
+        const html = parsedState.sections?.[section.section];
+        if (!html) return;
+
+        const target = container.querySelector(section.selector) || container;
+        target.innerHTML = cartItems.getSectionInnerHTML(html, section.selector);
+      });
+
+      // 2. Handle discount errors using shared function
+      this.handleDiscountErrors(parsedState);
+
+      // 3. Notify system
+      document.dispatchEvent(new CustomEvent('cart:updated', {
+        detail: { cart: parsedState }
+      }));
+    })
+    .catch(() => {
+      this.disableLoading();
+    });
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+
+    const input = this.querySelector('input[name="discount"]');
+    const code = input ? input.value.trim() : '';
+    
+    this.applyDiscount(code);
+  }
+
+  enableLoading() {
+    const submitBtn = this.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Applying...';
+    }
+  }
+
+  disableLoading() {
+    const submitBtn = this.querySelector('button[type="submit"]');
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Apply Code';
+    }
+  }
+}
+
+customElements.define('cart-discount', CartDiscount);
+
 class CartItems extends HTMLElement {
   constructor() {
     super();
@@ -209,29 +334,6 @@ class CartNote extends HTMLElement {
   }
 }
 customElements.define('cart-note', CartNote);
-
-class DiscountCode extends HTMLElement {
-  constructor() {
-    super();
-
-    if (isStorageSupported('session')) {
-      this.setupDiscount();
-
-      this.addEventListener('change', (event) => {
-        window.sessionStorage.setItem('discount', event.target.value);
-      });
-    }
-  }
-
-  setupDiscount() {
-    const discount = window.sessionStorage.getItem('discount');
-    if (discount !== null) {
-      this.querySelector('input[name="discount"]').value = discount;
-    }
-  }
-}
-
-customElements.define('discount-code', DiscountCode);
 
 class ShippingCalculator extends HTMLElement {
   constructor() {

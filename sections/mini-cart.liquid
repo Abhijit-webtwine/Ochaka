@@ -230,6 +230,8 @@
 
             <div class="tf-mini-cart-threshold">
               {% comment %} Discount Message {% endcomment %}
+              <div class="cart-discount-error text-primary mb-16 hidden">Please enter a valid discount code</div>
+
               {% if cart.discount_applications.size > 0 %}
                 {% for discount_application in cart.discount_applications %}
                   {% if discount_application.title %}
@@ -376,7 +378,7 @@
           </shipping-calculator>
 
           {% comment %} discount code {% endcomment %}
-           <cart-discount data-url="?section_id=mini-cart">
+           <cart-discount>
             <div class="tf-mini-cart-tool-openable add-discount">
               <div class="overlay tf-mini-cart-tool-close"></div>
 
