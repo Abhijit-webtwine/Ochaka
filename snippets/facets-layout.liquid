@@ -58,7 +58,7 @@
     </div>
 
     {% comment %} Grid layouts {% endcomment %}
-    <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
+    <div class="wrapper-shop tf-grid-layout tf-col-{{ active_layout }}" id="gridLayout">
       {%- paginate collection.products by 12 -%}
         {%- for product in collection.products -%}
           {% render 'card-product', product: product %}

@@ -5,14 +5,14 @@
       <div class="tf-shop-control">
         {% render 'facets-control-filter', collection: collection, filter_class: 'full_width' %}
 
-        {% render 'facets-control-layout' %}
+        {% render 'facets-control-layout', active_layout: '4' %}
 
         {% comment %} Sorting Controller {% endcomment %}
         {% render 'facets-sorting-controller', collection: collection %}
       </div>
 
       {% comment %} Layouts {% endcomment %}
-      {% render 'facets-layout', collection: collection %}
+      {% render 'facets-layout', collection: collection, active_layout: '4' %}
     {% endif %}
 
     {% comment %} Drawer layout {% endcomment %}
@@ -25,13 +25,13 @@
         </div>
         <div class="overlay-filter type-drawer" id="overlay-filter"></div>
         {% render 'facets-sidebar', collection: collection, filter_class: 'filter-drawer-wrap filter-drawer canvas-sidebar sidebar-filter canvas-filter left', header_class: 'd-xl-none', bottom_class: 'd-xl-none', scope: 'Mobile' %}
-        {% render 'facets-control-layout' %}
+        {% render 'facets-control-layout', active_layout: '4' %}
 
         {% comment %} Sorting Controller {% endcomment %}
         {% render 'facets-sorting-controller', collection: collection %}
         
       </div>
-      {% render 'facets-layout', collection: collection %}
+      {% render 'facets-layout', collection: collection, active_layout: '4' %}
     {% endif %}
 
     {% comment %} Dropdown layout {% endcomment %}
@@ -167,11 +167,11 @@
           </facet-filters-form>
         </div>
         <div class="tf-shop-change">
-          {% render 'facets-control-layout' %}
+          {% render 'facets-control-layout', active_layout: '4' %}
           {% render 'facets-sorting-controller', collection: collection %}
         </div>
       </div>
-      {% render 'facets-layout', collection: collection %}
+      {% render 'facets-layout', collection: collection, active_layout: '4' %}
     {% endif %}
 
     {% comment %} Left Sidebar layout {% endcomment %}
@@ -189,10 +189,10 @@
             </div>
 
             {% render 'facets-control-filter', collection: collection, class: 'd-xl-none', filter_class: 'canvas-sidebar sidebar-filter left', scope: 'Mobile' %}
-            {% render 'facets-control-layout', allowed_layouts: '2,3,list' %}
+            {% render 'facets-control-layout', allowed_layouts: '2,3,list', active_layout: '3' %}
             {% render 'facets-sorting-controller', collection: collection %}
             </div>
-            {% render 'facets-layout', collection: collection %}
+            {% render 'facets-layout', collection: collection, active_layout: '3' %}
           
         </div>
       </div>
@@ -210,10 +210,10 @@
             </div>
 
             {% render 'facets-control-filter', collection: collection, class: 'd-xl-none', filter_class: 'canvas-sidebar sidebar-filter right', scope: 'Desktop' %}
-            {% render 'facets-control-layout', allowed_layouts: '2,3,list' %}
+            {% render 'facets-control-layout', allowed_layouts: '2,3,list', active_layout: '3' %}
             {% render 'facets-sorting-controller', collection: collection %}
             </div>
-            {% render 'facets-layout', collection: collection %}
+            {% render 'facets-layout', collection: collection, active_layout: '3' %}
           
         </div>
         <div class="col-xl-3">
