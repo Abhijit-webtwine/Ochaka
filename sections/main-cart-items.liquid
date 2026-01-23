@@ -399,10 +399,12 @@
 
               <!-- Buttons -->
               <div class="list-ver">
-                <a href="/checkout" class="tf-btn w-100 animate-btn">
-                  Process to checkout
-                  <i class="icon icon-arrow-right"></i>
-                </a>
+                <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
+                  <button class="tf-btn w-100 animate-btn" name="checkout">
+                    {{ 'sections.cart.checkout' | t }}
+                    <i class="icon icon-arrow-right"></i>
+                  </button>
+                </form>
                 
                 <a href="{{ shop.url }}" class="tf-btn btn-white animate-btn animate-dark w-100">
                   Continue shopping
