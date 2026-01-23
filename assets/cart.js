@@ -67,7 +67,6 @@ class CartDiscount extends HTMLElement {
 
     const cartItems = document.querySelector('cart-items');
     const sectionsToRender = cartItems?.getSectionsToRender() || [];
-      console.log(window.location.pathname,'window.location.pathname');
 
     const body = JSON.stringify({
       discount: code,
@@ -180,9 +179,9 @@ class CartItems extends HTMLElement {
         selector: '.shopify-section'
       },
       {
-        id: 'main-cart-footer',
-        section: 'main-cart-footer',
-        selector: '.js-contents',
+        id: 'js-cart-summary',
+        section: 'main-cart-items',
+        selector: '.js-summary-contents',
       }
     ];
     if (document.querySelector('#main-cart-footer .free-shipping')) {

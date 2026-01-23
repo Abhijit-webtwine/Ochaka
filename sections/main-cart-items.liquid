@@ -1,6 +1,6 @@
 {%- liquid
-  if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link'
-    assign gift_wrapping = linklists.gift-wrapping.links.first
+  if linklists['gift-wrapping'].links != blank and linklists['gift-wrapping'].links.first.type == 'product_link'
+    assign gift_wrapping = linklists['gift-wrapping'].links.first
 
     assign gift_wrap_id = gift_wrapping.object.variants.first.id
     assign gift_wraps_in_cart = 0
@@ -23,234 +23,400 @@
 
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-cart-items.css' | asset_url | stylesheet_tag }}
-{{ 'component-totals.css' | asset_url | stylesheet_tag }}
-{{ 'component-price.css' | asset_url | stylesheet_tag }}
-{{ 'component-discounts.css' | asset_url | stylesheet_tag }}
+{% comment %} {{ 'component-totals.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{% comment %} {{ 'component-price.css' | asset_url | stylesheet_tag }} {% endcomment %}
+{% comment %} {{ 'component-discounts.css' | asset_url | stylesheet_tag }} {% endcomment %}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
-
-
-<cart-items class="{% if cart == empty %} is-empty{% endif %} section--padding">
-  <div class="cart__warnings">
-    <p class="cart__empty-text h2">{{ 'sections.cart.empty' | t }}</p>
-    <a href="{{ routes.all_products_collection_url }}" class="button button--tertiary">{{ 'general.continue_shopping' | t }}</a>
-  </div>
-
-  <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
-    <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
-      <div class="js-contents">
-        {%- if cart != empty -%}
-          <table class="tf-table-page-cart">
-            <thead>
-              <tr>
-                <th class="h6">{{ 'sections.cart.headings.product' | t }}</th>
-                <th class="h6">{{ 'sections.cart.headings.price' | t }}</th>
-                <th class="h6">{{ 'sections.cart.headings.quantity' | t }}</th>
-                <th class="h6">{{ 'sections.cart.headings.total' | t }}</th>
-                <th class="h6"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {%- for item in cart.items -%}
-                <tr class="tf-cart_item each-prd file-delete cart-item" id="CartItem-{{ item.index | plus: 1 }}">
-                  <td>
-                    <div class="cart_product">
-                      {% if item.image %}
-                        <a href="{{ item.product.url }}" class="img-prd">
-                          <img class="cart-item__image"
-                            srcset="{{ item.image | image_url: width: 70 }} 1x, {{ item.image | image_url: width: 140 }} 2x"
-                            src="{{ item.image | image_url: width: 70 }}"
-                            alt="{{ item.image.alt | escape | split: '#' | first }}"
-                            loading="lazy"
-                            width="70"
-                            height="{{ 70 | divided_by: item.image.aspect_ratio | ceil }}"
-                            is="lazy-image"
-                          />
-                        </a>
-                      {% endif %}
-                      <div class="infor-prd">
-                        <h6 class="prd_name">
-                          <a href="{{ item.product.url }}" class="link">
-                            {{ item.product.title | escape }}
-                          </a>
-                        </h6>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td class="cart-item__prices">
-                    {%- if item.original_price != item.final_price -%}
-                      <dl class="cart-item__discounted-prices">
-                        <dt class="visually-hidden">
-                          {{ 'products.product.price.regular_price' | t }}
-                        </dt>
-                        <dd class="price--on-sale">
-                          <s class="price price-item--regular price--end">
-                            {{ item.original_price | money_without_trailing_zeros }}
-                          </s>
-                        </dd>
-                        <dt class="visually-hidden">
-                          {{ 'products.product.price.sale_price' | t }}
-                        </dt>
-                        <dd class="cart_total h6 each-subtotal-price">
-                          {{ item.final_price | money_without_trailing_zeros }}
-                        </dd>
-                      </dl>
-                    {%- else -%}
-                      <span class="cart_total h6 each-subtotal-price">
-                        {{ item.original_price | money_without_trailing_zeros }}
-                      </span>
-                    {%- endif -%}
-
-                    {%- if item.variant.available and item.unit_price_measurement -%}
-                      <div class="unit-price">
-                        <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
-                        {{ item.variant.unit_price | money_without_trailing_zeros }}
-                        <span aria-hidden="true">/</span>
-                        <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
-                        {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
-                          {{- item.variant.unit_price_measurement.reference_value -}}
-                        {%- endif -%}
-                        {{ item.variant.unit_price_measurement.reference_unit }}
-                      </div>
-                    {%- endif -%}
-                  </td>
-
-                  <td class="medium-hide large-up-hide right">
-                      {%- if item.original_line_price != item.final_line_price -%}
-                        <dl class="cart-item__discounted-prices">
-                          <dt class="visually-hidden">
-                            {{ 'products.product.price.regular_price' | t }}
-                          </dt>
-                          <dd class="price--on-sale">
-                            <s class="cart-item__old-price price price-item--regular price--end">
-                              {{ item.original_line_price | money_without_trailing_zeros }}
-                            </s>
-                          </dd>
-                          <dt class="visually-hidden">
-                            {{ 'products.product.price.sale_price' | t }}
-                          </dt>
-                          <dd class="cart_total h6 each-subtotal-price">
-                            {{ item.final_line_price | money_without_trailing_zeros }}
-                          </dd>
-                        </dl>
-                      {%- else -%}
-                        <span class="cart_total h6 each-subtotal-price">
-                          {{ item.original_line_price | money_without_trailing_zeros }}
-                        </span>
-                      {%- endif -%}
-
-                      {%- if item.variant.available and item.unit_price_measurement -%}
-                        <div class="unit-price">
-                          <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
-                          {{ item.variant.unit_price | money_without_trailing_zeros }}
-                          <span aria-hidden="true">/</span>
-                          <span class="visually-hidden">&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span>
-                          {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
-                            {{- item.variant.unit_price_measurement.reference_value -}}
-                          {%- endif -%}
-                          {{ item.variant.unit_price_measurement.reference_unit }}
-                        </div>
-                      {%- endif -%}
-                  </td>
-
-                  <td class="cart_quantity">
-                    <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">{{ 'products.product.quantity.label' | t }}</label>
-                    {%- if gift_wrap_id == nil or item.id != gift_wrap_id -%}
-                      <quantity-input class="wg-quantity">
-                        <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
-                          <i class="icon-minus fs-14"></i>
-                        </button>
-                        <input class="quantity-product"
-                          type="number"
-                          name="updates[]"
-                          value="{{ item.quantity }}"
-                          min="0"
-                          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-                          id="Quantity-{{ item.index | plus: 1 }}"
-                          data-index="{{ item.index | plus: 1 }}"
-                        />
-                        <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
-                          <i class="icon-plus fs-14"></i>
-                        </button>
-                      </quantity-input>
-                    {%- else -%}
-                      <gift-quantity class="quantity"
-                        cart-items-size="{{ cart.items.size }}"
-                        gift-wraps-in-cart="{{ gift_wraps_in_cart }}"
-                        items-in-cart="{{ items_in_cart }}"
-                      >
-                        <button class="quantity__button no-js-hidden visually-hidden" name="minus" type="button" disabled="disabled">
-                          <span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
-                          {% render 'icon', icon: 'minus' %}
-                        </button>
-                        <input class="quantity__input"
-                          type="number"
-                          name="updates[]"
-                          value="{{ item.quantity }}"
-                          min="0"
-                          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-                          id="Quantity-{{ item.index | plus: 1 }}"
-                          data-index="{{ item.index | plus: 1 }}"
-                          disabled="disabled"
-                        />
-                        <button class="quantity__button no-js-hidden visually-hidden" name="plus" type="button" disabled="disabled">
-                          <span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
-                          {% render 'icon', icon: 'plus' %}
-                        </button>
-                      </gift-quantity>
-                    {%- endif -%}
-                  </td>
-
-                  <td class="cart-item__totals right">
-                    <div class="loading-overlay hidden">
-                      <div class="loading-overlay__spinner">
-                        {% render 'icon', icon: 'spinner' %}
-                      </div>
-                    </div>
-
-                    {%- if item.original_line_price != item.final_line_price -%}
-                      <dl class="cart-item__discounted-prices">
-                        <dt class="visually-hidden">
-                          {{ 'products.product.price.regular_price' | t }}
-                        </dt>
-                        <dd class="price--on-sale">
-                          <s class="cart-item__old-price price price-item--regular price--end">
-                          {{ item.original_line_price | money_without_trailing_zeros }}
-                          </s>
-                        </dd>
-                        <dt class="visually-hidden">
-                          {{ 'products.product.price.sale_price' | t }}
-                        </dt>
-                        <dd class="cart_total h6 each-subtotal-price">
-                          {{ item.final_line_price | money_without_trailing_zeros }}
-                        </dd>
-                      </dl>
-                    {%- else -%}
-                      <span class="cart_total h6 each-subtotal-price">
-                       {{ item.original_line_price | money_without_trailing_zeros }}
-                      </span>
-                    {%- endif -%}
-                  </td>
-                  <td class="cart_remove remove link" data-cart-title="Remove">
-                    <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                      <a href="{{ item.url_to_remove }}" class="block delete-button" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
-                        <i class="icon icon-close"></i>
-                      </a>
-                    </cart-remove-button>
-                  </td>
-                </tr>
-              {%- endfor -%}
-            </tbody>
-          </table>
-        {%- endif -%}
+<div class="flat-spacing each-list-prd">
+  <div class="container">
+    <cart-items class="{% if cart == empty %} is-empty{% endif %} section--padding">
+      <div class="cart__warnings">
+        <p class="cart__empty-text h2">{{ 'sections.cart.empty' | t }}</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button tf-btn">
+          {{- 'general.continue_shopping' | t -}}
+        </a>
       </div>
-    </div>
+      <div class="row">
+        <div class="col-xxl-9 col-xl-8">
+          <div class="" id="main-cart-items" data-id="{{ section.id }}">
+            <div class="js-contents">
+              {% comment %} Freeshipping {% endcomment %}
+              {%- if cart != empty -%}
+                {% render 'free-shipping',
+                  minimum_amount: settings.free_shipping_minimum_amount,
+                  layout: 'truck',
+                  is_last: true
+                %}
 
-    <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
-    <p class="visually-hidden" id="shopping-cart-line-item-status" aria-live="polite" aria-hidden="true" role="status">{{ 'accessibility.loading' | t }}</p>
-  </form>
-</cart-items>
+                <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
+                  <table class="tf-table-page-cart">
+                    <thead>
+                      <tr>
+                        <th class="h6">{{ 'sections.cart.headings.product' | t }}</th>
+                        <th class="h6">{{ 'sections.cart.headings.price' | t }}</th>
+                        <th class="h6">{{ 'sections.cart.headings.quantity' | t }}</th>
+                        <th class="h6">{{ 'sections.cart.headings.total' | t }}</th>
+                        <th class="h6"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {%- for item in cart.items -%}
+                        <tr
+                          class="tf-cart_item each-prd file-delete cart-item"
+                          id="CartItem-{{ item.index | plus: 1 }}"
+                        >
+                          <td>
+                            <div class="cart_product">
+                              {% if item.image %}
+                                <a href="{{ item.product.url }}" class="img-prd">
+                                  <img
+                                    class="cart-item__image"
+                                    srcset="{{ item.image | image_url: width: 70 }} 1x, {{ item.image | image_url: width: 140 }} 2x"
+                                    src="{{ item.image | image_url: width: 70 }}"
+                                    alt="{{ item.image.alt | escape | split: '#' | first }}"
+                                    loading="lazy"
+                                    width="70"
+                                    height="{{ 70 | divided_by: item.image.aspect_ratio | ceil }}"
+                                    is="lazy-image"
+                                  >
+                                </a>
+                              {% endif %}
+                              <div class="infor-prd">
+                                <h6 class="prd_name">
+                                  <a href="{{ item.product.url }}" class="link">
+                                    {{ item.product.title | escape }}
+                                  </a>
+                                </h6>
+                              </div>
+                            </div>
+                          </td>
+
+                          <td class="cart-item__prices">
+                            {%- if item.original_price != item.final_price -%}
+                              <dl class="cart-item__discounted-prices">
+                                <dt class="visually-hidden">
+                                  {{ 'products.product.price.regular_price' | t }}
+                                </dt>
+                                <dd class="price--on-sale">
+                                  <s class="price price-item--regular price--end">
+                                    {{ item.original_price | money_without_trailing_zeros }}
+                                  </s>
+                                </dd>
+                                <dt class="visually-hidden">
+                                  {{ 'products.product.price.sale_price' | t }}
+                                </dt>
+                                <dd class="cart_total h6 each-subtotal-price">
+                                  {{ item.final_price | money_without_trailing_zeros }}
+                                </dd>
+                              </dl>
+                            {%- else -%}
+                              <span class="cart_total h6 each-subtotal-price">
+                                {{ item.original_price | money_without_trailing_zeros }}
+                              </span>
+                            {%- endif -%}
+
+                            {%- if item.variant.available and item.unit_price_measurement -%}
+                              <div class="unit-price">
+                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                                {{ item.variant.unit_price | money_without_trailing_zeros }}
+                                <span aria-hidden="true">/</span>
+                                <span class="visually-hidden"
+                                  >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
+                                >
+                                {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
+                                  {{- item.variant.unit_price_measurement.reference_value -}}
+                                {%- endif -%}
+                                {{ item.variant.unit_price_measurement.reference_unit }}
+                              </div>
+                            {%- endif -%}
+                          </td>
+
+                          <td class="medium-hide large-up-hide right">
+                            {%- if item.original_line_price != item.final_line_price -%}
+                              <dl class="cart-item__discounted-prices">
+                                <dt class="visually-hidden">
+                                  {{ 'products.product.price.regular_price' | t }}
+                                </dt>
+                                <dd class="price--on-sale">
+                                  <s class="cart-item__old-price price price-item--regular price--end">
+                                    {{ item.original_line_price | money_without_trailing_zeros }}
+                                  </s>
+                                </dd>
+                                <dt class="visually-hidden">
+                                  {{ 'products.product.price.sale_price' | t }}
+                                </dt>
+                                <dd class="cart_total h6 each-subtotal-price">
+                                  {{ item.final_line_price | money_without_trailing_zeros }}
+                                </dd>
+                              </dl>
+                            {%- else -%}
+                              <span class="cart_total h6 each-subtotal-price">
+                                {{ item.original_line_price | money_without_trailing_zeros }}
+                              </span>
+                            {%- endif -%}
+
+                            {%- if item.variant.available and item.unit_price_measurement -%}
+                              <div class="unit-price">
+                                <span class="visually-hidden">{{ 'products.product.price.unit_price' | t }}</span>
+                                {{ item.variant.unit_price | money_without_trailing_zeros }}
+                                <span aria-hidden="true">/</span>
+                                <span class="visually-hidden"
+                                  >&nbsp;{{ 'accessibility.unit_price_separator' | t }}&nbsp;</span
+                                >
+                                {%- if item.variant.unit_price_measurement.reference_value != 1 -%}
+                                  {{- item.variant.unit_price_measurement.reference_value -}}
+                                {%- endif -%}
+                                {{ item.variant.unit_price_measurement.reference_unit }}
+                              </div>
+                            {%- endif -%}
+                          </td>
+
+                          <td class="cart_quantity">
+                            <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
+                              {{- 'products.product.quantity.label' | t -}}
+                            </label>
+                            {%- if gift_wrap_id == null or item.id != gift_wrap_id -%}
+                              <quantity-input class="wg-quantity">
+                                <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
+                                  <i class="icon-minus fs-14"></i>
+                                </button>
+                                <input
+                                  class="quantity-product"
+                                  type="number"
+                                  name="updates[]"
+                                  value="{{ item.quantity }}"
+                                  min="0"
+                                  aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                  id="Quantity-{{ item.index | plus: 1 }}"
+                                  data-index="{{ item.index | plus: 1 }}"
+                                >
+                                <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
+                                  <i class="icon-plus fs-14"></i>
+                                </button>
+                              </quantity-input>
+                            {%- else -%}
+                              <gift-quantity
+                                class="quantity"
+                                cart-items-size="{{ cart.items.size }}"
+                                gift-wraps-in-cart="{{ gift_wraps_in_cart }}"
+                                items-in-cart="{{ items_in_cart }}"
+                              >
+                                <button
+                                  class="quantity__button no-js-hidden visually-hidden"
+                                  name="minus"
+                                  type="button"
+                                  disabled="disabled"
+                                >
+                                  <span class="visually-hidden">
+                                    {{-
+                                      'products.product.quantity.decrease'
+                                      | t: product: item.product.title
+                                      | escape
+                                    -}}
+                                  </span>
+                                  {% render 'icon', icon: 'minus' %}
+                                </button>
+                                <input
+                                  class="quantity__input"
+                                  type="number"
+                                  name="updates[]"
+                                  value="{{ item.quantity }}"
+                                  min="0"
+                                  aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+                                  id="Quantity-{{ item.index | plus: 1 }}"
+                                  data-index="{{ item.index | plus: 1 }}"
+                                  disabled="disabled"
+                                >
+                                <button
+                                  class="quantity__button no-js-hidden visually-hidden"
+                                  name="plus"
+                                  type="button"
+                                  disabled="disabled"
+                                >
+                                  <span class="visually-hidden">
+                                    {{-
+                                      'products.product.quantity.increase'
+                                      | t: product: item.product.title
+                                      | escape
+                                    -}}
+                                  </span>
+                                  {% render 'icon', icon: 'plus' %}
+                                </button>
+                              </gift-quantity>
+                            {%- endif -%}
+                          </td>
+
+                          <td class="cart-item__totals right">
+                            <div class="loading-overlay hidden">
+                              <div class="loading-overlay__spinner">
+                                {% render 'icon', icon: 'spinner' %}
+                              </div>
+                            </div>
+
+                            {%- if item.original_line_price != item.final_line_price -%}
+                              <dl class="cart-item__discounted-prices">
+                                <dt class="visually-hidden">
+                                  {{ 'products.product.price.regular_price' | t }}
+                                </dt>
+                                <dd class="price--on-sale">
+                                  <s class="cart-item__old-price price price-item--regular price--end">
+                                    {{ item.original_line_price | money_without_trailing_zeros }}
+                                  </s>
+                                </dd>
+                                <dt class="visually-hidden">
+                                  {{ 'products.product.price.sale_price' | t }}
+                                </dt>
+                                <dd class="cart_total h6 each-subtotal-price">
+                                  {{ item.final_line_price | money_without_trailing_zeros }}
+                                </dd>
+                              </dl>
+                            {%- else -%}
+                              <span class="cart_total h6 each-subtotal-price">
+                                {{ item.original_line_price | money_without_trailing_zeros }}
+                              </span>
+                            {%- endif -%}
+                          </td>
+                          <td class="cart_remove remove link" data-cart-title="Remove">
+                            <cart-remove-button
+                              id="Remove-{{ item.index | plus: 1 }}"
+                              data-index="{{ item.index | plus: 1 }}"
+                            >
+                              <a
+                                href="{{ item.url_to_remove }}"
+                                class="block delete-button"
+                                aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                              >
+                                <i class="icon icon-close"></i>
+                              </a>
+                            </cart-remove-button>
+                          </td>
+                        </tr>
+                      {%- endfor -%}
+                    </tbody>
+                  </table>
+
+                  <p class="visually-hidden" id="cart-live-region-text" aria-live="polite" role="status"></p>
+                  <p
+                    class="visually-hidden"
+                    id="shopping-cart-line-item-status"
+                    aria-live="polite"
+                    aria-hidden="true"
+                    role="status"
+                  >
+                    {{ 'accessibility.loading' | t }}
+                  </p>
+                </form>
+
+                {% comment %} Cart Discount {% endcomment %}
+                <cart-discount>
+                  <form action="{{ routes.cart_update_url }}" class="tf-mini-cart-tool-content">
+                    <div class="ip-discount-code">
+                      <input type="text" name="discount" placeholder="Add voucher discount" required>
+                      <button class="tf-btn animate-btn" type="submit">Apply Code</button>
+                    </div>
+                    <div class="cart-discount-error text-primary mb-32 hidden">Please enter a valid discount code</div>
+
+                    {% if cart.discount_applications.size > 0 %}
+                      {% for discount_application in cart.discount_applications %}
+                        {% if discount_application.title %}
+                          <div class="cart-discount d-flex gap-3 mb-32">
+                            <span>
+                              <strong class="cart-discount-badge">{{ discount_application.title }}</strong>
+                              <span> successfully applied </span>
+                            </span>
+                            <button type="button" class="cart-discount-remove icon-close align-items-center"></button>
+                          </div>
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  </form>
+                </cart-discount>
+              {%- endif -%}
+            </div>
+            {% comment %} Discount Box {% endcomment %}
+            {%- if cart != empty -%}
+              <div class="group-discount mb-xl-0">
+                {% for block in section.blocks %}
+                  <div class="box-discount">
+                    <div class="discount-top">
+                      <div class="discount-off">
+                        <p class="h6">{{ block.settings.title }}</p>
+                        <h6 class="sale-off h6 fw-bold">{{ block.settings.percent }}</h6>
+                      </div>
+                      <div class="discount-from">
+                        <p class="h6">
+                          For all orders <br>
+                          from ${{ block.settings.minimum_amount }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="discount-bot">
+                      <h6>
+                        Code: <span class="coupon-code">{{ block.settings.code }}</span>
+                      </h6>
+                      <button class="tf-btn coupon-copy-wrap h6" type="button">Apply Code</button>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="col-xxl-3 col-xl-4">
+          <div class="fl-sidebar-cart bg-white-smoke sticky-top" id="js-cart-summary">
+            <div class="box-order-summary js-summary-contents">
+              <h4 class="title fw-semibold">Order Summary</h4>
+
+              <!-- Subtotal -->
+              <div class="subtotal h6 text-button d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold">Subtotal</h6>
+                <span class="total">{{ cart.original_total_price | money_without_trailing_zeros }}</span>
+              </div>
+
+              <!-- Discounts -->
+              {% if cart.total_discount > 0 %}
+                <div class="discount text-button d-flex justify-content-between align-items-center">
+                  <h6 class="fw-bold">Discounts</h6>
+                  <span class="total h6">-{{ cart.total_discount | money_without_trailing_zeros }}</span>
+                </div>
+              {% endif %}
+
+              <!-- Shipping -->
+              <div class="ship">
+                <h6 class="fw-bold">Shipping</h6>
+                <div class="flex-grow-1">
+                  Shipping calculated at checkout
+                </div>
+              </div>
+
+              <!-- Total -->
+              <h5 class="total-order d-flex justify-content-between align-items-center">
+                <span>Total</span>
+                <span class="total each-total-price">{{ cart.total_price | money_without_trailing_zeros }}</span>
+              </h5>
+
+              <!-- Buttons -->
+              <div class="list-ver">
+                <a href="/checkout" class="tf-btn w-100 animate-btn">
+                  Process to checkout
+                  <i class="icon icon-arrow-right"></i>
+                </a>
+                
+                <a href="{{ shop.url }}" class="tf-btn btn-white animate-btn animate-dark w-100">
+                  Continue shopping
+                  <i class="icon icon-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </cart-items>
+  </div>
+</div>
 
 {% schema %}
 {
@@ -288,6 +454,39 @@
       "label": "t:sections.all.padding.padding_bottom.label",
       "default": 36
     }
-  ]
+  ],
+  "blocks": [
+    {
+      "type": "discount",
+      "name": "Discount Box",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Discount"
+        },
+        {
+          "type": "text",
+          "id": "percent",
+          "label": "Percent Off",
+          "default": "30% OFF"
+        },
+        {
+          "type": "number",
+          "id": "minimum_amount",
+          "label": "Minimum Order Amount",
+          "default": 150
+        },
+        {
+          "type": "text",
+          "id": "code",
+          "label": "Coupon Code",
+          "default": "JThemes"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10
 }
 {% endschema %}

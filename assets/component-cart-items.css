@@ -87,7 +87,6 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: flex-end;
 }
 
 .cart-item__discounted-prices dd {
@@ -117,7 +116,7 @@ cart-remove-button .button {
 .cart-item .loading-overlay {
   top: auto;
   left: auto;
-  right: 0;
+  right: auto;
   bottom: 0;
   padding: 0;
 }

@@ -15,6 +15,10 @@ cart-items.is-empty .title-wrapper,
   display: block;
 }
 
+.is-empty .group-discount {
+  display: none;
+}
+
 .cart__warnings {
   display: none;
   text-align: center;
@@ -39,11 +43,11 @@ cart-items.is-empty .title-wrapper,
 
 @media screen and (min-width: 990px) {
   .cart__warnings {
-    padding: 10rem 0 15rem;
+    padding: 0 0 6rem;
   }
 
   .cart__empty-text {
-    margin: 5rem 0 6rem;
+    margin: 5rem 0 3rem;
   }
 }
 
