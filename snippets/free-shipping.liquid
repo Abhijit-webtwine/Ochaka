@@ -1,12 +1,10 @@
 {% comment %}
-  Renders free shipping message
-
+  Free Shipping Snippet (layout switch)
+  --------------------
   Accepts:
   - minimum_amount: {Number} Free shipping minimum amount
-  - is_last: {Boolean} Is the last block
-
-  Usage:
-  {% render 'free-shipping', minimum_amount: minimum_amount %}
+  - layout: {String} 'truck' or 'default' (default: 'default')
+  - is_last: {Boolean} optional styling for last block
 {% endcomment %}
 
 {%- liquid
@@ -15,7 +13,6 @@
 
   if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link'
     assign gift_wrapping = linklists.gift-wrapping.links.first
-    
     assign gift_wrap_id = gift_wrapping.object.variants.first.id
     assign gift_wraps_in_cart = 0
     for item in cart.items
@@ -27,17 +24,51 @@
     assign total_price = total_price | minus: gift_wraps_in_cart
   endif
 -%}
+
 <div class="free-shipping{% if is_last %} is-last{% endif %}">
-  {%- capture progress_percent -%}{{ total_price | times: 1.0 | divided_by: minimum_amount_in_cents | at_most: 1 | times: 100 | round }}%{%- endcapture -%}
+  {%- capture progress_percent -%}
+    {{ total_price | times: 1.0 | divided_by: minimum_amount_in_cents | at_most: 1 | times: 100 | round }}%
+  {%- endcapture -%}
 
-  <div class="tf-progress-bar tf-progress-ship">
-    <div class="value" style="--progress: {{ progress_percent }};"></div>
-  </div>
+  {%- if layout == 'truck' -%}
+    <div class="notification-progress">
+      <div class="text">
+        <i class="icon icon-truck"></i>
+        {%- if total_price >= minimum_amount_in_cents -%}
+          <p class="h6">{{ 'general.cart.free_shipping.congratulations_html' | t }}</p>
+        {%- else -%}
+          {%- capture remaining_amount -%}
+            <price-money class="price"><bdi>{{ total_price | minus: minimum_amount_in_cents | abs | money }}</bdi></price-money>
+          {%- endcapture -%}
+          <p class="h6">
+            Free Shipping for orders over {{ remaining_amount }}
+          </p>
+        {%- endif -%}
+      </div>
 
-  {%- if total_price >= minimum_amount_in_cents -%}
-    <span class="free-shipping__text free-shipping__text--success">{{ 'general.cart.free_shipping.congratulations_html' | t }}</span>
+      <div class="progress-cart">
+        <div class="value" style="width: {{ progress_percent }};" data-progress="{{ progress_percent }}">
+          <span class="round"></span>
+        </div>
+      </div>
+    </div>
+
   {%- else -%}
-    {%- capture remaining_amount -%}<price-money class="price"><bdi>{{ total_price | minus: minimum_amount_in_cents | abs | money }}</bdi></price-money>{%- endcapture -%}
-    <div class="desc text-main">{{ 'general.cart.free_shipping.remaining_html' | t: remaining_amount: remaining_amount }}</div>
+    <div class="tf-progress-bar tf-progress-ship">
+      <div class="value" style="--progress: {{ progress_percent }};"></div>
+    </div>
+
+    {%- if total_price >= minimum_amount_in_cents -%}
+      <span class="free-shipping__text free-shipping__text--success">
+        {{ 'general.cart.free_shipping.congratulations_html' | t }}
+      </span>
+    {%- else -%}
+      {%- capture remaining_amount -%}
+        <price-money class="price"><bdi>{{ total_price | minus: minimum_amount_in_cents | abs | money }}</bdi></price-money>
+      {%- endcapture -%}
+      <div class="desc text-main">
+        {{ 'general.cart.free_shipping.remaining_html' | t: remaining_amount: remaining_amount }}
+      </div>
+    {%- endif -%}
   {%- endif -%}
 </div>
