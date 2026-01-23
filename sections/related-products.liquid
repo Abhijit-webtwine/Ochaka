@@ -1,0 +1,54 @@
+<section class="flat-spacing pt-0">
+  <product-recommendations
+    class="related-products page-width section-{{ section.id }}-padding"
+    data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
+    data-section-id="{{ section.id }}"
+    data-product-id="{{ product.id }}"
+  >
+    {% if recommendations.performed and recommendations.products_count > 0 %}
+      <div class="container">
+        <h1 class="sect-title text-center">
+          {{ section.settings.heading }}
+        </h1>
+          <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="2"
+            data-space-lg="48" data-space-md="30" data-space="12" data-pagination="2" data-pagination-sm="2" data-pagination-md="3"
+            data-pagination-lg="4">
+            <div class="swiper-wrapper">
+              {% for recommendation in recommendations.products %}
+                <div class="swiper-slide">
+                  {% render 'card-product', product: recommendation %}
+                </div>
+              {% endfor %}
+
+            </div>
+            <div class="sw-dot-default tf-sw-pagination"></div>
+          </div>
+      </div>
+    {% endif %}
+  </product-recommendations>
+</section>
+
+{% schema %}
+{
+  "name": "Related Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Related Products"
+    },
+    {
+      "type": "number",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related Products"
+    }
+  ]
+}
+{% endschema %}
