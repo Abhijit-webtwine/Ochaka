@@ -73,9 +73,16 @@
 
     .value {
         position: relative;
+        width: 0;
         height: 100%;
         background-color: var(--success);
-        transition: width 2s ease;
+        animation: progress-fill 1.2s cubic-bezier(.4,0,.2,1) forwards;
+    }
+
+    @keyframes progress-fill {
+        to {
+            width: var(--progress-percent);
+        }
     }
 
     .round {
