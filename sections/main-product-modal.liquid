@@ -403,8 +403,6 @@
               {{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}
             {%- when 'variant_picker' -%}
               {% render 'product-variant-picker', block: block, product: product, update_url: false %}
-            {%- when 'buy_buttons' -%}
-              {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id %}
             {%- when 'rating' -%}
               {%- if product.metafields.reviews.rating.value != blank -%}
                 {% liquid

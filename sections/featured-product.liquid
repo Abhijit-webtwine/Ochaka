@@ -436,23 +436,7 @@
               {{ 'component-product-inventory.css' | asset_url | stylesheet_tag }}
             {%- when 'variant_picker' -%}
               {% render 'product-variant-picker', block: block, product: product, update_url: false %}
-            {%- when 'buy_buttons' -%}
-              {%- if product != blank -%}
-                {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id %}
-              {%- else -%}
-                <div class="product-form" {{ block.shopify_attributes }}>
-                  <div class="product-form__buttons form">
-                    <button
-                      type="submit"
-                      name="add"
-                      class="product-form__submit button button--full-width button--primary"
-                      disabled
-                    >
-                      {{ 'products.product.sold_out' | t }}
-                    </button>
-                  </div>
-                </div>
-              {%- endif -%}
+
             {%- when 'description' -%}
               <div class="product__description rte" {{ block.shopify_attributes }}>{{ product.description }}</div>
             {%- when 'custom_liquid' -%}
