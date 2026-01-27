@@ -2419,87 +2419,6 @@ class TabCollage extends HTMLElement {
 }
 customElements.define('tab-collage', TabCollage);
 
-class CountdownTimer extends HTMLElement {
-  constructor() {
-    super();
-
-    this.parent = this.closest('.product-countdown');
-    this.date = new Date(Date.parse(this.dataset.date)).getTime();
-
-    if (isNaN(this.date)) {
-      this.date = new Date(this.dataset.date.replace(/-/g, "/")).getTime();
-
-      if (isNaN(this.date)) {
-        this.unload();
-        return;
-      }
-    }
-
-    theme.initWhenVisible({
-      element: this,
-      callback: this.init.bind(this),
-      threshold: 200
-    });
-  }
-
-  init() {
-    this.timer();
-    this.dataset.interval = setInterval(this.timer.bind(this), 1000);
-  }
-
-  timer() {
-    const now = new Date(),
-      countTo = new Date(this.date),
-      timeDifference = (countTo - now);
-
-    if (timeDifference < 0) {
-      this.unload();
-      return;
-    }
-
-    const secondsInADay = 60 * 60 * 1000 * 24,
-      secondsInAHour = 60 * 60 * 1000;
-
-    const days = Math.floor(timeDifference / (secondsInADay) * 1);
-    const hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
-    const mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
-    const secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
-
-    if (this.dataset.compact == 'true') {
-      this.innerHTML =
-        `<div class="countdown__item">` +
-        `<span class="countdown__value">${days}</span><span class="countdown__unit">d</span>` +
-        `<span class="countdown__sep">:</span>` +
-        `<span class="countdown__value">${hours}</span><span class="countdown__unit">h</span>` +
-        `<span class="countdown__sep">:</span>` +
-        `<span class="countdown__value">${mins}</span><span class="countdown__unit">m</span>` +
-        `<span class="countdown__sep">:</span>` +
-        `<span class="countdown__value">${secs}</span><span class="countdown__unit">s</span>` +
-        `</div>`;
-    }
-    else {
-      const dayHTML = days > 0 ? `<div class="countdown__item"><span>${days}</span> ${days == 1 ? window.dateStrings.day : window.dateStrings.days}</div>` : '';
-      const hourHTML = `<div class="countdown__item"><span>${hours}</span> ${hours == 1 ? window.dateStrings.hour : window.dateStrings.hours}</div>`;
-      const minHTML = `<div class="countdown__item"><span>${mins}</span> ${mins == 1 ? window.dateStrings.minute : window.dateStrings.minutes}</div>`;
-      const secHTML = `<div class="countdown__item"><span>${secs}</span> ${secs == 1 ? window.dateStrings.second : window.dateStrings.seconds}</div>`;
-
-      this.innerHTML = dayHTML + hourHTML + minHTML + secHTML;
-    }
-  }
-
-  unload() {
-    if (this.dataset.interval) {
-      clearInterval(this.dataset.interval);
-    }
-
-    this.classList.add('hidden');
-    if (this.parent) {
-      this.parent.classList.add('hidden');
-    }
-  }
-}
-customElements.define('countdown-timer', CountdownTimer);
-
 class GMap extends HTMLElement {
   constructor() {
     super();
@@ -3517,3 +3436,145 @@ if (!customElements.get('localization-form')) {
     }
   );
 }
+
+class AddToCartCount extends HTMLElement {
+  connectedCallback() {
+    // read Liquid values
+    this.min = parseInt(this.getAttribute('min'), 10) || 1;
+    this.max = parseInt(this.getAttribute('max'), 10) || 50;
+
+    // find the span INSIDE the wrapper
+    this.numberEl = this.querySelector('.vc-number');
+    if (!this.numberEl) return;
+
+    // first run
+    this.updateAnimated();
+
+    // run every 10–30 seconds
+    this.interval = setInterval(
+      () => this.updateAnimated(), 
+      Math.floor(Math.random() * 20000) + 10000
+    );
+  }
+
+  disconnectedCallback() {
+    if (this.interval) clearInterval(this.interval);
+  }
+
+  randomValue() {
+    return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+  }
+
+  animateCount(current, target) {
+    const steps = 20;
+    const step = (target - current) / steps;
+    let value = current;
+
+    const interval = setInterval(() => {
+      value += step;
+
+      if ((step > 0 && value >= target) || (step < 0 && value <= target)) {
+        value = target;
+        clearInterval(interval);
+      }
+
+      this.numberEl.textContent = Math.round(value);
+    }, 50);
+  }
+
+  updateAnimated() {
+    const current = parseInt(this.numberEl.textContent) || this.randomValue();
+    const target = this.randomValue();
+    this.animateCount(current, target);
+  }
+}
+
+customElements.define('add-to-cart-count', AddToCartCount);
+
+class VisitorCount extends AddToCartCount {
+}
+customElements.define('visitor-count', VisitorCount);
+class CountdownTimer extends HTMLElement {
+  constructor() {
+    super();
+    this._interval = null;
+    this._values = [];
+  }
+
+  connectedCallback() {
+    const dateStr = this.dataset.date;
+    this._targetTime =
+      Date.parse(dateStr) || Date.parse(dateStr.replace(/-/g, "/"));
+
+    if (isNaN(this._targetTime)) return;
+
+    // layout decides labels only
+    this._layout = this.dataset.layout || "classic";
+
+    this._build();
+    this._start();
+  }
+
+  disconnectedCallback() {
+    clearInterval(this._interval);
+  }
+
+  /* ---------- BUILD SHARED STRUCTURE ---------- */
+  _build() {
+    this.textContent = "";
+    this._values = [];
+
+    const timer = document.createElement("div");
+    timer.className = "countdown__timer";
+    timer.setAttribute("aria-hidden", "true");
+
+    const labels =
+      this._layout === "classic"
+        ? (this.dataset.labels || "d : ,h : ,m : ,s").split(",")
+        : ["Days", "Hours", "Mins", "Secs"];
+
+    for (let i = 0; i < 4; i++) {
+      const item = document.createElement("span");
+      const value = document.createElement("span");
+      const label = document.createElement("span");
+
+      item.className = "countdown__item";
+      value.className = `countdown__value countdown__value--${i} js-countdown__value--${i}`;
+      label.className = "countdown__label";
+      label.textContent = labels[i];
+
+      value.textContent = "00";
+
+      item.appendChild(value);
+      item.appendChild(label);
+      timer.appendChild(item);
+
+      this._values[i] = value;
+    }
+
+    this.appendChild(timer);
+  }
+
+  /* ---------- TIMER LOGIC ---------- */
+  _start() {
+    const update = () => {
+      const diff = this._targetTime - Date.now();
+      if (diff <= 0) {
+        clearInterval(this._interval);
+        return;
+      }
+
+      const s = Math.floor(diff / 1000);
+
+      this._values[0].textContent = Math.floor(s / 86400);
+      this._values[1].textContent = Math.floor((s % 86400) / 3600);
+      this._values[2].textContent = Math.floor((s % 3600) / 60);
+      this._values[3].textContent = s % 60;
+    };
+
+    update();
+    this._interval = setInterval(update, 1000);
+  }
+}
+
+customElements.define("countdown-timer", CountdownTimer);
