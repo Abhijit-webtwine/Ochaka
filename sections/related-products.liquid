@@ -1,37 +1,125 @@
-<section class="flat-spacing pt-0">
-  <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding"
-    data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
-    data-section-id="{{ section.id }}"
-    data-product-id="{{ product.id }}"
-  >
-    {% if recommendations.performed and recommendations.products_count > 0 %}
-      <div class="container">
-        <h1 class="sect-title text-center">
-          {{ section.settings.heading }}
-        </h1>
-          <div dir="ltr" class="swiper tf-swiper wrap-sw-over" data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="2"
-            data-space-lg="48" data-space-md="30" data-space="12" data-pagination="2" data-pagination-sm="2" data-pagination-md="3"
-            data-pagination-lg="4">
+<style>
+    .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+<section class="section-{{ section.id }}-padding">
+  {% assign source = section.settings.source %}
+  {% assign limit = section.settings.products_to_show %}
+
+  {% if source == 'recommendations' and product %}
+    <product-recommendations
+      class="related-products section-{{ section.id }}"
+      data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ limit }}"
+      data-section-id="{{ section.id }}"
+      data-product-id="{{ product.id }}"
+    >
+      {% if recommendations.performed and recommendations.products_count > 0 %}
+        <div class="container">
+          <h1 class="sect-title text-center">
+            {{ section.settings.heading }}
+          </h1>
+
+          <div dir="ltr"
+               class="swiper tf-swiper wrap-sw-over"
+               data-preview="4"
+               data-tablet="3"
+               data-mobile-sm="2"
+               data-mobile="2"
+               data-space-lg="48"
+               data-space-md="30"
+               data-space="12"
+               data-pagination="2"
+               data-pagination-sm="2"
+               data-pagination-md="3"
+               data-pagination-lg="4">
+
             <div class="swiper-wrapper">
               {% for recommendation in recommendations.products %}
                 <div class="swiper-slide">
                   {% render 'card-product', product: recommendation %}
                 </div>
               {% endfor %}
-
             </div>
+
             <div class="sw-dot-default tf-sw-pagination"></div>
           </div>
+        </div>
+      {% endif %}
+    </product-recommendations>
+
+  {% elsif source == 'collection' and section.settings.collection != blank %}
+
+    {% assign collection = section.settings.collection %}
+    {% if collection.products_count > 0 %}
+      <div class="container">
+        <h1 class="sect-title text-center">
+          {{ section.settings.heading }}
+        </h1>
+
+        <div dir="ltr"
+          class="swiper tf-swiper wrap-sw-over"
+          data-preview="4"
+          data-tablet="3"
+          data-mobile-sm="2"
+          data-mobile="2"
+          data-space-lg="48"
+          data-space-md="30"
+          data-space="12"
+          data-pagination="2"
+          data-pagination-sm="2"
+          data-pagination-md="3"
+          data-pagination-lg="4">
+
+          <div class="swiper-wrapper">
+            {% for product in collection.products limit: limit %}
+              <div class="swiper-slide">
+                {% render 'card-product', product: product %}
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="sw-dot-default tf-sw-pagination"></div>
+        </div>
       </div>
     {% endif %}
-  </product-recommendations>
+  {% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Related Products",
+  "name": "Related products",
   "settings": [
+    {
+      "type": "select",
+      "id": "source",
+      "label": "Product source",
+      "default": "recommendations",
+      "options": [
+        {
+          "value": "recommendations",
+          "label": "Product recommendations (automatic)"
+        },
+        {
+          "value": "collection",
+          "label": "Collection (manual)"
+        }
+      ]
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Used only when source is set to Collection"
+    },
     {
       "type": "text",
       "id": "heading",
@@ -39,15 +127,38 @@
       "default": "Related Products"
     },
     {
-      "type": "number",
+      "type": "range",
       "id": "products_to_show",
       "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
       "default": 4
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 52
     }
   ],
   "presets": [
     {
-      "name": "Related Products"
+      "name": "Related products"
     }
   ]
 }

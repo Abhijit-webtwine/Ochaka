@@ -3417,52 +3417,40 @@ class AccordionTab extends HTMLElement {
 customElements.define('accordion-tab', AccordionTab);
 
 class ProductRecommendations extends HTMLElement {
-  observer = undefined;
-
   constructor() {
     super();
   }
 
   connectedCallback() {
-    this.initializeRecommendations(this.dataset.productId);
+    if (!this.dataset.url) return;
+    this.loadRecommendations();
   }
 
-  initializeRecommendations(productId) {
-    this.observer?.unobserve(this);
-    this.observer = new IntersectionObserver(
-      (entries, observer) => {
-        if (!entries[0].isIntersecting) return;
-        observer.unobserve(this);
-        this.loadRecommendations(productId);
-      },
-      { rootMargin: '0px 0px 400px 0px' }
-    );
-    this.observer.observe(this);
-  }
-
-  loadRecommendations(productId) {
-    fetch(`${this.dataset.url}&product_id=${productId}&section_id=${this.dataset.sectionId}`)
+  loadRecommendations() {
+    fetch(this.dataset.url)
       .then((response) => response.text())
       .then((text) => {
         const html = document.createElement('div');
         html.innerHTML = text;
+
         const recommendations = html.querySelector('product-recommendations');
-
-        if (recommendations?.innerHTML.trim().length) {
-          this.innerHTML = recommendations.innerHTML;
-        }
-
-        if (!this.querySelector('slideshow-component') && this.classList.contains('complementary-products')) {
+        if (!recommendations || !recommendations.innerHTML.trim()) {
           this.remove();
+          return;
         }
 
-        if (html.querySelector('.grid__item')) {
-          this.classList.add('product-recommendations--loaded');
+        this.innerHTML = recommendations.innerHTML;
+
+        // Remove section if no slides exist
+        if (!this.querySelector('.swiper-slide')) {
+          this.remove();
+          return;
         }
+
+        // Optional state class
+        this.classList.add('product-recommendations--loaded');
       })
-      .catch((e) => {
-        console.error(e);
-      });
+      .catch(console.error);
   }
 }
 
