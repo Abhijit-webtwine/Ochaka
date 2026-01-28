@@ -8716,14 +8716,14 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
-.modal-compare_color .modal-dialog {
+.modal-size_chart .modal-dialog {
   max-width: 1470px;
 }
-.modal-compare_color .modal-content {
+.modal-size_chart .modal-content {
   padding: 30px 16px;
 }
 @media (min-width: 1200px) {
-  .modal-compare_color .modal-content {
+  .modal-size_chart .modal-content {
     padding: 48px;
   }
 }

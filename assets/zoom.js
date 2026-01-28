@@ -7,11 +7,11 @@ if ($(".product-thumbs-slider").length > 0) {
     var thumbs = new Swiper(".tf-product-media-thumbs", {
         spaceBetween: space,
         slidesPerView: preview,
-        freeMode: true,
+        freeMode: false,
         // direction: "vertical",
-        watchSlidesProgress: true,
-        observer: true,
-        observeParents: true,
+        watchSlidesProgress: false,
+        observer: false,
+        observeParents: false,
 
         breakpoints: {
             0: {
@@ -27,9 +27,9 @@ if ($(".product-thumbs-slider").length > 0) {
 
     var main = new Swiper(".tf-product-media-main", {
         spaceBetween: 0,
-        observer: true,
-        observeParents: true,
-        speed: 800,
+        observer: false,
+        observeParents: false,
+        // speed: 800,
         navigation: {
             nextEl: ".thumbs-next",
             prevEl: ".thumbs-prev",

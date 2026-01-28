@@ -1463,8 +1463,10 @@ deferred-media {
 }
 
 .button[disabled],
+button[disabled],
 .button[aria-disabled=true] {
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .button,

@@ -1,0 +1,15 @@
+<div class="modal modalCentered fade modal-share" id="shareWith">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-heading">
+        <h2 class="fw-normal">Share</h2>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      {%  render 'product-social-share-icons'%}
+      <div class="wrap-code style-1">
+        <p class="coppyText h6" id="coppyText">{{ shop.url }}{{ product.url }}</p>
+        <div class="btn-coppy-text tf-btn">Copy</div>
+      </div>
+    </div>
+  </div>
+</div>

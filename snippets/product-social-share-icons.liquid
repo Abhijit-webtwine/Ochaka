@@ -1,0 +1,53 @@
+<ul class="tf-social-icon {{ class }}">
+  {% if settings.social_facebook_link != blank %}
+    <li>
+      <a
+        href="{{ settings.social_facebook_link }}"
+        target="_blank"
+        rel="noopener"
+        class="social-facebook"
+      >
+        <span class="icon"><i class="icon-fb"></i></span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if settings.social_instagram_link != blank %}
+    <li>
+      <a
+        href="{{ settings.social_instagram_link }}"
+        target="_blank"
+        rel="noopener"
+        class="social-instagram"
+      >
+        <span class="icon"><i class="icon-instagram-logo"></i></span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if settings.social_x_link != blank %}
+    <li>
+      <a
+        href="{{ settings.social_x_link }}"
+        target="_blank"
+        rel="noopener"
+        class="social-x"
+      >
+        <span class="icon"><i class="icon-x"></i></span>
+      </a>
+    </li>
+  {% endif %}
+
+  {% if settings.social_tiktok_link != blank %}
+    <li>
+      <a
+        href="{{ settings.social_tiktok_link }}"
+        target="_blank"
+        rel="noopener"
+        class="social-tiktok"
+      >
+        <span class="icon"><i class="icon-tiktok"></i></span>
+      </a>
+    </li>
+  {% endif %}
+</ul>

@@ -1,0 +1,15 @@
+<div class="modal modalCentered fade modal-size_chart" id="sizeChart">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-heading">
+        <h2 class="fw-normal">Size Chart</h2>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      {% assign size_chart_page_handle = 'size-chart' %}
+      {% assign size_chart_page = pages[size_chart_page_handle] %}
+      {% if size_chart_page %}
+        {{ size_chart_page.content }}
+      {% endif %}
+    </div>
+  </div>
+</div>

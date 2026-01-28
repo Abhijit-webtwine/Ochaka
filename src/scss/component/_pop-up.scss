@@ -2461,9 +2461,9 @@
     }
 }
 
-.modal-compare_color {
+.modal-size_chart {
     .modal-dialog {
-        max-width: 1470px;
+        max-width: 850px;
     }
 
     .modal-content {
@@ -2474,6 +2474,11 @@
         }
     }
 
+}
+
+.product-sizechart-inner tr{
+  border: 1px solid;
+  text-align: center;
 }
 
 .compare-color_list {
@@ -2605,6 +2610,9 @@
         border-radius: 999px;
         padding: 16px 24px;
         background-color: var(--bg-2);
+      .coppyText {
+        width: 95%;
+      }
     }
 
     .btn-coppy-text {

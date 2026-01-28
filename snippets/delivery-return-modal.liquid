@@ -1,0 +1,50 @@
+<div class="modal modalCentered fade modal-ship_delivery" id="shipAndDelivery">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-heading">
+        <h2 class="fw-normal">{{ title }}</h2>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      <div class="legal-list">
+        {{ delivery_return_page.content }}
+        {% if show_help and store_address != blank or store_phone != blank or store_email != blank %}
+          <div class="legal-item">
+            <h5 class="legal_title">Help</h5>
+            <p class="legal_label h6">
+              If you have any questions regarding our services, please contact us using the information below.
+            </p>
+            <ul class="contact-list">
+              {% if store_address != blank %}
+                <li>
+                  <i class="icon icon-map-pin"></i>
+                  <span class="br-line"></span>
+                  <a
+                    href="https://www.google.com/maps?q={{ store_address }}"
+                    target="_blank"
+                    class="h6 link text-main"
+                  >
+                    {{ store_address }}
+                  </a>
+                </li>
+              {% endif %}
+              {% if store_phone != blank %}
+                <li>
+                  <i class="icon icon-phone"></i>
+                  <span class="br-line"></span>
+                  <a href="tel:{{ store_phone }}" class="h6 link text-main">{{ store_phone }}</a>
+                </li>
+              {% endif %}
+              {% if store_email != blank %}
+                <li>
+                  <i class="icon icon-envelope-simple"></i>
+                  <span class="br-line"></span>
+                  <a href="mailto:{{ store_email }}" class="h6 link text-main">{{ store_email }}</a>
+                </li>
+              {% endif %}
+            </ul>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

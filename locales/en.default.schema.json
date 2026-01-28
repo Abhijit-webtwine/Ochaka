@@ -225,8 +225,8 @@
           "label": "Facebook",
           "info": "https://facebook.com/shopify"
         },
-        "social_twitter_link": {
-          "label": "Twitter",
+        "social_x_link": {
+          "label": "X",
           "info": "https://twitter.com/shopify"
         },
         "social_pinterest_link": {

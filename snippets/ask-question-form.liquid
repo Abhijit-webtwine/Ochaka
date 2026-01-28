@@ -1,0 +1,20 @@
+<div class="modal modalCentered fade modal-ask_question" id="askQuestion">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-heading">
+        <h2 class="fw-normal">Ask A Question</h2>
+        <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
+      </div>
+      <form class="form-ask">
+        <div class="form_content">
+          <input type="text" placeholder="Name *" required>
+          <input type="text" placeholder="Email *" required>
+          <input type="text" placeholder="Phone number">
+          <textarea placeholder="Message" style="height: 180px;"></textarea>
+        </div>
+        <button type="submit" class="tf-btn animate-btn w-100">Subscribe</button>
+      </form>
+      {%  render 'product-social-share-icons', class: 'justify-content-center' %}
+    </div>
+  </div>
+</div>
