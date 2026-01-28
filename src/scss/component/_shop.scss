@@ -363,6 +363,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-inline: auto;
 
     .tf-view-layout-switch {
         @include flex(center, center);

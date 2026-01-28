@@ -182,11 +182,6 @@
         </div>
         <div class="col-xl-9">
           <div class="tf-shop-control">
-            {% comment %} sale filter {% endcomment %}
-            <div class="shop-sale-text d-none d-xl-flex">
-              <input type="checkbox" name="sale" class="tf-check" id="sale">
-              <label for="sale" class="label">Show only products on sale</label>
-            </div>
 
             {% render 'facets-control-filter', collection: collection, class: 'd-xl-none', filter_class: 'canvas-sidebar sidebar-filter left', scope: 'Mobile' %}
             {% render 'facets-control-layout', allowed_layouts: '2,3,list', active_layout: '3' %}
