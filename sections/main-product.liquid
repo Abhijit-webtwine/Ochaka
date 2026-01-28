@@ -436,10 +436,7 @@
         
         // Update price
         const priceElement = variantInfoDiv.nextElementSibling;
-        priceElement.textContent = new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: '{{ cart.currency.symbol }}'
-        }).format(matchedVariant.price / 100);
+        priceElement.textContent = theme.Currency.formatMoney(matchedVariant.price, window.shopSettings.moneyFormat);
       }
     }
     
