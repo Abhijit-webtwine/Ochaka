@@ -1,0 +1,339 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+<section class="themesFlat section-{{ section.id }}-padding">
+  <div class="container">
+    <div class="flat-animate-tab tab-style-1">
+      <ul class="menu-tab menu-tab-1" role="tablist">
+        <li class="nav-tab-item" role="presentation">
+          <a href="#descriptions" class="tab-link active" data-bs-toggle="tab">Descriptions</a>
+        </li>
+        <li class="nav-tab-item" role="presentation">
+          <a href="#policy" class="tab-link" data-bs-toggle="tab">Shipping, Return & Refund Policy</a>
+        </li>
+        <li class="nav-tab-item" role="presentation">
+          <a href="#reviews" class="tab-link" data-bs-toggle="tab">Customer Reviews</a>
+        </li>
+        <li class="nav-tab-item" role="presentation">
+          <a href="#faqs" class="tab-link" data-bs-toggle="tab">FAQs</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane wd-product-descriptions active show" id="descriptions" role="tabpanel">
+          <div class="tab-descriptions">
+            <div class="h6 desc">
+              {{ section.settings.product_description }}
+            </div>
+            {% if product.metafields.custom.specification_table %}
+              <div class="list-infor tf-grid-layout md-col-2 xl-col-4">
+                
+                {% for column in product.metafields.custom.specification_table.value %}
+                  <div class="infor-item">
+                    <div class="h4 heading">{{ column.title.value }}</div>
+                    
+                    {% if column.rows.value %}
+                      <ul>
+                        {% for row in column.rows.value %}
+                          <li>
+                            {% if row.label.value != blank %}
+                              <h6 class="fw-6 text-black title">{{ row.label.value }}</h6>
+                              <div class="h6">{{ row.value.value }}</div>
+                            {% else %}
+                              <h6 class="fw-6 text-black title">{{ row.value.value }}</h6>
+                            {% endif %}
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                {% endfor %}
+                
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="tab-pane wd-product-descriptions" id="policy" role="tabpanel">
+          <div class="tab-policy d-grid gap-30">
+            {{ section.settings.shipping_return_refund_policy.content }}
+          </div>
+        </div>
+
+        <div class="tab-pane wd-product-descriptions" id="faqs" role="tabpanel">
+          <div class="tab-faqs">
+            <div class="flat-animate-tab tab-style-2">
+              <ul class="menu-tab menu-tab-2" role="tablist">
+                {% for block in section.blocks %}
+                  {% if block.type == 'faq_category' %}
+                    <li class="nav-tab-item" role="presentation">
+                      <a href="#{{ block.settings.category_id }}" class="tab-link h5 {% if forloop.first %}active{% endif %}" data-bs-toggle="tab">{{ block.settings.category_title }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+              <div class="tab-content">
+                {% for block in section.blocks %}
+                  {% if block.type == 'faq_category' %}
+                    <div class="tab-pane tab-faqs-descriptions {% if forloop.first %}active show{% endif %}" id="{{ block.settings.category_id }}" role="tabpanel">
+                      <ul>
+                        {% for i in (1..10) %}
+                          {% assign question_key = 'question_' | append: i %}
+                          {% assign answer_key = 'answer_' | append: i %}
+                          {% assign question = block.settings[question_key] %}
+                          {% assign answer = block.settings[answer_key] %}
+                          
+                          {% if question != blank and answer != blank %}
+                            <li>
+                              <div class="h6 fw-6 text-black title">{{ question }}</div>
+                              <div class="h6 fw-4 text">{{ answer }}</div>
+                            </li>
+                          {% endif %}
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "PDP Tabs",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "product_description",
+      "label": "Description"
+    },
+    {
+      "type": "page",
+      "id": "shipping_return_refund_policy",
+      "label": "Shipping, Return & Refund Policy"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 80,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 80,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_category",
+      "name": "FAQ Category",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Category Title",
+          "default": "Product details"
+        },
+        {
+          "type": "text",
+          "id": "category_id",
+          "label": "Category ID",
+          "default": "product",
+          "info": "Unique identifier for this category (no spaces, use hyphens)"
+        },
+        {
+          "type": "header",
+          "content": "Question 1"
+        },
+        {
+          "type": "text",
+          "id": "question_1",
+          "label": "Question 1",
+          "default": "Type of diamond used?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_1",
+          "label": "Answer 1",
+          "default": "Natural diamonds with the highest ododj purity"
+        },
+        {
+          "type": "header",
+          "content": "Question 2"
+        },
+        {
+          "type": "text",
+          "id": "question_2",
+          "label": "Question 2",
+          "default": "Is the product unisex?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_2",
+          "label": "Answer 2",
+          "default": "No"
+        },
+        {
+          "type": "header",
+          "content": "Question 3"
+        },
+        {
+          "type": "text",
+          "id": "question_3",
+          "label": "Question 3",
+          "default": "What ring sizes are available?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_3",
+          "label": "Answer 3",
+          "default": "Sizes 5-26; Any size not available online can be customized."
+        },
+        {
+          "type": "header",
+          "content": "Question 4"
+        },
+        {
+          "type": "text",
+          "id": "question_4",
+          "label": "Question 4",
+          "default": "Product Finish"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_4",
+          "label": "Answer 4",
+          "default": "High Polish"
+        },
+        {
+          "type": "header",
+          "content": "Question 5"
+        },
+        {
+          "type": "text",
+          "id": "question_5",
+          "label": "Question 5",
+          "default": "Does the product cost include GST?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_5",
+          "label": "Answer 5",
+          "default": "Yes"
+        },
+        {
+          "type": "header",
+          "content": "Question 6"
+        },
+        {
+          "type": "text",
+          "id": "question_6",
+          "label": "Question 6",
+          "default": "What % of GST is applicable on the product?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_6",
+          "label": "Answer 6",
+          "default": "2%"
+        },
+        {
+          "type": "header",
+          "content": "Question 7"
+        },
+        {
+          "type": "text",
+          "id": "question_7",
+          "label": "Question 7",
+          "default": "Does the product cost include shipping?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_7",
+          "label": "Answer 7",
+          "default": "Yes"
+        },
+        {
+          "type": "header",
+          "content": "Question 8"
+        },
+        {
+          "type": "text",
+          "id": "question_8",
+          "label": "Question 8",
+          "default": "Does the product cost include product discounts?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_8",
+          "label": "Answer 8",
+          "default": "Yes. However, any applicable coupon can be applied at the time of payment."
+        },
+        {
+          "type": "header",
+          "content": "Question 9"
+        },
+        {
+          "type": "text",
+          "id": "question_9",
+          "label": "Question 9",
+          "default": "Are there any other hidden costs?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_9",
+          "label": "Answer 9",
+          "default": "No there are no hidden costs or additional charges."
+        },
+        {
+          "type": "header",
+          "content": "Question 10"
+        },
+        {
+          "type": "text",
+          "id": "question_10",
+          "label": "Question 10",
+          "default": "Is there a price breakup available for the product price?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer_10",
+          "label": "Answer 10",
+          "default": "Yes, same is available in the price break-up section."
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "presets": [
+    {
+      "name": "PDP Tabs"
+    }
+  ]
+}
+{% endschema %}
