@@ -255,9 +255,9 @@ cart-remove-button .button {
     display: table-row;
   }
 
-  .cart-item > td + td {
+  /* .cart-item > td + td {
     padding-inline-start: 3rem;
-  }
+  } */
 
   .cart-items .medium-down {
     display: none;
