@@ -1168,10 +1168,47 @@ class VariantSelects extends HTMLElement {
     super();
 
     this.addEventListener('change', this.onVariantChange);
+    this.addEventListener('click', this.onDropdownItemClick.bind(this));
 
     this.updateOptions();
     this.updateMasterId();
     this.setAvailability();
+  }
+
+  // this is to get the design of dropdown, else select tag is enough
+  onDropdownItemClick(event) {
+    const item = event.target.closest('.tf-variant-dropdown .select-item');
+    if (!item || !this.contains(item)) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const dropdown = item.closest('.tf-variant-dropdown');
+    if (!dropdown) return;
+
+    const wrapper = dropdown.closest('.variant-input-wrapper');
+    if (!wrapper) return;
+
+    const select = wrapper.querySelector('select');
+    if (!select) return;
+
+    const value = item.dataset.value;
+    if (typeof value === 'undefined') return;
+
+    if (select.value !== value) {
+      select.value = value;
+    }
+
+    const valueText = item.querySelector('.text-value-item')?.textContent?.trim();
+    const display = dropdown.querySelector('.text-sort-value');
+    if (display && valueText) {
+      display.textContent = valueText;
+    }
+
+    dropdown.querySelectorAll('.select-item.active').forEach((el) => el.classList.remove('active'));
+    item.classList.add('active');
+
+    select.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   onVariantChange(event) {
@@ -1688,8 +1725,12 @@ class ProductForm extends HTMLElement {
     const config = fetchConfig('javascript');
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     delete config.headers['Content-Type'];
+const formData = new FormData(this.form);
 
-    const formData = new FormData(this.form);
+for (const [key, value] of formData.entries()) {
+  console.log(key, value);
+}
+    
 
     if (this.miniCart) {
       formData.append('sections', this.miniCart.getSectionsToRender().map((section) => section.id));

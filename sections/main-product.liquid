@@ -157,35 +157,36 @@
                 </div>
               </div> {% endcomment %}
 
-              <product-form>
-                {%- assign product_form_id = 'product-form-' | append: section.id -%}
-                {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
-                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
-                  <div class="tf-product-total-quantity">
-                    <div class="group-btn">
-                      <quantity-input class="wg-quantity">
-                        <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
-                          <i class="icon-minus fs-14"></i>
-                        </button>
-                        <input
-                          class="quantity-product"
-                          type="number"
-                          name="quantity"
-                          id="Quantity-{{ section.id }}"
-                          min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                          {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
-                            data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                            max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                          {% endif %}
-                          step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
-                          value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                          form="{{ product_form_id }}"
-                        >
-                        <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
-                          <i class="icon-plus fs-14"></i>
-                        </button>
-                      </quantity-input>
+              {%- assign product_form_id = 'product-form-' | append: section.id -%}
+              {% render 'product-variant-picker', product: product, product_form_id: product_form_id %}
 
+              <div class="tf-product-total-quantity">
+                <div class="group-btn">
+                  <quantity-input class="wg-quantity">
+                    <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
+                      <i class="icon-minus fs-14"></i>
+                    </button>
+                    <input
+                      class="quantity-product"
+                      type="number"
+                      name="quantity"
+                      id="Quantity-{{ section.id }}"
+                      min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                      {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                        data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                        max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                      {% endif %}
+                      step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                      value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                      form="{{ product_form_id }}"
+                    >
+                    <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
+                      <i class="icon-plus fs-14"></i>
+                    </button>
+                  </quantity-input>
+                  <product-form>
+                    {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
                       <button
                         type="submit"
                         name="add"
@@ -195,27 +196,27 @@
                         <i class="icon icon-shopping-cart-simple"></i>
                         {{ 'products.product.add_to_cart' | t }}
                       </button>
-
-                      <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
-                        <span class="icon icon-heart"></span>
-                        <span class="tooltip">Add to Wishlist</span>
-                      </button>
-                      <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
-                        <span class="icon icon-compare"></span>
-                        <span class="tooltip">Compare</span>
-                      </a>
-                    </div>
-                    </div>
-                {% endform %}
-                <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
-                  <button class="tf-product-checkout tf-btn btn-primary w-100" name="checkout"
-                    {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
-                  >
-                    BUY IT NOW 
-                    <i class="icon icon-arrow-right"></i>
+                    {% endform %}
+                  </product-form>
+                  <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
+                    <span class="icon icon-heart"></span>
+                    <span class="tooltip">Add to Wishlist</span>
                   </button>
-                </form>
-              </product-form>
+                  <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
+                    <span class="icon icon-compare"></span>
+                    <span class="tooltip">Compare</span>
+                  </a>
+                </div>
+              </div>
+
+              <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
+                <button class="tf-product-checkout tf-btn btn-primary w-100" name="checkout"
+                  {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
+                >
+                  BUY IT NOW 
+                  <i class="icon icon-arrow-right"></i>
+                </button>
+              </form>
 
               <div class="tf-product-extra-link">
                 <a href="#sizeChart" data-bs-toggle="modal" class="product-extra-icon link">
@@ -543,6 +544,31 @@
       "type": "text",
       "id": "store_email",
       "label": "Store Email"
+    }
+  ],
+  "blocks": [
+        {
+      "type": "variant_picker",
+      "name": "t:sections.main-product.blocks.variant_picker.name",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "picker_type",
+          "options": [
+            {
+              "value": "dropdown",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__1.label"
+            },
+            {
+              "value": "button",
+              "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label"
+            }
+          ],
+          "default": "button",
+          "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        }
+      ]
     }
   ]
 }

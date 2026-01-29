@@ -3,20 +3,20 @@
   Accepts:
   - product: {Object} product object.
   - block: {Object} passing the block information.
-  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isn't updated. Default: true (optional).
+  - update_url: {Boolean} whether or not to update url when changing variants. If false, the url isnot updated. Default: true (optional).
   Usage:
   {% render 'product-variant-picker', block: block, product: product %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  {% comment %} change to block.settings.picker_type == 'button' when ready {% endcomment %}
   {%- if block.settings.picker_type == 'button' -%}
     <variant-radios
-      class="no-js-hidden"
+      class="no-js-hidden tf-product-variant"
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
       {% if update_url == false %}data-update-url="false"{% endif %}
       {{ block.shopify_attributes }}
     >
-      {%- assign color_count = 0 -%}
       {%- for option in product.options_with_values -%}
         {%- liquid
           assign is_color = false
@@ -42,64 +42,64 @@
 
           assign option_idx = forloop.index
         -%}
-        <fieldset class="js product-form__input variant-input-wrapper"
-          data-option-index="option{{ option_idx }}"
-          data-option-slug="{{ option.name | handleize }}"
-        >
-          {%- if block.settings.show_variant_labels -%}
-            <legend class="form__label">
+        <div class="variant-picker-item {% if option.name contains 'Size' %}variant-size{% endif %}{% if option.name contains 'Color' or option.name contains 'Colour' %}variant-color{% endif %}">
+          <div class="variant-picker-label">
+            <div class="h4 fw-semibold">
               {{ option.name }}
+              <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+            </div>
+          </div>
+          <fieldset class="variant-picker-values js product-form__input variant-input-wrapper"
+            data-option-index="option{{ option_idx }}"
+            data-option-slug="{{ option.name | handleize }}"
+          >
+            {%- for value in option.values -%}
+              <input
+                type="radio"
+                id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                name="{{ option.name }}"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                {%- if option.selected_value == value %}checked="checked"{% endif -%}
+                data-option-value="{{ value | escape }}"
+              />
               {%- if is_color -%}
-                {%- assign color_count = color_count | plus: 1 -%}
-                <span class="form__label-info" id="color-{{ section.id }}{% if color_count > 1 %}-{{ color_count }}{% endif %}">&ndash;&nbsp;{{ option.selected_value }}</span>
+                {%- liquid
+                  assign color_file_name = value | handle | append: '.' | append: swatch_file_extension
+                  assign color_image = color_file_name | file_img_url: '50x50' | prepend: 'https:' | split: '?' | first
+                  assign color_swatch_fallback = value | split: ' ' | last | handle
+                -%}
+                <label
+                  for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                  class="color-btn color__swatch color__swatch--{{ block.settings.swatch_type }}"
+                  style="--swatch-background-color: {{ color_swatch_fallback }};{% if images[color_file_name] != blank %} --swatch-background-image: url({{ color_image }});{% endif %}"
+                  title="{{ value | escape }}"
+                >
+                  <span class="check-color color__swatch-dot"></span>
+                </label>
+              {%- else -%}
+                <label class="{% if option.name contains 'Size' %}size-btn{% endif %}{% if option.name contains 'Color' or option.name contains 'Colour' %}color-btn-pill color-btn{% endif %}" for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}">
+                  {{ value }}
+                </label>
               {%- endif -%}
-            </legend>
-          {%- endif -%}
-          {%- for value in option.values -%}
-            <input
-              type="radio"
-              id="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-              name="{{ option.name }}"
-              value="{{ value | escape }}"
-              form="{{ product_form_id }}"
-              {%- if option.selected_value == value %}checked="checked"{% endif -%}
-              data-option-value="{{ value | escape }}"
-            />
-            {%- if is_color -%}
-              {%- liquid
-                assign color_file_name = value | handle | append: '.' | append: swatch_file_extension
-                assign color_image = color_file_name | file_img_url: '50x50' | prepend: 'https:' | split: '?' | first
-                assign color_swatch_fallback = value | split: ' ' | last | handle
-              -%}
-              <label
-                for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                class="color__swatch color__swatch--{{ block.settings.swatch_type }}"
-                style="--swatch-background-color: {{ color_swatch_fallback }};{% if images[color_file_name] != blank %} --swatch-background-image: url({{ color_image }});{% endif %}"
-                title="{{ value | escape }}"
-              >
-                <span class="color__swatch-dot"></span>
-              </label>
-            {%- else -%}
-              <label for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}">
-                {{ value }}
-              </label>
-            {%- endif -%}
-          {%- endfor -%}
-          {%- if is_size -%}
-            <div class="form__popup" id="size-{{ section.id }}">
-              <modal-opener class="no-js-hidden" data-modal="#PopupModal-{{ block.id }}" {{ block.shopify_attributes }}>
-                <button id="ProductPopup-{{ block.id }}" class="link link-with-icon" type="button" aria-haspopup="dialog">
+            {%- endfor -%}
+            {% comment %} {%- if is_size -%}
+              <div class="form__popup" id="size-{{ section.id }}">
+                <modal-opener class="no-js-hidden" data-modal="#PopupModal-{{ block.id }}" {{ block.shopify_attributes }}>
+                  <button id="ProductPopup-{{ block.id }}" class="link link-with-icon" type="button" aria-haspopup="dialog">
+                    {% render 'icon', icon: 'ruler' %}
+                    <span class="label">{{ 'products.product.size_chart' | t | default: block.settings.size_chart.title }}</span>
+                  </button>
+                </modal-opener>
+                <a href="{{ block.settings.size_chart.url }}" class="link link-with-icon no-js">
                   {% render 'icon', icon: 'ruler' %}
                   <span class="label">{{ 'products.product.size_chart' | t | default: block.settings.size_chart.title }}</span>
-                </button>
-              </modal-opener>
-              <a href="{{ block.settings.size_chart.url }}" class="link link-with-icon no-js">
-                {% render 'icon', icon: 'ruler' %}
-                <span class="label">{{ 'products.product.size_chart' | t | default: block.settings.size_chart.title }}</span>
-              </a>
-            </div>
-          {%- endif -%}
-        </fieldset>
+                </a>
+              </div>
+            {%- endif -%} {% endcomment %}
+          </fieldset>
+        </div>
+
       {%- endfor -%}
 
       <script type="application/json">
@@ -108,7 +108,7 @@
     </variant-radios>
   {%- else -%}
     <variant-selects
-      class="no-js-hidden"
+      class="no-js-hidden tf-product-variant"
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
       {% if update_url == false %}data-update-url="false"{% endif %}
@@ -127,20 +127,28 @@
 
           assign option_idx = forloop.index
         -%}
-        <div class="product-form__input product-form__input--dropdown variant-input-wrapper"
-          data-option-index="option{{ option_idx }}"
-          data-option-slug="{{ option.name | handleize }}"
-        >
-          {%- if block.settings.show_variant_labels -%}
-            <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+        <div class="variant-picker-item">
+
+          <div class="variant-picker-label">
+            <div class="h4 fw-semibold">
               {{ option.name }}
-            </label>
-          {%- endif -%}
-          <div class="select">
+              <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+            </div>
+          </div>
+          <div class="product-form__input product-form__input--dropdown variant-input-wrapper"
+            data-option-index="option{{ option_idx }}"
+            data-option-slug="{{ option.name | handleize }}"
+          >
+            {%- if block.settings.show_variant_labels -%}
+              <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                {{ option.name }}
+              </label>
+            {%- endif -%}
             <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
               class="select__select"
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
+              style="display: none;"
             >
               {%- for value in option.values -%}
                 <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
@@ -148,23 +156,40 @@
                 </option>
               {%- endfor -%}
             </select>
-            {% render 'icon', icon: 'caret' %}
-          </div>
-          {%- if is_size -%}
-            <div class="form__popup" id="size-{{ section.id }}">
-              <modal-opener class="no-js-hidden" data-modal="#PopupModal-{{ block.id }}" {{ block.shopify_attributes }}>
-                <button id="ProductPopup-{{ block.id }}" class="link link-with-icon" type="button" aria-haspopup="dialog">
+
+            <div class="tf-variant-dropdown full" data-bs-toggle="dropdown">
+              <div class="btn-select">
+                <span class="text-sort-value">{{ option.selected_value }}</span>
+                <span class="icon icon-caret-down"></span>
+              </div>
+              <div class="dropdown-menu">
+                {%- for value in option.values -%}
+                  <div
+                    class="select-item{% if option.selected_value == value %} active{% endif %}"
+                    data-value="{{ value | escape }}"
+                  >
+                    <span class="text-value-item">{{ value }}</span>
+                  </div>
+                {%- endfor -%}
+              </div>
+            </div>
+            {%- if is_size -%}
+              <div class="form__popup" id="size-{{ section.id }}">
+                <modal-opener class="no-js-hidden" data-modal="#PopupModal-{{ block.id }}" {{ block.shopify_attributes }}>
+                  <button id="ProductPopup-{{ block.id }}" class="link link-with-icon" type="button" aria-haspopup="dialog">
+                    {% render 'icon', icon: 'ruler' %}
+                    <span class="label">{{ 'products.product.size_chart' | t | default: block.settings.size_chart.title }}</span>
+                  </button>
+                </modal-opener>
+                <a href="{{ block.settings.size_chart.url }}" class="link link-with-icon no-js">
                   {% render 'icon', icon: 'ruler' %}
                   <span class="label">{{ 'products.product.size_chart' | t | default: block.settings.size_chart.title }}</span>
-                </button>
-              </modal-opener>
-              <a href="{{ block.settings.size_chart.url }}" class="link link-with-icon no-js">
-                {% render 'icon', icon: 'ruler' %}
-                <span class="label">{{ 'products.product.size_chart' | t | default: block.settings.size_chart.title }}</span>
-              </a>
-            </div>
-          {%- endif -%}
+                </a>
+              </div>
+            {%- endif -%}
+          </div>
         </div>
+
       {%- endfor -%}
 
       <script type="application/json">

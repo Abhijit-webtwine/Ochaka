@@ -2159,7 +2159,23 @@
             }
         }
 
-        .color-btn:not(.select-item) {
+        .color-btn-pill:not(.select-item) {
+          border-radius: 40px;
+          padding: 10px 20px;
+          border: 1px solid var(--line);
+          cursor: pointer;
+          @include transition3;
+          @include flex(center, center);
+          flex-shrink: 0;
+          text-align: center;
+          position: relative;
+          
+          &.active {
+            border-color: var(--black);
+          }
+        }
+
+        .color-btn:not(.select-item, .color-btn-pill) {
             position: relative;
             width: 40px;
             height: 40px;
@@ -2172,6 +2188,7 @@
             border-radius: 50%;
 
             .check-color {
+              background-color: var(--swatch-background-color);
                 width: 32px;
                 height: 32px;
                 display: flex;
