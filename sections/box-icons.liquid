@@ -1,0 +1,315 @@
+<style>
+    .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+<section class="section-{{ section.id }}-padding">
+  <div class="container">
+    <div class="sect-border">
+      <div class="s-head">
+        <h3 class="s-title fw-normal">{{ section.settings.title }}</h3>
+      </div>
+      <div
+        dir="ltr"
+        class="swiper tf-swiper"
+        data-preview="4"
+        data-tablet="3"
+        data-mobile-sm="2"
+        data-mobile="1"
+        data-space-lg="97"
+        data-space-md="33"
+        data-space="13"
+        data-pagination="1"
+        data-pagination-sm="2"
+        data-pagination-md="3"
+        data-pagination-lg="4"
+      >
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="box-icon_V01">
+                <span class="icon">
+                  <i class="{{ block.settings.icon_class }}"></i>
+                </span>
+                <div class="content">
+                  <h4 class="title fw-normal">{{ block.settings.title }}</h4>
+                  <p class="text">{{ block.settings.text }}</p>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="sw-dot-default tf-sw-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Box Icons",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "The Fresh Clothes"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_item",
+      "name": "Icon Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "30 days return"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "30 day money back guarantee"
+        },
+        {
+          "type": "select",
+          "id": "icon_class",
+          "label": "Icon",
+          "default": "icon-star",
+          "options": [
+            { "value": "icon-unlike", "label": "Unlike" },
+            { "value": "icon-like", "label": "Like" },
+            { "value": "icon-show-password", "label": "Show password" },
+            { "value": "icon-phone-case", "label": "Phone case" },
+            { "value": "icon-respriatory", "label": "Respiratory" },
+            { "value": "icon-rice", "label": "Rice" },
+            { "value": "icon-safety", "label": "Safety" },
+            { "value": "icon-seafood", "label": "Seafood" },
+            { "value": "icon-seasonal", "label": "Seasonal" },
+            { "value": "icon-seat-cover", "label": "Seat cover" },
+            { "value": "icon-sexual-health", "label": "Sexual health" },
+            { "value": "icon-steering-wheel", "label": "Steering wheel" },
+            { "value": "icon-storage-device", "label": "Storage device" },
+            { "value": "icon-stylus-pen", "label": "Stylus pen" },
+            { "value": "icon-supplement", "label": "Supplement" },
+            { "value": "icon-tool-equipment", "label": "Tool equipment" },
+            { "value": "icon-vegetable", "label": "Vegetable" },
+            { "value": "icon-vitamin", "label": "Vitamin" },
+            { "value": "icon-webcam", "label": "Webcam" },
+            { "value": "icon-wheel-tire", "label": "Wheel tire" },
+            { "value": "icon-wiper", "label": "Wiper" },
+            { "value": "icon-adapter", "label": "Adapter" },
+            { "value": "icon-allergy", "label": "Allergy" },
+            { "value": "icon-audio", "label": "Audio" },
+            { "value": "icon-canned", "label": "Canned food" },
+            { "value": "icon-car-brake", "label": "Car brake" },
+            { "value": "icon-car-charger", "label": "Car charger" },
+            { "value": "icon-car-oil", "label": "Car oil" },
+            { "value": "icon-cleaning-kit", "label": "Cleaning kit" },
+            { "value": "icon-cleaning-wing", "label": "Cleaning wing" },
+            { "value": "icon-charger", "label": "Charger" },
+            { "value": "icon-dash-cam", "label": "Dash cam" },
+            { "value": "icon-dental", "label": "Dental" },
+            { "value": "icon-dermatology", "label": "Dermatology" },
+            { "value": "icon-diabetes", "label": "Diabetes" },
+            { "value": "icon-disgestive", "label": "Digestive" },
+            { "value": "icon-dry", "label": "Dry food" },
+            { "value": "icon-engine", "label": "Engine" },
+            { "value": "icon-first-aid", "label": "First aid" },
+            { "value": "icon-fresh", "label": "Fresh food" },
+            { "value": "icon-grain", "label": "Grain" },
+            { "value": "icon-headphone", "label": "Headphone" },
+            { "value": "icon-lighting", "label": "Lighting" },
+            { "value": "icon-medical-device", "label": "Medical device" },
+            { "value": "icon-microphone", "label": "Microphone" },
+            { "value": "icon-mouse", "label": "Mouse" },
+            { "value": "icon-mushroom", "label": "Mushroom" },
+            { "value": "icon-network", "label": "Network" },
+            { "value": "icon-noodles", "label": "Noodles" },
+            { "value": "icon-nut", "label": "Nut" },
+            { "value": "icon-pain", "label": "Pain relief" },
+            { "value": "icon-personal-care", "label": "Personal care" },
+            { "value": "icon-ponk", "label": "Pork" },
+            { "value": "icon-poultry", "label": "Poultry" },
+            { "value": "icon-power-strip", "label": "Power strip" },
+            { "value": "icon-instagram-logo", "label": "Instagram" },
+            { "value": "icon-trash", "label": "Trash" },
+            { "value": "icon-fish", "label": "Fish" },
+            { "value": "icon-reptitle", "label": "Reptile" },
+            { "value": "icon-spider", "label": "Spider" },
+            { "value": "icon-toy", "label": "Toy" },
+            { "value": "icon-best-choice", "label": "Best choice" },
+            { "value": "icon-bird", "label": "Bird" },
+            { "value": "icon-cat", "label": "Cat" },
+            { "value": "icon-dog", "label": "Dog" },
+            { "value": "icon-star", "label": "Star" },
+            { "value": "icon-CaretUpDown", "label": "Caret up down" },
+            { "value": "icon-sidebar", "label": "Sidebar" },
+            { "value": "icon-list", "label": "List" },
+            { "value": "icon-note-pencil", "label": "Note pencil" },
+            { "value": "icon-phone-ring", "label": "Phone ring" },
+            { "value": "icon-ques", "label": "Question" },
+            { "value": "icon-quote-2", "label": "Quote" },
+            { "value": "icon-return-free", "label": "Free return" },
+            { "value": "icon-ruler", "label": "Ruler" },
+            { "value": "icon-setting", "label": "Setting" },
+            { "value": "icon-share", "label": "Share" },
+            { "value": "icon-sign-out", "label": "Sign out" },
+            { "value": "icon-swatches", "label": "Swatches" },
+            { "value": "icon-truck", "label": "Truck" },
+            { "value": "icon-truck-delivery", "label": "Truck delivery" },
+            { "value": "icon-video", "label": "Video" },
+            { "value": "icon-view", "label": "View" },
+            { "value": "icon-address-book", "label": "Address book" },
+            { "value": "icon-box-arrow-down", "label": "Box arrow down" },
+            { "value": "icon-box-arrow-up", "label": "Box arrow up" },
+            { "value": "icon-calender-blank", "label": "Calendar blank" },
+            { "value": "icon-certified", "label": "Certified" },
+            { "value": "icon-circle-four", "label": "Circle four" },
+            { "value": "icon-clock-cd", "label": "Clock" },
+            { "value": "icon-chat", "label": "Chat" },
+            { "value": "icon-check-1", "label": "Check" },
+            { "value": "icon-check-fat", "label": "Check bold" },
+            { "value": "icon-document-search", "label": "Document search" },
+            { "value": "icon-download", "label": "Download" },
+            { "value": "icon-eco", "label": "Eco" },
+            { "value": "icon-envelope", "label": "Envelope" },
+            { "value": "icon-filter", "label": "Filter" },
+            { "value": "icon-fire-2", "label": "Fire" },
+            { "value": "icon-global", "label": "Global" },
+            { "value": "icon-grid-2", "label": "Grid 2" },
+            { "value": "icon-grid-3", "label": "Grid 3" },
+            { "value": "icon-grid-4", "label": "Grid 4" },
+            { "value": "icon-grid-5", "label": "Grid 5" },
+            { "value": "icon-grid-6", "label": "Grid 6" },
+            { "value": "icon-gift", "label": "Gift" },
+            { "value": "icon-gift-2", "label": "Gift 2" },
+            { "value": "icon-image-dou", "label": "Image double" },
+            { "value": "icon-life-time", "label": "Lifetime" },
+            { "value": "icon-calender", "label": "Calendar" },
+            { "value": "icon-camera", "label": "Camera" },
+            { "value": "icon-caret-circle-right", "label": "Caret circle right" },
+            { "value": "icon-close", "label": "Close" },
+            { "value": "icon-compare", "label": "Compare" },
+            { "value": "icon-diamond", "label": "Diamond" },
+            { "value": "icon-drop", "label": "Drop" },
+            { "value": "icon-head-phone", "label": "Head phone" },
+            { "value": "icon-headset", "label": "Headset" },
+            { "value": "icon-minus", "label": "Minus" },
+            { "value": "icon-mobile", "label": "Mobile" },
+            { "value": "icon-package", "label": "Package" },
+            { "value": "icon-plus", "label": "Plus" },
+            { "value": "icon-shirt", "label": "Shirt" },
+            { "value": "icon-sneaker", "label": "Sneaker" },
+            { "value": "icon-tv", "label": "TV" },
+            { "value": "icon-thunder-2", "label": "Thunder" },
+            { "value": "icon-volley-ball", "label": "Volley ball" },
+            { "value": "icon-alarm", "label": "Alarm" },
+            { "value": "icon-arm-chair", "label": "Arm chair" },
+            { "value": "icon-arrow-left", "label": "Arrow left" },
+            { "value": "icon-arrow-top-right", "label": "Arrow top right" },
+            { "value": "icon-bag", "label": "Bag" },
+            { "value": "icon-barbell", "label": "Barbell" },
+            { "value": "icon-block-quote", "label": "Block quote" },
+            { "value": "icon-boat", "label": "Boat" },
+            { "value": "icon-book", "label": "Book" },
+            { "value": "icon-storefront", "label": "Storefront" },
+            { "value": "icon-caret-left", "label": "Caret left" },
+            { "value": "icon-caret-right", "label": "Caret right" },
+            { "value": "icon-caret-up", "label": "Caret up" },
+            { "value": "icon-check-circle", "label": "Check circle" },
+            { "value": "icon-envelope-simple", "label": "Envelope simple" },
+            { "value": "icon-fb", "label": "Facebook" },
+            { "value": "icon-heart", "label": "Heart" },
+            { "value": "icon-magnifying-glass", "label": "Search" },
+            { "value": "icon-map-pin", "label": "Map pin" },
+            { "value": "icon-package-thin", "label": "Package thin" },
+            { "value": "icon-phone", "label": "Phone" },
+            { "value": "icon-shopping-cart-simple", "label": "Shopping cart" },
+            { "value": "icon-tiktok", "label": "TikTok" },
+            { "value": "icon-thunder", "label": "Thunder alt" },
+            { "value": "icon-user", "label": "User" },
+            { "value": "icon-x", "label": "X" },
+            { "value": "icon-arrow-right", "label": "Arrow right" },
+            { "value": "icon-caret-down", "label": "Caret down" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Box Icons",
+      "category": "Icons",
+      "blocks": [
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_class": "icon-package",
+            "title": "30 days return",
+            "text": "30 day money back guarantee"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_class": "icon-calender",
+            "title": "3 year warranty",
+            "text": "Manufacturer's defect"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_class": "icon-boat",
+            "title": "Free shipping",
+            "text": "Free Shipping for orders over $150"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "icon_class": "icon-headset",
+            "title": "Online support",
+            "text": "24 hours a day, 7 days a week"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
