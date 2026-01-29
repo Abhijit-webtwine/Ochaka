@@ -2187,8 +2187,12 @@
             @include transition3;
             border-radius: 50%;
 
+            &.color__swatch--image {
+              width: 64px;
+              height: 64px;
+            }
+
             .check-color {
-              background-color: var(--swatch-background-color);
                 width: 32px;
                 height: 32px;
                 display: flex;
@@ -2196,6 +2200,11 @@
                 border-radius: 50%;
                 border: 1px solid #dcdcdc;
                 @include transition3;
+
+                &.check-image {
+                  width: 50px;
+                  height: 50px;
+                }
             }
 
             &.active {

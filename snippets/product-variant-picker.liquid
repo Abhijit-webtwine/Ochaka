@@ -23,7 +23,6 @@
         {%- liquid
           assign is_color = false
           if block.settings.enable_color_swatches
-            assign swatch_file_extension = 'png'
             assign swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase
             assign downcased_option = option.name | downcase
             if downcased_option contains swatch_trigger
@@ -33,17 +32,17 @@
             endif
           endif
 
-          assign is_size = false
+          
+          assign option_idx = forloop.index
+          -%}
+          {% comment %} assign is_size = false
           if block.settings.size_chart != blank
             assign size_trigger = 'products.product.size_chart_trigger' | t | downcase
             assign downcased_option = option.name | downcase
             if downcased_option contains size_trigger
               assign is_size = true
             endif
-          endif
-
-          assign option_idx = forloop.index
-        -%}
+          endif {% endcomment %}
         <div class="variant-picker-item {% if option.name contains 'Size' %}variant-size{% endif %}{% if option.name contains 'Color' or option.name contains 'Colour' %}variant-color{% endif %}">
           <div class="variant-picker-label">
             <div class="h4 fw-semibold">
@@ -69,18 +68,27 @@
                 data-option-value="{{ value | escape }}"
               >
               {%- if is_color -%}
+                {% comment %} block.settings.enable_swatch_image {% endcomment %}
+                {% assign enable_image = true %}
+                
                 {%- liquid
-                  assign color_file_name = value | handle | append: '.' | append: swatch_file_extension
-                  assign color_image = color_file_name | file_img_url: '50x50' | prepend: 'https:' | split: '?' | first
+                  assign color_image = value.swatch.image.src | image_url: width: 50, height: 50
                   assign color_swatch_fallback = value | split: ' ' | last | handle
+                  assign has_swatch_image = false
+                  
+                  if value.swatch.image and enable_image
+                    assign color_image = value.swatch.image.src | image_url: width: 50, height: 50
+                    assign has_swatch_image = true
+                  endif
                 -%}
                 <label
                   for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                  class="color-btn color__swatch color__swatch--{{ block.settings.swatch_type }}"
-                  style="--swatch-background-color: {{ color_swatch_fallback }};{% if images[color_file_name] != blank %} --swatch-background-image: url({{ color_image }});{% endif %}"
+                  class="color-btn color__swatch color__swatch--{{ block.settings.swatch_type }}{% if has_swatch_image or enable_image %} color__swatch--image{% endif %}"
+                  style="{% if has_swatch_image %}--swatch-background-image: url({{ color_image }});{% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}"
                   title="{{ value | escape }}"
                 >
-                  <span class="check-color color__swatch-dot"></span>
+                  <span class="check-color{% if has_swatch_image or enable_image %} check-image{% endif %} color__swatch-dot"
+                    style="{% if has_swatch_image %}background-image: url({{ color_image }});{% else %}background-color: {{ color_swatch_fallback }};{% endif %}"></span>
                 </label>
               {%- else -%}
                 <label
@@ -126,7 +134,7 @@
       {{ block.shopify_attributes }}
     >
       {%- for option in product.options_with_values -%}
-        {%- liquid
+        {% comment %} {%- liquid
           assign is_size = false
           if block.settings.size_chart != blank
             assign size_trigger = 'products.product.size_chart_trigger' | t | downcase
@@ -137,7 +145,7 @@
           endif
 
           assign option_idx = forloop.index
-        -%}
+        -%} {% endcomment %}
         <div class="variant-picker-item">
           <div class="variant-picker-label">
             <div class="h4 fw-semibold">
@@ -190,7 +198,7 @@
                 {%- endfor -%}
               </div>
             </div>
-            {%- if is_size -%}
+            {% comment %} {%- if is_size -%}
               <div class="form__popup" id="size-{{ section.id }}">
                 <modal-opener
                   class="no-js-hidden"
@@ -216,7 +224,7 @@
                   </span>
                 </a>
               </div>
-            {%- endif -%}
+            {%- endif -%} {% endcomment %}
           </div>
         </div>
       {%- endfor -%}
