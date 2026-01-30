@@ -1,0 +1,24 @@
+{% if product.metafields.custom.specification_table %}
+  <div class="list-infor tf-grid-layout md-col-2 xl-col-4">
+    {% for column in product.metafields.custom.specification_table.value %}
+      <div class="infor-item">
+        <div class="h4 heading">{{ column.title.value }}</div>
+
+        {% if column.rows.value %}
+          <ul>
+            {% for row in column.rows.value %}
+              <li>
+                {% if row.label.value != blank %}
+                  <h6 class="fw-6 text-black title">{{ row.label.value }}</h6>
+                  <div class="h6">{{ row.value.value }}</div>
+                {% else %}
+                  <h6 class="fw-6 text-black title">{{ row.value.value }}</h6>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

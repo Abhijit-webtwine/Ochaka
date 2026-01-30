@@ -1,0 +1,41 @@
+<div class="flat-animate-tab tab-style-2">
+  {% assign faq_blocks = section.blocks | where: 'type', 'faq_category' %}
+  <ul class="menu-tab menu-tab-2" role="tablist">
+    {% for block in faq_blocks %}
+      <li class="nav-tab-item" role="presentation">
+        <a
+          href="#{{ block.settings.category_id }}"
+          class="tab-link h5 {% if forloop.first %}active{% endif %}"
+          data-bs-toggle="tab"
+        >
+          {{- block.settings.category_title -}}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+  <div class="tab-content">
+    {% for block in faq_blocks %}
+      <div
+        class="tab-pane tab-faqs-descriptions {% if forloop.first %}active show{% endif %}"
+        id="{{ block.settings.category_id }}"
+        role="tabpanel"
+      >
+        <ul>
+          {% for i in (1..10) %}
+            {% assign question_key = 'question_' | append: i %}
+            {% assign answer_key = 'answer_' | append: i %}
+            {% assign question = block.settings[question_key] %}
+            {% assign answer = block.settings[answer_key] %}
+
+            {% if question != blank and answer != blank %}
+              <li>
+                <div class="h6 fw-6 text-black title">{{ question }}</div>
+                <div class="h6 fw-4 text">{{ answer }}</div>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</div>
