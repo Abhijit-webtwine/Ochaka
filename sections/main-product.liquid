@@ -114,7 +114,7 @@
 
                     <p class="badges-on-sale h6 fw-semibold">
                       <span class="number-sale" data-person-sale="29">
-                        {{ product.selected_or_first_available_variant.compare_at_price
+                        -{{ product.selected_or_first_available_variant.compare_at_price
                           | minus: product.selected_or_first_available_variant.price
                           | times: 100
                           | divided_by: product.selected_or_first_available_variant.compare_at_price

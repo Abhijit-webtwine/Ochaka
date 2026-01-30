@@ -48,7 +48,7 @@
             <div class="variant-picker-label">
               <div class="h4 fw-semibold">
                 {{ option.name }}
-                <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+                <span class="variant-picker-label-value {% if is_color %}value-currentColor{% elsif option.name contains 'Size' %}value-currentSize{% endif %}" data-option-index="option{{ option_idx }}">{{ option.selected_value }}</span>
               </div>
             </div>
           {%- endif -%}
@@ -137,24 +137,26 @@
       {{ block.shopify_attributes }}
     >
       {%- for option in product.options_with_values -%}
-        {% comment %} {%- liquid
-          assign is_size = false
-          if block.settings.size_chart != blank
-            assign size_trigger = 'products.product.size_chart_trigger' | t | downcase
+        {%- liquid
+            assign is_color = true
+            assign swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase
             assign downcased_option = option.name | downcase
-            if downcased_option contains size_trigger
-              assign is_size = true
+            if downcased_option contains swatch_trigger
+              assign is_color = true
+            elsif swatch_trigger == 'color' and downcased_option contains 'colour'
+              assign is_color = true
             endif
-          endif
-
           assign option_idx = forloop.index
-        -%} {% endcomment %}
+        -%}
         <div class="variant-picker-item">
           {%- if block.settings.show_variant_labels -%}
             <div class="variant-picker-label">
               <div class="h4 fw-semibold">
                 {{ option.name }}
-                <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+                <span class="variant-picker-label-value {% if is_color %}value-currentColor{% else %}value-currentSize{% endif %}"
+                data-option-index="option{{ option_idx }}">
+                  {{ option.selected_value }}
+                </span>
               </div>
             </div>
           {%- endif -%}

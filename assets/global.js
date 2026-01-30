@@ -1172,6 +1172,7 @@ class VariantSelects extends HTMLElement {
 
     this.updateOptions();
     this.updateMasterId();
+    this.updateLabels();
     this.setAvailability();
   }
 
@@ -1214,6 +1215,7 @@ class VariantSelects extends HTMLElement {
   onVariantChange(event) {
     this.updateOptions();
     this.updateMasterId();
+    this.updateLabels();
     this.toggleAddButton(true, '', false);
     this.updatePickupAvailability();
     this.removeErrorMessage();
@@ -1281,6 +1283,15 @@ class VariantSelects extends HTMLElement {
       return !variant.options.map((option, index) => {
         return this.options[index] === option;
       }).includes(false);
+    });
+  }
+
+  updateLabels() {
+    this.options.forEach((value, index) => {
+      const labels = document.querySelectorAll(`variant-radios[data-section="${this.dataset.section}"] .variant-picker-label-value[data-option-index="option${index + 1}"], variant-selects[data-section="${this.dataset.section}"] .variant-picker-label-value[data-option-index="option${index + 1}"]`);
+      labels.forEach(label => {
+        label.textContent = value;
+      });
     });
   }
   
