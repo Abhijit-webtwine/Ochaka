@@ -2151,6 +2151,15 @@
         .variant-picker-values {
             display: flex;
             gap: 12px;
+            input[type="radio"] {
+                appearance: none;
+            }
+            input[type="radio"]:checked + .color-btn-pill {
+                border-color: var(--black);
+            }
+            input[type="radio"]:checked + .color-btn.color__swatch {
+                border-color: var(--black);
+            }
 
             @include res(xl, min) {
                 &.gap24 {
@@ -2175,6 +2184,12 @@
           }
         }
 
+        input[type="radio"]:not([disabled]) {
+            + .color-btn-pill, + .color-btn {
+                cursor: pointer;
+            }
+        }
+
         .color-btn:not(.select-item, .color-btn-pill) {
             position: relative;
             width: 40px;
@@ -2183,7 +2198,6 @@
             flex-shrink: 0;
             text-align: center;
             border: 1px solid var(--line);
-            cursor: pointer;
             @include transition3;
             border-radius: 50%;
 
@@ -2291,6 +2305,15 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
+            input[type="radio"] {
+                appearance: none;
+            }
+            /* Selected option: style label next to checked input (works on load and when user changes selection) */
+            input[type="radio"]:checked + .size-btn {
+                border-color: var(--black);
+                background-color: var(--black);
+                color: var(--white);
+            }
         }
 
         .size-btn:not(.select-item) {

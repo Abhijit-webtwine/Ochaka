@@ -1469,6 +1469,11 @@ button[disabled],
   opacity: 0.5;
 }
 
+input[type=radio][disabled] + label {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .button,
 .button-label,
 .shopify-challenge__button {
