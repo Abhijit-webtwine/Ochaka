@@ -3844,7 +3844,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    object-fit: contain;
 }
 .pswp__video-container video {
     width: 100%;
@@ -3852,6 +3851,7 @@
     max-width: 90vw;
     max-height: 90vh;
     aspect-ratio: 16 / 9;
+    object-fit: contain;
 }
 
 .wg-real-image {
