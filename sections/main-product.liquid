@@ -148,6 +148,7 @@
                 {% endif %}
               </div>
 
+              {%- assign product_form_id = 'product-form-' | append: section.id -%}
               {% for block in section.blocks %}
                 {% case block.type %}
                   {% when 'visitor_count' %}
@@ -174,71 +175,82 @@
                       </div>
                     </div> {% endcomment %}
                   {% when 'variant_picker' %}
-                    {%- assign product_form_id = 'product-form-' | append: section.id -%}
                     {% render 'product-variant-picker', product: product, product_form_id: product_form_id, block: block %}
+
+                  {% when 'option_customizer' %}
+                    <div class="tf-product-property"> 
+                      <div class="item personalize"> 
+                        <input class="pdp-customizer-input bg-white" placeholder="Personalize" type="text" name="properties[Personalize]" form="{{ product_form_id }}"> 
+                      </div> 
+                      <div class="item desc"> 
+                        <input class="pdp-customizer-input bg-white" placeholder="Write your text" type="text" name="properties[Description]" form="{{ product_form_id }}"> 
+                      </div> 
+                    </div> 
+
                 {% endcase %}
               {% endfor %}
 
-          <product-form>
-            {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100' -%}
-              <div class="tf-product-total-quantity">
-                <div class="group-btn">
+              <product-form>
+                {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100' -%}
+                  <div class="tf-product-total-quantity">
+                    <div class="group-btn">
 
-                  {% comment %} Quantity Input {% endcomment %}
-                  <quantity-input class="wg-quantity">
-                    <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
-                      <i class="icon-minus fs-14"></i>
-                    </button>
-                    <input
-                      class="quantity-product"
-                      type="number"
-                      name="quantity"
-                      id="Quantity-{{ section.id }}"
-                      min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                      {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
-                        data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                        max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                      {% endif %}
-                      step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
-                      value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                      form="{{ product_form_id }}"
-                    >
-                    <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
-                      <i class="icon-plus fs-14"></i>
-                    </button>
-                  </quantity-input>
+                      {% comment %} Quantity Input {% endcomment %}
+                      <quantity-input class="wg-quantity">
+                        <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
+                          <i class="icon-minus fs-14"></i>
+                        </button>
+                        <input
+                          class="quantity-product"
+                          type="number"
+                          name="quantity"
+                          id="Quantity-{{ section.id }}"
+                          min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                          {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                            data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                            max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                          {% endif %}
+                          step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                          value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                          form="{{ product_form_id }}"
+                        >
+                        <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
+                          <i class="icon-plus fs-14"></i>
+                        </button>
+                      </quantity-input>
 
-                  {% comment %} Add to Cart Button {% endcomment %}
+                      {% comment %} Add to Cart Button {% endcomment %}
 
-                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
-                      <button
-                        type="submit"
-                        name="add"
-                        class="tf-btn animate-btn btn-add-to-cart"          
-                        {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
-                      >
-                        <i class="icon icon-shopping-cart-simple"></i>
-                        {{ 'products.product.add_to_cart' | t }}
+                          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
+                          <button
+                            type="submit"
+                            name="add"
+                            class="tf-btn animate-btn btn-add-to-cart"          
+                            {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
+                          >
+                            <i class="icon icon-shopping-cart-simple"></i>
+                            {{ 'products.product.add_to_cart' | t }}
+                          </button>
+
+
+                      <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
+                        <span class="icon icon-heart"></span>
+                        <span class="tooltip">Add to Wishlist</span>
                       </button>
 
+                      <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
+                        <span class="icon icon-compare"></span>
+                        <span class="tooltip">Compare</span>
+                      </a>
+                    </div>
+                    {% comment %} Checkout Button {% endcomment %}
+                    <div class="shopify-payment-btn">
+                      {{ form | payment_button }}
+                    </div>
+                  </div>
+                {% endform %}
+              </product-form>
 
-                  <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
-                    <span class="icon icon-heart"></span>
-                    <span class="tooltip">Add to Wishlist</span>
-                  </button>
-
-                  <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
-                    <span class="icon icon-compare"></span>
-                    <span class="tooltip">Compare</span>
-                  </a>
-                </div>
-                {% comment %} Checkout Button {% endcomment %}
-                <div class="shopify-payment-btn">
-                  {{ form | payment_button }}
-                </div>
-              </div>
-            {% endform %}
-          </product-form>
               <div class="tf-product-extra-link">
                 <a href="#sizeChart" data-bs-toggle="modal" class="product-extra-icon link">
                   <i class="icon icon-swatches"></i>Size Guide
@@ -602,6 +614,11 @@
           "default": 25
         }
       ]
+    },
+    {
+      "type": "option_customizer",
+      "name": "Option Customizer",
+      "limit": 1,
     }
   ]
 }

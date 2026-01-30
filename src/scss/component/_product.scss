@@ -3303,9 +3303,40 @@
 
 .tf-product-property {
     display: grid;
-    gap: 12px;
-}
+        gap: 12px;
+    
+    .pdp-customizer-input {
+        outline: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        width: 100%;
+        padding: 15px 24px;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 24px;
+        border: 1px solid var(--bg-2);
+        border-radius: 999px;
+        color: var(--black);
+        background-color: var(--bg-2);
+        @include transition3;
 
+        &::placeholder {
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 24px;
+            color: var(--text-2);
+        }
+
+        &:focus {
+            border-color: var(--black);
+        }
+
+        @include res(lg) {
+            padding: 12px 24px;
+        }
+    }
+}
 @keyframes pulse-rotate {
     0% {
         transform: scale(1) rotate(12deg);
