@@ -44,12 +44,14 @@
             endif
           endif {% endcomment %}
         <div class="variant-picker-item {% if option.name contains 'Size' %}variant-size{% endif %}{% if option.name contains 'Color' or option.name contains 'Colour' %}variant-color{% endif %}">
-          <div class="variant-picker-label">
-            <div class="h4 fw-semibold">
-              {{ option.name }}
-              <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+          {%- if block.settings.show_variant_labels -%}
+            <div class="variant-picker-label">
+              <div class="h4 fw-semibold">
+                {{ option.name }}
+                <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+              </div>
             </div>
-          </div>
+          {%- endif -%}
           <fieldset
             class="variant-picker-values js product-form__input variant-input-wrapper"
             data-option-index="option{{ option_idx }}"
@@ -83,7 +85,7 @@
                 -%}
                 <label
                   for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                  class="color-btn color__swatch color__swatch--{{ block.settings.swatch_type }}{% if has_swatch_image or enable_image %} color__swatch--image{% endif %}"
+                  class="color-btn color__swatch {% if has_swatch_image or enable_image %} color__swatch--image{% endif %}"
                   style="{% if has_swatch_image %}--swatch-background-image: url({{ color_image }});{% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}"
                   title="{{ value | escape }}"
                 >
@@ -92,7 +94,8 @@
                 </label>
               {%- else -%}
                 <label
-                  class="{% if option.name contains 'Size' %}size-btn{% endif %}{% if option.name contains 'Color' or option.name contains 'Colour' %}color-btn-pill color-btn{% endif %}"
+                  class="{% if option.name contains 'Size' %}size-btn{% endif %}
+                  {% if option.name contains 'Color' or option.name contains 'Colour' %}color-btn-pill color-btn{% endif %}"
                   for="{{ section.id }}-{{ option.name }}-{{ forloop.index0 }}"
                 >
                   {{ value }}
@@ -147,22 +150,19 @@
           assign option_idx = forloop.index
         -%} {% endcomment %}
         <div class="variant-picker-item">
-          <div class="variant-picker-label">
-            <div class="h4 fw-semibold">
-              {{ option.name }}
-              <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+          {%- if block.settings.show_variant_labels -%}
+            <div class="variant-picker-label">
+              <div class="h4 fw-semibold">
+                {{ option.name }}
+                <span class="variant-picker-label-value value-currentSize">{{ option.selected_value }}</span>
+              </div>
             </div>
-          </div>
+          {%- endif -%}
           <div
             class="product-form__input product-form__input--dropdown variant-input-wrapper"
             data-option-index="option{{ option_idx }}"
             data-option-slug="{{ option.name | handleize }}"
           >
-            {%- if block.settings.show_variant_labels -%}
-              <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
-                {{ option.name }}
-              </label>
-            {%- endif -%}
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
               class="select__select"

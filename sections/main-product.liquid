@@ -132,36 +132,40 @@
                 {% endif %}
               </div>
 
-              {% comment %} visitor count {% endcomment %}
-              {% if section.settings.show_visitor_count %}
-                <visitor-count 
-                  min="{{ section.settings.min_visitor_count }}" 
-                  max="{{ section.settings.max_visitor_count }}">
-                  <div class="tf-product-info-liveview">
-                    <div class="liveview-count">
-                      <i class="icon icon-view"></i>
-                      <span class="count fw-6 h6 vc-number"></span>
-                    </div>
-                    <p class="fw-6 h6">People are viewing this right now</p>
-                    </div>
-                </visitor-count>
-              {% endif %}
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'visitor_count' %}
+                    {% comment %} visitor count {% endcomment %}
+                      <visitor-count 
+                        min="{{ block.settings.min_visitor_count }}" 
+                        max="{{ block.settings.max_visitor_count }}">
+                        <div class="tf-product-info-liveview">
+                          <div class="liveview-count">
+                            <i class="icon icon-view"></i>
+                            <span class="count fw-6 h6 vc-number"></span>
+                          </div>
+                          <p class="fw-6 h6">People are viewing this right now</p>
+                          </div>
+                      </visitor-count>
 
-              {% comment %} <div class="product-progress-sale">
-                <div class="title">
-                  <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
-                  <div class="sold text">Sold: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
-                </div>
-                <div class="progress-cart">
-                  <div class="value" style="width: 0%;" data-progress="70"></div>
-                </div>
-              </div> {% endcomment %}
-
-              {%- assign product_form_id = 'product-form-' | append: section.id -%}
-              {% render 'product-variant-picker', product: product, product_form_id: product_form_id %}
-
+                    {% comment %} <div class="product-progress-sale">
+                      <div class="title">
+                        <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
+                        <div class="sold text">Sold: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
+                      </div>
+                      <div class="progress-cart">
+                        <div class="value" style="width: 0%;" data-progress="70"></div>
+                      </div>
+                    </div> {% endcomment %}
+                  {% when 'variant_picker' %}
+                    {%- assign product_form_id = 'product-form-' | append: section.id -%}
+                    {% render 'product-variant-picker', product: product, product_form_id: product_form_id, block: block %}
+                {% endcase %}
+              {% endfor %}
               <div class="tf-product-total-quantity">
                 <div class="group-btn">
+
+                  {% comment %} Quantity Input {% endcomment %}
                   <quantity-input class="wg-quantity">
                     <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
                       <i class="icon-minus fs-14"></i>
@@ -184,8 +188,10 @@
                       <i class="icon-plus fs-14"></i>
                     </button>
                   </quantity-input>
-                  <product-form>
-                    {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+
+                  {% comment %} Add to Cart Button {% endcomment %}
+                  <product-form class="d-flex flex-grow-1">
+                    {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 d-flex' -%}
                       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
                       <button
                         type="submit"
@@ -198,10 +204,12 @@
                       </button>
                     {% endform %}
                   </product-form>
+
                   <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
                     <span class="icon icon-heart"></span>
                     <span class="tooltip">Add to Wishlist</span>
                   </button>
+
                   <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
                     <span class="icon icon-compare"></span>
                     <span class="tooltip">Compare</span>
@@ -209,6 +217,7 @@
                 </div>
               </div>
 
+              {% comment %} Checkout Button {% endcomment %}
               <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
                 <button class="tf-product-checkout tf-btn btn-primary w-100" name="checkout"
                   {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
@@ -479,32 +488,6 @@
       "visible_if": "{{ section.settings.show_atc_count }}"
     },
     {
-      "type": "checkbox",
-      "id": "show_visitor_count",
-      "label": "Show Visitor Count",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "min_visitor_count",
-      "label": "Minimum Visitor Count",
-      "min": 1,
-      "max": 100,
-      "step": 1,
-      "default": 5,
-      "visible_if": "{{ section.settings.show_visitor_count }}"
-    },
-    {
-      "type": "range",
-      "id": "max_visitor_count",
-      "label": "Maximum Visitor Count",
-      "min": 2,
-      "max": 100,
-      "step": 1,
-      "default": 25,
-      "visible_if": "{{ section.settings.show_visitor_count }}"
-    },
-    {
       "type": "richtext",
       "id": "delivery_time",
       "label": "Delivery Time"
@@ -547,7 +530,7 @@
     }
   ],
   "blocks": [
-        {
+    {
       "type": "variant_picker",
       "name": "t:sections.main-product.blocks.variant_picker.name",
       "limit": 1,
@@ -567,6 +550,43 @@
           ],
           "default": "button",
           "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_color_swatches",
+          "label": "Enable Color Swatches",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_variant_labels",
+          "label": "Show Variant Labels",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "visitor_count",
+      "name": "Visitor Count",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "min_visitor_count",
+          "label": "Minimum Visitor Count",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "max_visitor_count",
+          "label": "Maximum Visitor Count",
+          "min": 2,
+          "max": 100,
+          "step": 1,
+          "default": 25
         }
       ]
     }
