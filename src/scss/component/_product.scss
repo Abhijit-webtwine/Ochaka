@@ -2316,6 +2316,12 @@
             }
         }
 
+        input[type="radio"]:not([disabled]) {
+            + .size-btn {
+                cursor: pointer;
+            }
+        }
+
         .size-btn:not(.select-item) {
             width: 56px;
             height: 56px;
@@ -2327,7 +2333,6 @@
             font-weight: 700;
             @include transition3;
             @include flex(center, center);
-            cursor: pointer;
 
             &.style-text {
                 padding-left: 26.5px;
