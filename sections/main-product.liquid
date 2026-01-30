@@ -107,13 +107,19 @@
               </div>
 
               <div class="tf-product-heading">
-                <div class="product-info-price price-wrap">
-                  <span class="price-new price-on-sale h2 fw-4">{{ product.price | money }}</span>
-                  {% if product.compare_at_price > product.price %}
-                    <span class="price-old h6">{{ product.compare_at_price | money }}</span>
+                <div id="price-{{ section.id }}" class="product-info-price price-wrap">
+                  <span class="price-new price-on-sale h2 fw-4">{{ product.selected_or_first_available_variant.price | money }}</span>
+                  {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                    <span class="price-old h6">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
 
                     <p class="badges-on-sale h6 fw-semibold">
-                      <span class="number-sale" data-person-sale="29">{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }} % </span>
+                      <span class="number-sale" data-person-sale="29">
+                        {{ product.selected_or_first_available_variant.compare_at_price
+                          | minus: product.selected_or_first_available_variant.price
+                          | times: 100
+                          | divided_by: product.selected_or_first_available_variant.compare_at_price
+                        }} %
+                      </span>
                     </p>
                   {% endif %}
                 </div>
@@ -239,26 +245,27 @@
               </div>
 
               {% comment %} Delivery & Return {% endcomment %}
-              <div class="tf-product-delivery-return">
-                {% if section.settings.delivery_time != blank %}
-                <div class="product-delivery">
-                  <div class="icon icon-clock-cd"></div>
-                  <div class="h6">
-                    {{ section.settings.delivery_time }}
+               {% if section.settings.delivery_time != blank or section.settings.return_time != blank %}
+                <div class="tf-product-delivery-return">
+                  {% if section.settings.delivery_time != blank %}
+                  <div class="product-delivery">
+                    <div class="icon icon-clock-cd"></div>
+                    <div class="h6">
+                      {{ section.settings.delivery_time }}
+                    </div>
                   </div>
-                </div>
-                {% endif %}
+                  {% endif %}
 
-                {% if section.settings.return_time != blank %}
-                <div class="product-delivery return">
-                  <div class="icon icon-compare"></div>
-                  <div class="h6">
-                    {{ section.settings.return_time }}
+                  {% if section.settings.return_time != blank %}
+                  <div class="product-delivery return">
+                    <div class="icon icon-compare"></div>
+                    <div class="h6">
+                      {{ section.settings.return_time }}
+                    </div>
                   </div>
+                  {% endif %}
                 </div>
-                {% endif %}
-
-              </div>
+              {% endif %}
 
               {% comment %} Payment {% endcomment %}
               <div class="tf-product-trust-seal">
