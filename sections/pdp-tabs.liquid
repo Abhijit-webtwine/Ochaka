@@ -68,6 +68,15 @@
           </div>
         </div>
 
+        <div class="tab-pane wd-product-descriptions" id="reviews" role="tabpanel">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when '@app' -%}
+                {% render block %}
+            {% endcase %}
+          {% endfor %}
+        </div>
+
         <div class="tab-pane wd-product-descriptions" id="faqs" role="tabpanel">
           <div class="tab-faqs">
             <div class="flat-animate-tab tab-style-2">
@@ -325,6 +334,9 @@
           "default": "Yes, same is available in the price break-up section."
         }
       ]
+    },
+    {
+      "type": "@app"
     }
   ],
   "enabled_on": {
