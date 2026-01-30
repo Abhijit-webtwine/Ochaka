@@ -13,110 +13,139 @@
 </style>
 <section class="themesFlat section-{{ section.id }}-padding">
   <div class="container">
-    <div class="flat-animate-tab tab-style-1">
-      <ul class="menu-tab menu-tab-1" role="tablist">
-        <li class="nav-tab-item" role="presentation">
-          <a href="#descriptions" class="tab-link active" data-bs-toggle="tab">Descriptions</a>
-        </li>
-        <li class="nav-tab-item" role="presentation">
-          <a href="#policy" class="tab-link" data-bs-toggle="tab">Shipping, Return & Refund Policy</a>
-        </li>
-        <li class="nav-tab-item" role="presentation">
-          <a href="#reviews" class="tab-link" data-bs-toggle="tab">Customer Reviews</a>
-        </li>
-        <li class="nav-tab-item" role="presentation">
-          <a href="#faqs" class="tab-link" data-bs-toggle="tab">FAQs</a>
-        </li>
-      </ul>
-      <div class="tab-content">
-        <div class="tab-pane wd-product-descriptions active show" id="descriptions" role="tabpanel">
-          <div class="tab-descriptions">
-            <div class="h6 desc">
-              {{ section.settings.product_description }}
+    {% if section.settings.tab_style == 'tab' %}
+      <div class="flat-animate-tab tab-style-1">
+        <ul class="menu-tab menu-tab-1" role="tablist">
+          <li class="nav-tab-item" role="presentation">
+            <a href="#descriptions" class="tab-link active" data-bs-toggle="tab">Descriptions</a>
+          </li>
+          <li class="nav-tab-item" role="presentation">
+            <a href="#policy" class="tab-link" data-bs-toggle="tab">Shipping, Return & Refund Policy</a>
+          </li>
+          <li class="nav-tab-item" role="presentation">
+            <a href="#reviews" class="tab-link" data-bs-toggle="tab">Customer Reviews</a>
+          </li>
+          <li class="nav-tab-item" role="presentation">
+            <a href="#faqs" class="tab-link" data-bs-toggle="tab">FAQs</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane wd-product-descriptions active show" id="descriptions" role="tabpanel">
+            <div class="tab-descriptions">
+              <div class="h6 desc">
+                {{ product.description }}
+              </div>
+              {% render 'pdp-meta-description', product: product %}
             </div>
-            {% if product.metafields.custom.specification_table %}
-              <div class="list-infor tf-grid-layout md-col-2 xl-col-4">
-                
-                {% for column in product.metafields.custom.specification_table.value %}
-                  <div class="infor-item">
-                    <div class="h4 heading">{{ column.title.value }}</div>
-                    
-                    {% if column.rows.value %}
-                      <ul>
-                        {% for row in column.rows.value %}
-                          <li>
-                            {% if row.label.value != blank %}
-                              <h6 class="fw-6 text-black title">{{ row.label.value }}</h6>
-                              <div class="h6">{{ row.value.value }}</div>
-                            {% else %}
-                              <h6 class="fw-6 text-black title">{{ row.value.value }}</h6>
-                            {% endif %}
-                          </li>
-                        {% endfor %}
-                      </ul>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-                
-              </div>
-            {% endif %}
           </div>
-        </div>
-        <div class="tab-pane wd-product-descriptions" id="policy" role="tabpanel">
-          <div class="tab-policy d-grid gap-30">
-            {{ section.settings.shipping_return_refund_policy.content }}
+
+          <div class="tab-pane wd-product-descriptions" id="policy" role="tabpanel">
+            <div class="tab-policy legal-list">
+              {{ section.settings.shipping_return_refund_policy.content }}
+            </div>
           </div>
-        </div>
 
-        <div class="tab-pane wd-product-descriptions" id="reviews" role="tabpanel">
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when '@app' -%}
-                {% render block %}
-            {% endcase %}
-          {% endfor %}
-        </div>
+          <div class="tab-pane wd-product-descriptions" id="reviews" role="tabpanel">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+              {% endcase %}
+            {% endfor %}
+          </div>
 
-        <div class="tab-pane wd-product-descriptions" id="faqs" role="tabpanel">
-          <div class="tab-faqs">
-            <div class="flat-animate-tab tab-style-2">
-              <ul class="menu-tab menu-tab-2" role="tablist">
-                {% for block in section.blocks %}
-                  {% if block.type == 'faq_category' %}
-                    <li class="nav-tab-item" role="presentation">
-                      <a href="#{{ block.settings.category_id }}" class="tab-link h5 {% if forloop.first %}active{% endif %}" data-bs-toggle="tab">{{ block.settings.category_title }}</a>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-              <div class="tab-content">
-                {% for block in section.blocks %}
-                  {% if block.type == 'faq_category' %}
-                    <div class="tab-pane tab-faqs-descriptions {% if forloop.first %}active show{% endif %}" id="{{ block.settings.category_id }}" role="tabpanel">
-                      <ul>
-                        {% for i in (1..10) %}
-                          {% assign question_key = 'question_' | append: i %}
-                          {% assign answer_key = 'answer_' | append: i %}
-                          {% assign question = block.settings[question_key] %}
-                          {% assign answer = block.settings[answer_key] %}
-                          
-                          {% if question != blank and answer != blank %}
-                            <li>
-                              <div class="h6 fw-6 text-black title">{{ question }}</div>
-                              <div class="h6 fw-4 text">{{ answer }}</div>
-                            </li>
-                          {% endif %}
-                        {% endfor %}
-                      </ul>
-                    </div>
-                  {% endif %}
-                {% endfor %}
-              </div>
+          <div class="tab-pane wd-product-descriptions" id="faqs" role="tabpanel">
+            <div class="tab-faqs">
+              {% render 'pdp-faq-tab', sections: section %}
             </div>
           </div>
         </div>
       </div>
-    </div>
+
+    {% elsif section.settings.tab_style == 'accordion' %}
+      <div class="faq-descriptions" id="accordion1">
+        <div class="widget-accordion">
+          <div
+            class="accordion-title"
+            data-bs-target="#Description"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="Description"
+            role="button"
+          >
+            <span>Description</span>
+            <span class="icon"></span>
+          </div>
+          <div id="Description" class="collapse show" data-bs-parent="#accordion1">
+            <div class="accordion-content tab-descriptions">
+              <div class="h6 desc">
+                {{ product.description }}
+              </div>
+              {% render 'pdp-meta-description', product: product %}
+            </div>
+          </div>
+        </div>
+        <div class="widget-accordion">
+          <div
+            class="accordion-title collapsed"
+            data-bs-target="#Shipping1"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="Shipping1"
+            role="button"
+          >
+            <span>Shipping, Return & Refund Policy</span>
+            <span class="icon"></span>
+          </div>
+          <div id="Shipping1" class="collapse" data-bs-parent="#accordion1">
+            <div class="accordion-content tab-policy">
+              <div class="accordion-policy legal-list">
+                {{ section.settings.shipping_return_refund_policy.content }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="widget-accordion">
+          <div
+            class="accordion-title collapsed"
+            data-bs-target="#Customer"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="Customer"
+            role="button"
+          >
+            <span>Customer Reviews</span>
+            <span class="icon"></span>
+          </div>
+          <div id="Customer" class="collapse" data-bs-parent="#accordion1">
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="widget-accordion">
+          <div
+            class="accordion-title collapsed"
+            data-bs-target="#FAQs"
+            data-bs-toggle="collapse"
+            aria-expanded="true"
+            aria-controls="FAQs"
+            role="button"
+          >
+            <span>FAQs</span>
+            <span class="icon"></span>
+          </div>
+          <div id="FAQs" class="collapse" data-bs-parent="#accordion1">
+            <div class="accordion-content tab-faqs">
+              {% render 'pdp-faq-tab', sections: section %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
   </div>
 </section>
 
@@ -125,9 +154,23 @@
   "name": "PDP Tabs",
   "settings": [
     {
-      "type": "richtext",
-      "id": "product_description",
-      "label": "Description"
+      "type": "select",
+      "label": "Tab Style",
+      "id": "tab_style",
+      "options": [
+        {
+          "value": "tab",
+          "label": "Tab"
+        },
+        {
+          "value": "accordion",
+          "label": "Accordion"
+        },
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        }
+      ]
     },
     {
       "type": "page",
@@ -187,7 +230,7 @@
           "type": "textarea",
           "id": "answer_1",
           "label": "Answer 1",
-          "default": "Natural diamonds with the highest ododj purity"
+          "default": "Natural diamonds with the highest purity"
         },
         {
           "type": "header",
