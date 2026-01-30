@@ -1,0 +1,306 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+
+<section class="customer-image-gallery flat-spacing-3 pt-0 section-{{ section.id }}-padding">
+  <div class="container">
+    <h2 class="sect-title fw-normal">{{ section.settings.title }}</h2>
+    <div class="grid-photo tf-col-2 xl-col-4" id="customer-gallery-started">
+      <div
+        class="swiper tf-swiper"
+        data-preview="4"
+        data-tablet="3"
+        data-mobile-sm="2"
+        data-mobile="2"
+        data-space-lg="48"
+        data-space-md="30"
+        data-space="12"
+        data-pagination="2"
+        data-pagination-sm="2"
+        data-pagination-md="3"
+        data-pagination-lg="4"
+      >
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {% if block.type == 'gallery_image' and block.settings.image != blank %}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <a
+                  href="{{ block.settings.image | image_url: width: 1200 }}"
+                  target="_blank"
+                  class="wg-real-image item"
+                  data-pswp-width="{{ block.settings.image.width }}"
+                  data-pswp-height="{{ block.settings.image.height }}"
+                >
+                  <div class="image">
+                    <img
+                      class="lazyload"
+                      src="{{ block.settings.image | image_url: width: 400 }}"
+                      data-src="{{ block.settings.image | image_url: width: 800 }}"
+                      alt="{{ block.settings.image.alt | escape }}"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                    >
+                  </div>
+                  {% if block.settings.show_icon %}
+                    <div class="box-icon">
+                      {% if block.settings.custom_icon != blank %}
+                      <img src="{{ block.settings.custom_icon | image_url: width: 48 }}" alt="{{ block.settings.custom_icon.alt | escape }}" width="24" height="24">
+                      {% else %}
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 3.75H6.75C6.35218 3.75 5.97064 3.90804 5.68934 4.18934C5.40804 4.47064 5.25 4.85218 5.25 5.25V6.75H3.75C3.35218 6.75 2.97064 6.90804 2.68934 7.18934C2.40804 7.47064 2.25 7.85218 2.25 8.25V18.75C2.25 19.1478 2.40804 19.5294 2.68934 19.8107C2.97064 20.092 3.35218 20.25 3.75 20.25H17.25C17.6478 20.25 18.0294 20.092 18.3107 19.8107C18.592 19.5294 18.75 19.1478 18.75 18.75V17.25H20.25C20.6478 17.25 21.0294 17.092 21.3107 16.8107C21.592 16.5294 21.75 16.1478 21.75 15.75V5.25C21.75 4.85218 21.592 4.47064 21.3107 4.18934C21.0294 3.90804 20.6478 3.75 20.25 3.75ZM6.75 5.25H20.25V11.1328L19.3059 10.1897C19.1666 10.0504 19.0013 9.93984 18.8193 9.86444C18.6373 9.78904 18.4422 9.75023 18.2452 9.75023C18.0481 9.75023 17.8531 9.78904 17.6711 9.86444C17.489 9.93984 17.3237 10.0504 17.1844 10.1897L15.3094 12.0647L11.1844 7.93969C10.9031 7.6586 10.5217 7.5007 10.1241 7.5007C9.72641 7.5007 9.34503 7.6586 9.06375 7.93969L6.75 10.2534V5.25ZM17.25 18.75H3.75V8.25H5.25V15.75C5.25 16.1478 5.40804 16.5294 5.68934 16.8107C5.97064 17.092 6.35218 17.25 6.75 17.25H17.25V18.75ZM20.25 15.75H6.75V12.375L10.125 9L14.7806 13.6556C14.9213 13.7962 15.112 13.8751 15.3108 13.8751C15.5096 13.8751 15.7003 13.7962 15.8409 13.6556L18.2466 11.25L20.25 13.2544V15.75ZM15 7.875C15 7.6525 15.066 7.43499 15.1896 7.24998C15.3132 7.06498 15.4889 6.92078 15.6945 6.83564C15.9 6.75049 16.1262 6.72821 16.3445 6.77162C16.5627 6.81502 16.7632 6.92217 16.9205 7.0795C17.0778 7.23684 17.185 7.43729 17.2284 7.65552C17.2718 7.87375 17.2495 8.09995 17.1644 8.30552C17.0792 8.51109 16.935 8.68679 16.75 8.8104C16.565 8.93402 16.3475 9 16.125 9C15.8266 9 15.5405 8.88147 15.3295 8.6705C15.1185 8.45952 15 8.17337 15 7.875Z" fill="white"></path></svg>
+                    {% endif %}
+                    </div>
+                  {% endif %}
+                </a>
+              </div>
+            {% elsif block.type == 'gallery_video' and block.settings.video.sources != blank %}
+              {%- liquid
+                assign video_src = ''
+                assign poster_image = block.settings.cover_image
+                assign mp4_source = block.settings.video.sources | where: 'format', 'mp4' | first
+                if mp4_source != blank
+                  assign video_src = mp4_source.url
+                else
+                  assign video_src = block.settings.video.sources[1].url
+                endif
+                if poster_image == blank and block.settings.video.preview_image != blank
+                  assign poster_image = block.settings.video.preview_image
+                endif
+              -%}
+              {% if video_src != '' %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <a
+                    href="#"
+                    class="wg-real-image item"
+                    data-pswp-type="video"
+                    data-pswp-width="1920"
+                    data-pswp-height="1080"
+                    data-pswp-video-src="{{ video_src }}"
+                  >
+                    <div class="image">
+                      {% if poster_image != blank %}
+                        <img
+                          class="lazyload"
+                          src="{{ poster_image | image_url: width: 400 }}"
+                          data-src="{{ poster_image | image_url: width: 800 }}"
+                          alt="{{ poster_image.alt | default: 'Video' | escape }}"
+                          width="{{ poster_image.width }}"
+                          height="{{ poster_image.height }}"
+                        >
+                      {% else %}
+                        <div class="customer-gallery-video-poster" style="aspect-ratio: 16/9; background: #eee; display: flex; align-items: center; justify-content: center;">
+                          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity: 0.5;"><path d="M8 5v14l11-7L8 5z" fill="currentColor"/></svg>
+                        </div>
+                      {% endif %}
+                    </div>
+                    {% if block.settings.show_icon %}
+                      <div class="box-icon">
+                        {% if block.settings.custom_icon != blank %}
+                          <img src="{{ block.settings.custom_icon | image_url: width: 48 }}" alt="{{ block.settings.custom_icon.alt | escape }}" width="24" height="24">
+                        {% else %}
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.4163 9.87562L10.9163 6.87562C10.8033 6.80025 10.6719 6.75696 10.5363 6.75039C10.4006 6.74382 10.2657 6.77421 10.146 6.83831C10.0263 6.90241 9.9262 6.99782 9.85645 7.11436C9.7867 7.2309 9.74991 7.36419 9.75 7.5V13.5C9.74991 13.6358 9.7867 13.7691 9.85645 13.8856C9.9262 14.0022 10.0263 14.0976 10.146 14.1617C10.2657 14.2258 10.4006 14.2562 10.5363 14.2496C10.6719 14.243 10.8033 14.1998 10.9163 14.1244L15.4163 11.1244C15.5191 11.0559 15.6035 10.9631 15.6618 10.8542C15.7202 10.7452 15.7507 10.6236 15.7507 10.5C15.7507 10.3764 15.7202 10.2548 15.6618 10.1458C15.6035 10.0369 15.5191 9.94409 15.4163 9.87562ZM11.25 12.0984V8.90625L13.6481 10.5L11.25 12.0984ZM20.25 3.75H3.75C3.35218 3.75 2.97064 3.90804 2.68934 4.18934C2.40804 4.47064 2.25 4.85218 2.25 5.25V15.75C2.25 16.1478 2.40804 16.5294 2.68934 16.8107C2.97064 17.092 3.35218 17.25 3.75 17.25H20.25C20.6478 17.25 21.0294 17.092 21.3107 16.8107C21.592 16.5294 21.75 16.1478 21.75 15.75V5.25C21.75 4.85218 21.592 4.47064 21.3107 4.18934C21.0294 3.90804 20.6478 3.75 20.25 3.75ZM20.25 15.75H3.75V5.25H20.25V15.75ZM21.75 19.5C21.75 19.6989 21.671 19.8897 21.5303 20.0303C21.3897 20.171 21.1989 20.25 21 20.25H3C2.80109 20.25 2.61032 20.171 2.46967 20.0303C2.32902 19.8897 2.25 19.6989 2.25 19.5C2.25 19.3011 2.32902 19.1103 2.46967 18.9697C2.61032 18.829 2.80109 18.75 3 18.75H21C21.1989 18.75 21.3897 18.829 21.5303 18.9697C21.671 19.1103 21.75 19.3011 21.75 19.5Z" fill="white"></path></svg>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </a>
+                </div>
+              {% endif %}
+            {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="sw-dot-default tf-sw-pagination"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof PhotoSwipeLightbox === 'undefined') return;
+
+    const gallery = new PhotoSwipeLightbox({
+      gallery: '#customer-gallery-started',
+      children: 'a',
+      pswpModule: PhotoSwipe,
+      bgOpacity: 1,
+      secondaryZoomLevel: 2,
+      maxZoomLevel: 3,
+    });
+
+    gallery.addFilter('itemData', (itemData) => {
+      const el = itemData.element;
+      if (!el || el.dataset.pswpType !== 'video') return itemData;
+
+      itemData.type = 'video';
+      itemData.videoSrc = el.dataset.pswpVideoSrc || null;
+
+      return itemData;
+    });
+
+    gallery.on('contentLoad', (e) => {
+      const { content } = e;
+      if (content.type !== 'video' || !content.data.videoSrc) return;
+
+      e.preventDefault();
+
+      const container = document.createElement('div');
+      container.className = 'pswp__video-container';
+
+      const video = document.createElement('video');
+      video.controls = true;
+      video.playsInline = true;
+
+      const source = document.createElement('source');
+      source.src = content.data.videoSrc;
+      source.type = 'video/mp4';
+
+      video.appendChild(source);
+      container.appendChild(video);
+
+      content.element = container;
+      content.onLoaded();
+    });
+
+    gallery.init();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Customer Image Gallery",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "default": 80,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "default": 80,
+      "min": 0,
+      "max": 200,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Content Settings"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Real photos from our customers"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_image",
+      "name": "Image",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "header",
+          "content": "Icon Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show Icon",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon",
+          "info": "Used when Icon Type is set to Custom Image"
+        }
+      ]
+    },
+    {
+      "type": "gallery_video",
+      "name": "Video",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video",
+          "info": "Upload a video file (MP4)"
+        },
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image",
+          "info": "Shown as thumbnail before the video is played"
+        },
+        {
+          "type": "header",
+          "content": "Icon Settings"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_icon",
+          "label": "Show Icon",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom Icon",
+          "info": "Used when Icon Type is set to Custom Image"
+        }
+      ]
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "presets": [
+    {
+      "name": "Customer Image Gallery",
+      "blocks": [
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        },
+        {
+          "type": "gallery_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -3837,6 +3837,22 @@
     }
 }
 
+.pswp__video-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pswp__video-container video {
+    width: 100%;
+    height: 100%;
+    max-width: 90vw;
+    max-height: 90vh;
+    aspect-ratio: 16 / 9;
+}
+
 .wg-real-image {
     position: relative;
 
