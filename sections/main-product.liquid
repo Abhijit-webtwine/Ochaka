@@ -162,6 +162,9 @@
                     {% render 'product-variant-picker', product: product, product_form_id: product_form_id, block: block %}
                 {% endcase %}
               {% endfor %}
+
+          <product-form>
+            {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100' -%}
               <div class="tf-product-total-quantity">
                 <div class="group-btn">
 
@@ -190,8 +193,7 @@
                   </quantity-input>
 
                   {% comment %} Add to Cart Button {% endcomment %}
-                  <product-form class="d-flex flex-grow-1">
-                    {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 d-flex' -%}
+
                       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
                       <button
                         type="submit"
@@ -202,8 +204,7 @@
                         <i class="icon icon-shopping-cart-simple"></i>
                         {{ 'products.product.add_to_cart' | t }}
                       </button>
-                    {% endform %}
-                  </product-form>
+
 
                   <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
                     <span class="icon icon-heart"></span>
@@ -215,18 +216,13 @@
                     <span class="tooltip">Compare</span>
                   </a>
                 </div>
+                {% comment %} Checkout Button {% endcomment %}
+                <div class="shopify-payment-btn">
+                  {{ form | payment_button }}
+                </div>
               </div>
-
-              {% comment %} Checkout Button {% endcomment %}
-              <form action="{{ routes.cart_url }}" method="post" id="cart-notification-form">
-                <button class="tf-product-checkout tf-btn btn-primary w-100" name="checkout"
-                  {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
-                >
-                  BUY IT NOW 
-                  <i class="icon icon-arrow-right"></i>
-                </button>
-              </form>
-
+            {% endform %}
+          </product-form>
               <div class="tf-product-extra-link">
                 <a href="#sizeChart" data-bs-toggle="modal" class="product-extra-icon link">
                   <i class="icon icon-swatches"></i>Size Guide

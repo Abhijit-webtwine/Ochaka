@@ -2416,12 +2416,8 @@
         }
     }
 
-    .tf-product-checkout{
-      margin-bottom: 24px;
-    }
-
     .tf-product-total-quantity {
-        // margin-bottom: 24px;
+        margin-bottom: 24px;
 
         .group-btn {
             margin-bottom: 16px;
@@ -2479,6 +2475,27 @@
                     width: 100%;
                     order: 1;
                 }
+            }
+        }
+        .shopify-payment-button__button--unbranded {
+            padding-left: 12px;
+            padding-right: 12px;
+            background-color: var(--primary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 18px;
+            line-height: 24px;
+            padding: 16px 40px;
+            position: relative;
+            color: var(--white);
+            border-radius: 999px;
+            font-weight: 600;
+            height: auto;
+            text-transform: uppercase;
+            &:hover {
+                background-color: var(--black);
             }
         }
 
