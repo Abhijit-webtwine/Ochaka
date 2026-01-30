@@ -39,6 +39,37 @@ if ($(".product-thumbs-slider").length > 0) {
         },
     });
 
+    document.addEventListener("variant:change", function (event) {
+        var detail = event && event.detail;
+        if (!detail || !detail.variant) return;
+
+        var variant = detail.variant;
+        if (!variant.featured_media) return;
+
+        var media = variant.featured_media;
+        var targetSrc = (media.preview_image && media.preview_image.src) ? media.preview_image.src : media.src;
+        if (!targetSrc) return;
+
+        var baseTarget = targetSrc.split("?")[0];
+        var foundIndex = -1;
+
+        $(".tf-product-media-main .swiper-slide img").each(function (index) {
+            var imgSrc = $(this).attr("data-src") || $(this).attr("src");
+            if (!imgSrc) return;
+
+            var baseImg = imgSrc.split("?")[0];
+            if (baseImg === baseTarget || baseImg.indexOf(baseTarget) !== -1 || baseTarget.indexOf(baseImg) !== -1) {
+                foundIndex = index;
+                return false;
+            }
+        });
+
+        if (foundIndex > -1) {
+            main.slideTo(foundIndex, 600, false);
+            thumbs.slideTo(foundIndex, 600, false);
+        }
+    });
+
     const modelViewer = document.querySelector(".slide-3d");
     if (modelViewer) {
         modelViewer.addEventListener("mouseenter", () => {
