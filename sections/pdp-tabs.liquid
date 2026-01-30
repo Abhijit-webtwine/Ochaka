@@ -145,6 +145,57 @@
           </div>
         </div>
       </div>
+
+    {% elsif section.settings.tab_style == 'vertical' %}
+      <div class="flat-animate-tab tab-style-3">
+        <ul class="menu-tab menu-tab-3" role="tablist" id="parentTab">
+          <li class="nav-tab-item" role="presentation">
+            <a href="#descriptions" class="tab-link h5 fw-5 active" data-bs-toggle="tab">Descriptions</a>
+          </li>
+          <li class="nav-tab-item" role="presentation">
+            <a href="#policy" class="tab-link h5 fw-5" data-bs-toggle="tab">Shipping, Return & Refund Policy</a>
+          </li>
+          <li class="nav-tab-item" role="presentation">
+            <a href="#reviews" class="tab-link h5 fw-5" data-bs-toggle="tab">Customer Reviews</a>
+          </li>
+          <li class="nav-tab-item" role="presentation">
+            <a href="#faqs" class="tab-link h5 fw-5" data-bs-toggle="tab">FAQs</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="parentTabContent">
+          <div
+            class="tab-pane wd-product-descriptions active show"
+            id="descriptions"
+            role="tabpanel"
+            aria-labelledby="descriptions"
+          >
+            <div class="tab-descriptions">
+              <div class="h6 desc">
+                {{ product.description }}
+              </div>
+              {% render 'pdp-meta-description', product: product %}
+            </div>
+          </div>
+          <div class="tab-pane wd-product-descriptions" id="policy" role="tabpanel" aria-labelledby="policy">
+            <div class="tab-policy legal-list">
+              {{ section.settings.shipping_return_refund_policy.content }}
+            </div>
+          </div>
+          <div class="tab-pane wd-product-descriptions" id="reviews" role="tabpanel" aria-labelledby="reviews">
+            {% for block in section.blocks %}
+              {%- case block.type -%}
+                {%- when '@app' -%}
+                  {% render block %}
+              {% endcase %}
+            {% endfor %}
+          </div>
+          <div class="tab-pane wd-product-descriptions" id="faqs" role="tabpanel" aria-labelledby="faqs">
+            <div class="tab-faqs">
+              {% render 'pdp-faq-tab', sections: section %}
+            </div>
+          </div>
+        </div>
+      </div>
     {% endif %}
   </div>
 </section>
