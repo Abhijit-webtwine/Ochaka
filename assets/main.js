@@ -1418,7 +1418,7 @@
         // deleteFile();
         deleteWishList();
         goTop();
-        variantPicker();
+        // variantPicker();
         changeValue();
         sidebarMobile();
         checkClick();

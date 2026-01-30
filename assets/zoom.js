@@ -112,7 +112,7 @@ if ($(".product-thumbs-slider").length > 0) {
         main.on("slideChange", function () {
             updateActiveButtonThumbs(type, this.activeIndex);
         });
-        setupVariantButtonsThumbs(type);
+        // setupVariantButtonsThumbs(type);
         updateActiveButtonThumbs(type, main.activeIndex);
     });
 }
