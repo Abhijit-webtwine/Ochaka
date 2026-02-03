@@ -200,7 +200,7 @@
               {% if variant_list.size > 0 %}
                 {% assign product_form_id = 'product-form-buy-x' | append: section.id %}
                 <product-form-multi-add>
-                  {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 form-buyX-getY' -%}
+                  {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 form-buyX-getY position-static' -%}
                     <div class="buyX-getY-wrap">
                       {% for variant in variant_list %}
                         {% assign current_variant_image = variant.image | default: variant.product.featured_image %}
