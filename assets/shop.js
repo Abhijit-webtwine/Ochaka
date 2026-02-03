@@ -660,25 +660,9 @@
     -------------------------------------------------------------------------------------*/
     var limitLayout = function () {
         const gridItems = $("#gridLayout .card-product");
-        const layoutClassGrid = $("#gridLayout").attr("class");
         const listItems = $("#listLayout .card-product");
-        const layoutClassList = $("#listLayout").attr("class");
-        let maxItems = 0;
-        let maxItemList = 5;
-
-        if (layoutClassGrid.includes("tf-col-2")) {
-            maxItems = 6;
-        } else if (layoutClassGrid.includes("tf-col-3")) {
-            maxItems = 9;
-        } else if (layoutClassGrid.includes("tf-col-4")) {
-            maxItems = 12;
-        } else if (layoutClassGrid.includes("tf-col-5")) {
-            maxItems = 15;
-        } else if (layoutClassGrid.includes("tf-col-6")) {
-            maxItems = 18;
-        } else if (layoutClassGrid.includes("tf-col-7")) {
-            maxItems = 21;
-        }
+        let maxItems = gridItems.length;
+        let maxItemList = listItems.length;
 
         gridItems.each(function (index) {
             if (index < maxItems) {
