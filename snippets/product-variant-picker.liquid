@@ -127,6 +127,7 @@
       </script>
     </variant-radios>
   {%- else -%}
+  {% assign enable_dropdown_color = block.settings.enable_dropdown_color %}
     <variant-selects
       class="no-js-hidden tf-product-variant"
       data-section="{{ section.id }}"
@@ -138,7 +139,7 @@
     >
       {%- for option in product.options_with_values -%}
         {%- liquid
-            assign is_color = true
+            assign is_color = false
             assign swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase
             assign downcased_option = option.name | downcase
             if downcased_option contains swatch_trigger
@@ -184,17 +185,28 @@
               {%- endfor -%}
             </select>
 
-            <div class="tf-variant-dropdown full" data-bs-toggle="dropdown">
+            <div class="tf-variant-dropdown full {% if enable_dropdown_color %}has-color{% endif %}" data-bs-toggle="dropdown">
               <div class="btn-select">
                 <span class="text-sort-value">{{ option.selected_value }}</span>
                 <span class="icon icon-caret-down"></span>
               </div>
               <div class="dropdown-menu">
                 {%- for value in option.values -%}
+                  {% liquid
+                    if enable_dropdown_color and is_color
+                      assign color_rgb = value.swatch.color.rgb 
+                      assign color_swatch_fallback = value | split: ' ' | last | handle
+                    endif
+                  %}
                   <div
                     class="select-item{% if option.selected_value == value %} active{% endif %}"
                     data-value="{{ value | escape }}"
                   >
+                    {% if enable_dropdown_color  and is_color %}
+                      <span class="box-color"
+                        style="{% if color_rgb != blank %}--swatch-background-color: rgb({{ color_rgb }}); {% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}">
+                      </span>
+                    {% endif %}
                     <span class="text-value-item">{{ value }}</span>
                   </div>
                 {%- endfor -%}
