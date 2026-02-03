@@ -85,10 +85,11 @@
                 -%}
                 <label
                   for="{{ section.id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                  class="color-btn color__swatch {% if has_swatch_image or enable_image %} color__swatch--image{% endif %}"
+                  class="hover-tooltip tooltip-bot color-btn color__swatch {% if has_swatch_image or enable_image %} color__swatch--image{% endif %}"
                   style="{% if has_swatch_image %}--swatch-background-image: url({{ color_image }});{% elsif color_rgb != blank %}--swatch-background-color: rgb({{ color_rgb }}); {% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}"
                   title="{{ value | escape }}"
                 >
+                <span class="tooltip">{{ color_swatch_fallback }}</span>
                   <span class="check-color{% if has_swatch_image or enable_image %} check-image{% endif %} color__swatch-dot"
                     style="{% if has_swatch_image %}background-image: url({{ color_image }});{% endif %}"></span>
                 </label>
