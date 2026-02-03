@@ -1,19 +1,52 @@
 {% case type %}
   {% when 'icon' %}
-    <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-    <li>
-      <a class="hover-tooltip tooltip-left box-icon add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-        <span class="icon icon-shopping-cart-simple"></span>
-        <span class="tooltip">Add to cart</span>
-      </a>
-    </li>
-    </add-to-cart>
+    {% if product.available %}
+      <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+        <li>
+          <button
+            type="button"
+            class="hover-tooltip tooltip-left box-icon add-to-cart"
+            data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          >
+            <span class="icon icon-shopping-cart-simple"></span>
+            <span class="tooltip">Add to cart</span>
+          </button>
+        </li>
+      </add-to-cart>
+    {% else %}
+      <li>
+        <button
+          type="button"
+          class="hover-tooltip tooltip-left box-icon add-to-cart button--soldout"
+            disabled="disabled"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          <span class="icon icon-shopping-cart-simple"></span>
+          <span class="tooltip">
+            {%- unless product.available -%}
+              {{- 'products.product.sold_out' | t -}}
+            {%- else -%}
+              {{- 'products.product.add_to_cart' | t -}}
+            {%- endunless -%}
+          </span>
+        </button>
+      </li>
+    {% endif %}
 
   {% when 'button' %}
-    <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-      <a class="tf-btn animate-btn add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-        Add to Cart
-        <i class="icon icon-shopping-cart-simple"></i>
-      </a>
-    </add-to-cart>  
+    {% if product.available %}
+      <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+        <button type="button" class="tf-btn animate-btn add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+          Add to Cart
+          <i class="icon icon-shopping-cart-simple"></i>
+        </button>
+      </add-to-cart>
+      {% else %}
+        <button type="button" class="tf-btn animate-btn add-to-cart button--soldout"
+          disabled="disabled"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+          Add to Cart
+          <i class="icon icon-shopping-cart-simple"></i>
+        </button>
+    {% endif %}
 {% endcase %}
