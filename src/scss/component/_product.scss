@@ -2201,11 +2201,6 @@
             @include transition3;
             border-radius: 50%;
 
-            &.color__swatch--image {
-              width: 64px;
-              height: 64px;
-            }
-
             .check-color {
                 background-color: var(--swatch-background-color);
                 width: 32px;
@@ -2216,10 +2211,18 @@
                 border: 1px solid #dcdcdc;
                 @include transition3;
 
-                &.check-image {
-                  width: 50px;
-                  height: 50px;
-                }
+            }
+            .check-image {
+                width: 50px;
+                height: 50px;
+                background-size: cover;
+                background-color: var(--swatch-background-color);
+                background-image: var(--swatch-background-image);
+                display: flex;
+                flex-shrink: 0;
+                border-radius: 50%;
+                border: 1px solid #dcdcdc;
+                @include transition3;
             }
 
             &.active {
@@ -2265,6 +2268,12 @@
                 height: 100%;
                 border-radius: 6px;
                 overflow: hidden;
+            }
+
+            .check-image, .check-color {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
             }
 
             img {

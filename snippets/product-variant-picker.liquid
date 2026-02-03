@@ -73,25 +73,24 @@
                 {% assign enable_image = block.settings.enable_swatch_image %}
                 
                 {%- liquid
-                  assign color_image = value.swatch.image.src | image_url: width: 50, height: 50
                   assign color_rgb = value.swatch.color.rgb 
                   assign color_swatch_fallback = value | split: ' ' | last | handle
                   assign has_swatch_image = false
                   
                   if value.swatch.image and enable_image
-                    assign color_image = value.swatch.image.src | image_url: width: 50, height: 50
+                    assign color_image = value.swatch.image.src | image_url
                     assign has_swatch_image = true
                   endif
                 -%}
                 <label
                   for="{{ section.id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                  class="hover-tooltip tooltip-bot color-btn color__swatch {% if has_swatch_image or enable_image %} color__swatch--image{% endif %}"
+                  class="hover-tooltip tooltip-bot color-btn color__swatch {% if has_swatch_image or enable_image %} {% if block.settings.image_type == 'circle' %} style-image {% else %}style-image-square{% endif %}{% endif %}"
                   style="{% if has_swatch_image %}--swatch-background-image: url({{ color_image }});{% elsif color_rgb != blank %}--swatch-background-color: rgb({{ color_rgb }}); {% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}"
                   title="{{ value | escape }}"
                 >
                 <span class="tooltip">{{ color_swatch_fallback }}</span>
-                  <span class="check-color{% if has_swatch_image or enable_image %} check-image{% endif %} color__swatch-dot"
-                    style="{% if has_swatch_image %}background-image: url({{ color_image }});{% endif %}"></span>
+                  <span class="{% if has_swatch_image or enable_image %} check-image {% else %} check-color {% endif %} color__swatch-dot">
+                  </span>
                 </label>
               {%- else -%}
                 <label
