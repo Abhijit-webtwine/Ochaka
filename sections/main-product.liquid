@@ -5,69 +5,19 @@
         <!-- Product Images -->
         <div class="col-md-6">
           <div class="tf-product-media-wrap sticky-top">
-            <div class="product-thumbs-slider">
-              <div
-                dir="ltr"
-                class="swiper tf-product-media-thumbs other-image-zoom"
-                data-direction="vertical"
-                data-preview="auto"
-              >
-                <div class="swiper-wrapper stagger-wrap">
-                  {% for media in product.media %}
-                    <div class="swiper-slide stagger-item">
-                      <div class="item {% if media.media_type == 'video' %}wrap-btn-viewer{% endif %}">
-                        {% if media.media_type == 'video'  %}
-                          <i class="icon icon-video"></i>
-                        {% endif %}
-                        <img
-                          class="lazyload"
-                          data-src="{{ media.preview_image | image_url }}"
-                          src="{{ media.preview_image | image_url }}"
-                          alt="{{ media.alt | escape }}"
-                          width="{{ media.preview_image.width }}"
-                          height="{{ media.preview_image.height }}"
-                        >
-                      </div>
-                    </div>
-                  {% endfor %}
-                </div>
-              </div>
-              <div class="flat-wrap-media-product">
-                <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
-                  <div class="swiper-wrapper">
-                    {% for media in product.media %}
-                      <div class="swiper-slide" data-media-type="{{ media.media_type }}">
-                        {% case media.media_type %}
-                          {% when 'image' %}
-                            <a
-                              href="{{ media | image_url }}"
-                              target="_blank"
-                              class="item"
-                              data-pswp-width="860px"
-                              data-pswp-height="1146px"
-                            >
-                              <img
-                                class="tf-image-zoom lazyload"
-                                data-zoom="{{ media | image_url }}"
-                                data-src="{{ media | image_url }}"
-                                src="{{ media | image_url }}"
-                                alt="{{ media.alt | escape }}"
-                                width="{{ media.width }}"
-                                height="{{ media.height }}"
-                              >
-                            </a>
-                          {% when 'video' %}
-                            <div class="item">
-                              {{ media | video_tag: controls: true, loop: true, playsinline: true, autoplay: true, muted: true, class: 'tf-video' }}
-                            </div>
-                        {% endcase %}
-                      </div>
-                    {% endfor %}
-                  </div>
-                  <!-- <div class="swiper-button-next button-style-arrow thumbs-next"></div> -->
-                  <!-- <div class="swiper-button-prev button-style-arrow thumbs-prev"></div> -->
-                </div>
-              </div>
+            <div class="product-thumbs-slider {% if section.settings.thumb_position == 'bottom' %}thumbs-bottom{% endif %}">
+              {% if section.settings.main_product_layout == 'thumb_swiper' %}
+                {% if section.settings.thumb_position == 'left' %}
+                  {% render 'main-product-thumb-swiper', product: product, direction: 'vertical', preview: 'auto' %}
+                  {% render 'main-product-media-swiper', product: product %}
+                {% elsif section.settings.thumb_position == 'right' %}
+                  {% render 'main-product-media-swiper', product: product %}
+                  {% render 'main-product-thumb-swiper', product: product, direction: 'vertical', preview: 'auto' %}
+                {% elsif section.settings.thumb_position == 'bottom' %}
+                  {% render 'main-product-thumb-swiper', product: product, direction: 'horizontal', preview: '5', space: '12' %}
+                  {% render 'main-product-media-swiper', product: product %}
+                {% endif %}
+              {% endif %}
             </div>
           </div>
         </div>
@@ -535,10 +485,41 @@
   "name": "Main Product",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "show_brand",
-      "label": "Show Brand",
-      "default": true
+      "type": "select",
+      "id": "main_product_layout",
+      "label": "Main Product Layout",
+      "options": [
+        {
+          "value": "thumb_swiper",
+          "label": "Thumb Swiper"
+        },
+        {
+          "value": "stack",
+          "label": "Stack"
+        }
+      ],
+      "default": "thumb_swiper"
+    },
+    {
+      "type": "select",
+      "id": "thumb_position",
+      "label": "Thumb Swiper Position",
+      "visible_if": "{{ section.settings.main_product_layout == 'thumb_swiper' }}",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "bottom",
+          "label": "Bottom"
+        }
+      ],
+      "default": "left"
     },
     {
       "type": "checkbox",

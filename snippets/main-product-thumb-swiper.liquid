@@ -1,0 +1,27 @@
+<div
+  dir="ltr"
+  class="swiper tf-product-media-thumbs other-image-zoom"
+  data-direction="{{ direction }}"
+  data-preview="{{ preview }}"
+  data-space="{{ space }}"
+>
+  <div class="swiper-wrapper stagger-wrap">
+    {% for media in product.media %}
+      <div class="swiper-slide stagger-item">
+        <div class="item {% if media.media_type == 'video' %}wrap-btn-viewer{% endif %}">
+          {% if media.media_type == 'video' %}
+            <i class="icon icon-video"></i>
+          {% endif %}
+          <img
+            class="lazyload"
+            data-src="{{ media.preview_image | image_url }}"
+            src="{{ media.preview_image | image_url }}"
+            alt="{{ media.alt | escape }}"
+            width="{{ media.preview_image.width }}"
+            height="{{ media.preview_image.height }}"
+          >
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

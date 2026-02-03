@@ -1,0 +1,43 @@
+<div class="flat-wrap-media-product">
+  <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
+    <div class="swiper-wrapper">
+      {% for media in product.media %}
+        <div class="swiper-slide" data-media-type="{{ media.media_type }}">
+          {% case media.media_type %}
+            {% when 'image' %}
+              <a
+                href="{{ media | image_url }}"
+                target="_blank"
+                class="item"
+                data-pswp-width="860px"
+                data-pswp-height="1146px"
+              >
+                <img
+                  class="tf-image-zoom lazyload"
+                  data-zoom="{{ media | image_url }}"
+                  data-src="{{ media | image_url }}"
+                  src="{{ media | image_url }}"
+                  alt="{{ media.alt | escape }}"
+                  width="{{ media.width }}"
+                  height="{{ media.height }}"
+                >
+              </a>
+            {% when 'video' %}
+              <div class="item">
+                {{
+                  media
+                  | video_tag:
+                    controls: true,
+                    loop: true,
+                    playsinline: true,
+                    autoplay: true,
+                    muted: true,
+                    class: 'tf-video'
+                }}
+              </div>
+          {% endcase %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
