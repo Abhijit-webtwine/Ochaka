@@ -1,0 +1,25 @@
+{% comment %} 
+  {% render 'quantity-input', product: product, product_form_id: product_form_id %}
+{% endcomment %}
+<quantity-input class="wg-quantity">
+  <button class="btn-quantity minus-quantity no-js-hidden" name="minus" type="button">
+    <i class="icon-minus fs-14"></i>
+  </button>
+  <input
+    class="quantity-product"
+    type="number"
+    name="quantity"
+    id="Quantity-{{ section.id }}"
+    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+      data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+      max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+    {% endif %}
+    step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+    form="{{ product_form_id }}"
+  >
+  <button class="btn-quantity plus-quantity no-js-hidden" name="plus" type="button">
+    <i class="icon-plus fs-14"></i>
+  </button>
+</quantity-input>

@@ -1736,12 +1736,7 @@ class ProductForm extends HTMLElement {
     const config = fetchConfig('javascript');
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     delete config.headers['Content-Type'];
-const formData = new FormData(this.form);
-
-for (const [key, value] of formData.entries()) {
-  console.log(key, value);
-}
-    
+    const formData = new FormData(this.form);
 
     if (this.miniCart) {
       formData.append('sections', this.miniCart.getSectionsToRender().map((section) => section.id));
@@ -1789,6 +1784,80 @@ for (const [key, value] of formData.entries()) {
   }
 }
 customElements.define('product-form', ProductForm);
+
+class ProductFormMultiAdd extends ProductForm {
+  constructor() {
+    super();
+  }
+
+  onSubmitHandler(evt) {
+    evt.preventDefault();
+
+    const submitButton = this.querySelector('[type="submit"]');
+    if (submitButton.classList.contains('loading')) return;
+
+    this.handleErrorMessage();
+    submitButton.setAttribute('aria-disabled', true);
+    submitButton.classList.add('loading');
+
+    const idInputs = this.form.querySelectorAll('input[name="id"]');
+    const qtyInputs = this.form.querySelectorAll('input[name="quantity"]');
+
+    const items = [];
+
+    idInputs.forEach((idInput, index) => {
+      const val = qtyInputs[index]?.value;
+      const quantity = val ? parseInt(val, 10) : 1;
+      
+      if (quantity > 0) {
+        items.push({
+          id: Number(idInput.value),
+          quantity
+        });
+      }
+    });
+
+    if (items.length === 0) {
+      submitButton.classList.remove('loading');
+      submitButton.removeAttribute('aria-disabled');
+      return;
+    }
+
+    const config = fetchConfig('javascript');
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    delete config.headers['Content-Type'];
+    config.headers['Content-Type'] = 'application/json';
+
+    const payload = {
+      items,
+      sections: this.miniCart ? this.miniCart.getSectionsToRender().map(s => s.id) : [],
+      sections_url: window.location.pathname
+    };
+    config.body = JSON.stringify(payload);
+
+    fetch(`${window.routes.cart_add_url}`, config)
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.status) {
+          this.handleErrorMessage(response.description);
+          return;
+        }
+
+        if (this.miniCart) {
+          this.miniCart.renderContents(response);
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+      .finally(() => {
+        submitButton.classList.remove('loading');
+        submitButton.removeAttribute('aria-disabled');
+      });
+  }
+}
+
+customElements.define('product-form-multi-add', ProductFormMultiAdd);
 
 class ProgressBar extends HTMLElement {
   constructor() {
