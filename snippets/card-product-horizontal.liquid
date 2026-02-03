@@ -26,6 +26,7 @@
 
       <div class="product-desc_list d-none d-sm-grid">
         <p class="product-desc">
+          {% assign truncate_words = truncate_words | default: 50 %}
           {{ product.description | truncatewords: truncate_words }}
         </p>
       </div>
