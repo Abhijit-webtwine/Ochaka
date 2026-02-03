@@ -7,8 +7,8 @@
 {%- endfor -%}
 
 {%- if size_option -%}
-  <div class="variant-box">
-    <ul class="product-size_list">
+  <div class="variant-box {% if settings.hover_style == 'style_4' %}bottom-0 start-0 end-0{% endif %}">
+    <ul class="product-size_list {% if settings.hover_style == 'style_4' %}type-2{% endif %}">
       {%- for value in size_option.values -%}
         {%- assign is_available = false -%}
 

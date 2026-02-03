@@ -1,4 +1,11 @@
-<div class="card-product" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+{% for option in product.options_with_values %}
+    {% assign size_option = 'Size' | downcase %}
+    {% assign downcased_option = option.name | downcase %}
+    {% if downcased_option contains size_option %}
+      {% assign has_size = true %}
+    {% endif %}
+{% endfor %}
+<div class="card-product  {% if has_size %}has-size{% endif %} {% if settings.hover_style == 'style_4' %}style-2{% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
     {% render 'card-product-sizes', product: product %}
