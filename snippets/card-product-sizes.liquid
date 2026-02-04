@@ -2,13 +2,18 @@
   assign size_option = nil
   assign style_4 = false
   assign style_6 = false
+  assign style_8 = false
+
 
   if settings.hover_style == 'style_4'  
     assign style_4 = true
-  endif
   
-  if settings.hover_style == 'style_6'  
+  elsif settings.hover_style == 'style_6'  
     assign style_6 = true
+  
+  elsif settings.hover_style == 'style_8'  
+    assign style_8 = true
+
   endif
 %}
 
@@ -20,8 +25,8 @@
 {%- endfor -%}
 
 {%- if size_option -%}
-  <div class="variant-box {% if style_4 or style_6 %}bottom-0 start-0 end-0{% endif %}">
-    <ul class="product-size_list {% if style_4 or style_6 %}type-2{% endif %}">
+  <div class="variant-box {% if style_8 %}bot {% endif %}{% if style_4 or style_6 %}bottom-0 start-0 end-0{% endif %}">
+    <ul class="product-size_list {% if style_8 %}type-3{% endif %} {% if style_4 or style_6 %}type-2{% endif %}">
       {%- for value in size_option.values -%}
         {%- assign is_available = false -%}
 
