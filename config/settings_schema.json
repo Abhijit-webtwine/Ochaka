@@ -494,6 +494,14 @@
           {
             "value": "style_6",
             "label": "Style 6"
+          },
+          {
+            "value": "style_7",
+            "label": "Style 7"
+          },
+          {
+            "value": "style_8",
+            "label": "Style 8"
           }
         ],
         "default": "style_4",

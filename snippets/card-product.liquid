@@ -2,6 +2,8 @@
     assign style_4 = false
     assign style_5 = false
     assign style_6 = false
+    assign style_7 = false
+    assign style_8 = false
 
   if settings.hover_style == 'style_4'
     assign style_4 = true
@@ -9,6 +11,10 @@
     assign style_5 = true
   elsif settings.hover_style == 'style_6'
     assign style_6 = true
+  elsif settings.hover_style == 'style_7'
+    assign style_7 = true
+  elsif settings.hover_style == 'style_8'
+    assign style_8 = true
   endif
 %}
 {% for option in product.options_with_values %}
@@ -34,6 +40,9 @@
     {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction %}
     {% render 'card-product-countdown', product: product %}
     {% render 'card-product-badge', product: product %}
+    {% if style_8 %}
+      {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% endif %}
     
     {% if product.metafields.custom.marquee_text != blank %}
       {% render 'card-product-marquee-sale', product: product %}
@@ -56,4 +65,7 @@
     {% endif %}
 
   </div>
+  {% if style_7 %}
+    {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% endif %}
 </div>

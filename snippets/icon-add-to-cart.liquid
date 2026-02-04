@@ -9,8 +9,14 @@
 {% endcomment %}
 {% liquid 
   assign style_5 = false
+  assign style_7 = false
+  assign style_8 = false
   if settings.hover_style == 'style_5'
     assign style_5 = true
+  elsif settings.hover_style == 'style_7'
+    assign style_7 = true
+  elsif settings.hover_style == 'style_8'
+    assign style_8 = true
   endif
 %}
 
@@ -59,4 +65,11 @@
           <i class="icon icon-shopping-cart-simple"></i>
         </button>
     {% endif %}
+  {% when 'quick_add' %}
+    <add-to-cart class="{% if style_7 %} w-100 mt-auto {% endif %} {% if style_8 %} product-btn_quick {% endif %}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+      <button class="tf-btn rounded-0 animate-btn type-very-small {% if style_7 %}card-product_action-bot w-100{% endif %}">
+        Quick Add
+        <i class="icon icon-shopping-cart-simple"></i>
+      </button>
+    </add-to-cart>
 {% endcase %}

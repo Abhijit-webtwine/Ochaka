@@ -9,13 +9,23 @@
 
 {% liquid 
   assign style_5 = false
+  assign style_7 = false
+  assign style_8 = false
+
+
   if settings.hover_style == 'style_5'
     assign style_5 = true
+  elsif settings.hover_style == 'style_7'
+    assign style_7 = true
+  elsif settings.hover_style == 'style_8'
+    assign style_8 = true
   endif
 %}
 
 <ul class="product-action_list">
-  {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% unless style_7 or style_8 %}
+    {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% endunless %}
   {% if style_5 %}
     <li class="br-line type-vertical h-24"></li>
   {% endif %}
