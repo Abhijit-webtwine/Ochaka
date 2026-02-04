@@ -17,9 +17,9 @@
     assign style_8 = true
   endif
 %}
+{% assign has_size = false %}
 {% for option in product.options_with_values %}
   {%  liquid 
-    assign has_size = false
     assign size_option = 'Size' | downcase
     assign downcased_option = option.name | downcase
     if downcased_option contains size_option
