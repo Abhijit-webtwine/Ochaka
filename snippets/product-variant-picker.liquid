@@ -8,11 +8,12 @@
   {% render 'product-variant-picker', block: block, product: product %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
+  {% assign section_id = section_id | default: section.id %}
   {% comment %} change to block.settings.picker_type == 'button' when ready {% endcomment %}
   {%- if block.settings.picker_type == 'button' -%}
     <variant-radios
       class="no-js-hidden tf-product-variant"
-      data-section="{{ section.id }}"
+      data-section="{{ section_id }}"
       data-url="{{ product.url }}"
       {% if update_url == false %}
         data-update-url="false"
@@ -60,7 +61,7 @@
             {%- for value in option.values -%}
               <input
                 type="radio"
-                id="{{ section.id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                id="{{ section_id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
                 name="{{ option.name }}"
                 value="{{ value | escape }}"
                 form="{{ product_form_id }}"
@@ -83,7 +84,7 @@
                   endif
                 -%}
                 <label
-                  for="{{ section.id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                  for="{{ section_id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
                   class="hover-tooltip tooltip-bot color-btn color__swatch {% if has_swatch_image or enable_image %} {% if block.settings.image_type == 'circle' %} style-image {% else %}style-image-square{% endif %}{% endif %}"
                   style="{% if has_swatch_image %}--swatch-background-image: url({{ color_image }});{% elsif color_rgb != blank %}--swatch-background-color: rgb({{ color_rgb }}); {% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}"
                   title="{{ value | escape }}"
@@ -96,7 +97,7 @@
                 <label
                   class="{% if option.name contains 'Size' %}size-btn{% endif %}
                   {% if option.name contains 'Color' or option.name contains 'Colour' %}color-btn-pill color-btn{% endif %}"
-                  for="{{ section.id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
+                  for="{{ section_id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
                 >
                   {{ value }}
                 </label>
