@@ -196,100 +196,110 @@
               </div>
 
               {% comment %} Buy X get Y {% endcomment %}
-              {% assign variant_list = product.metafields.custom.buy_x_get_y.value %}
-              {% if variant_list.size > 0 %}
-                {% assign product_form_id = 'product-form-buy-x' | append: section.id %}
-                <product-form-multi-add>
-                  {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 form-buyX-getY position-static' -%}
-                    <div class="buyX-getY-wrap">
-                      {% for variant in variant_list %}
-                        {% assign current_variant_image = variant.image | default: variant.product.featured_image %}
+              {% for block in section.blocks %}
+                {% case block.type %}
+                  {% when 'buyX-getY' %}
+                    {% assign variant_list = product.metafields.custom.buy_x_get_y.value %}
+                    {% if variant_list.size > 0 %}
+                      {% assign product_form_id = 'product-form-buy-x' | append: section.id %}
+                      <product-form-multi-add>
+                        {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 form-buyX-getY position-static' -%}
+                          <div class="buyX-getY-wrap">
+                            {% for variant in variant_list %}
+                              {% assign current_variant_image = variant.image | default: variant.product.featured_image %}
 
-                        <div class="volume-discount-thumbnail-item p-0 border-0 flex-grow-1">
-                          <input type="hidden" value="{{ variant.id }}" name="id">
-                          <div class="image-box type-1">
-                            <img class="lazyload" data-src="{{ current_variant_image | image_url }}"
-                              src="{{ current_variant_image | image_url }}" alt="{{ current_variant_image.alt | escape }}"
-                              width="{{ current_variant_image.width }}"
-                              height="{{ current_variant_image.height }}">
+                              <div class="volume-discount-thumbnail-item p-0 border-0 flex-grow-1">
+                                <input type="hidden" value="{{ variant.id }}" name="id">
+                                <div class="image-box type-1">
+                                  <img class="lazyload" data-src="{{ current_variant_image | image_url }}"
+                                    src="{{ current_variant_image | image_url }}" alt="{{ current_variant_image.alt | escape }}"
+                                    width="{{ current_variant_image.width }}"
+                                    height="{{ current_variant_image.height }}">
 
-                            {% if variant.compare_at_price > variant.price %}
-                              {% assign savings = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round %}
-                              <div class="tags-save h6">Save {{ savings }}%</div>
-                            {% endif %}
-
-                          </div>
-                          <div class="content-discount text-start">
-                            <h5 class="name fw-4">{{ variant.product.title }}</h5>
-
-                            {% unless variant.product.has_only_default_variant %}
-                              <div class="size">
-                                {% for option_name in variant.product.options %}
-                                  {% assign option_value = variant.options[forloop.index0] %}
-                                  {% assign is_color = false %}
-                                  {% assign downcased_option = option_name | downcase %}
-                                  {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
-                                    {% assign is_color = true %}
-                                  {% endif %}
-
-                                  {% if is_color %}
-                                    {% assign color_handle = option_value | handleize %}
-                                    {% assign color_rgb = "" %}
-                                    {% for option in variant.product.options_with_values %}
-                                      {% if option.name == option_name %}
-                                        {% for value in option.values %}
-                                          {% if value == option_value %}
-                                            {% assign color_rgb = value.swatch.color.rgb %}
-                                          {% endif %}
-                                        {% endfor %}
+                                  {% assign savings = 'savings-' | append: forloop.index %}
+                                  <div class="tags-save h6">
+                                    {% unless forloop.first %}
+                                      {% if block.settings.show_gift_icon %}
+                                        {% render '_icon-gift' %}
                                       {% endif %}
-                                    {% endfor %}
-                                    
-                                    <div class="d-flex align-items-center gap-2">
-                                      <div class="text-small text-main-2 sub">{{ option_name }}:</div>
-                                      <div class="dot-color"
-                                          style="
-                                          {% if color_rgb != blank %}
-                                            background-color: rgb({{ color_rgb }}) !important;
-                                          {% else %}
-                                            background-color: {{ color_handle }} !important;
-                                          {% endif %}
-                                          {% if color_handle == 'white' or color_handle == 'whitesmoke' %}
-                                            border: 1px solid #cbcbcb;
-                                          {% endif %}
-                                        "></div>
+                                    {% endunless %}
+                                    {{ block.settings[savings] }}
+                                  </div>
+
+                                </div>
+                                <div class="content-discount text-start">
+                                  <h5 class="name fw-4">{{ variant.product.title }}</h5>
+
+                                  {% unless variant.product.has_only_default_variant %}
+                                    <div class="size">
+                                      {% for option_name in variant.product.options %}
+                                        {% assign option_value = variant.options[forloop.index0] %}
+                                        {% assign is_color = false %}
+                                        {% assign downcased_option = option_name | downcase %}
+                                        {% if downcased_option contains 'color' or downcased_option contains 'colour' %}
+                                          {% assign is_color = true %}
+                                        {% endif %}
+
+                                        {% if is_color %}
+                                          {% assign color_handle = option_value | handleize %}
+                                          {% assign color_rgb = "" %}
+                                          {% for option in variant.product.options_with_values %}
+                                            {% if option.name == option_name %}
+                                              {% for value in option.values %}
+                                                {% if value == option_value %}
+                                                  {% assign color_rgb = value.swatch.color.rgb %}
+                                                {% endif %}
+                                              {% endfor %}
+                                            {% endif %}
+                                          {% endfor %}
+                                          
+                                          <div class="d-flex align-items-center gap-2">
+                                            <div class="text-small text-main-2 sub">{{ option_name }}:</div>
+                                            <div class="dot-color"
+                                                style="
+                                                {% if color_rgb != blank %}
+                                                  background-color: rgb({{ color_rgb }}) !important;
+                                                {% else %}
+                                                  background-color: {{ color_handle }} !important;
+                                                {% endif %}
+                                                {% if color_handle == 'white' or color_handle == 'whitesmoke' %}
+                                                  border: 1px solid #cbcbcb;
+                                                {% endif %}
+                                              "></div>
+                                          </div>
+                                        {% elsif option_name == 'Size' %}
+                                          <div class="text-small text-main-2 sub">{{ option_name }}: {{ option_value }}</div>
+                                        {% endif %}
+                                      {% endfor %}
                                     </div>
-                                  {% elsif option_name == 'Size' %}
-                                    <div class="text-small text-main-2 sub">{{ option_name }}: {{ option_value }}</div>
-                                  {% endif %}
-                                {% endfor %}
+                                  {% endunless %}
+                                {% render 'quantity-input', product: variant.product, product_form_id: product_form_id %}
+                                  
+                                </div>
                               </div>
-                            {% endunless %}
-                           {% render 'quantity-input', product: variant.product, product_form_id: product_form_id %}
-                            
+
+                              {% unless forloop.last %}
+                                <svg width="31" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                    d="M20 4.375C16.9097 4.375 13.8887 5.29139 11.3192 7.00829C8.7497 8.72518 6.74701 11.1655 5.56439 14.0206C4.38177 16.8757 4.07234 20.0173 4.67524 23.0483C5.27813 26.0792 6.76627 28.8633 8.95146 31.0485C11.1367 33.2337 13.9208 34.7219 16.9517 35.3248C19.9827 35.9277 23.1243 35.6182 25.9794 34.4356C28.8345 33.253 31.2748 31.2503 32.9917 28.6808C34.7086 26.1113 35.625 23.0903 35.625 20C35.6205 15.8574 33.9728 11.8858 31.0435 8.95648C28.1143 6.02721 24.1426 4.37955 20 4.375ZM20 34.375C17.1569 34.375 14.3776 33.5319 12.0137 31.9524C9.64973 30.3728 7.80725 28.1278 6.71924 25.5011C5.63123 22.8744 5.34656 19.9841 5.90122 17.1956C6.45588 14.4071 7.82497 11.8457 9.83535 9.83534C11.8457 7.82496 14.4071 6.45587 17.1956 5.90121C19.9841 5.34655 22.8744 5.63122 25.5011 6.71923C28.1278 7.80724 30.3728 9.64972 31.9524 12.0137C33.5319 14.3776 34.375 17.1569 34.375 20C34.3709 23.8112 32.855 27.4652 30.1601 30.1601C27.4652 32.855 23.8112 34.3709 20 34.375ZM26.875 20C26.875 20.1658 26.8092 20.3247 26.6919 20.4419C26.5747 20.5592 26.4158 20.625 26.25 20.625H20.625V26.25C20.625 26.4158 20.5592 26.5747 20.4419 26.6919C20.3247 26.8092 20.1658 26.875 20 26.875C19.8342 26.875 19.6753 26.8092 19.5581 26.6919C19.4409 26.5747 19.375 26.4158 19.375 26.25V20.625H13.75C13.5842 20.625 13.4253 20.5592 13.3081 20.4419C13.1909 20.3247 13.125 20.1658 13.125 20C13.125 19.8342 13.1909 19.6753 13.3081 19.5581C13.4253 19.4408 13.5842 19.375 13.75 19.375H19.375V13.75C19.375 13.5842 19.4409 13.4253 19.5581 13.3081C19.6753 13.1908 19.8342 13.125 20 13.125C20.1658 13.125 20.3247 13.1908 20.4419 13.3081C20.5592 13.4253 20.625 13.5842 20.625 13.75V19.375H26.25C26.4158 19.375 26.5747 19.4408 26.6919 19.5581C26.8092 19.6753 26.875 19.8342 26.875 20Z"
+                                    fill="#C8102E" />
+                                </svg>
+                              {% endunless %}
+                            {% endfor %}
                           </div>
-                        </div>
 
-                        {% unless forloop.last %}
-                          <svg width="31" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M20 4.375C16.9097 4.375 13.8887 5.29139 11.3192 7.00829C8.7497 8.72518 6.74701 11.1655 5.56439 14.0206C4.38177 16.8757 4.07234 20.0173 4.67524 23.0483C5.27813 26.0792 6.76627 28.8633 8.95146 31.0485C11.1367 33.2337 13.9208 34.7219 16.9517 35.3248C19.9827 35.9277 23.1243 35.6182 25.9794 34.4356C28.8345 33.253 31.2748 31.2503 32.9917 28.6808C34.7086 26.1113 35.625 23.0903 35.625 20C35.6205 15.8574 33.9728 11.8858 31.0435 8.95648C28.1143 6.02721 24.1426 4.37955 20 4.375ZM20 34.375C17.1569 34.375 14.3776 33.5319 12.0137 31.9524C9.64973 30.3728 7.80725 28.1278 6.71924 25.5011C5.63123 22.8744 5.34656 19.9841 5.90122 17.1956C6.45588 14.4071 7.82497 11.8457 9.83535 9.83534C11.8457 7.82496 14.4071 6.45587 17.1956 5.90121C19.9841 5.34655 22.8744 5.63122 25.5011 6.71923C28.1278 7.80724 30.3728 9.64972 31.9524 12.0137C33.5319 14.3776 34.375 17.1569 34.375 20C34.3709 23.8112 32.855 27.4652 30.1601 30.1601C27.4652 32.855 23.8112 34.3709 20 34.375ZM26.875 20C26.875 20.1658 26.8092 20.3247 26.6919 20.4419C26.5747 20.5592 26.4158 20.625 26.25 20.625H20.625V26.25C20.625 26.4158 20.5592 26.5747 20.4419 26.6919C20.3247 26.8092 20.1658 26.875 20 26.875C19.8342 26.875 19.6753 26.8092 19.5581 26.6919C19.4409 26.5747 19.375 26.4158 19.375 26.25V20.625H13.75C13.5842 20.625 13.4253 20.5592 13.3081 20.4419C13.1909 20.3247 13.125 20.1658 13.125 20C13.125 19.8342 13.1909 19.6753 13.3081 19.5581C13.4253 19.4408 13.5842 19.375 13.75 19.375H19.375V13.75C19.375 13.5842 19.4409 13.4253 19.5581 13.3081C19.6753 13.1908 19.8342 13.125 20 13.125C20.1658 13.125 20.3247 13.1908 20.4419 13.3081C20.5592 13.4253 20.625 13.5842 20.625 13.75V19.375H26.25C26.4158 19.375 26.5747 19.4408 26.6919 19.5581C26.8092 19.6753 26.875 19.8342 26.875 20Z"
-                              fill="#C8102E" />
-                          </svg>
-                        {% endunless %}
-                      {% endfor %}
-                    </div>
-
-                    <button class="tf-btn bg-green w-100 animate-btn btn-add-to-cart effect-flash"
-                      type="submit"
-                      {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
-                      form="{{ product_form_id }}"
-                    >
-                      Choose this deal
-                    </button>
-                  {% endform %}
-                </product-form-multi-add>
-              {% endif %}
+                          <button class="tf-btn bg-green w-100 animate-btn btn-add-to-cart effect-flash"
+                            type="submit"
+                            {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
+                            form="{{ product_form_id }}"
+                          >
+                            Choose this deal
+                          </button>
+                        {% endform %}
+                      </product-form-multi-add>
+                    {% endif %}
+                {% endcase %}
+              {% endfor %}
 
               {% comment %} Delivery & Return {% endcomment %}
                {% if section.settings.delivery_time != blank or section.settings.return_time != blank %}
@@ -593,7 +603,25 @@
     {
       "type": "buyX-getY",
       "name": "Buy X Get Y",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "savings-1",
+          "label": "Savings 1"
+        },
+        {
+          "type": "text",
+          "id": "savings-2",
+          "label": "Savings 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_gift_icon",
+          "label": "Show Gift Icon",
+          "default": true
+        }
+      ]
     },
     {
       "type": "variant_picker",
