@@ -5,7 +5,7 @@
       {% assign has_size = true %}
     {% endif %}
 {% endfor %}
-<div class="card-product  {% if has_size %}has-size{% endif %} {% if settings.hover_style == 'style_4' %}style-2 {% elsif settings.hover_style == 'style_5' %}style-3{% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div class="card-product  {% if has_size %}has-size{% endif %} {% if settings.hover_style == 'style_4' %}style-2 {% elsif settings.hover_style == 'style_5' %}style-3 {% elsif settings.hover_style == 'style_6' %}style-4{% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
     {% render 'card-product-sizes', product: product %}

@@ -1,4 +1,17 @@
-{%- assign size_option = nil -%}
+{%  liquid 
+  assign size_option = nil
+  assign style_4 = false
+  assign style_6 = false
+
+  if settings.hover_style == 'style_4'  
+    assign style_4 = true
+  endif
+  
+  if settings.hover_style == 'style_6'  
+    assign style_6 = true
+  endif
+%}
+
 
 {%- for option in product.options_with_values -%}
   {%- if option.name == 'Size' -%}
@@ -7,8 +20,8 @@
 {%- endfor -%}
 
 {%- if size_option -%}
-  <div class="variant-box {% if settings.hover_style == 'style_4' %}bottom-0 start-0 end-0{% endif %}">
-    <ul class="product-size_list {% if settings.hover_style == 'style_4' %}type-2{% endif %}">
+  <div class="variant-box {% if style_4 or style_6 %}bottom-0 start-0 end-0{% endif %}">
+    <ul class="product-size_list {% if style_4 or style_6 %}type-2{% endif %}">
       {%- for value in size_option.values -%}
         {%- assign is_available = false -%}
 

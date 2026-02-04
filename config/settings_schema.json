@@ -490,6 +490,10 @@
           {
             "value": "style_5",
             "label": "Style 5"
+          },
+          {
+            "value": "style_6",
+            "label": "Style 6"
           }
         ],
         "default": "style_4",
