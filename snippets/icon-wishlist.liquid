@@ -1,6 +1,17 @@
+{% comment %}
+  Renders wishlist icon
+  
+  Parameters:
+  - product: Product object (required)
+  - show_tooltip: Boolean to show/hide tooltips (default: true)
+  - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
+{% endcomment %}
+
+{%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
+
 <li class="wishlist">
-  <a href="#;" class="hover-tooltip tooltip-left box-icon add-to-wishlist" data-product-id="{{ product.id }}">
+  <a href="#;" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-wishlist {% if settings.hover_style == 'style_5' %}link{% endif %}" data-product-id="{{ product.id }}">
     <span class="icon icon-heart"></span>
-    <span class="tooltip">Add to Wishlist</span>
+    {% if show_tooltip %}<span class="tooltip">Add to Wishlist</span>{% endif %}
   </a>
 </li>

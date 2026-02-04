@@ -5,12 +5,17 @@
       {% assign has_size = true %}
     {% endif %}
 {% endfor %}
-<div class="card-product  {% if has_size %}has-size{% endif %} {% if settings.hover_style == 'style_4' %}style-2{% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div class="card-product  {% if has_size %}has-size{% endif %} {% if settings.hover_style == 'style_4' %}style-2 {% elsif settings.hover_style == 'style_5' %}style-3{% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
     {% render 'card-product-sizes', product: product %}
 
-    {% render 'icon-action-list', product: product %}
+    {%  liquid 
+      assign show_tooltips = settings.show_tooltips
+      assign tooltip_direction = settings.tooltip_direction
+    %}
+    
+    {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction %}
     {% render 'card-product-countdown', product: product %}
     {% render 'card-product-badge', product: product %}
     

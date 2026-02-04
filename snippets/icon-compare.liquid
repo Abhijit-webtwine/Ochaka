@@ -1,6 +1,17 @@
+{% comment %}
+  Renders compare icon
+  
+  Parameters:
+  - product: Product object (required)
+  - show_tooltip: Boolean to show/hide tooltips (default: true)
+  - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
+{% endcomment %}
+
+{%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
+
 <li class="compare">
-  <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-left box-icon add-to-compare" data-product-handle="{{ product.handle }}">
+  <a href="#compare" data-bs-toggle="offcanvas" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-compare {% if settings.hover_style == 'style_5' %}link{% endif %}" data-product-handle="{{ product.handle }}">
     <span class="icon icon-compare"></span>
-    <span class="tooltip">Compare</span>
+    {% if show_tooltip %}<span class="tooltip">Compare</span>{% endif %}
   </a>
 </li>

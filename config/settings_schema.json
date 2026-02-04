@@ -466,6 +466,56 @@
         ],
         "default": "full_width",
         "label": "Collection Layout"
+      },
+      {
+        "type": "select",
+        "id": "hover_style",
+        "options": [
+          {
+            "value": "style_1",
+            "label": "Style 1"
+          },
+          {
+            "value": "style_2",
+            "label": "Style 2"
+          },
+          {
+            "value": "style_3",
+            "label": "Style 3"
+          },
+          {
+            "value": "style_4",
+            "label": "Style 4"
+          },
+          {
+            "value": "style_5",
+            "label": "Style 5"
+          }
+        ],
+        "default": "style_4",
+        "label": "Hover Style"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_tooltips",
+        "default": true,
+        "label": "Show tooltips"
+      },
+      {
+        "type": "select",
+        "id": "tooltip_direction",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "left",
+            "label": "Left"
+          }
+        ],
+        "default": "left",
+        "label": "Tooltip Direction"
       }
     ]
   },

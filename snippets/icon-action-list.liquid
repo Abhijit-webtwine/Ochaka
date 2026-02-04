@@ -1,6 +1,27 @@
+{% comment %}
+  Renders product action icons list
+  
+  Parameters:
+  - product: Product object (required)
+  - show_tooltips: Boolean to show/hide tooltips (default: true)
+  - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
+{% endcomment %}
+
 <ul class="product-action_list">
-  {% render 'icon-add-to-cart', type: 'icon', product: product %}
-  {% render 'icon-wishlist', product: product %}
-  {% render 'icon-compare', product: product %}
-  {% render 'icon-quick-view', product: product %}
+  {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% if settings.hover_style == 'style_5' %}
+    <li class="br-line type-vertical h-24"></li>
+  {% endif %}
+  
+  {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% if settings.hover_style == 'style_5' %}
+    <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
+  {% endif %}
+
+  {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% if settings.hover_style == 'style_5' %}
+    <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
+  {% endif %}
+  
+  {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
 </ul>

@@ -1,6 +1,17 @@
+{% comment %}
+  Renders quick view icon
+  
+  Parameters:
+  - product: Product object (required)
+  - show_tooltip: Boolean to show/hide tooltips (default: true)
+  - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
+{% endcomment %}
+
+{%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
+
 <li>
-  <a href="#quickView" data-bs-toggle="modal" class="hover-tooltip tooltip-left box-icon quick-view" data-product-handle="{{ product.handle }}">
+  <a href="#quickView" data-bs-toggle="modal" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon quick-view {% if settings.hover_style == 'style_5' %}link{% endif %}" data-product-handle="{{ product.handle }}">
     <span class="icon icon-view"></span>
-    <span class="tooltip">Quick view</span>
+    {% if show_tooltip %}<span class="tooltip">Quick view</span>{% endif %}
   </a>
 </li>

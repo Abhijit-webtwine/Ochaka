@@ -551,7 +551,7 @@ h6:empty {
   display: none;
 }
 
-.link {
+/* .link {
   font-family: inherit;
   cursor: pointer;
   padding: 0;
@@ -568,7 +568,7 @@ h6:empty {
   transition-property: background-size;
   transition-timing-function: ease;
   transition-duration: var(--duration-default);
-}
+} */
 
 .link--text {
   color: rgb(var(--color-foreground));

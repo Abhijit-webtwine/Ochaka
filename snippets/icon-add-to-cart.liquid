@@ -1,3 +1,14 @@
+{% comment %}
+  Renders add to cart icon or button
+  
+  Parameters:
+  - type: 'icon' or 'button' (required)
+  - product: Product object (required)
+  - show_tooltip: Boolean to show/hide tooltips (default: true)
+  - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
+{% endcomment %}
+
+{%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
 {% case type %}
   {% when 'icon' %}
     {% if product.available %}
@@ -5,11 +16,11 @@
         <li>
           <button
             type="button"
-            class="hover-tooltip tooltip-left box-icon add-to-cart"
+            class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-cart {% if settings.hover_style == 'style_5' %}link{% endif %}"
             data-variant-id="{{ product.selected_or_first_available_variant.id }}"
           >
             <span class="icon icon-shopping-cart-simple"></span>
-            <span class="tooltip">Add to cart</span>
+            {% if show_tooltip %}<span class="tooltip">Add to cart</span>{% endif %}
           </button>
         </li>
       </add-to-cart>
@@ -22,13 +33,6 @@
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"
         >
           <span class="icon icon-shopping-cart-simple"></span>
-          <span class="tooltip">
-            {%- unless product.available -%}
-              {{- 'products.product.sold_out' | t -}}
-            {%- else -%}
-              {{- 'products.product.add_to_cart' | t -}}
-            {%- endunless -%}
-          </span>
         </button>
       </li>
     {% endif %}
