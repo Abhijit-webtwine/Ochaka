@@ -7,19 +7,26 @@
   - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
 {% endcomment %}
 
+{% liquid 
+  assign style_5 = false
+  if settings.hover_style == 'style_5'
+    assign style_5 = true
+  endif
+%}
+
 <ul class="product-action_list">
   {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-  {% if settings.hover_style == 'style_5' %}
+  {% if style_5 %}
     <li class="br-line type-vertical h-24"></li>
   {% endif %}
   
   {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-  {% if settings.hover_style == 'style_5' %}
+  {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
 
   {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-  {% if settings.hover_style == 'style_5' %}
+  {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
   

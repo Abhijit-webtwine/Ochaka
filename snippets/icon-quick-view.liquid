@@ -7,10 +7,17 @@
   - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
 {% endcomment %}
 
+{% liquid 
+  assign style_5 = false
+  if settings.hover_style == 'style_5'
+    assign style_5 = true
+  endif
+%}
+
 {%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
 
 <li>
-  <a href="#quickView" data-bs-toggle="modal" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon quick-view {% if settings.hover_style == 'style_5' %}link{% endif %}" data-product-handle="{{ product.handle }}">
+  <a href="#quickView" data-bs-toggle="modal" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon quick-view {% if style_5 %}link{% endif %}" data-product-handle="{{ product.handle }}">
     <span class="icon icon-view"></span>
     {% if show_tooltip %}<span class="tooltip">Quick view</span>{% endif %}
   </a>

@@ -7,10 +7,16 @@
   - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
 {% endcomment %}
 
+{% liquid 
+  assign style_5 = false
+  if settings.hover_style == 'style_5'
+    assign style_5 = true
+  endif
+%}
 {%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
 
 <li class="wishlist">
-  <a href="#;" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-wishlist {% if settings.hover_style == 'style_5' %}link{% endif %}" data-product-id="{{ product.id }}">
+  <a href="#;" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-wishlist {% if style_5 %}link{% endif %}" data-product-id="{{ product.id }}">
     <span class="icon icon-heart"></span>
     {% if show_tooltip %}<span class="tooltip">Add to Wishlist</span>{% endif %}
   </a>

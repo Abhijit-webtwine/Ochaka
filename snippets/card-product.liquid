@@ -1,11 +1,27 @@
+{% liquid 
+    assign style_4 = false
+    assign style_5 = false
+    assign style_6 = false
+
+  if settings.hover_style == 'style_4'
+    assign style_4 = true
+  elsif settings.hover_style == 'style_5'
+    assign style_5 = true
+  elsif settings.hover_style == 'style_6'
+    assign style_6 = true
+  endif
+%}
 {% for option in product.options_with_values %}
-    {% assign size_option = 'Size' | downcase %}
-    {% assign downcased_option = option.name | downcase %}
-    {% if downcased_option contains size_option %}
-      {% assign has_size = true %}
-    {% endif %}
+  {%  liquid 
+    assign has_size = false
+    assign size_option = 'Size' | downcase
+    assign downcased_option = option.name | downcase
+    if downcased_option contains size_option
+      assign has_size = true
+    endif
+  %}
 {% endfor %}
-<div class="card-product  {% if has_size %}has-size{% endif %} {% if settings.hover_style == 'style_4' %}style-2 {% elsif settings.hover_style == 'style_5' %}style-3 {% elsif settings.hover_style == 'style_6' %}style-4{% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div class="card-product {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
     {% render 'card-product-sizes', product: product %}
