@@ -39,6 +39,7 @@
   {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
-  
-  {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% if settings.quick_view_enabled %}
+    {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% endif %}
 </ul>

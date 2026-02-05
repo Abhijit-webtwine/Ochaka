@@ -33,38 +33,42 @@
                   <a href="#" class="h6 text-primary">{{ product.vendor }}</a>
                 </div>
               {% endif %}
-              <h2 class="product-info-name">{{ product.title }}</h2>
+              
+              {% if product.metafields.judgeme.badge != blank  or settings.show_atc_count %}
+                <h2 class="product-info-name">{{ product.title }}</h2>
+                {% comment %} rating {% endcomment %}
+                <div class="product-info-meta">
+                  {% if product.metafields.judgeme.badge != blank %}
+                  <div class="rating">
+                    <div
+                      style='{{ jm_style }}'
+                      class="jdgm-widget jdgm-preview-badge"
+                      data-id="{{ product.id }}"
+                      data-auto-install="false"
+                    >
+                      {{ product.metafields.judgeme.badge }}
+                    </div>
+                  </div>
+                  {% endif %}
 
-              {% comment %} rating {% endcomment %}
-              <div class="product-info-meta">
-                <div class="rating">
-                  <div
-                    style='{{ jm_style }}'
-                    class="jdgm-widget jdgm-preview-badge"
-                    data-id="{{ product.id }}"
-                    data-auto-install="false"
-                  >
-                    {{ product.metafields.judgeme.badge }}
+                  {% comment %} add to cart count {% endcomment %}
+                  <div class="people-add text-primary">
+                    {% if settings.show_atc_count %}
+                      <add-to-cart-count 
+                        min="{{ settings.min_atc_count }}" 
+                        max="{{ settings.max_atc_count }}">
+                          
+                        <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
+                          <i class="icon icon-shopping-cart-simple"></i>
+                          <p id="view-count" class="visitor-count h6">
+                            <span class="vc-number"></span> people just added this product to their cart
+                          </p>
+                        </div>
+                      </add-to-cart-count>
+                    {% endif %}
                   </div>
                 </div>
-
-                {% comment %} add to cart count {% endcomment %}
-                <div class="people-add text-primary">
-                  {% if settings.show_atc_count %}
-                    <add-to-cart-count 
-                      min="{{ settings.min_atc_count }}" 
-                      max="{{ settings.max_atc_count }}">
-                        
-                      <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
-                        <i class="icon icon-shopping-cart-simple"></i>
-                        <p id="view-count" class="visitor-count h6">
-                          <span class="vc-number"></span> people just added this product to their cart
-                        </p>
-                      </div>
-                    </add-to-cart-count>
-                  {% endif %}
-                </div>
-              </div>
+              {% endif %}
 
               <div class="tf-product-heading">
                 <div id="price-{{ section.id }}" class="product-info-price price-wrap">

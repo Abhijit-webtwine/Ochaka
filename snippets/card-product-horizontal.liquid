@@ -4,7 +4,9 @@
 
     <ul class="product-action_list">
       {% render 'icon-compare', product: product, show_tooltip: true, tooltip_direction: 'left' %}
-      {% render 'icon-quick-view', product: product, show_tooltip: true, tooltip_direction: 'left' %}
+      {% if settings.quick_view_enabled %}
+        {% render 'icon-quick-view', product: product, show_tooltip: true, tooltip_direction: 'left' %}
+      {% endif %}
     </ul>
 
     {% render 'card-product-countdown', product: product %}
