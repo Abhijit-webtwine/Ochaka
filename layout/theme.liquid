@@ -210,6 +210,10 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
       {% section 'announcement-bar' %}
       {% section 'header' %}
 
+      {% if settings.quick_view_enabled %}
+        {% render 'quick-view' %}
+      {% endif %}
+
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
           {% render 'breadcrumbs' %}
@@ -294,9 +298,6 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     {%- endif -%}
     {%- if settings.quick_view_enabled -%}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
-    {%- endif -%}
-    {%- if settings.color_swatches_enabled -%}
-      <script src="{{ 'color-swatches.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     {%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
       <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>

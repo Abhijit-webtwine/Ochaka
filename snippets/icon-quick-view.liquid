@@ -17,8 +17,8 @@
 {%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
 
 <li>
-  <a href="#quickView" data-bs-toggle="modal" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon quick-view {% if style_5 %}link{% endif %}" data-product-handle="{{ product.handle }}">
+  <quick-view class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon quick-view {% if style_5 %}link{% endif %}" data-product-handle="{{ product.handle }}" data-product-url="{{ product.url }}">
     <span class="icon icon-view"></span>
-    {% if show_tooltip %}<span class="tooltip">Quick view</span>{% endif %}
-  </a>
+    {% if show_tooltip %}<span class="tooltip">{{ 'products.product.quick_view' | t }}</span>{% endif %}
+  </quick-view>
 </li>

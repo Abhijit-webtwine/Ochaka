@@ -50,10 +50,10 @@
 
                 {% comment %} add to cart count {% endcomment %}
                 <div class="people-add text-primary">
-                  {% if section.settings.show_atc_count %}
+                  {% if settings.show_atc_count %}
                     <add-to-cart-count 
-                      min="{{ section.settings.min_atc_count }}" 
-                      max="{{ section.settings.max_atc_count }}">
+                      min="{{ settings.min_atc_count }}" 
+                      max="{{ settings.max_atc_count }}">
                         
                       <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
                         <i class="icon icon-shopping-cart-simple"></i>
@@ -530,32 +530,6 @@
         }
       ],
       "default": "left"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_atc_count",
-      "label": "Show Add To Cart Count",
-      "default": true
-    },
-    {
-      "type": "range",
-      "id": "min_atc_count",
-      "label": "Minimum Add To Cart Count",
-      "min": 1,
-      "max": 10,
-      "step": 1,
-      "default": 1,
-      "visible_if": "{{ section.settings.show_atc_count }}"
-    },
-    {
-      "type": "range",
-      "id": "max_atc_count",
-      "label": "Maximum Add To Cart Count",
-      "min": 2,
-      "max": 10,
-      "step": 1,
-      "default": 5,
-      "visible_if": "{{ section.settings.show_atc_count }}"
     },
     {
       "type": "richtext",

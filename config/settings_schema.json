@@ -399,13 +399,37 @@
     ]
   },
   {
-    "name": "t:settings_schema.product_card.name",
+    "name": "t:settings_schema.product.name",
     "settings": [
       {
         "type": "checkbox",
         "id": "enable_countdown",
         "default": true,
         "label": "Enable Countdown"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_atc_count",
+        "label": "Show Add To Cart Count",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "min_atc_count",
+        "label": "Minimum Add To Cart Count",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "default": 1,
+      },
+      {
+        "type": "range",
+        "id": "max_atc_count",
+        "label": "Maximum Add To Cart Count",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "default": 5,
       }
     ]
   },

@@ -1,105 +1,113 @@
-class QuickViewDrawer extends MenuDrawer {
-  constructor() {
-    super();
-
-    this.setClasses({
-      open: 'quick-view--open',
-      opening: 'quick-view--opening',
-      closing: 'quick-view--closing'
-    });
-
-    this.addEventListener('close', () => {
-      const drawerContent = this.querySelector('.quick-view__content');
-      drawerContent.innerHTML = '';
-      drawerContent.classList.remove('hide-cover');
-
-      document.dispatchEvent(new CustomEvent('quickview:close'));
-    });
-  }
-}
-customElements.define('quick-view-drawer', QuickViewDrawer);
-
-class QuickViewButton extends MenuDrawer {
-  constructor() {
-    super();
-
-    this.addEventListener('click', () => {
-      const wrapper = this.closest('.card-wrapper');
-      const drawer = wrapper.querySelector('quick-view-drawer');
-      if (drawer) {
-        drawer.querySelector('summary').click();
-
-        document.dispatchEvent(new CustomEvent('quickview:open', {
-          detail: {
-            productUrl: this.dataset.productUrl
-          }
-        }));
-      }
-      else if (this.dataset.productUrl) {
-        window.location = this.dataset.productUrl;
-      }
-    });
-  }
-}
-customElements.define('quick-view-button', QuickViewButton);
-
 class QuickView extends HTMLElement {
   constructor() {
     super();
   }
 
   connectedCallback() {
-    new IntersectionObserver(this.handleIntersection.bind(this)).observe(this);
+    this.addEventListener('click', this.loadQuickView.bind(this));
   }
 
-  handleIntersection(entries, _observer) {
-    if (!entries[0].isIntersecting) return;
-
-    const selector = '.quick-view__content';
-    const drawerContent = this.querySelector(selector);
+  loadQuickView() {
     const productUrl = this.dataset.productUrl.split('?')[0];
-    const sectionUrl = `${productUrl}?view=modal`;
+    const sectionUrl = `${productUrl}?section_id=quick-view`;
+    const cacheKey = sectionUrl;
 
-    fetch(sectionUrl)
+    const cachedData = QuickView.cache.find(entry => entry.url === cacheKey);
+
+    if (cachedData) {
+      this.renderSectionFromCache(cachedData);
+    } else {
+      this.renderSectionFromFetch(sectionUrl);
+    }
+  }
+
+  renderSectionFromFetch(url) {
+    this.classList.add('loading');
+    fetch(url)
       .then(response => response.text())
       .then(responseText => {
-        setTimeout(() => {
-          const responseHTML = new DOMParser().parseFromString(responseText, 'text/html');
-          const productElement = responseHTML.querySelector(selector);
-          this.setInnerHTML(drawerContent, productElement.innerHTML);
-
-          if (window.Shopify && Shopify.PaymentButton) {
-            Shopify.PaymentButton.init();
-          }
-        }, 200);
-
-        setTimeout(() => {
-          drawerContent.classList.add('hide-cover');
-
-          document.dispatchEvent(new CustomEvent('quickview:loaded', {
-            detail: {
-              productUrl: this.dataset.productUrl
-            }
-          }));
-        }, 500);
+        const parsed = new DOMParser().parseFromString(responseText, 'text/html');
+        QuickView.cache.push({ url, html: parsed });
+        this.renderQuickView(parsed);
       })
       .catch(e => {
         console.error(e);
+      })
+      .finally(() => {
+        this.classList.remove('loading');
       });
+  }
+
+  renderSectionFromCache(cachedData) {
+    this.renderQuickView(cachedData.html);
+  }
+
+  renderQuickView(html) {
+    const selector = '.quick-view__content';
+    const drawerContent = document.querySelector('#quickView .modal-content');
+    drawerContent.innerHTML = '';
+
+    const productElement = html.querySelector(selector);
+
+    if (productElement) {
+      this.setInnerHTML(drawerContent, productElement.innerHTML);
+
+      if (window.Shopify && Shopify.PaymentButton) {
+        Shopify.PaymentButton.init();
+      }
+
+      const quickViewModal = document.getElementById('quickView');
+      const modal = bootstrap.Modal.getOrCreateInstance(quickViewModal);
+      modal.show();
+
+      this.initCarousel(drawerContent);
+
+      drawerContent.classList.add('hide-cover');
+
+      const productForm = drawerContent.querySelector('product-form');
+      if (productForm) {
+        productForm.addEventListener('productForm:added', () => {
+          if (modal) modal.hide();
+        });
+      }
+
+      document.dispatchEvent(new CustomEvent('quickview:loaded', {
+        detail: {
+          productUrl: this.dataset.productUrl
+        }
+      }));
+    }
   }
 
   setInnerHTML(element, html) {
     element.innerHTML = html;
+  }
 
-    // Reinjects the script tags to allow execution. By default, scripts are disabled when using element.innerHTML.
-    element.querySelectorAll('script').forEach(oldScriptTag => {
-      const newScriptTag = document.createElement('script');
-      Array.from(oldScriptTag.attributes).forEach(attribute => {
-        newScriptTag.setAttribute(attribute.name, attribute.value)
-      });
-      newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));
-      oldScriptTag.parentNode.replaceChild(newScriptTag, oldScriptTag);
+  initCarousel(element) {
+    const $element = $(element);
+    const $modalRoot = $element.find('.modal-quick-view').length ? $element.find('.modal-quick-view') : $element;
+    
+    if ($modalRoot.find(".tf-single-slide").length === 0) return;
+
+    if ($modalRoot.data('swiper-qv')) {
+        $modalRoot.data('swiper-qv').destroy(true, true);
+    }
+
+    var mainQV = new Swiper($modalRoot.find(".tf-single-slide")[0], {
+        slidesPerView: 1,
+        spaceBetween: 0,
+        observer: true,
+        observeParents: true,
+        speed: 800,
+        navigation: {
+            nextEl: $modalRoot.find(".single-slide-next")[0],
+            prevEl: $modalRoot.find(".single-slide-prev")[0],
+        },
     });
+    
+    $modalRoot.data('swiper-qv', mainQV);
   }
 }
+
+QuickView.cache = [];
 customElements.define('quick-view', QuickView);

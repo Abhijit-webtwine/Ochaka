@@ -9,8 +9,15 @@
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
   {% assign section_id = section_id | default: section.id %}
+  {% assign enable_variant_image_switch = enable_variant_image_switch | default: true %}
   {% comment %} change to block.settings.picker_type == 'button' when ready {% endcomment %}
-  {%- if block.settings.picker_type == 'button' -%}
+   {% if block.settings.picker_type == 'button' %}
+    {% assign picker_type = 'button' %}
+    {% else %}
+    {% assign picker_type = picker_type %}
+   {% endif %}
+
+  {%- if picker_type == 'button' -%}
     <variant-radios
       class="no-js-hidden tf-product-variant"
       data-section="{{ section_id }}"
@@ -18,12 +25,16 @@
       {% if update_url == false %}
         data-update-url="false"
       {% endif %}
+      {% if enable_variant_image_switch != nil %}
+        data-enable-image-switch="{{ enable_variant_image_switch }}"
+      {% endif %}
       {{ block.shopify_attributes }}
     >
+    {% assign enable_color_swatches = enable_color_swatches | default: block.settings.enable_color_swatches %}
       {%- for option in product.options_with_values -%}
         {%- liquid
           assign is_color = false
-          if block.settings.enable_color_swatches
+          if enable_color_swatches
             assign swatch_trigger = 'products.product.color_swatch_trigger' | t | downcase
             assign downcased_option = option.name | downcase
             if downcased_option contains swatch_trigger
@@ -44,8 +55,9 @@
               assign is_size = true
             endif
           endif {% endcomment %}
+        {% assign show_variant_labels =  show_variant_labels | default: block.settings.show_variant_labels %}
         <div class="variant-picker-item {% if option.name contains 'Size' %}variant-size{% endif %}{% if option.name contains 'Color' or option.name contains 'Colour' %}variant-color{% endif %}">
-          {%- if block.settings.show_variant_labels -%}
+          {%- if show_variant_labels -%}
             <div class="variant-picker-label">
               <div class="h4 fw-semibold">
                 {{ option.name }}
@@ -61,6 +73,7 @@
             {%- for value in option.values -%}
               <input
                 type="radio"
+                class="d-none"
                 id="{{ section_id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
                 name="{{ option.name }}"
                 value="{{ value | escape }}"
@@ -135,6 +148,9 @@
       data-url="{{ product.url }}"
       {% if update_url == false %}
         data-update-url="false"
+      {% endif %}
+      {% if enable_variant_image_switch != nil %}
+        data-enable-image-switch="{{ enable_variant_image_switch }}"
       {% endif %}
       {{ block.shopify_attributes }}
     >

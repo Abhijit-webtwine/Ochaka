@@ -1169,6 +1169,8 @@ class VariantSelects extends HTMLElement {
 
     this.addEventListener('change', this.onVariantChange);
     this.addEventListener('click', this.onDropdownItemClick.bind(this));
+    this.addEventListener('variant:change',this.handleMediaChange.bind(this)
+  );
 
     this.updateOptions();
     this.updateMasterId();
@@ -1228,19 +1230,20 @@ class VariantSelects extends HTMLElement {
     } else {
       if(this.gangOption) {
         this.updateGangMedia();
-      } else {
-        this.updateMedia();
       }
       this.updateURL();
       this.updateVariantInput();
       this.renderProductInfo();
       this.setAvailability();
 
-      document.dispatchEvent(new CustomEvent('variant:change', {
-        detail: {
-          variant: this.currentVariant
-        }
-      }));
+    this.dispatchEvent(new CustomEvent('variant:change', {
+      bubbles: true,
+      detail: {
+        variant: this.currentVariant,
+        sectionId: this.dataset.section
+      }
+    })
+  );
     }
 
     this.handleStickyCart(event.target);
@@ -1399,36 +1402,57 @@ class VariantSelects extends HTMLElement {
     return someString.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '').replace(/^-/, '');
   }
 
-  updateMedia() {
-    if (!this.currentVariant) return;
-    if (!this.currentVariant.featured_media) return;
-    const newMedia = document.querySelector(
-      `[data-media-id="${this.dataset.section}-${this.currentVariant.featured_media.id}"]`
-    );
-
-    if (!newMedia) return;
+  handleMediaChange(event) {
+    // 1. Check configuration
     
-    const parent = newMedia.parentElement;
-    if (parent.firstChild == newMedia) return;
-    parent.prepend(newMedia);
-    parent.classList.add('product__media-no-animate');
+    if (this.dataset.enableImageSwitch === 'false' || !this.dataset.enableImageSwitch) return;
 
-    const mediaGallery = document.getElementById(`MediaGallery-${this.dataset.section}`);
-    if (mediaGallery) {
-      const scrollIntoView = typeof this.dataset.noScroll === 'undefined';
-      mediaGallery.setActiveMedia(`${this.dataset.section}-${this.currentVariant.featured_media.id}`, true, scrollIntoView);
+    const detail = event.detail;
+    if (!detail || !detail.variant) return;
+    const variant = detail.variant;
+    if (!variant.featured_media) return;
+
+    const media = variant.featured_media;
+    const targetSrc = media.preview_image?.src || media.src;
+    if (!targetSrc) return;
+
+    const baseTarget = targetSrc.split("?")[0];
+    let foundIndex = -1;
+
+    // 2. Determine Scope (Quick View vs Main Product)
+    const quickView = this.closest('#quickView');
+    let $images;
+
+    if (quickView) {
+      // Scoped lookup for Quick View
+      $images = $(".tf-single-slide .swiper-slide img");
+    } else {
+      // Standard lookup for Main Product
+      $images = $(".tf-product-media-main .swiper-slide img");
     }
 
-    const modalContent = document.querySelector(`#ProductModal-${this.dataset.section} .product-media-modal__content`);
-    if (modalContent) {
-      const newMediaModal = modalContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
-      modalContent.prepend(newMediaModal);
-    }
-    
-    const thumbnailContent = document.querySelector(`#ProductThumbnails-${this.dataset.section}`);
-    if (thumbnailContent) {
-      const newMediaThumbnail = thumbnailContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
-      thumbnailContent.prepend(newMediaThumbnail);
+    // 3. Find matching image index
+    $images.each((index, img) => {
+      const imgSrc = img.getAttribute('data-src') || img.src;
+      if (!imgSrc) return;
+      
+      const baseImg = imgSrc.split("?")[0];
+      if (baseImg === baseTarget || baseImg.includes(baseTarget) || baseTarget.includes(baseImg)) {
+        foundIndex = index;
+        return false; // Break loop
+      }
+    });
+
+    // 4. Update Swiper
+    if (foundIndex > -1) {
+      if (quickView) {
+        const $modalRoot = $(quickView).find('.modal-quick-view, .modal-content').first();
+        const swiperQV = $modalRoot.data('swiper-qv');
+        if (swiperQV) swiperQV.slideTo(foundIndex, 600, false);
+      } else {
+        if (window.main) window.main.slideTo(foundIndex, 600, false);
+        if (window.thumbs) window.thumbs.slideTo(foundIndex, 600, false);
+      }
     }
   }
 
@@ -1751,7 +1775,7 @@ class ProductForm extends HTMLElement {
           this.handleErrorMessage(response.description);
           return;
         }
-
+        this.dispatchEvent(new CustomEvent('productForm:added'));
         if (this.miniCart) {
           this.miniCart.renderContents(response);
         }
@@ -3509,16 +3533,6 @@ class HeaderMenuToggle extends HTMLElement {
   }
 }
 customElements.define('header-menu-toggle', HeaderMenuToggle);
-
-document.addEventListener('ajaxProduct:added', function(event) {
-  console.log('product added');
-
-});
-
-document.addEventListener('cart:updated', function(evt) {
-    console.log(evt.detail.cart);
-});
-
 
 if (!customElements.get('localization-form')) {
   customElements.define('localization-form',

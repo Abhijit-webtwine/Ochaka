@@ -1619,9 +1619,19 @@ input[type=radio][disabled] + label {
   transform-origin: unset;
 }
 
-.button--small.loading:before {
-  width: 2rem;
-  height: 2rem;
+.quick-view.loading::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loading 0.6s linear infinite;
 }
 
 @keyframes loading {
@@ -1634,135 +1644,6 @@ input[type=radio][disabled] + label {
   }
 }
 
-.button--cta {
-  min-height: 4.5rem;
-  background: none;
-  box-shadow: none;
-  min-width: auto;
-  max-width: 100%;
-  padding: 0;
-  border: none;
-  justify-content: space-between;
-  text-transform: none;
-  color: rgb(var(--color-link));
-}
-
-.button--cta.button--small {
-  min-height: 2.7rem;
-  min-width: auto;
-}
-
-.button--cta.button--small .label {
-  padding-inline-end: 1rem;
-  font-size: 1rem;
-  line-height: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-}
-
-@media screen and (min-width: 750px) {
-  .button--cta {
-    min-width: 22.5rem;
-  }
-
-  .button--cta.button--large .label {
-    font-size: 1.8rem;
-  }
-}
-
-@media screen and (hover: hover) {
-  .button--cta:hover {
-    color: rgb(var(--color-link));
-    background-color: transparent;
-  }
-}
-
-.button--cta::before,
-.button--cta::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 0.1rem;
-  bottom: 0;
-  right: 0;
-  top: auto;
-  left: auto;
-  transform: none;
-  border: none;
-  background-image: none;
-  background-color: rgb(var(--color-border));
-  transition: transform var(--duration-default) ease;
-}
-
-.button--cta::before {
-  transform: scaleX(0);
-  transform-origin: left;
-  transition-delay: 0s;
-}
-
-.button--cta::after {
-  transform-origin: right;
-  transition-delay: 0.25s;
-}
-
-@media screen and (hover: hover) {
-  .button--cta:hover::before {
-    transform: scaleX(1);
-    transition-delay: 0.25s;
-  }
-
-  .button--cta:hover::after {
-    transform: scaleX(0);
-    transition-delay: 0s;
-  }
-}
-
-.button--cta .label {
-  padding-inline-end: 2rem;
-  font-size: 1.6rem;
-  line-height: calc(1 + 0.8 / var(--font-body-scale));
-  letter-spacing: 0.04rem;
-  text-align: start;
-  display: inline-block;
-  vertical-align: top;
-  overflow: hidden;
-  transition: transform var(--duration-default) ease;
-}
-
-@media screen and (hover: hover) {
-  .button--cta:hover .label {
-    transform: translateX(0.5rem);
-  }
-}
-
-.button--cta .icon {
-  fill: currentColor;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.button--cta.loading {
-  color: rgb(var(--color-link));
-}
-
-.button--cta.loading::before {
-  content: none;
-}
-
-.button--cta.loading::after {
-  background-color: transparent;
-  border-width: 0.1rem;
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-top: -0.8rem;
-  margin-left: 0;
-  left: auto;
-  right: 0;
-}
-
-.button--cta.loading .icon {
-  color: transparent;
-}
 
 .button--arrow {
   box-shadow: none;

@@ -1,0 +1,173 @@
+{% comment %} Need this file to fetch the layout of Quick View {% endcomment %}
+{% layout none %}
+
+{% assign handles = request.path | split: '/' | last | split: ',' %}
+
+<div class="quick-view__content">
+  {%- for handle in handles -%}
+    {%- assign product = all_products[handle] -%}
+    {%- if product -%}
+      {%- assign product_form_id = 'product-form-quick-view' -%}
+      <i class="icon icon-close icon-close-popup" data-bs-dismiss="modal"></i>
+      <div class="tf-product-media-wrap tf-btn-swiper-item">
+        <div dir="ltr" class="swiper tf-single-slide">
+          <div class="swiper-wrapper">
+            {%- for media in product.media -%}
+              <div class="swiper-slide" data-media-id="{{ product.id }}-{{ media.id }}">
+                <div class="item">
+                  <img
+                    class="lazyload"
+                    data-src="{{ media | image_url: width: 1000 }}"
+                    src="{{ media | image_url: width: 1000 }}"
+                    alt="{{ media.alt | escape }}"
+                    width="{{ media.width }}"
+                    height="{{ media.height }}"
+                  >
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+      <div class="tf-product-info-wrap">
+        <div class="tf-product-info-inner tf-product-info-list">
+          <div class="tf-product-info-heading">
+            <a href="{{ product.url }}" class="link product-info-name fw-medium h1">{{ product.title }}</a>
+
+            {% if product.metafields.judgeme.badge != blank  or settings.show_atc_count %}
+              <div class="product-info-meta">
+                {%- if product.metafields.judgeme.badge != blank  -%}
+                  <div class="rating">
+                    <div
+                      style='{{ jm_style }}'
+                      class="jdgm-widget jdgm-preview-badge"
+                      data-id="{{ product.id }}"
+                      data-auto-install="false"
+                    >
+                      {{ product.metafields.judgeme.badge }}
+                    </div>
+                  </div>
+                {%- endif -%}
+                <div class="people-add text-primary">
+                  {% if settings.show_atc_count %}
+                    <add-to-cart-count 
+                      min="{{ settings.min_atc_count }}" 
+                      max="{{ settings.max_atc_count }}">
+                        
+                      <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
+                        <i class="icon icon-shopping-cart-simple"></i>
+                        <p id="view-count" class="visitor-count h6">
+                          <span class="vc-number"></span> people just added this product to their cart
+                        </p>
+                      </div>
+                    </add-to-cart-count>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="product-info-price">
+              <div class="price-wrap" id="price-{{ section.id }}">
+                <span class="price-new price-on-sale h2">
+                  {{- product.selected_or_first_available_variant.price | money -}}
+                </span>
+                {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                  <span class="price-old compare-at-price h6">
+                    {{- product.selected_or_first_available_variant.compare_at_price | money -}}
+                  </span>
+                  <p class="badges-on-sale h6 fw-semibold">
+                    <span class="number-sale">
+                      -
+                      {{-
+                        product.selected_or_first_available_variant.compare_at_price
+                        | minus: product.selected_or_first_available_variant.price
+                        | times: 100
+                        | divided_by: product.selected_or_first_available_variant.compare_at_price
+                      }}
+                      %
+                    </span>
+                  </p>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="product-infor-sub text-main h6">
+              {{ product.description | strip_html | truncatewords: 50 }}
+            </div>
+          </div>
+
+            {% render 'product-variant-picker',
+              product: product,
+              product_form_id: product_form_id,
+              picker_type: 'button',
+              enable_color_swatches: true,
+              show_variant_labels: true,
+              update_url: false,
+              section_id: 'quick-view',
+            %}
+
+          <div class="tf-product-total-quantity w-100">
+            <product-form>
+              {%- form 'product',
+                product,
+                id: product_form_id,
+                data-type: 'add-to-cart-form',
+                class: 'w-100 position-static'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                  disabled="disabled"
+                >
+                <div class="group-btn">
+                  {% render 'quantity-input', product: product, product_form_id: product_form_id %}
+
+                  {% if product.available %}
+                    <p class="h6 d-none d-sm-block">{{ product.selected_or_first_available_variant.inventory_quantity }} products available</p>
+                  {% else %}
+                    <p class="h6 d-none d-sm-block">Sold Out</p>
+                  {% endif %}
+                </div>
+
+                <div class="group-btn">
+                  <button
+                    type="submit"
+                    name="add"
+                    class="tf-btn animate-btn btn-add-to-cart"
+                    {%- if product.selected_or_first_available_variant.available == false %}
+                      disabled="disabled"
+                    {% endif -%}
+                  >
+                    ADD TO CART
+                    <i class="icon icon-shopping-cart-simple"></i>
+                  </button>
+                  <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
+                    <span class="icon icon-heart"></span>
+                    <span class="tooltip">Add to Wishlist</span>
+                  </button>
+
+                  <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
+                    <span class="icon icon-compare"></span>
+                    <span class="tooltip">Compare</span>
+                  </a>
+                </div>
+
+                <div class="group-btn">
+                  <div class="shopify-payment-btn w-100">
+                    {{ form | payment_button }}
+                  </div>
+                </div>
+              {%- endform -%}
+            </product-form>
+          </div>
+
+          <a href="{{ product.url }}" class="tf-btn-line text-normal letter-space-0 fw-normal">
+            <span class="h5">View full details</span>
+            <i class="icon icon-arrow-top-right fs-24"></i>
+          </a>
+        </div>
+      </div>
+    {%- endif -%}
+  {% endfor %}
+</div>
