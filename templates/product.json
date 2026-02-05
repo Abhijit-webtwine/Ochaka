@@ -60,31 +60,36 @@
         "gallery_image_H4rYgh": {
           "type": "gallery_image",
           "settings": {
+            "image": "shopify://shop_images/product-1_f82d535e-5633-45e0-bc56-22e7084d0b9d.jpg",
             "show_icon": true
           }
         },
-        "gallery_image_MgpPRW": {
-          "type": "gallery_image",
+        "gallery_video_mqCFdz": {
+          "type": "gallery_video",
           "settings": {
+            "video": "shopify://files/videos/video-product.mp4",
+            "cover_image": "shopify://shop_images/product-5_09b41a66-4c25-4fe7-9b4d-4dad83f17dbf.jpg",
             "show_icon": true
           }
         },
         "gallery_image_JWTn4G": {
           "type": "gallery_image",
           "settings": {
+            "image": "shopify://shop_images/product-7_3e5d00b2-2b8c-48ba-8324-ade73155b2dd.jpg",
             "show_icon": true
           }
         },
         "gallery_image_NyPzVf": {
           "type": "gallery_image",
           "settings": {
+            "image": "shopify://shop_images/product-9_294afe67-a98c-4d04-a678-b460f1a44ceb.jpg",
             "show_icon": true
           }
         }
       },
       "block_order": [
         "gallery_image_H4rYgh",
-        "gallery_image_MgpPRW",
+        "gallery_video_mqCFdz",
         "gallery_image_JWTn4G",
         "gallery_image_NyPzVf"
       ],
