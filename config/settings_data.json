@@ -49,7 +49,7 @@
     "button_corner_radius": 0,
     "button_shadow_horizontal_offset": 0,
     "button_shadow_vertical_offset": 0,
-    "quick_view_enabled": false,
+    "quick_view_enabled": true,
     "color_swatches_enabled": true,
     "collection_layout": "left_sidebar",
     "show_cart_note": true,
