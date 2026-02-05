@@ -54,6 +54,81 @@
         "store_email": ""
       }
     },
+    "customer_image_gallery_RzBVMp": {
+      "type": "customer-image-gallery",
+      "blocks": {
+        "gallery_image_H4rYgh": {
+          "type": "gallery_image",
+          "settings": {
+            "show_icon": true
+          }
+        },
+        "gallery_image_MgpPRW": {
+          "type": "gallery_image",
+          "settings": {
+            "show_icon": true
+          }
+        },
+        "gallery_image_JWTn4G": {
+          "type": "gallery_image",
+          "settings": {
+            "show_icon": true
+          }
+        },
+        "gallery_image_NyPzVf": {
+          "type": "gallery_image",
+          "settings": {
+            "show_icon": true
+          }
+        }
+      },
+      "block_order": [
+        "gallery_image_H4rYgh",
+        "gallery_image_MgpPRW",
+        "gallery_image_JWTn4G",
+        "gallery_image_NyPzVf"
+      ],
+      "name": "Customer Image Gallery",
+      "settings": {
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "title": "Real photos from our customers"
+      }
+    },
+    "pdp_tabs_HBbzBP": {
+      "type": "pdp-tabs",
+      "name": "PDP Tabs",
+      "settings": {
+        "tab_style": "tab",
+        "shipping_return_refund_policy": "",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "related_products_rMKznr": {
+      "type": "related-products",
+      "name": "Related products",
+      "settings": {
+        "source": "collection",
+        "collection": "trending",
+        "heading": "You May Also Like",
+        "products_to_show": 4,
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "related_products_hHWfNK": {
+      "type": "related-products",
+      "name": "Related products",
+      "settings": {
+        "source": "recommendations",
+        "collection": "",
+        "heading": "Related Products",
+        "products_to_show": 4,
+        "padding_top": 0,
+        "padding_bottom": 80
+      }
+    },
     "product-recommendations": {
       "type": "product-recommendations",
       "disabled": true,
@@ -83,6 +158,10 @@
   "order": [
     "zp-product-header-content",
     "main",
+    "customer_image_gallery_RzBVMp",
+    "pdp_tabs_HBbzBP",
+    "related_products_rMKznr",
+    "related_products_hHWfNK",
     "product-recommendations"
   ]
 }
