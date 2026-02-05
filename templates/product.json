@@ -97,10 +97,70 @@
     },
     "pdp_tabs_HBbzBP": {
       "type": "pdp-tabs",
+      "blocks": {
+        "faq_category_YMhxUc": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Product details",
+            "category_id": "product-1",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
+        "faq_category_mybKb8": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Product details",
+            "category_id": "product-2",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        }
+      },
+      "block_order": [
+        "faq_category_YMhxUc",
+        "faq_category_mybKb8"
+      ],
       "name": "PDP Tabs",
       "settings": {
         "tab_style": "tab",
-        "shipping_return_refund_policy": "",
+        "shipping_return_refund_policy": "delivery-return",
         "padding_top": 80,
         "padding_bottom": 80
       }
