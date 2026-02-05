@@ -1784,8 +1784,8 @@ class ProductForm extends HTMLElement {
         console.error(e);
       })
       .finally(() => {
-        submitButton.classList.remove('loading');
-        submitButton.removeAttribute('aria-disabled');
+        submitButton.classList.toggle('loading');
+        submitButton.toggleAttribute('aria-disabled');
       });
   }
 
@@ -1875,8 +1875,8 @@ class ProductFormMultiAdd extends ProductForm {
         console.error(e);
       })
       .finally(() => {
-        submitButton.classList.remove('loading');
-        submitButton.removeAttribute('aria-disabled');
+        submitButton.classList.toggle('loading');
+        submitButton.toggleAttribute('aria-disabled');
       });
   }
 }
