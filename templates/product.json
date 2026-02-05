@@ -9,11 +9,6 @@
  */
 {
   "sections": {
-    "zp-product-header-content": {
-      "type": "product-header-content-zipifypages",
-      "disabled": true,
-      "settings": {}
-    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -193,40 +188,13 @@
         "padding_top": 0,
         "padding_bottom": 80
       }
-    },
-    "product-recommendations": {
-      "type": "product-recommendations",
-      "disabled": true,
-      "settings": {
-        "show_divider": false,
-        "heading": "You May Also Like",
-        "heading_size": "h1",
-        "heading_alignment": "center",
-        "heading_tag": "h2",
-        "columns_mobile": "1",
-        "swipe_on_mobile": true,
-        "image_ratio": "square",
-        "image_position": "center center",
-        "enable_image_fill": true,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "show_quick_buy": true,
-        "enable_quick_view": true,
-        "enable_color_swatches": true,
-        "enable_countdown": true,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
-    "zp-product-header-content",
     "main",
     "customer_image_gallery_RzBVMp",
     "pdp_tabs_HBbzBP",
     "related_products_rMKznr",
     "related_products_hHWfNK",
-    "product-recommendations"
   ]
 }
