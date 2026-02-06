@@ -83,11 +83,6 @@ class MiniCart extends HTMLElement {
         selector: '.shopify-section'
       },
       {
-        id: 'bottom-toolbar',
-        section: 'cart-icon-bubble',
-        selector: '.shopify-section'
-      },
-      {
         id: 'mobile-cart-icon-bubble',
         section: 'mobile-cart-icon-bubble',
         selector: '.shopify-section'

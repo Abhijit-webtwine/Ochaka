@@ -166,15 +166,11 @@
                           </button>
 
 
-                      <button type="button" class="hover-tooltip box-icon btn-add-wishlist">
-                        <span class="icon icon-heart"></span>
-                        <span class="tooltip">Add to Wishlist</span>
-                      </button>
+                      {% if settings.wishlist_enabled %}
+                        {% render 'icon-wishlist' %}
+                      {% endif %}
 
-                      <a href="#compare" data-bs-toggle="offcanvas" class="hover-tooltip tooltip-top box-icon">
-                        <span class="icon icon-compare"></span>
-                        <span class="tooltip">Compare</span>
-                      </a>
+                        {% render 'icon-compare' %}
                     </div>
                     {% comment %} Checkout Button {% endcomment %}
                     <div class="shopify-payment-btn">

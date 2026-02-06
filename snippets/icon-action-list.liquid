@@ -32,7 +32,7 @@
     <li class="br-line type-vertical h-24"></li>
   {% endif %}
 
-  {% if show_wishlist %}
+  {% if show_wishlist and settings.wishlist_enabled %}
     {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
   {% endif %}
   {% if style_5 %}
@@ -46,9 +46,7 @@
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
 
-  {% if settings.quick_view_enabled %}
-    {% if show_quick_view %}
-      {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-    {% endif %}
+  {% if settings.quick_view_enabled and show_quick_view %}
+    {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
   {% endif %}
 </ul>

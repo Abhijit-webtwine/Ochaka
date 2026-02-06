@@ -457,6 +457,16 @@
         "default": true,
         "label": "t:settings_schema.product_tiles.settings.color_swatches_enabled.label",
         "info": "t:settings_schema.product_tiles.settings.color_swatches_enabled.info"
+      },
+      {
+        "type": "header",
+        "content": "Wishlist"
+      },
+      {
+        "type": "checkbox",
+        "id": "wishlist_enabled",
+        "default": true,
+        "label": "Enable wishlist"
       }
     ]
   },

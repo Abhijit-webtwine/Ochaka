@@ -39,10 +39,12 @@
     </div>
 
     <div class="group-btn">
-      <a href="#wishlist" class="tf-btn type-small style-2">
+      {% if settings.wishlist_enabled %}
+      <a href="/pages/wishlist" class="tf-btn type-small style-2">
         Wishlist
         <i class="icon icon-heart"></i>
       </a>
+      {% endif %}
 
       <div data-bs-dismiss="offcanvas">
         <a href="#search" data-bs-toggle="modal" class="tf-btn type-small style-2">

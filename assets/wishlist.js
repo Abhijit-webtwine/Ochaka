@@ -282,3 +282,44 @@ class WishlistView extends HTMLElement {
 }
 
 customElements.define('wishlist-view', WishlistView);
+
+class WishlistCount extends HTMLElement {
+  constructor() {
+    super();
+    this.onUpdate = this.onUpdate.bind(this);
+  }
+
+  connectedCallback() {
+    this.updateCount();
+    window.addEventListener('wishlist:updated', this.onUpdate);
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('wishlist:updated', this.onUpdate);
+  }
+
+  onUpdate() {
+    this.updateCount();
+  }
+
+  updateCount() {
+    const key = 'wishlist-items';
+    const items = JSON.parse(sessionStorage.getItem(key) || '[]');
+    const count = items.length;
+    
+    const countElement = this.querySelector('[aria-hidden="true"]');
+    if (countElement) {
+        countElement.textContent = count;
+    } else {
+        this.textContent = count;
+    }
+
+    if (count > 0) {
+      this.classList.remove('d-none');
+    } else {
+      this.classList.add('d-none');
+    }
+  }
+}
+
+customElements.define('wishlist-count', WishlistCount);
