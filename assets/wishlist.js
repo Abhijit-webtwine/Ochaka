@@ -42,8 +42,8 @@ class WishlistToggle extends HTMLElement {
       // Update text/tooltip if present
       const tooltip = this.querySelector('.tooltip');
       const text = this.querySelector('.text');
-      if (tooltip) tooltip.textContent = 'Remove from Wishlist';
-      if (text) text.textContent = 'Remove from List';
+      if (tooltip) tooltip.textContent = 'Remove';
+      if (text) text.textContent = 'Remove';
     } else {
       this.classList.remove('active');
       if (icon && shouldUpdateIcon) {
