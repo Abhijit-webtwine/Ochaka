@@ -1,0 +1,17 @@
+{%- layout none -%}
+
+{% paginate search.results by 4 %}
+  <div class="tf-grid-layout tf-col-2 md-col-3 xl-col-4 wrapper-wishlist">
+  {% for item in search.results %}
+    {% if item.object_type == 'product' %}
+      {% render 'card-product', product: item %}
+    {% endif %}
+  {% endfor %}
+  </div>
+  {% if paginate.pages > 1 %}
+    <!-- Pagination -->
+    <div class="text-center pagination-wrap">
+      {% render 'pagination', paginate: paginate %}
+    </div>
+  {% endif %}
+{% endpaginate %}
