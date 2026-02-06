@@ -1821,8 +1821,8 @@ class ProductFormMultiAdd extends ProductForm {
     if (submitButton.classList.contains('loading')) return;
 
     this.handleErrorMessage();
-    submitButton.setAttribute('aria-disabled', true);
-    submitButton.classList.add('loading');
+    submitButton.classList.toggle('loading');
+    submitButton.toggleAttribute('aria-disabled');
 
     const idInputs = this.form.querySelectorAll('input[name="id"]');
     const qtyInputs = this.form.querySelectorAll('input[name="quantity"]');

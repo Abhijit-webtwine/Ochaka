@@ -7,9 +7,13 @@ class QuickView extends HTMLElement {
     this.addEventListener('click', this.loadQuickView.bind(this));
   }
 
+  get sectionId() {
+    return 'quick-view';
+  }
+
   loadQuickView() {
     const productUrl = this.dataset.productUrl.split('?')[0];
-    const sectionUrl = `${productUrl}?section_id=quick-view`;
+    const sectionUrl = `${productUrl}?section_id=${this.sectionId}`;
     const cacheKey = sectionUrl;
 
     const cachedData = QuickView.cache.find(entry => entry.url === cacheKey);
@@ -26,9 +30,9 @@ class QuickView extends HTMLElement {
     fetch(url)
       .then(response => response.text())
       .then(responseText => {
+        QuickView.cache.push({ url, html: responseText  });
         const parsed = new DOMParser().parseFromString(responseText, 'text/html');
-        QuickView.cache.push({ url, html: parsed });
-        this.renderQuickView(parsed);
+        this.renderProduct(parsed);
       })
       .catch(e => {
         console.error(e);
@@ -39,10 +43,11 @@ class QuickView extends HTMLElement {
   }
 
   renderSectionFromCache(cachedData) {
-    this.renderQuickView(cachedData.html);
+    const parsed = new DOMParser().parseFromString(cachedData.html, 'text/html');
+    this.renderProduct(parsed);
   }
 
-  renderQuickView(html) {
+  renderProduct(html) {
     const selector = '.quick-view__content';
     const drawerContent = document.querySelector('#quickView .modal-content');
     drawerContent.innerHTML = '';

@@ -1,9 +1,0 @@
-/* Loading State */
-.quick-view.loading {
-  pointer-events: none;
-  position: relative;
-}
-
-.quick-view.loading .icon {
-  opacity: 0;
-}
