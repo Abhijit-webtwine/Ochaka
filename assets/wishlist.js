@@ -95,8 +95,6 @@ class WishlistToggle extends HTMLElement {
 
 customElements.define('wishlist-toggle', WishlistToggle);
 
-
-
 class WishlistView extends HTMLElement {
   constructor() {
     super();
@@ -207,7 +205,7 @@ class WishlistView extends HTMLElement {
   fetchWishlist(items, page = 1, showLoader = true) {
     // prevent duplicate fetch on initial render
     if (this._hasRenderedOnce && !items.length) {
-      this.innerHTML = `  <div class="tf-wishlist-empty text-center">
+      this.innerHTML = `<div class="tf-wishlist-empty text-center">
         <p class="text-notice">NO PRODUCTS WERE ADDED TO THE WISHLIST.</p>
         <a href="/collections/all" class="tf-btn animate-btn btn-fill btn-back-shop">BACK TO SHOPPING</a>
         </div>`;
