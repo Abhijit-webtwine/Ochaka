@@ -45,7 +45,7 @@
             <div class="swiper-wrapper">
               {% for recommendation in recommendations.products %}
                 <div class="swiper-slide">
-                  {% render 'card-product', product: recommendation %}
+                  {% render 'card-product', product: recommendation, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
                 </div>
               {% endfor %}
             </div>

@@ -24,22 +24,31 @@
 
 <ul class="product-action_list">
   {% unless style_7 or style_8 %}
-    {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% if show_add_to_cart %}
+      {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% endif %}
   {% endunless %}
   {% if style_5 %}
     <li class="br-line type-vertical h-24"></li>
   {% endif %}
-  
-  {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+
+  {% if show_wishlist %}
+    {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% endif %}
   {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
 
-  {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% if show_compare %}
+    {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+  {% endif %}
   {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
+
   {% if settings.quick_view_enabled %}
-    {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% if show_quick_view %}
+      {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% endif %}
   {% endif %}
 </ul>

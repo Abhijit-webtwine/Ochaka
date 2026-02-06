@@ -48,8 +48,8 @@
                 {% assign collection_products = collections[block.settings.collection].products %}
                 {% for product in collection_products limit: block.settings.products_limit %}
                   <div class="swiper-slide">
-                    {% render 'card-product', product: product %}
-                  </div>
+                    {% render 'card-product', product: product, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
+                  </div>  
                 {% endfor %}
               {% else %}
                 {% for i in (1..4) %}

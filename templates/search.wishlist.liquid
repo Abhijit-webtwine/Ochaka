@@ -1,17 +1,22 @@
 {%- layout none -%}
 
-{% paginate search.results by 4 %}
+{% paginate search.results by 12 %}
   <div class="tf-grid-layout tf-col-2 md-col-3 xl-col-4 wrapper-wishlist">
-  {% for item in search.results %}
-    {% if item.object_type == 'product' %}
-      {% render 'card-product', product: item %}
-    {% endif %}
-  {% endfor %}
-  </div>
-  {% if paginate.pages > 1 %}
-    <!-- Pagination -->
-    <div class="text-center pagination-wrap">
+    {% for item in search.results %}
+      {% if item.object_type == 'product' %}
+        {% render 'card-product',
+          product: item,
+          show_wishlist: false,
+          show_wishlist_remove: true,
+          show_compare: true,
+          show_quick_view: true,
+          show_add_to_cart: true
+        %}
+      {% endif %}
+    {% endfor %}
+    {% if paginate.pages > 1 %}
+      <!-- Pagination -->
       {% render 'pagination', paginate: paginate %}
-    </div>
-  {% endif %}
+    {% endif %}
+  </div>
 {% endpaginate %}

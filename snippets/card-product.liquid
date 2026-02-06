@@ -16,6 +16,12 @@
   elsif settings.hover_style == 'style_8'
     assign style_8 = true
   endif
+
+  
+  assign show_wishlist = show_wishlist
+  assign show_compare = show_compare
+  assign show_quick_view = show_quick_view
+  assign show_add_to_cart = show_add_to_cart
 %}
 {% assign has_size = false %}
 {% for option in product.options_with_values %}
@@ -30,6 +36,13 @@
 <div class="card-product {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
+
+    {% if show_wishlist_remove %}
+      <wishlist-toggle class="remove box-icon wishlist-toggle" data-product-handle="{{ product.handle }}" data-update-icon="false">
+        <i class="icon icon-trash"></i>
+      </wishlist-toggle>
+    {% endif %}
+    
     {% render 'card-product-sizes', product: product %}
 
     {%  liquid 
@@ -37,7 +50,7 @@
       assign tooltip_direction = settings.tooltip_direction
     %}
     
-    {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction, show_wishlist: show_wishlist, show_compare: show_compare, show_quick_view: show_quick_view, show_add_to_cart: show_add_to_cart %}
     {% render 'card-product-countdown', product: product %}
     {% render 'card-product-badge', product: product %}
     {% if style_8 %}

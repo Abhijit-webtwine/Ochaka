@@ -32,7 +32,7 @@
                   <div class="products-grid-view">
                     <div class="tf-grid-layout tf-col-4">
                       {% for item in search.results %}
-                        {% render 'card-product', product: item %}
+                        {% render 'card-product', product: item, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
                       {% endfor %}
                     </div>
                   </div>

@@ -1619,7 +1619,7 @@ input[type=radio][disabled] + label {
   transform-origin: unset;
 }
 
-.quick-view.loading::before {
+.quick-view.loading::before, .wishlist-toggle.loading:not(.remove)::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -1632,6 +1632,22 @@ input[type=radio][disabled] + label {
   border-top-color: transparent;
   border-radius: 50%;
   animation: loading 0.6s linear infinite;
+}
+
+/* Wishlist Removal State */
+.card-product.removing {
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.quick-view.loading, .wishlist-toggle.loading {
+  pointer-events: none;
+  position: relative;
+}
+
+.quick-view.loading .icon, .wishlist-toggle.loading:not(.remove) .icon {
+  opacity: 0;
 }
 
 @keyframes loading {

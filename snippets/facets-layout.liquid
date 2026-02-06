@@ -61,7 +61,7 @@
     <div class="wrapper-shop tf-grid-layout tf-col-{{ active_layout }}" id="gridLayout">
       {%- paginate collection.products by 12 -%}
         {%- for product in collection.products -%}
-          {% render 'card-product', product: product %}
+          {% render 'card-product', product: product, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
         {%- endfor -%}
 
         {%- if paginate.pages > 1 -%}
