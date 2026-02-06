@@ -52,6 +52,7 @@
     "quick_view_enabled": true,
     "color_swatches_enabled": true,
     "collection_layout": "left_sidebar",
+    "tooltip_direction": "top",
     "show_cart_note": true,
     "show_shipping_calculator": true,
     "disable_view_cart": false,
