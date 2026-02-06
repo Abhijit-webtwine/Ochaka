@@ -41,10 +41,12 @@
       <div class="group-btn">
         {% render 'icon-add-to-cart', type: 'button', product: product %}
 
-        <a href="#" class="tf-btn style-line btn-add-wishlist2">
-          <span class="text">Add to List</span>
-          <i class="icon icon-heart"></i>
-        </a>
+        {% if settings.wishlist_enabled %}
+          <wishlist-toggle class="tf-btn style-line btn-add-wishlist2" data-product-handle="{{ product.handle }}" style="cursor: pointer;">
+            <span class="text">Add to List</span>
+            <i class="icon icon-heart"></i>
+          </wishlist-toggle>
+        {% endif %}
       </div>
     </div>
 
