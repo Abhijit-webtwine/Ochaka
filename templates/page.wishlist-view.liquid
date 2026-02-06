@@ -1,0 +1,10 @@
+{% comment %} Section is required for wishlist layout {% endcomment %}
+{%- layout none -%}
+{% assign handles = request.path | split: '/' | last | split: ',' %}
+
+{% for handle in handles %}
+  {%- assign product = all_products[handle] -%}
+  {%- if product and product != blank -%}
+    {% render 'card-product', product: product %}
+  {%- endif -%}
+{%- endfor -%}
