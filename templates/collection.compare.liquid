@@ -11,7 +11,6 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
             <th class="compare-col compare-head">
               <div class="compare-item">
                 <div class="item_image">
@@ -42,7 +41,6 @@
                 </div>
               </div>
             </th>
-          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -54,25 +52,23 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col">
-              <div class="compare_rate">
-                <div class="rate_wrap">
-                  {%- assign rating = product.metafields.reviews.rating.value.rating
-                    | split: '.'
-                    | first
-                    | plus: 0
-                    | default: 0
-                  -%}
-                  {%- assign rating_count = product.metafields.reviews.rating_count | default: 0 -%}
-                  {%- for i in (1..5) -%}
-                    <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
-                  {%- endfor -%}
-                </div>
-                <span class="rate_count"> ({{ rating_count }}) </span>
+          <td class="compare-col">
+            <div class="compare_rate">
+              <div class="rate_wrap">
+                {%- assign rating = product.metafields.reviews.rating.value.rating
+                  | split: '.'
+                  | first
+                  | plus: 0
+                  | default: 0
+                -%}
+                {%- assign rating_count = product.metafields.reviews.rating_count | default: 0 -%}
+                {%- for i in (1..5) -%}
+                  <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
+                {%- endfor -%}
               </div>
-            </td>
-          {%- endif -%}
+              <span class="rate_count"> ({{ rating_count }}) </span>
+            </div>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -82,13 +78,11 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <span>
-                {%- if product.type != blank %}{{ product.type }}{% else %}- {% endif -%}
-              </span>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <span>
+              {%- if product.type != blank %}{{ product.type }}{% else %}- {% endif -%}
+            </span>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -98,11 +92,9 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <span>{{ product.price | money }}</span>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <span>{{ product.price | money }}</span>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -112,24 +104,22 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <div class="list-compare-color justify-content-center">
-                {%- assign color_option = product.options_by_name.Color -%}
-                {%- if color_option -%}
-                  {%- for value in color_option.values -%}
-                    <span
-                      class="item bg-{{ value | handleize }}"
-                      title="{{ value }}"
-                      style="background-color: {{ value | handleize }};"
-                    ></span>
-                  {%- endfor -%}
-                {%- else -%}
-                  <span>-</span>
-                {%- endif -%}
-              </div>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <div class="list-compare-color justify-content-center">
+              {%- assign color_option = product.options_by_name.Color -%}
+              {%- if color_option -%}
+                {%- for value in color_option.values -%}
+                  <span
+                    class="item bg-{{ value | handleize }}"
+                    title="{{ value }}"
+                    style="background-color: {{ value | handleize }};"
+                  ></span>
+                {%- endfor -%}
+              {%- else -%}
+                <span>-</span>
+              {%- endif -%}
+            </div>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -139,11 +129,9 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <span>{{ product.vendor }}</span>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <span>{{ product.vendor }}</span>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -153,11 +141,9 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <span>{{ product.options_by_name.Material.values | join: ', ' | default: '-' }}</span>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <span>{{ product.options_by_name.Material.values | join: ', ' | default: '-' }}</span>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -167,11 +153,9 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <span>{{ product.options_by_name.Size.values | join: ', ' | default: '-' }}</span>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <span>{{ product.options_by_name.Size.values | join: ', ' | default: '-' }}</span>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -181,11 +165,9 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value">
-              <span>{{ product.metafields.custom.intended_use | default: '-' }}</span>
-            </td>
-          {%- endif -%}
+          <td class="compare-col compare-value">
+            <span>{{ product.metafields.custom.intended_use | default: '-' }}</span>
+          </td>
         {%- endif -%}
       {%- endfor -%}
     </tr>
@@ -195,35 +177,33 @@
         {%- assign handle_clean = handle | strip -%}
         {%- if handle_clean != blank -%}
           {%- assign product = all_products[handle_clean] -%}
-          {%- if product and product != blank -%}
-            <td class="compare-col compare-value p-0">
-              {% if product.available %}
+          <td class="compare-col compare-value p-0">
+            {% if product.available %}
               <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
                 <button
                   type="button"
                   class="tf-btn style-transparent w-100 rounded-0"
-                  {% unless product.available %}
-                    disabled
-                  {% endunless %}
-                >
-                  Add to cart
+                    {% unless product.available %}
+                      disabled
+                    {% endunless %}
+                  >
+                    Add to cart
                   <i class="icon icon-shopping-cart-simple icon-atc-horizontal"></i>
                 </button>
               </add-to-cart>
-              {% else %}
-                <button
-                  type="button"
-                  class="tf-btn style-transparent w-100 rounded-0"
-                  {% unless product.available %}
-                    disabled
-                  {% endunless %}
-                >
-                  Sold Out
-                  <i class="icon icon-shopping-cart-simple icon-atc-horizontal"></i>
-                </button>
-              {% endif %}
+            {% else %}
+              <button
+                type="button"
+                class="tf-btn style-transparent w-100 rounded-0"
+                {% unless product.available %}
+                  disabled
+                {% endunless %}
+              >
+                Sold Out
+                <i class="icon icon-shopping-cart-simple icon-atc-horizontal"></i>
+              </button>
+            {% endif %}
             </td>
-          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
     </tr>
