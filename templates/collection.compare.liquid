@@ -130,9 +130,13 @@
         {%- assign product = all_products[handle_clean] -%}
         <td class="compare-col compare-value">
           <span>
+            {% if product.metafields.shopify.fabric.value != blank %}
             {% for i in product.metafields.shopify.fabric.value %}
               {{ i.label }}{%unless forloop.last%},{% endunless %}
             {% endfor %}
+            {% else %}
+            -
+            {% endif %}
           </span>
         </td>
       {%- endfor -%}
