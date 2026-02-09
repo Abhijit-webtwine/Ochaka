@@ -10,22 +10,13 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
-      "disabled": true,
-      "settings": {
-        "narrow": true,
-        "padding_top": 60,
-        "padding_bottom": 72
-      }
-    },
-    "wishlist_TawfKb": {
       "type": "wishlist",
       "name": "Wishlist",
       "settings": {}
-    }
+    },
+
   },
   "order": [
     "main",
-    "wishlist_TawfKb"
   ]
 }
