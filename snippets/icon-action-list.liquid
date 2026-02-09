@@ -39,7 +39,7 @@
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
 
-  {% if show_compare %}
+  {% if show_compare and settings.compare_enabled %}
     {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
   {% endif %}
   {% if style_5 %}

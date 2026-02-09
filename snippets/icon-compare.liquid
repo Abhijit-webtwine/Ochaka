@@ -16,8 +16,8 @@
 {%- assign tooltip_class = 'hover-tooltip tooltip-' | append: tooltip_direction -%}
 
 <li class="compare">
-  <a href="#compare" data-bs-toggle="offcanvas" class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-compare {% if style_5 %}link{% endif %}" data-product-handle="{{ product.handle }}">
+  <compare-toggle class="{% if show_tooltip %}{{ tooltip_class }}{% endif %} box-icon add-to-compare compare-toggle {% if style_5 %}link{% endif %}" data-product-handle="{{ product.handle }}">
     <span class="icon icon-compare"></span>
     {% if show_tooltip %}<span class="tooltip">Compare</span>{% endif %}
-  </a>
+  </compare-toggle>
 </li>

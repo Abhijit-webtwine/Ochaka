@@ -1,0 +1,17 @@
+{% layout none %}
+{%- assign handles = collection.sort_by | split: ',' -%}
+{%- for handle in handles -%}
+  {%- assign product = all_products[handle] -%}
+  {%- if product != blank -%}
+    <div class="tf-compare-item file-delete">
+      <a href="{{ product.url }}">
+        <compare-remove data-handle="{{ product.handle }}" class="remove">
+          <i class="icon icon-close"></i>
+        </compare-remove>
+        <img class="radius-3 lazyload" src="{{ product.featured_image | image_url }}" alt="{{ product.title | escape }}"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}">
+      </a>
+    </div>
+  {%- endif -%}
+{%- endfor -%}

@@ -214,6 +214,8 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
         {% render 'quick-view' %}
       {% endif %}
 
+      {% render 'compare-modal' %}
+
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
           {% render 'breadcrumbs' %}
@@ -296,14 +298,16 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+
+    {%- if settings.wishlist_enabled or settings.compare_enabled -%}
+    <script src="{{ 'list-manager.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
     {%- if settings.quick_view_enabled -%}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     {%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
       <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-
 </body>
 </html>
 

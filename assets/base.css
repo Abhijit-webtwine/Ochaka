@@ -474,21 +474,10 @@ blockquote {
 .color-foreground {
   color: rgb(var(--color-foreground));
 }
-
+/* 
 table:not([class]) {
   table-layout: fixed;
-  border-collapse: collapse;
-  font-size: 1.4rem;
-  border-style: hidden;
-  box-shadow: 0 0 0 0.1rem rgb(var(--color-border));
-  /* draws the table border  */
-}
-
-table:not([class]) td,
-table:not([class]) th {
-  padding: 1em;
-  border: 0.1rem solid rgb(var(--color-border));
-}
+} */
 
 @media screen and (max-width: 749px) {
   .small-hide {
@@ -509,9 +498,6 @@ table:not([class]) th {
 }
 
 @media screen and (max-width: 749px) {
-  add-to-cart.button.button--small {
-    letter-spacing: 1px;
-}
   .contact-form-banner .contact {
     padding: 0 1.5rem ! Important;
 }
@@ -1619,7 +1605,9 @@ input[type=radio][disabled] + label {
   transform-origin: unset;
 }
 
-.quick-view.loading::before, .wishlist-toggle.loading:not(.remove)::before {
+.quick-view.loading::before, 
+.wishlist-toggle.loading:not(.remove)::before, 
+compare-remove.loading .icon::before {
   content: '';
   position: absolute;
   top: 50%;

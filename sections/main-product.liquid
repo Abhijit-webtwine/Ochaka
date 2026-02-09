@@ -169,8 +169,10 @@
                       {% if settings.wishlist_enabled %}
                         {% render 'icon-wishlist' %}
                       {% endif %}
-
+                      
+                      {% if settings.compare_enabled %}
                         {% render 'icon-compare' %}
+                      {% endif %}
                     </div>
                     {% comment %} Checkout Button {% endcomment %}
                     <div class="shopify-payment-btn">

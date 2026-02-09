@@ -467,6 +467,16 @@
         "id": "wishlist_enabled",
         "default": true,
         "label": "Enable wishlist"
+      },
+      {
+        "type": "header",
+        "content": "Compare"
+      },
+      {
+        "type": "checkbox",
+        "id": "compare_enabled",
+        "default": true,
+        "label": "Enable compare"
       }
     ]
   },
