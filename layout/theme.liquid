@@ -136,6 +136,7 @@
     <script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
     {%- liquid
       render 'vite-tag' with 'main.scss'
