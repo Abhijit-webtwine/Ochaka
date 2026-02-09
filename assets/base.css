@@ -1606,6 +1606,7 @@ input[type=radio][disabled] + label {
 }
 
 .quick-view.loading::before, 
+add-to-cart.loading .icon:before,
 .wishlist-toggle.loading:not(.remove)::before, 
 compare-remove.loading .icon::before {
   content: '';
@@ -1614,12 +1615,19 @@ compare-remove.loading .icon::before {
   left: 50%;
   width: 20px;
   height: 20px;
-  margin-top: -10px;
-  margin-left: -10px;
+  translate: -50% -50%;
   border: 2px solid currentColor;
   border-top-color: transparent;
   border-radius: 50%;
   animation: loading 0.6s linear infinite;
+}
+
+add-to-cart.loading .icon-atc-horizontal::before {
+  position: static;
+  display: block;
+  width: 18px;
+  height: 18px;
+  translate: 0;
 }
 
 /* Wishlist Removal State */
