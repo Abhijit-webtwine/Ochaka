@@ -1,43 +1,20 @@
 {%- assign text_direction = 'localization.text_direction_trigger' | t | downcase -%}
 <!doctype html>
-<html class="no-js" lang="{{ request.locale.iso_code }}"
-  {%- if text_direction == 'rtl' %} dir="rtl"{% endif -%}
+<html
+  class="no-js"
+  lang="{{ request.locale.iso_code }}"
+  {%- if text_direction == 'rtl' %}
+    dir="rtl"
+  {% endif -%}
 >
-<head>
-
-
-{% render 'replo-head' %}
-  
-<script type="text/javascript">
-/* TraceAd SiteTag (https://tracead.com) */
-(function() {
-  var tracead = document.createElement('script');
-  tracead.src = 'https://tracead.com/sTos' + (typeof jQuery==='undefined'?'':'?ljq=1');
-  tracead.setAttribute('async', 'true');
-  var p = document.getElementsByTagName('script')[0];
-  p.parentNode.insertBefore(tracead, p);
-})();
-</script>
-
-
-  
-<link rel='preconnect dns-prefetch' href='https://api.config-security.com/' crossorigin />
-<link rel='preconnect dns-prefetch' href='https://conf.config-security.com/' crossorigin />
-<link rel='preconnect dns-prefetch' href='https://whale.camera/' crossorigin />
-
-<script>
-/* >> TriplePixel :: start*/
-window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:"SHOPIFY",isHeadless:false},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","application/json")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1,P))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1,L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)};try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push({u:location.href,r:document.referrer,t:Date.now(),id:L()}),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(E=A[H]=function(t,e,a){return void 0===a&&(a=[]),"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e].concat(a)),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,plat:A.TriplePixelData.plat,url:window.location.href,ref:document.referrer,ver:A.TriplePixelData.ver},O("https://api.config-security.com/event",5,p),O("https://whale.camera/live/dot.txt",5)))}}("","TriplePixel",localStorage);
-/* << TriplePixel :: end*/
-</script>
-
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    {%- if template.suffix contains "sample" -%}
+    {%- if template.suffix contains 'sample' -%}
       <meta name="robots" content="noindex,nofollow">
     {%- else -%}
       <meta name="robots" content="index,follow">
@@ -64,46 +41,50 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'vendor-v4.js' | asset_url | split: '?' | first }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 
     {%- liquid
       render 'css-variables'
       echo 'base.css' | asset_url | stylesheet_tag: preload: true
-      
+
       if text_direction == 'rtl'
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
 
-    {% comment %}
-    {%- unless settings.type_body_font.system? -%}
-      <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
-    {%- unless settings.type_header_font.system? -%}
-      <link rel="preload" as="font" href="{{ settings.type_header_font | font_url }}" type="font/woff2" crossorigin>
-    {%- endunless -%}
-    {% endcomment %}
-    
     {%- if settings.predictive_search_enabled -%}
-      <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
-    {%- endif -%}
-    {%- if settings.quick_view_enabled -%}
-      <link rel="stylesheet" href="{{ 'component-quick-view.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link
+        rel="stylesheet"
+        href="{{ 'component-predictive-search.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
     {%- endif -%}
     {%- if settings.color_swatches_enabled -%}
-      <link rel="stylesheet" href="{{ 'component-color-swatches.css' | asset_url }}" media="print" onload="this.media='all'">
+      <link
+        rel="stylesheet"
+        href="{{ 'component-color-swatches.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
     {%- endif -%}
-    {%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
-      <link rel="stylesheet" href="{{ 'component-gift-wrapping.css' | asset_url }}" media="print" onload="this.media='all'">
+    {%- if linklists['gift-wrapping'].links != blank
+      and linklists['gift-wrapping'].links.first.type == 'product_link'
+    -%}
+      <link
+        rel="stylesheet"
+        href="{{ 'component-gift-wrapping.css' | asset_url }}"
+        media="print"
+        onload="this.media='all'"
+      >
       <noscript>{{ 'component-gift-wrapping.css' | asset_url | stylesheet_tag }}</noscript>
     {%- endif -%}
 
     {% comment %} google fonts import {% endcomment %}
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap");
-      @import url("https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap");
+      @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap');
     </style>
     {% comment %} google fonts import ends{% endcomment %}
 
@@ -156,53 +137,42 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     <script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
 
-    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
-    <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/S8kz502svVqAmAvMaqfXEw" async></script>
-    <script src="https://rapid-cdn.yottaa.com/rapid/lib/jqrv7RcuKv1iCw.js"></script>
+    {%- liquid
+      render 'vite-tag' with 'main.scss'
+      render 'vite-tag' with 'main.js'
+    -%}
+    {%- liquid
+      render 'vite-tag' with 'main.scss'
+      render 'vite-tag' with 'main.js'
+    -%}
 
+    {{ content_for_header }}
+  </head>
 
-    <meta name="google-site-verification" content="JeMyiYBXRrMqQVre27v0ZV8AzHuw8tGmPt2s3z78qmE" />
-
-    <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "gjj4z35v5g");
-    </script>
-
-{%- liquid
-  render 'vite-tag' with 'main.scss'
-  render 'vite-tag' with 'main.js'
--%}
-{%- liquid
-  render 'vite-tag' with 'main.scss'
-  render 'vite-tag' with 'main.js'
--%}
-
-{% if content_for_header contains 'fastbundle.co' %}
-    {% render 'fast_bundle_service' %}
-{% endif %}
-
-{% render 'shogun-head' %}
-
-{{ content_for_header }}
-
-</head>
-
-
-  <body class="template-{{ request.page_type }}{% if request.design_mode %} shopify-design-mode{% endif %}"
-    {%- if settings.image_zoom_effect_enabled %} data-animate-image{% endif -%}
-    {%- if settings.image_loading_bar_enabled %} data-lazy-image{% endif -%}
-    {%- if settings.heading_capitalize %} data-heading-capitalize{% endif -%}
-    {%- if settings.heading_center %} data-heading-center{% endif -%}
-    {%- if settings.price_superscript %} data-price-superscript{% endif -%}
-    {%- if settings.button_corner_radius > 0 %} data-button-round{% endif -%}
+  <body
+    class="template-{{ request.page_type }}{% if request.design_mode %} shopify-design-mode{% endif %}"
+    {%- if settings.image_zoom_effect_enabled %}
+      data-animate-image
+    {% endif -%}
+    {%- if settings.image_loading_bar_enabled %}
+      data-lazy-image
+    {% endif -%}
+    {%- if settings.heading_capitalize %}
+      data-heading-capitalize
+    {% endif -%}
+    {%- if settings.heading_center %}
+      data-heading-center
+    {% endif -%}
+    {%- if settings.price_superscript %}
+      data-price-superscript
+    {% endif -%}
+    {%- if settings.button_corner_radius > 0 %}
+      data-button-round
+    {% endif -%}
   >
     <a class="skip-to-content-link button button--small visually-hidden" href="#MainContent">
-      {{ "accessibility.skip_to_text" | t }}
+      {{ 'accessibility.skip_to_text' | t }}
     </a>
-    
 
     {% render 'transition-cover' %}
 
@@ -214,7 +184,9 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
         {% render 'quick-view' %}
       {% endif %}
 
-      {% render 'compare-modal' %}
+      {% if settings.compare_enabled %}
+        {% render 'compare-modal' %}
+      {% endif %}
 
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">
@@ -224,16 +196,12 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
 
         {% section 'footer' %}
       </div>
-      
-      {% section 'mobile-dock' %}
     </div>
 
     {% section 'popup' %}
     {% section 'cookie-banner' %}
-    {% section 'age-verifier' %}
     {% render 'search-modal' %}
     {% section 'bottom-toolbar' %}
-
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
@@ -290,7 +258,6 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
         if (first_image) first_image.setAttribute('loading', 'auto');
       })();
     </script>
-    <script src="https://ui.powerreviews.com/stable/4.1/ui.js" async></script>
 
     {%- if settings.image_loading_bar_enabled %}
       <script src="{{ 'lazyimage.js' | asset_url }}" async></script>
@@ -300,69 +267,15 @@ window.TriplePixelData={TripleName:"mybeautystat.myshopify.com",ver:"2.11",plat:
     {%- endif -%}
 
     {%- if settings.wishlist_enabled or settings.compare_enabled -%}
-    <script src="{{ 'list-manager.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'list-manager.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
     {%- if settings.quick_view_enabled -%}
       <script src="{{ 'quick-view.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    {%- if linklists.gift-wrapping.links != blank and linklists.gift-wrapping.links.first.type == 'product_link' -%}
+    {%- if linklists['gift-wrapping'].links != blank
+      and linklists['gift-wrapping'].links.first.type == 'product_link'
+    -%}
       <script src="{{ 'gift-wrapping.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-</body>
+  </body>
 </html>
-
-
-<!-- Begin Shopify-Afterpay JavaScript Snippet (v1.1.6) -->
-{% if cart.currency.iso_code == shop.currency %}
-<script type="text/javascript">
-// Overrides:
-// var afterpay_min = 1.00;       // As per your Afterpay contract.
-// var afterpay_max = 2000.00;    // As per your Afterpay contract.
-// var afterpay_msg_size = 'sm';  // Can be 'xs', 'sm', 'md' or 'lg'.
-// var afterpay_bold_amount = true;
-// var afterpay_logo_theme = 'colour';  // Can be 'colour', 'black' or 'white'.
-// var afterpay_modal_open_icon = true;
-// var afterpay_hide_upper_limit = false;
-// var afterpay_hide_lower_limit = true;
-// var afterpay_show_if_outside_limits = true;
-// var afterpay_cbt_enabled = false;
-// var afterpay_apr_loans_available = false;
-
-// var afterpay_product_integration_enabled = true;
-// var afterpay_product_selector = '#product-price-selector';
-// var afterpay_variable_price_fallback = false;
-// var afterpay_variable_price_fallback_selector = '';
-// var afterpay_variable_price_fallback_method = 'mutation';  // Can be 'mutation' or 'interval'.
-
-// var afterpay_cart_integration_enabled = true;
-// var afterpay_cart_static_selector = '#cart-subtotal-selector';
-// var afterpay_variable_subtotal_fallback = false;
-// var afterpay_variable_subtotal_fallback_selector = '';
-// var afterpay_variable_subtotal_fallback_method = 'mutation'; // Can be 'mutation' or 'interval'.
-// var afterpay_cart_dynamic_integration_enabled = false;
-
-// var afterpay_footer_logo_enabled = true;
-// var afterpay_footer_logo_format = 'icon';  // Can be 'icon', 'stacked' or 'logo'.
-// var afterpay_footer_logo_theme = 'colour'; // Can be 'colour', 'black' or 'white'.
-// var afterpay_footer_logo_background = 'border';  // Can be 'border' or 'transparent'.
-// var afterpay_footer_logo_container = 'footer ul.payment-icons';
-// var afterpay_footer_logo_template = '<li class="payment-icon"><object data="{logo_path}" type="image/svg+xml"></object></li>';
-
-// Non-editable fields:
-var afterpay_js_language = {{ localization.language.iso_code | slice: 0, 2 | json }};
-var afterpay_js_country = {{ localization.country.iso_code | json }};
-var afterpay_shop_currency = {{ shop.currency | json }};
-var afterpay_cart_currency = {{ cart.currency.iso_code | json }};
-var afterpay_shop_money_format = {{ shop.money_format | json }};
-var afterpay_shop_permanent_domain = {{ shop.permanent_domain | json }};
-var afterpay_theme_name = {{ theme.name | json }};
-var afterpay_product = {{ product | json }};
-var afterpay_current_variant = {{ product.selected_or_first_available_variant | json }};
-var afterpay_cart_total_price = {{ cart.total_price | json }};
-var afterpay_js_snippet_version = '1.1.6';
-</script>
-<script type="text/javascript" src="https://static.afterpay.com/shopify-afterpay-javascript.js"></script> 
-{% else %}
-<!-- Afterpay disabled: {{ cart.currency.iso_code }} != {{ shop.currency }} -->
-{% endif %}
-<!-- End Shopify-Afterpay JavaScript Snippet (v1.1.6) -->
