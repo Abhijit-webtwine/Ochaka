@@ -197,6 +197,7 @@
           {%- assign product = all_products[handle_clean] -%}
           {%- if product and product != blank -%}
             <td class="compare-col compare-value p-0">
+              {% if product.available %}
               <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
                 <button
                   type="button"
@@ -205,10 +206,22 @@
                     disabled
                   {% endunless %}
                 >
-                  {% if product.available %}Add to cart{% else %}Sold out{% endif %}
-                    <i class="icon icon-shopping-cart-simple icon-atc-horizontal"></i>
+                  Add to cart
+                  <i class="icon icon-shopping-cart-simple icon-atc-horizontal"></i>
                 </button>
               </add-to-cart>
+              {% else %}
+                <button
+                  type="button"
+                  class="tf-btn style-transparent w-100 rounded-0"
+                  {% unless product.available %}
+                    disabled
+                  {% endunless %}
+                >
+                  Sold Out
+                  <i class="icon icon-shopping-cart-simple icon-atc-horizontal"></i>
+                </button>
+              {% endif %}
             </td>
           {%- endif -%}
         {%- endif -%}
