@@ -1,0 +1,57 @@
+<li {{ block.shopify_attributes }}>
+  <h5 class="caption fw-semibold">
+    {{ block.settings.title }}
+  </h5>
+
+  <p class="h6 mb-12">
+    {{ block.settings.address }}
+  </p>
+
+  {%- if block.settings.map_url != blank -%}
+    <a
+      href="{{ block.settings.map_url }}"
+      target="_blank"
+      class="tf-btn-line"
+    >
+      <span class="h6 text-capitalize fw-semibold">
+        {{ block.settings.button_label }}
+      </span>
+      <i class="icon icon-arrow-top-right fs-20"></i>
+    </a>
+  {%- endif -%}
+</li>
+{% schema %}
+{
+  "name": "Store Address",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Address"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "2972 Westheimer Rd. Santa Ana, Illinois 85486"
+    },
+    {
+      "type": "url",
+      "id": "map_url",
+      "label": "Google Maps link"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Get Direction"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store Address"
+    }
+  ]
+}
+{% endschema %}

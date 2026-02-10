@@ -1,0 +1,28 @@
+<li {{ block.shopify_attributes }}>
+  <h5 class="caption fw-semibold">{{ block.settings.heading }}</h5>
+  <p class="h6">{{ block.settings.content }}</p>
+</li>
+{% schema %}
+{
+  "name": "Store Open",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "We're Open"
+    },
+    {
+      "type": "text",
+      "id": "content",
+      "label": "Content",
+      "default": "Our store is now open for shopping and exchanges every day from 8AM to 7PM."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store open"
+    }
+  ]
+}
+{% endschema %}

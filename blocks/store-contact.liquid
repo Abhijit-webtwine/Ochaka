@@ -1,0 +1,66 @@
+<li {{ block.shopify_attributes }}>
+  {% if block.settings.title != blank %}
+    <h5 class="caption fw-semibold">
+      {{ block.settings.title }}
+    </h5>
+  {% endif %}
+
+  <ul class="store-contact list-ver">
+    {%- if block.settings.phone != blank -%}
+      <li>
+        <i class="icon icon-phone"></i>
+        <span class="br-line type-vertical"></span>
+        <a
+          href="tel:{{ block.settings.phone }}"
+          class="h6 link"
+        >
+          {{ block.settings.phone }}
+        </a>
+      </li>
+    {%- endif -%}
+
+    {%- if block.settings.email != blank -%}
+      <li>
+        <i class="icon icon-envelope-simple"></i>
+        <span class="br-line type-vertical"></span>
+        <a
+          href="mailto:{{ block.settings.email }}"
+          class="h6 link"
+        >
+          {{ block.settings.email }}
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+</li>
+
+{% schema %}
+{
+  "name": "Store Contact",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact Us"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone number",
+      "default": "+8(800) 123 4567"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email address",
+      "default": "jthemesonline@gmail.com"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us",
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,25 @@
+<li class="store-social" {{ block.shopify_attributes }}>
+  <h5 class="caption fw-semibold">{{ block.settings.heading }}</h5>
+  <ul class="tf-social-icon">
+    {% render 'social-icons' %}
+  </ul>
+</li>
+
+{% schema %}
+{
+  "name": "Store Social",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Social Media"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store Social"
+    }
+  ]
+}
+{% endschema %}
