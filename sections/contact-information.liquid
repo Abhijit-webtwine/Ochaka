@@ -1,0 +1,228 @@
+<section class="s-contact-information flat-spacing">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <!-- IMAGE COLUMN -->
+      <div class="col-lg-7">
+        <div class="image mb-lg-0">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 820
+              | image_tag:
+                loading: 'lazy',
+                width: 820,
+                height: 755,
+                alt: section.settings.image_alt
+            }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'placeholder_svg' }}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- CONTENT COLUMN -->
+      <div class="col-lg-5">
+        <div class="infor-content">
+          {%- if section.settings.heading != blank -%}
+            <p class="title h1 fw-medium text-black">
+              {{ section.settings.heading }}
+            </p>
+          {%- endif -%}
+
+          <ul class="infor-store">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+
+                <!-- ADDRESS -->
+                {%- when 'address' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <h5 class="caption fw-semibold">
+                      {{ block.settings.title }}
+                    </h5>
+
+                    <p class="h6 mb-12">
+                      {{ block.settings.address }}
+                    </p>
+
+                    {%- if block.settings.map_url != blank -%}
+                      <a
+                        href="{{ block.settings.map_url }}"
+                        target="_blank"
+                        class="tf-btn-line"
+                      >
+                        <span class="h6 text-capitalize fw-semibold">
+                          {{ block.settings.button_label }}
+                        </span>
+                        <i class="icon icon-arrow-top-right fs-20"></i>
+                      </a>
+                    {%- endif -%}
+                  </li>
+
+                <!-- CONTACT -->
+                {%- when 'contact' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <h5 class="caption fw-semibold">
+                      {{ block.settings.title }}
+                    </h5>
+
+                    <ul class="store-contact list-ver">
+                      {%- if block.settings.phone != blank -%}
+                        <li>
+                          <i class="icon icon-phone"></i>
+                          <span class="br-line type-vertical"></span>
+                          <a
+                            href="tel:{{ block.settings.phone }}"
+                            class="h6 link"
+                          >
+                            {{ block.settings.phone }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+
+                      {%- if block.settings.email != blank -%}
+                        <li>
+                          <i class="icon icon-envelope-simple"></i>
+                          <span class="br-line type-vertical"></span>
+                          <a
+                            href="mailto:{{ block.settings.email }}"
+                            class="h6 link"
+                          >
+                            {{ block.settings.email }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                  </li>
+
+                <!-- SOCIAL -->
+                {%- when 'social' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <h5 class="caption fw-semibold">
+                      {{ block.settings.title }}
+                    </h5>
+
+                    <ul class="tf-social-icon">
+                      {% render 'social-icons' %}
+                    </ul>
+                  </li>
+
+              {%- endcase -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Information",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Left image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text",
+      "default": "Contact information image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Information"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "address",
+      "name": "Address",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Address"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Address",
+          "default": "2972 Westheimer Rd. Santa Ana, Illinois 85486"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Google Maps link",
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Get Direction"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact Details",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Contact Us"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone number",
+          "default": "+8(800) 123 4567"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email address",
+          "default": "jthemesonline@gmail.com"
+        }
+      ]
+    },
+    {
+      "type": "social",
+      "name": "Social Media",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Social Media"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Information",
+      "category": "Contact",
+      "blocks": [
+        {
+          "type": "address"
+        },
+        {
+          "type": "contact"
+        },
+        {
+          "type": "social"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
