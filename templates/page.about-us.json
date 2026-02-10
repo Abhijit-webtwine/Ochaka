@@ -59,7 +59,7 @@
           "type": "story_item",
           "settings": {
             "image": "shopify://shop_images/story-1.jpg",
-            "icon_svg": "shopify://shop_images/product-26_07ebe829-06a3-4153-9f71-10df6f8dd1ad.jpg",
+            "icon_svg": "shopify://shop_images/chemical.svg",
             "title": "No harmful chemicals",
             "text": "Morbi finibus erat ullamcorper malesuada"
           }
@@ -94,8 +94,7 @@
         "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "slogan": "WE PRIORITIZE SUSTAINABLE AND ENVIRONMENTALLY FRIENDLY DEVELOPMENT.",
         "intro_text": "<p>Morbi finibus erat ullamcorper malesuada placerat. Integer malesuada orci sed nulla scelerisque fermentum. Suspendisse lacinia elit at bibendum tincidunt.</p>",
-        "padding_top": 112,
-        "padding_bottom": 112
+        "spacing": true
       }
     },
     "instagram_slider_gJVUwy": {
