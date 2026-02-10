@@ -4,7 +4,7 @@
     <div class="wg-map d-flex">
       {{ section.settings.map_iframe }}
     </div>
-    {% else %}
+  {% else %}
     <iframe
       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7880.148272329334!2d151.20657421407668!3d-33.858885268389294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae682c546039%3A0x16da940d587922a1!2sCircular%20Quay!5e0!3m2!1sen!2s!4v1745205798630!5m2!1sen!2s"
       width="100%"
@@ -14,7 +14,6 @@
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
     ></iframe>
-    <!-- /Map -->
   {%- endif -%}
 
   <div class="container">
@@ -133,7 +132,7 @@
             </div>
 
             <button type="submit" class="tf-btn btn-fill animate-btn w-100">
-              {{ section.settings.submit_label }}
+              {{ section.settings.btn_label }}
             </button>
           {% endform %}
         </div>
@@ -153,45 +152,61 @@
       "info": "Paste the full Google Maps iframe embed code"
     },
     {
+      "type": "header",
+      "content": "Left Column"
+    },
+    {
       "type": "text",
       "id": "left_title",
-      "label": "Left column title",
+      "label": "Title",
       "default": "Visit Our Store"
+    },
+    {
+      "type": "header",
+      "content": "Right Column"
     },
     {
       "type": "text",
       "id": "right_title",
-      "label": "Right column title",
+      "label": "Title",
       "default": "Get In Touch"
     },
     {
       "type": "textarea",
       "id": "right_description",
-      "label": "Right column description",
+      "label": "Description",
       "default": "Our one-to-one support is a big part of our company. Contact us by phone or email to get help from our qualified team."
+    },
+    {
+      "type": "header",
+      "content": "Contact Form Placeholders"
     },
     {
       "type": "text",
       "id": "name_placeholder",
-      "label": "Name field placeholder",
+      "label": "Name",
       "default": "Name *"
     },
     {
       "type": "text",
       "id": "email_placeholder",
-      "label": "Email field placeholder",
+      "label": "Email",
       "default": "Email *"
     },
     {
       "type": "text",
       "id": "message_placeholder",
-      "label": "Message field placeholder",
+      "label": "Message",
       "default": "Message"
     },
     {
+      "type": "header",
+      "content": "Button"
+    },
+    {
       "type": "text",
-      "id": "submit_label",
-      "label": "Submit button label",
+      "id": "btn_label",
+      "label": "Button label",
       "default": "SEND"
     }
   ],
@@ -204,13 +219,13 @@
         {
           "type": "text",
           "id": "address",
-          "label": "Address Label",
+          "label": "Label",
           "default": "Address:"
         },
         {
           "type": "textarea",
           "id": "text",
-          "label": "Address Text",
+          "label": "Address",
           "default": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet"
         },
         {
@@ -228,7 +243,7 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Email Label",
+          "label": "Label",
           "default": "Email:"
         },
         {
@@ -247,7 +262,7 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Phone Label",
+          "label": "Label",
           "default": "Phone:"
         },
         {
@@ -266,7 +281,7 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Hours Label",
+          "label": "Label",
           "default": "Opening Hour:"
         },
         {
