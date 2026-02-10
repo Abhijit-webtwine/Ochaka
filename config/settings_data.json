@@ -86,8 +86,8 @@
         "type": "announcement-bar",
         "settings": {
           "topbar_text": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-          "collection_1": "",
-          "collection_2": "",
+          "collection_1": "men",
+          "collection_2": "men-copy",
           "link_1_label": "Help & FAQs",
           "link_1_url": "",
           "link_2_label": "Factory",
@@ -351,38 +351,6 @@
           "colors_background": "#ffffff",
           "gradient_background": "",
           "colors_shadow": "#a8e8e2"
-        }
-      },
-      "mobile-dock": {
-        "type": "mobile-dock",
-        "settings": {
-          "use_custom_colors": false,
-          "colors_text": "#1a1b18",
-          "colors_background": "#ffffff",
-          "gradient_background": "",
-          "padding_top": 12,
-          "padding_bottom": 12
-        }
-      },
-      "age-verifier": {
-        "type": "age-verifier",
-        "settings": {
-          "mode": "disabled",
-          "expiry": 30,
-          "width": 480,
-          "padding": 40,
-          "text_alignment": "center",
-          "image_position": "right",
-          "colors_button_label": "#ffffff",
-          "colors_button_background": "#1a1b18",
-          "colors_text": "#4f0f1f",
-          "colors_border": "#d2d5d9",
-          "colors_background": "#fff8f6",
-          "gradient_background": "",
-          "colors_shadow": "#cbb2b6",
-          "colors_overlay": "#212326",
-          "colors_overlay_opacity": 80,
-          "blur_image": true
         }
       },
       "main-password-header": {
