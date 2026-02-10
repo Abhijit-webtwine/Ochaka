@@ -17,9 +17,20 @@
         "padding_top": 60,
         "padding_bottom": 72
       }
+    },
+    "about_us_banner_fmhDDB": {
+      "type": "about-us-banner",
+      "name": "About Us Banner",
+      "settings": {
+        "banner_image": "shopify://shop_images/about-us.jpg",
+        "heading": "<p>WE PRIORITIZE SUSTAINABLE &<br/>ENVIRONMENTALLY FRIENDLY<br/>DEVELOPMENT</p>",
+        "button_label": "Our shop",
+        "button_url": "shopify://collections/all"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "about_us_banner_fmhDDB"
   ]
 }
