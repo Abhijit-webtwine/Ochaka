@@ -52,6 +52,52 @@
         "padding_bottom": 36
       }
     },
+    "brand_story_gDUDV4": {
+      "type": "brand-story",
+      "blocks": {
+        "story_item_MicGy4": {
+          "type": "story_item",
+          "settings": {
+            "image": "shopify://shop_images/story-1.jpg",
+            "icon_svg": "shopify://shop_images/product-26_07ebe829-06a3-4153-9f71-10df6f8dd1ad.jpg",
+            "title": "No harmful chemicals",
+            "text": "Morbi finibus erat ullamcorper malesuada"
+          }
+        },
+        "story_item_VDJKKr": {
+          "type": "story_item",
+          "settings": {
+            "image": "shopify://shop_images/story-2.jpg",
+            "icon_svg": "shopify://shop_images/tshirt.svg",
+            "title": "High-quality product",
+            "text": "Morbi finibus erat ullamcorper malesuada"
+          }
+        },
+        "story_item_Yn7DWN": {
+          "type": "story_item",
+          "settings": {
+            "image": "shopify://shop_images/story-3.jpg",
+            "icon_svg": "shopify://shop_images/plant.svg",
+            "title": "Environmentally friendly",
+            "text": "Morbi finibus erat ullamcorper malesuada"
+          }
+        }
+      },
+      "block_order": [
+        "story_item_MicGy4",
+        "story_item_VDJKKr",
+        "story_item_Yn7DWN"
+      ],
+      "name": "Brand Story",
+      "settings": {
+        "title": "Brand Story",
+        "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "slogan": "WE PRIORITIZE SUSTAINABLE AND ENVIRONMENTALLY FRIENDLY DEVELOPMENT.",
+        "intro_text": "<p>Morbi finibus erat ullamcorper malesuada placerat. Integer malesuada orci sed nulla scelerisque fermentum. Suspendisse lacinia elit at bibendum tincidunt.</p>",
+        "padding_top": 112,
+        "padding_bottom": 112
+      }
+    },
     "instagram_slider_gJVUwy": {
       "type": "instagram-slider",
       "blocks": {
@@ -110,6 +156,7 @@
     "about_us_banner_fmhDDB",
     "store_intro_JVwYtj",
     "about_img_grid_ciEFXp",
+    "brand_story_gDUDV4",
     "instagram_slider_gJVUwy"
   ]
 }
