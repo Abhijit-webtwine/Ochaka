@@ -31,10 +31,49 @@
         "message_placeholder": "Your message",
         "submit_button_text": "Send message"
       }
+    },
+    "contact_information_ciGdtF": {
+      "type": "contact-information",
+      "blocks": {
+        "address_MpGHJP": {
+          "type": "address",
+          "settings": {
+            "title": "Address",
+            "address": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+            "map_url": "",
+            "button_label": "Get Direction"
+          }
+        },
+        "contact_XqcthA": {
+          "type": "contact",
+          "settings": {
+            "title": "Contact Us",
+            "phone": "+8(800) 123 4567",
+            "email": "jthemesonline@gmail.com"
+          }
+        },
+        "social_m9yqAY": {
+          "type": "social",
+          "settings": {
+            "title": "Social Media"
+          }
+        }
+      },
+      "block_order": [
+        "address_MpGHJP",
+        "contact_XqcthA",
+        "social_m9yqAY"
+      ],
+      "name": "Contact Information",
+      "settings": {
+        "image": "shopify://shop_images/contact-information.jpg",
+        "heading": "Contact Information"
+      }
     }
   },
   "order": [
     "main",
+    "contact_information_ciGdtF",
     "contact_us_2_mE6eKY"
   ]
 }
