@@ -8,12 +8,12 @@
   Usage:
   {% render 'breadcrumbs' %}
 {% endcomment %}
-
-{%- unless template.name == 'index' or template.suffix == 'about-us' or template.suffix == 'aboutus' or template.name == '404' -%}
+{% assign excluded_suffixes = 'about-us,aboutus' | split: ',' %}
+{%- unless template.name == 'index' or template.name == '404' or excluded_suffixes contains template.suffix -%}
   <nav class="s-page-title">
     <div class="container">
       <div class="content">
-        <h1 class="title-page">{{ template.name | replace: '-', ' ' | capitalize }}</h1>
+        <h1 class="title-page">{% unless template.name == 'page' %}{{ template.name | replace: '-', ' ' | capitalize }}{% else %}{{ template.suffix | capitalize }}{% endunless %}</h1>
         <ul class="breadcrumbs-page">
           <li><a href="{{ routes.root_url }}" class="h6 link">Home</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>

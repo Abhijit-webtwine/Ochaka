@@ -1,7 +1,16 @@
 {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
-<header class="tf-header header-fix header-abs-1{% if section.settings.enable_sticky_header %} header--sticky-enabled{% endif %}">
+{% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list' | split: ',' %}
+
+<header class="tf-header header-fix
+  {% unless excluded_suffixes contains template.suffix or template.name == '404' %}
+    header-abs-1
+  {% endunless %}
+  {% if section.settings.enable_sticky_header %}
+    header--sticky-enabled
+  {% endif %}
+">
   {%- liquid
     if section.settings.menu != blank
       render 'header-drawer', main_menu: section.settings.menu
