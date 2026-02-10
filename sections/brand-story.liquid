@@ -1,17 +1,4 @@
-<style>
-  .section-{{ section.id }}-padding {
-    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
-    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-</style>
-<section class="section-{{ section.id }}-padding">
+<section class="{% if section.settings.spacing %}flat-spacing{% endif %}">
   <div class="container">
     <div class="sect-title text-center">
       <h1 class="s-title mb-8">{{ section.settings.title }}</h1>
@@ -114,24 +101,10 @@
       "content": "Section Padding"
     },
     {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Bottom",
-      "default": 36
+      "type": "checkbox",
+      "id": "spacing",
+      "label": "Enable Spacing",
+      "default": true
     }
   ],
   "blocks": [
