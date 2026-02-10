@@ -1,0 +1,144 @@
+<div class="s-map">
+  {%- if section.settings.map_iframe != blank -%}
+    {{ section.settings.map_iframe }}
+  {%- else -%}
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7880.148272329334!2d151.20657421407668!3d-33.858885268389294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae682c546039%3A0x16da940d587922a1!2sCircular%20Quay!5e0!3m2!1sen!2s!4v1745205798630!5m2!1sen!2s"
+      width="100%"
+      height="100%"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
+  {%- endif -%}
+</div>
+<!-- /Wg Map -->
+
+<!-- Contact Form -->
+<div class="s-contact-form flat-spacing">
+  <div class="container">
+    <div class="sect-title text-center">
+      {%- if section.settings.form_title != blank -%}
+        <p class="h1 title mb-8">{{ section.settings.form_title }}</p>
+      {%- endif -%}
+      
+      {%- if section.settings.form_subtitle != blank -%}
+        <p class="s-subtitle h6">{{ section.settings.form_subtitle }}</p>
+      {%- endif -%}
+    </div>
+    
+    {% form 'contact', class: 'form-contact-2' %}
+      {%- if form.posted_successfully? -%}
+        <div class="form-message text-success text-center mb-20">
+          {{ 'templates.contact.form.post_success' | t }}
+        </div>
+      {%- elsif form.errors -%}
+        <div class="form-message text-error text-center mb-20">
+          {{ form.errors | default_errors }}
+        </div>
+      {%- endif -%}
+
+      <div class="form-content">
+        <div class="tf-grid-layout md-col-3">
+          <fieldset>
+            <input 
+              type="text" 
+              name="contact[name]" 
+              placeholder="{{ section.settings.name_placeholder }}" 
+              required
+            >
+          </fieldset>
+          <fieldset>
+            <input 
+              type="tel" 
+              name="contact[phone]" 
+              placeholder="{{ section.settings.phone_placeholder }}" 
+              required
+            >
+          </fieldset>
+          <fieldset>
+            <input 
+              type="email" 
+              name="contact[email]" 
+              placeholder="{{ section.settings.email_placeholder }}" 
+              required
+            >
+          </fieldset>
+        </div>
+        <textarea 
+          name="contact[body]" 
+          placeholder="{{ section.settings.message_placeholder }}" 
+          required
+        ></textarea>
+      </div>
+      <div class="form-action">
+        <button type="submit" class="h6 tf-btn animate-btn">
+          {{ section.settings.submit_button_text }}
+        </button>
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact Us 2",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "map_iframe",
+      "label": "Google Maps Iframe",
+      "info": "Paste the full Google Maps iframe embed code"
+    },
+    {
+      "type": "text",
+      "id": "form_title",
+      "label": "Form Title",
+      "default": "Contact Form"
+    },
+    {
+      "type": "textarea",
+      "id": "form_subtitle",
+      "label": "Form Subtitle",
+      "default": "Contact us using the form below, we will contact you as soon as possible"
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name Placeholder",
+      "default": "Your name"
+    },
+    {
+      "type": "text",
+      "id": "phone_placeholder",
+      "label": "Phone Placeholder",
+      "default": "Your phone number"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email Placeholder",
+      "default": "Your email"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message Placeholder",
+      "default": "Your message"
+    },
+    {
+      "type": "text",
+      "id": "submit_button_text",
+      "label": "Submit Button Text",
+      "default": "Send message"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Us 2"
+    }
+  ]
+}
+{% endschema %}
