@@ -1,0 +1,70 @@
+<section class="page-title-image">
+  <div class="page_image overflow-hidden">
+    {%- if section.settings.banner_image != blank -%}
+      {{
+        section.settings.banner_image
+        | image_url: width: 1920
+        | image_tag:
+          class: 'lazyload ani-zoom',
+          loading: 'lazy',
+          widths: '375, 550, 750, 1100, 1500, 1780, 1920',
+          alt: section.settings.banner_image.alt
+      }}
+    {%- else -%}
+      {{ 'image' | placeholder_svg_tag: 'placeholder_svg' }}
+    {%- endif -%}
+  </div>
+  <div class="page_content">
+    <div class="container">
+      <div class="content">
+        {%- if section.settings.heading != blank -%}
+          <h1 class="heading fw-bold">
+            {{ section.settings.heading }}
+          </h1>
+        {%- endif -%}
+        
+        <a href="{{ section.settings.button_url }}" class="tf-btn animate-btn">
+          {{ section.settings.button_label }}
+          <i class="icon icon-caret-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Us Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Heading",
+      "info": "You can use <br> tags for line breaks"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Our shop"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
