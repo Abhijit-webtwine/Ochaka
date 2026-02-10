@@ -18,9 +18,9 @@
   <div
     dir="ltr"
     class="swiper tf-swiper wow fadeInUp"
-    data-preview="{{ section.settings.slides-per-view }}"
-    data-tablet="4"
-    data-mobile-sm="3"
+    data-preview="{{ section.settings.slides_desktop }}"
+    data-tablet="{{ section.settings.slides_tablet }}"
+    data-mobile-sm="{{ section.settings.slides_mobile }}"
     data-mobile="2"
     data-space="0"
     data-pagination="2"
@@ -74,13 +74,49 @@
       "label": "Enable Section Spacing"
     },
     {
+      "type": "header",
+      "content": "Slides Per View"
+    },
+    {
       "type": "range",
-      "id": "slides-per-view",
-      "label": "Slides per view",
-      "default": 6,
+      "id": "slides_desktop",
+      "label": "Desktop",
       "min": 4,
       "max": 6,
-      "step": 1
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "slides_tablet",
+      "label": "Tablet",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "slides_mobile",
+      "label": "Mobile",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "3"
     },
     {
       "type": "text",
