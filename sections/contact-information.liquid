@@ -30,86 +30,15 @@
           {%- endif -%}
 
           <ul class="infor-store">
-            {%- for block in section.blocks -%}
-              {%- case block.type -%}
+            <!-- store-ADDRESS -->
+            {% content_for 'block', type: 'store-address', id: 'store-address' %}
 
-                <!-- ADDRESS -->
-                {%- when 'address' -%}
-                  <li {{ block.shopify_attributes }}>
-                    <h5 class="caption fw-semibold">
-                      {{ block.settings.title }}
-                    </h5>
+            <!-- CONTACT -->
+            {% content_for 'block', type: 'store-contact', id: 'store-contact' %}
 
-                    <p class="h6 mb-12">
-                      {{ block.settings.address }}
-                    </p>
+            <!-- SOCIAL -->
+            {% content_for 'block', type: 'store-social', id: 'store-social' %}
 
-                    {%- if block.settings.map_url != blank -%}
-                      <a
-                        href="{{ block.settings.map_url }}"
-                        target="_blank"
-                        class="tf-btn-line"
-                      >
-                        <span class="h6 text-capitalize fw-semibold">
-                          {{ block.settings.button_label }}
-                        </span>
-                        <i class="icon icon-arrow-top-right fs-20"></i>
-                      </a>
-                    {%- endif -%}
-                  </li>
-
-                <!-- CONTACT -->
-                {%- when 'contact' -%}
-                  <li {{ block.shopify_attributes }}>
-                    {% if block.settings.title != blank %}
-                      <h5 class="caption fw-semibold">
-                        {{ block.settings.title }}
-                      </h5>
-                    {% endif %}
-
-                    <ul class="store-contact list-ver">
-                      {%- if block.settings.phone != blank -%}
-                        <li>
-                          <i class="icon icon-phone"></i>
-                          <span class="br-line type-vertical"></span>
-                          <a
-                            href="tel:{{ block.settings.phone }}"
-                            class="h6 link"
-                          >
-                            {{ block.settings.phone }}
-                          </a>
-                        </li>
-                      {%- endif -%}
-
-                      {%- if block.settings.email != blank -%}
-                        <li>
-                          <i class="icon icon-envelope-simple"></i>
-                          <span class="br-line type-vertical"></span>
-                          <a
-                            href="mailto:{{ block.settings.email }}"
-                            class="h6 link"
-                          >
-                            {{ block.settings.email }}
-                          </a>
-                        </li>
-                      {%- endif -%}
-                    </ul>
-                  </li>
-
-                <!-- SOCIAL -->
-                {%- when 'social' -%}
-                  <li {{ block.shopify_attributes }}>
-                    <h5 class="caption fw-semibold">
-                      {{ block.settings.title }}
-                    </h5>
-
-                    <ul class="tf-social-icon">
-                      {% render 'social-icons' %}
-                    </ul>
-                  </li>
-
-              {%- endcase -%}
-            {%- endfor -%}
           </ul>
         </div>
       </div>
@@ -135,72 +64,13 @@
   ],
   "blocks": [
     {
-      "type": "address",
-      "name": "Address",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Address"
-        },
-        {
-          "type": "textarea",
-          "id": "address",
-          "label": "Address",
-          "default": "2972 Westheimer Rd. Santa Ana, Illinois 85486"
-        },
-        {
-          "type": "url",
-          "id": "map_url",
-          "label": "Google Maps link",
-        },
-        {
-          "type": "text",
-          "id": "button_label",
-          "label": "Button label",
-          "default": "Get Direction"
-        }
-      ]
+      "type": "store-address",
     },
     {
-      "type": "contact",
-      "name": "Contact Details",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Contact Us"
-        },
-        {
-          "type": "text",
-          "id": "phone",
-          "label": "Phone number",
-          "default": "+8(800) 123 4567"
-        },
-        {
-          "type": "text",
-          "id": "email",
-          "label": "Email address",
-          "default": "jthemesonline@gmail.com"
-        }
-      ]
+      "type": "store-contact",
     },
     {
-      "type": "social",
-      "name": "Social Media",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Social Media"
-        }
-      ]
+      "type": "store-social",
     }
   ],
   "presets": [
@@ -209,13 +79,13 @@
       "category": "Contact",
       "blocks": [
         {
-          "type": "address"
+          "type": "store-address"
         },
         {
-          "type": "contact"
+          "type": "store-contact"
         },
         {
-          "type": "social"
+          "type": "store-social"
         }
       ]
     }
