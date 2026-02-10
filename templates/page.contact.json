@@ -1,97 +1,67 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "main-page",
-      "disabled": true,
-      "settings": {
-        "narrow": false,
-        "padding_top": 60,
-        "padding_bottom": 72
-      }
-    },
-    "29a4cf37-9556-447f-9f7f-f9bae38e9b44": {
-      "type": "rich-text",
+      "type": "contact-us",
       "blocks": {
-        "template--16709693833429__29a4cf37-9556-447f-9f7f-f9bae38e9b44-168021099159e109d5-0": {
-          "type": "heading",
+        "address_Wh7AFC": {
+          "type": "address",
           "settings": {
-            "heading": "Contact us",
-            "heading_size": "h1",
-            "heading_tag": "h1"
+            "address": "Address:",
+            "text": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+            "map_url": ""
           }
         },
-        "template--16709693833429__29a4cf37-9556-447f-9f7f-f9bae38e9b44-168021099159e109d5-1": {
-          "type": "text",
+        "email_7WDReh": {
+          "type": "email",
           "settings": {
-            "text": "<p>Need some help? Reach out for more information, details,<br\/>and knowledge to enhance your experience!<\/p>",
-            "text_size": "typeset2",
-            "secondary_color": false
+            "label": "Email:",
+            "email": "jthemesonline@gmail.com"
+          }
+        },
+        "phone_gatYVw": {
+          "type": "phone",
+          "settings": {
+            "label": "Phone:",
+            "phone": "+8(800) 123 4567"
+          }
+        },
+        "hours_VNL3Cx": {
+          "type": "hours",
+          "settings": {
+            "label": "Opening Hour:",
+            "hours": "Mon - Fri: 8am to 4.30pm GST\nSat: 9am to 3pm GST\nSun: Close"
           }
         }
       },
       "block_order": [
-        "template--16709693833429__29a4cf37-9556-447f-9f7f-f9bae38e9b44-168021099159e109d5-0",
-        "template--16709693833429__29a4cf37-9556-447f-9f7f-f9bae38e9b44-168021099159e109d5-1"
+        "address_Wh7AFC",
+        "email_7WDReh",
+        "phone_gatYVw",
+        "hours_VNL3Cx"
       ],
-      "disabled": true,
-      "custom_css": [
-        "h1 {text-align: center;}",
-        ".rich-text__text {text-align: center; margin: 15px auto 0;}"
-      ],
+      "name": "Contact Us",
       "settings": {
-        "text_alignment": "left",
-        "mobile_text_alignment": "left",
-        "horizontal_content": false,
-        "narrow": false,
-        "show_divider": false,
-        "use_custom_colors": false,
-        "colors_button_label": "#ffffff",
-        "colors_button_background": "#1a1b18",
-        "colors_text": "#212326",
-        "colors_background": "#ffffff",
-        "gradient_background": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "form": {
-      "type": "contact-form",
-      "blocks": {
-        "contact-1": {
-          "type": "contact",
-          "settings": {
-            "heading": "Customer service",
-            "text": "customerservice@beautystat.com",
-            "link": "mailto:shop@yourstore.com"
-          }
-        },
-        "media": {
-          "type": "media",
-          "settings": {
-            "heading": "Follow us"
-          }
-        }
-      },
-      "block_order": [
-        "contact-1",
-        "media"
-      ],
-      "settings": {
-        "contact_heading": "<p>Contact us<\/p>",
-        "contact_description": "<p>Need some help? Reach out for more information, details,<br\/>and knowledge to enhance your experience!<\/p>",
-        "show_phone": true,
-        "show_divider": false,
-        "heading": "Get in touch",
-        "heading_size": "h2",
-        "heading_tag": "h2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "map_iframe": "<iframe\n                    src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7880.148272329334!2d151.20657421407668!3d-33.858885268389294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae682c546039%3A0x16da940d587922a1!2sCircular%20Quay!5e0!3m2!1sen!2s!4v1745205798630!5m2!1sen!2s\"\n                    width=\"100%\" height=\"461\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"\n                    referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+        "left_title": "Visit Our Store",
+        "right_title": "Get In Touch",
+        "right_description": "Our one-to-one support is a big part of our company. Contact us by phone or email to get help from our qualified team.",
+        "name_placeholder": "Name *",
+        "email_placeholder": "Email *",
+        "message_placeholder": "Message",
+        "submit_label": "SEND"
       }
     }
   },
   "order": [
-    "main",
-    "29a4cf37-9556-447f-9f7f-f9bae38e9b44",
-    "form"
+    "main"
   ]
 }

@@ -1,0 +1,272 @@
+<section class="s-contact-us flat-spacing">
+  {%- if section.settings.map_iframe != blank -%}
+    <!-- Map -->
+    <div class="wg-map d-flex">
+      {{ section.settings.map_iframe }}
+    </div>
+    <!-- /Map -->
+  {%- endif -%}
+
+  <div class="container">
+    <div class="row">
+      <!-- LEFT COLUMN -->
+      <div class="col-xxl-5 offset-xxl-1 col-lg-6">
+        <div class="left-col mb-lg-0">
+          {%- if section.settings.left_title != blank -%}
+            <h3 class="title fw-normal">{{ section.settings.left_title }}</h3>
+          {%- endif -%}
+
+          <ul class="store-info-list">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+
+                {%- when 'address' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <p class="h6 text-black fw-medium">{{ block.settings.address }}</p>
+                    <a
+                      href="{{ block.settings.map_url }}"
+                      target="_blank"
+                      class="link text-main"
+                    >
+                      {{ block.settings.text }}
+                    </a>
+                  </li>
+
+                {%- when 'email' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <p class="h6 text-black fw-medium">{{ block.settings.label }}</p>
+                    <a href="mailto:{{ block.settings.email }}" class="link text-main">
+                      {{ block.settings.email }}
+                    </a>
+                  </li>
+
+                {%- when 'phone' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <p class="h6 text-black fw-medium">{{ block.settings.label }}</p>
+                    <a href="tel:{{ block.settings.phone }}" class="link text-main">
+                      {{ block.settings.phone }}
+                    </a>
+                  </li>
+
+                {%- when 'hours' -%}
+                  <li {{ block.shopify_attributes }}>
+                    <p class="h6 text-black fw-medium">{{ block.settings.label }}</p>
+                    <p class="text-main">
+                      {{ block.settings.hours | newline_to_br }}
+                    </p>
+                  </li>
+
+              {%- endcase -%}
+            {%- endfor -%}
+          </ul>
+
+          <!-- Social Icons (Global Settings Assumed) -->
+           <ul class="tf-social-icon">
+             {%- render 'social-icons' -%}
+           </ul>
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="col-xl-5 col-lg-6">
+        <div class="right-col">
+          {%- if section.settings.right_title != blank -%}
+            <h3 class="title fw-normal">{{ section.settings.right_title }}</h3>
+          {%- endif -%}
+
+          {%- if section.settings.right_description != blank -%}
+            <p class="sub-title text-main-4">
+              {{ section.settings.right_description }}
+            </p>
+          {%- endif -%}
+
+          {% form 'contact', class: 'form-contact style-border' %}
+            {%- if form.posted_successfully? -%}
+              <div class="form_message text-success mb-16">
+                {{ 'templates.contact.form.post_success' | t }}
+              </div>
+            {%- elsif form.errors -%}
+              <div class="form_message text-center text-danger">
+                {{ form.errors | default_errors }}
+              </div>
+            {%- else -%}
+              <div class="form_message text-center"></div>
+            {%- endif -%}
+
+            <div class="form-content">
+              <div class="cols tf-grid-layout sm-col-2">
+                <fieldset>
+                  <input
+                    type="text"
+                    name="contact[name]"
+                    placeholder="{{ section.settings.name_placeholder }}"
+                    required
+                  >
+                </fieldset>
+
+                <fieldset>
+                  <input
+                    type="email"
+                    name="contact[email]"
+                    placeholder="{{ section.settings.email_placeholder }}"
+                    required
+                  >
+                </fieldset>
+              </div>
+
+              <textarea
+                name="contact[body]"
+                placeholder="{{ section.settings.message_placeholder }}"
+                style="height: 229px;"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="tf-btn btn-fill animate-btn w-100">
+              {{ section.settings.submit_label }}
+            </button>
+          {% endform %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Us",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "map_iframe",
+      "label": "Google Map Iframe",
+      "info": "Paste the full Google Maps iframe embed code"
+    },
+    {
+      "type": "text",
+      "id": "left_title",
+      "label": "Left column title",
+      "default": "Visit Our Store"
+    },
+    {
+      "type": "text",
+      "id": "right_title",
+      "label": "Right column title",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "right_description",
+      "label": "Right column description",
+      "default": "Our one-to-one support is a big part of our company. Contact us by phone or email to get help from our qualified team."
+    },
+    {
+      "type": "text",
+      "id": "name_placeholder",
+      "label": "Name field placeholder",
+      "default": "Name *"
+    },
+    {
+      "type": "text",
+      "id": "email_placeholder",
+      "label": "Email field placeholder",
+      "default": "Email *"
+    },
+    {
+      "type": "text",
+      "id": "message_placeholder",
+      "label": "Message field placeholder",
+      "default": "Message"
+    },
+    {
+      "type": "text",
+      "id": "submit_label",
+      "label": "Submit button label",
+      "default": "SEND"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "address",
+      "name": "Address",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address Label",
+          "default": "Address:"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Address Text",
+          "default": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Google Maps URL"
+        }
+      ]
+    },
+    {
+      "type": "email",
+      "name": "Email",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Email Label",
+          "default": "Email:"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Address",
+          "default": "jthemesonline@gmail.com"
+        }
+      ]
+    },
+    {
+      "type": "phone",
+      "name": "Phone",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Phone Label",
+          "default": "Phone:"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number",
+          "default": "+8(800) 123 4567"
+        }
+      ]
+    },
+    {
+      "type": "hours",
+      "name": "Opening Hours",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Hours Label",
+          "default": "Opening Hour:"
+        },
+        {
+          "type": "textarea",
+          "id": "hours",
+          "label": "Opening Hours",
+          "default": "Mon - Fri: 8am to 4.30pm GST\nSat: 9am to 3pm GST\nSun: Close"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
