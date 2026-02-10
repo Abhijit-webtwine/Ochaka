@@ -12,7 +12,7 @@
                 loading: 'lazy',
                 width: 820,
                 height: 755,
-                alt: section.settings.image_alt
+                alt: section.settings.image.alt
             }}
           {%- else -%}
             {{ 'image' | placeholder_svg_tag: 'placeholder_svg' }}
@@ -61,9 +61,11 @@
                 <!-- CONTACT -->
                 {%- when 'contact' -%}
                   <li {{ block.shopify_attributes }}>
-                    <h5 class="caption fw-semibold">
-                      {{ block.settings.title }}
-                    </h5>
+                    {% if block.settings.title != blank %}
+                      <h5 class="caption fw-semibold">
+                        {{ block.settings.title }}
+                      </h5>
+                    {% endif %}
 
                     <ul class="store-contact list-ver">
                       {%- if block.settings.phone != blank -%}
@@ -123,12 +125,6 @@
       "type": "image_picker",
       "id": "image",
       "label": "Left image"
-    },
-    {
-      "type": "text",
-      "id": "image_alt",
-      "label": "Image alt text",
-      "default": "Contact information image"
     },
     {
       "type": "text",
