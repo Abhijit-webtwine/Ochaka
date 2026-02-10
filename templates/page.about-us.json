@@ -27,10 +27,20 @@
         "button_label": "Our shop",
         "button_url": "shopify://collections/all"
       }
+    },
+    "store_intro_JVwYtj": {
+      "type": "store-intro",
+      "name": "Store Intro",
+      "settings": {
+        "brand_name": "Ochaka. Store",
+        "slogan": "FASHION STYLE IN EVERY BREATH",
+        "intro_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris magna augue, interdum et placerat in, pharetra nec massa. Nulla facilisis nisi tellus, ut porttitor lacus rutrum et. Nam fermentum est sit amet nisl ornare pellentesque. Cras cursus aliquet ex iaculis dignissim. Vestibulum suscipit vel lacus in rhoncus.</p>"
+      }
     }
   },
   "order": [
     "main",
-    "about_us_banner_fmhDDB"
+    "about_us_banner_fmhDDB",
+    "store_intro_JVwYtj"
   ]
 }
