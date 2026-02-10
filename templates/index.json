@@ -232,6 +232,8 @@
       ],
       "name": "Instagram Slider",
       "settings": {
+        "spacing": true,
+        "slides-per-view": 6,
         "heading": "Follow Us On Instagram",
         "subheading": "<p>@ochaka:Follow us and get20% off coupon</p>"
       }
