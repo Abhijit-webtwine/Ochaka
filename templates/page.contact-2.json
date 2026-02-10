@@ -115,7 +115,7 @@
       "name": "Instagram Slider",
       "settings": {
         "spacing": true,
-        "slides_desktop": 6,
+        "slides_desktop": 4,
         "slides_tablet": "3",
         "slides_mobile": "2",
         "heading": "Shop Instagram",
