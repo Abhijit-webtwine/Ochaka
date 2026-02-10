@@ -36,11 +36,64 @@
         "slogan": "FASHION STYLE IN EVERY BREATH",
         "intro_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris magna augue, interdum et placerat in, pharetra nec massa. Nulla facilisis nisi tellus, ut porttitor lacus rutrum et. Nam fermentum est sit amet nisl ornare pellentesque. Cras cursus aliquet ex iaculis dignissim. Vestibulum suscipit vel lacus in rhoncus.</p>"
       }
+    },
+    "instagram_slider_gJVUwy": {
+      "type": "instagram-slider",
+      "blocks": {
+        "image_TMYRLJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-11.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_zqEPQR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-12.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_XKztMY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-13.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_kNB8jG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-14.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "image_TMYRLJ",
+        "image_zqEPQR",
+        "image_XKztMY",
+        "image_kNB8jG"
+      ],
+      "name": "Instagram Slider",
+      "settings": {
+        "spacing": true,
+        "slides_desktop": 4,
+        "slides_tablet": "3",
+        "slides_mobile": "2",
+        "heading": "Shop Instagram",
+        "subheading": "<p>Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>"
+      }
     }
   },
   "order": [
     "main",
     "about_us_banner_fmhDDB",
-    "store_intro_JVwYtj"
+    "store_intro_JVwYtj",
+    "instagram_slider_gJVUwy"
   ]
 }
