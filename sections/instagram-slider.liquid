@@ -18,7 +18,7 @@
   <div
     dir="ltr"
     class="swiper tf-swiper wow fadeInUp"
-    data-preview="6"
+    data-preview="{{ section.settings.slides-per-view }}"
     data-tablet="4"
     data-mobile-sm="3"
     data-mobile="2"
@@ -72,6 +72,15 @@
       "type": "checkbox",
       "id": "spacing",
       "label": "Enable Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "slides-per-view",
+      "label": "Slides per view",
+      "default": 6,
+      "min": 4,
+      "max": 6,
+      "step": 1
     },
     {
       "type": "text",
