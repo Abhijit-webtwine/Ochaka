@@ -37,6 +37,21 @@
         "intro_text": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris magna augue, interdum et placerat in, pharetra nec massa. Nulla facilisis nisi tellus, ut porttitor lacus rutrum et. Nam fermentum est sit amet nisl ornare pellentesque. Cras cursus aliquet ex iaculis dignissim. Vestibulum suscipit vel lacus in rhoncus.</p>"
       }
     },
+    "about_img_grid_ciEFXp": {
+      "type": "about-img-grid",
+      "name": "About Image Grid",
+      "settings": {
+        "rotating_text": "Ochaka Store Fashion Style",
+        "heading": "FIRST STORE IN A RURAL AREA OF DENMARK",
+        "description": "<p>Morbi finibus erat ullamcorper malesuada placerat. Integer malesuada orci sed nulla scelerisque fermentum. Suspendisse lacinia elit at bibendum tincidunt.</p>",
+        "image_1": "shopify://shop_images/gallery-modal-1.jpg",
+        "image_2": "shopify://shop_images/gallery-modal-2.jpg",
+        "image_3": "shopify://shop_images/gallery-modal-3.jpg",
+        "image_4": "shopify://shop_images/gallery-modal-4.jpg",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "instagram_slider_gJVUwy": {
       "type": "instagram-slider",
       "blocks": {
@@ -94,6 +109,7 @@
     "main",
     "about_us_banner_fmhDDB",
     "store_intro_JVwYtj",
+    "about_img_grid_ciEFXp",
     "instagram_slider_gJVUwy"
   ]
 }
