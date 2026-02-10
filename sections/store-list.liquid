@@ -1,0 +1,69 @@
+<section
+  class="flat-spacing s-our-store"
+>
+  {% if section.settings.show_header %}
+    <div class="container">
+      <div class="heading flat-spacing pt-0">
+        {% render 'rotating-text', text: section.settings.rotating_text %}
+        <div class="text-center">
+          <h1 class="s-title mb-8">{{ section.settings.title }}</h1>
+          <p class="s-subtitle h6-text">
+            {{ section.settings.subtitle }}
+          </p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="container">
+    <div class="store-list">
+      {% content_for 'blocks' %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Store List",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show Header",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "rotating_text",
+      "label": "Rotating Text",
+      "default": "Ochaka Store Fashion Style"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Ochaka. Store"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta purus scelerisque felis condimentum."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "store-item"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store List",
+    }
+  ]
+}
+{% endschema %}
