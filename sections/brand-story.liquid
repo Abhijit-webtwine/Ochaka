@@ -1,0 +1,193 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+</style>
+<section class="section-{{ section.id }}-padding">
+  <div class="container">
+    <div class="sect-title text-center">
+      <h1 class="s-title mb-8">{{ section.settings.title }}</h1>
+      <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+    </div>
+    <div class="box-intro has-mb text-center">
+      <h4 class="slogan fw-normal">{{ section.settings.slogan }}</h4>
+      <div class="intro-text">
+        {{ section.settings.intro_text }}
+      </div>
+    </div>
+    <div
+      dir="ltr"
+      class="swiper tf-swiper"
+      data-preview="3"
+      data-tablet="2"
+      data-mobile-sm="2"
+      data-mobile="1"
+      data-space-lg="48"
+      data-space-md="15"
+      data-space="10"
+      data-pagination="1"
+      data-pagination-sm="1"
+      data-pagination-md="2"
+      data-pagination-lg="3"
+    >
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="wg-icon-image hover-img">
+              <div class="image img-style">
+                {% if block.settings.image != blank %}
+                  <img
+                    class="lazyload"
+                    src="{{ block.settings.image | image_url: width: 10 }}"
+                    data-src="{{ block.settings.image | image_url: width: 800 }}"
+                    alt="{{ block.settings.image.alt | escape }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                  >
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+              <div class="box-icon">
+                <span class="icon">
+                  {% if block.settings.icon_svg != blank %}
+                    <img
+                      src="{{ block.settings.icon_svg | image_url }}"
+                      alt="{{ block.settings.icon_svg.alt }}"
+                      width="56"
+                      height="56"
+                    >
+                  {% endif %}
+                </span>
+                <div class="content">
+                  <h3 class="caption fw-normal">{{ block.settings.title }}</h3>
+                  <p class="sub-text">{{ block.settings.text }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Brand Story"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "text",
+      "id": "slogan",
+      "label": "Slogan",
+      "default": "WE PRIORITIZE SUSTAINABLE AND ENVIRONMENTALLY FRIENDLY DEVELOPMENT."
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Intro Text",
+      "default": "<p>Morbi finibus erat ullamcorper malesuada placerat. Integer malesuada orci sed nulla scelerisque fermentum. Suspendisse lacinia elit at bibendum tincidunt.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story_item",
+      "name": "Story Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_svg",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "No harmful chemicals"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Morbi finibus erat ullamcorper malesuada"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story",
+      "blocks": [
+        {
+          "type": "story_item",
+          "settings": {
+            "title": "No harmful chemicals"
+          }
+        },
+        {
+          "type": "story_item",
+          "settings": {
+            "title": "High-quality product"
+          }
+        },
+        {
+          "type": "story_item",
+          "settings": {
+            "title": "Environmentally friendly"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
