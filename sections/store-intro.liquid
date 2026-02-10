@@ -1,0 +1,51 @@
+<section class="s-intro flat-spacing">
+  <div class="container">
+    {%- if section.settings.brand_name != blank -%}
+      <p class="brand-name">{{ section.settings.brand_name }}</p>
+    {%- endif -%}
+    
+    <div class="box-intro">
+      {%- if section.settings.slogan != blank -%}
+        <h4 class="slogan fw-normal">{{ section.settings.slogan }}</h4>
+      {%- endif -%}
+      
+      {%- if section.settings.intro_text != blank -%}
+        <div class="intro-text">
+          {{ section.settings.intro_text }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Store Intro",
+  "settings": [
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "Ochaka. Store"
+    },
+    {
+      "type": "text",
+      "id": "slogan",
+      "label": "Slogan",
+      "default": "FASHION STYLE IN EVERY BREATH"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction Text",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris magna augue, interdum et placerat in, pharetra nec massa. Nulla facilisis nisi tellus, ut porttitor lacus rutrum et. Nam fermentum est sit amet nisl ornare pellentesque. Cras cursus aliquet ex iaculis dignissim. Vestibulum suscipit vel lacus in rhoncus.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Store Intro",
+      "category": "Text"
+    }
+  ]
+}
+{% endschema %}
