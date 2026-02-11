@@ -1,1 +1,148 @@
-{"sections":{"main":{"type":"main-page","disabled":true,"settings":{"narrow":true,"padding_top":36,"padding_bottom":36}},"image-banner":{"type":"image-banner","blocks":{"image-banner-0":{"type":"heading","settings":{"heading":"Frequenty  ASKED QUESTIONS","heading_size":"h2","heading_tag":"h2"}},"image-banner-1":{"type":"text","settings":{"text":"","text_size":"typeset2","secondary_color":false}}},"block_order":["image-banner-0","image-banner-1"],"settings":{"image":"shopify:\/\/shop_images\/2.png","image_position":"center center","text_box_position":"middle-center","text_alignment":"center","image_ratio":"400px","show_text_box":false,"full_width":true,"show_divider":false,"mobile_text_alignment":"center","mobile_image_ratio":"200px","stack_images_on_mobile":false,"show_text_below":false,"colors_button_label":"#1a1b18","colors_button_background":"#ffffff","colors_text":"#ffffff","colors_overlay":"#000000","colors_overlay_opacity":20,"padding_top":0,"padding_bottom":4}},"faq":{"type":"faq","blocks":{"question-0":{"type":"question","settings":{"title":"What do I do if my shipment or product arrives damaged?","text":"<p>We do our best to pack and ship your item with the utmost care. There may be times when an item is damaged in transit.<\/p><p>If you have received a damaged product, please take the following steps:<\/p><ol><li>Take a picture or a video of the items you received<\/li><li>Take a picture of the barcode found on the bottom of the packaging<\/li><li>Send these photos\/videos to our support team at customerservice@beautystat.com<\/li><\/ol>"}},"question-1":{"type":"question","settings":{"title":"What should I do if I received the wrong item?","text":"<p> If you received a product different from the one you ordered, we’re sorry about that! Please contact our support team through customerservice@beautystat.com.<\/p>"}},"question-2":{"type":"question","settings":{"title":"How do I know if my order has gone through?","text":"<p>Please check if you received an order confirmation from us via email.<\/p><p>Order confirmation emails should be received within 24h after your purchase. Kindly give it some time to be sent. Make sure to also check your SPAM folder. <\/p><p>In case you didn’t receive your confirmation email from us after 24h, please contact our customer service via customerservice@beautystat.com.<\/p>"}},"question-3":{"type":"question","settings":{"title":"How do I receive help with an order or make changes to an existing order?","text":"<p>For changes to your order, please contact us as soon as possible through customerservice@beautystat.com. Changes can only be made if your order has not yet been picked and packed at our logistics center. As part of our satisfaction guarantee, we aim to fulfill and ship your order as soon as possible! Once your order has been shipped, we won’t be able to make any modifications.  <\/p>"}},"question-4":{"type":"question","settings":{"title":"What should I do if my coupon or discount code doesn't work?","text":"<p>Make sure to copy and paste your coupon and don't leave any extra characters or spaces. Check to make sure your coupon hasn’t expired. If you still cannot make your discount code work, please contact our Customer Service team at customerservice@beautystat.com.<\/p>"}},"question-5":{"type":"question","settings":{"title":"What if I am having problems with tracking my package?","text":"<p>Sorry about that! In some cases it may take 1-2 business days to register your shipment status. If your tracking number isn’t working, make sure that all numbers and letters are correct.<\/p>"}},"d23c5070-b662-4afe-b0a8-062409122ad4":{"type":"question","settings":{"title":"My order is stuck at customs. What should I do?","text":"<p>We recommend contacting the customs office to see what may be required from you. Once you have reached out to the customs office and your issue hasn’t be solved, you may reach out to our Customer Service Team through customerservice@beautystat.com<\/p>"}},"af18e72d-ab5b-4a75-a779-f951d9a82b74":{"type":"question","settings":{"title":"What is your return policy?","text":"<p>Our Return Policy lasts 30 days and is effective when you receive your purchase. If more than 30 days have gone by since delivery of your purchase, unfortunately we can’t offer you a refund, exchange or price equivalent in store credit. <\/p><p>Assuming you return your purchase within 30 days from receipt:<\/p><ul><li>Product must be in brand new condition, unused and its original packaging. <\/li><li>Product packaging must be intact and returned to us in an appropriate shipping container.<\/li><li>Product must be returned to the return facility address provided by our customer service. <\/li><\/ul><p>Non-returnable items: For reasons of health protection, sanitary and hygiene - if the product has been opened or tried out (unless they are faulty), only new, unused items - in their original packaging - qualify for a return.<\/p><p>For more information please visit our Terms & Conditions in the footer of the checkout page.<\/p>"}},"9c591bf1-708c-4c4e-a7d3-9860d45d3388":{"type":"question","settings":{"title":"How do I place a return or exchange?","text":"<p>We’re sorry you didn’t love your BeautyStat products. Please reach out to us through our customerservice@beautystat.com with your order number, name, and email address used when placing your order. We’ll take care of the rest!<\/p>"}},"60c492a9-09f5-404c-b743-a6f551e4466f":{"type":"question","settings":{"title":"Do I need to pay for shipping to return my order?","text":"<p>You will be responsible for paying for your own shipping costs for returning your item. We advise you to return it in the same package you received it in.<\/p><p>You should consider using a trackable shipping service or purchasing shipping insurance.<\/p><p>We don’t guarantee that we will receive your returned item.<\/p><p>For more information please visit our Terms & Conditions in the footer of the checkout page.<\/p>"}},"92e93e68-7462-4211-9eef-83ab2753207b":{"type":"question","settings":{"title":"How long does it take for my return to be processed?","text":"<p>All products must be returned to the return facility address provided by our customer service team, otherwise we may reject your return.<\/p><ul><li>Once your return is received and inspected, we will send you an email to notify you that we have received your returned item.<\/li><li>Returns will be processed within 30 days upon receipt of the returned item at the returns facility. <\/li><li>Once the return has been processed, we will also notify you of the approval or rejection of your return. <\/li><li>Approved refunds will be issued back to your original form of payment that was used when placing your order. For orders made by credit card, the amount to be refunded will be visible on the next bank statement of the card. <\/li><li>The time of processing may vary depending on the issuing company of the credit card. This time generally takes up to 45 working days. <\/li><li>Refunds are processed in the same currency of the original order. Possible differences for the refunded amount may depend on the currency exchange rate at the time the refund is processed and will not be refunded.<\/li><\/ul>"}},"f16ccdf9-5cdf-4c5b-9655-df237859f0e3":{"type":"question","settings":{"title":"What kind of product safety testing do you do?","text":"<p>We are committed to upholding the highest standards of safety. We adhere to the most rigorous standards for product safety so that our customers can purchase and use our products with complete confidence. BeautyStat is in full compliance with FDA regulations as well as the European Union’s 8th Amendment Cosmetic Directive and the requirements for safety in all the countries in which our products are sold.<\/p><p>BeautyStat products have been thoroughly tested and approved for use. A full 30 day in-use test was conducted for Universal C Skin Refiner, and Universal Pro-Bio Moisture Boost Cream, supervised by an independent Clinical laboratory, yielding excellent skin compatibility, without any unwanted reactions. Our products were also Dermatologist and allergy tested, without any reactions.<\/p>"}},"f5136d55-1271-4efc-a3af-e0ef97eb73e2":{"type":"question","settings":{"title":"Is BeautyStat cruelty-free?","text":"<p>Yes, we are cruelty-free. All of our testing is performed sustainably, conscientiously, and by federal\/industry regulations. We are also leaping bunny certified as well. <\/p>"}},"57b8c191-4fd7-4906-b005-c13ff11917dc":{"type":"question","settings":{"title":"Do your products contain silicone?","text":"<p>Yes. Silicone is one of the most valued ingredients used in luxury skin care. Derived from sand, it undergoes extensive processing before being added to beauty products.<\/p><p>Providing exceptional sensorial aesthetics such as smoothness of application, spread ability, wrinkle reduction, line filling and producing a soft-focus younger finish are some of the unique benefits of Silicones. Silicone also creates a moisturizing film that aids in skin hydration yet controls oil. Additionally, silicone exhibits excellent non tacky, non-oily, smoothing characteristics.<\/p><p>Silicone's large molecule size keeps them on the surface of the skin. The films are breathable therefore they are very compatible. Silicone used in our formulas have been extensively tested for safety including non-irritating, non-allergic, non-acnegenic, non-mutagenic, and non-estrogenic.<\/p>"}},"e6dffa2b-3d81-4d66-811d-876f56ea90e6":{"type":"question","settings":{"title":"Are your products safe to use during pregnancy or nursing?","text":"<p>While our products have been vigorously tested for safety and efficacy, they have not been specifically tested on pregnant or nursing women. Consult your physician if you are concerned.<\/p>"}},"ed7fbacd-a4e0-4817-bad9-86ec61d06e8c":{"type":"question","settings":{"title":"Do your products contain parabens?","text":"<p>BeautyStat products do not contain parabens, phthalates, fragrance, or alcohol.<\/p>"}},"93ad0c43-9df8-414b-bc10-d56150017dee":{"type":"question","settings":{"title":"What Does Stable Vitamin C Mean?","text":"<p>Vitamin C is the trifecta of skincare. It evens out pigmentation, reduces fine lines and wrinkles, and is a powerful antioxidant. The only downside is it can be very unstable.<\/p><p>When vitamin C is dissolved in water solutions, it becomes sensitive to light and oxygen. It will immediately start to break down, rapidly lose its efficiency, turn brown in color, and may even start to have a foul smell.<\/p><p>Now this is specifically referring to l’ascorbic acid, which is pure vitamin C. There are other derivatives of vitamin C that are more stable, however, they are not as powerful and won’t give you the results you’re after.<\/p><p><strong>The BeautyStat Solution<\/strong><\/p><p>With over 5 years of research and testing, BeautyStat found the solution!<\/p><p>With 3 patents on our encapsulated pure vitamin C (l’ascorbic acid) formulas, our Universal C Skin Refiner and Universal C Eye Perfector are stable from the first pump to the last. This means you will see visible results faster than any other product on the market!<\/p>"}}},"block_order":["question-0","question-1","question-2","question-3","question-4","question-5","d23c5070-b662-4afe-b0a8-062409122ad4","af18e72d-ab5b-4a75-a779-f951d9a82b74","9c591bf1-708c-4c4e-a7d3-9860d45d3388","60c492a9-09f5-404c-b743-a6f551e4466f","92e93e68-7462-4211-9eef-83ab2753207b","f16ccdf9-5cdf-4c5b-9655-df237859f0e3","f5136d55-1271-4efc-a3af-e0ef97eb73e2","57b8c191-4fd7-4906-b005-c13ff11917dc","e6dffa2b-3d81-4d66-811d-876f56ea90e6","ed7fbacd-a4e0-4817-bad9-86ec61d06e8c","93ad0c43-9df8-414b-bc10-d56150017dee"],"settings":{"narrow":true,"secondary_background":false,"show_divider":false,"heading":"","heading_size":"h2","heading_alignment":"left","heading_tag":"h2","padding_top":36,"padding_bottom":36}},"rich-text-0":{"type":"rich-text","blocks":{"rich-text-0-0":{"type":"heading","settings":{"heading":"Can't find what you're looking for?","heading_size":"h2","heading_tag":"h2"}},"rich-text-0-1":{"type":"text","settings":{"text":"<p>Send us an email to tell us what's up and someone from our Customer Service team will get back to you as soon as possible. Be sure to include your order number (if you have one).<br\/><br\/>Please email us at <a href=\"mailto:info@yourstore.com\" title=\"customerservice@beautystat.com\">customerservice@beautystat.com<\/a><\/p>","text_size":"typeset","secondary_color":false}}},"block_order":["rich-text-0-0","rich-text-0-1"],"settings":{"text_alignment":"left","mobile_text_alignment":"left","horizontal_content":false,"narrow":true,"show_divider":false,"use_custom_colors":false,"colors_button_label":"#ffffff","colors_button_background":"#1a1b18","colors_text":"#212326","colors_background":"#ffffff","gradient_background":"","padding_top":36,"padding_bottom":36}}},"order":["main","image-banner","faq","rich-text-0"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "faq",
+      "blocks": {
+        "faq_item_krH89C": {
+          "type": "faq-item",
+          "settings": {
+            "parent_id": "id-1",
+            "title": "My Account",
+            "question_1": "1. What can I do if I forgot my password?",
+            "answer_1": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_2": "2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+            "answer_2": "<p>In hac habitasse platea dictumst. Integer venenatis elit magna, eget auctor purus vestibulum volutpat. Maecenas hendrerit fringilla arcu, eu euismod tellus euismod quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis purus dolor, sagittis vitae massa eget, vestibulum varius ipsum. Quisque vitae leo congue nisl pharetra ornare tempus quis diam. Fusce a orci fringilla arcu blandit commodo id venenatis ante. Quisque quis pretium ante.</p>",
+            "question_3": "3. Maecenas rhoncus neque eu neque maximus auctor congue sed erat.",
+            "answer_3": "<p>In hac habitasse platea dictumst. Integer venenatis elit magna, eget auctor purus vestibulum volutpat. Maecenas hendrerit fringilla arcu, eu euismod tellus euismod quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis purus dolor, sagittis vitae massa eget, vestibulum varius ipsum. Quisque vitae leo congue nisl pharetra ornare tempus quis diam. Fusce a orci fringilla arcu blandit commodo id venenatis ante. Quisque quis pretium ante.</p>",
+            "question_4": "4. Nam vel neque ut eros mollis bibendum vel ac nisl.",
+            "answer_4": "<p>In hac habitasse platea dictumst. Integer venenatis elit magna, eget auctor purus vestibulum volutpat. Maecenas hendrerit fringilla arcu, eu euismod tellus euismod quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis purus dolor, sagittis vitae massa eget, vestibulum varius ipsum. Quisque vitae leo congue nisl pharetra ornare tempus quis diam. Fusce a orci fringilla arcu blandit commodo id venenatis ante. Quisque quis pretium ante.</p>",
+            "question_5": "5. Duis porttitor eros at quam tincidunt tempus.",
+            "answer_5": "<p>In hac habitasse platea dictumst. Integer venenatis elit magna, eget auctor purus vestibulum volutpat. Maecenas hendrerit fringilla arcu, eu euismod tellus euismod quis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis purus dolor, sagittis vitae massa eget, vestibulum varius ipsum. Quisque vitae leo congue nisl pharetra ornare tempus quis diam. Fusce a orci fringilla arcu blandit commodo id venenatis ante. Quisque quis pretium ante.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_PtbMxG": {
+          "type": "faq-item",
+          "settings": {
+            "parent_id": "id-2",
+            "title": "Orders & Purchases",
+            "question_1": "1. Donec tempor nisl commodo erat ullamcorper fringilla.",
+            "answer_1": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_2": "2. Suspendisse et sem in quam maximus imperdiet ac nec nunc.",
+            "answer_2": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_3": "3. Cras fringilla ante sit amet ullamcorper placerat.",
+            "answer_3": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_4": "4. Donec vestibulum leo nec erat congue laoreet.",
+            "answer_4": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_5": "5. Vestibulum ac elit et ligula tincidunt suscipit finibus vel est.",
+            "answer_5": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_Rt77gE": {
+          "type": "faq-item",
+          "settings": {
+            "parent_id": "id-3",
+            "title": "Returns & Refunds",
+            "question_1": "1. Nullam elementum diam vitae posuere dignissim.",
+            "answer_1": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_2": "2. Morbi eget justo sit amet lacus scelerisque feugiat.",
+            "answer_2": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_3": "3. Mauris vel diam a dui consectetur vehicula.",
+            "answer_3": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_4": "4. Pellentesque aliquam leo in justo blandit, quis efficitur nulla facilisis.",
+            "answer_4": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_5": "5. Ut volutpat justo sed lorem luctus semper.",
+            "answer_5": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_3qT6JW": {
+          "type": "faq-item",
+          "settings": {
+            "parent_id": "id-4",
+            "title": "Shipping & Tracking",
+            "question_1": "1. Nullam elementum diam vitae posuere dignissim.",
+            "answer_1": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_2": "2. Morbi eget justo sit amet lacus scelerisque feugiat.",
+            "answer_2": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_3": "3. Mauris vel diam a dui consectetur vehicula.",
+            "answer_3": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_4": "4. Pellentesque aliquam leo in justo blandit, quis efficitur nulla facilisis.",
+            "answer_4": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_5": "5. Ut volutpat justo sed lorem luctus semper.",
+            "answer_5": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_K4f8wn": {
+          "type": "faq-item",
+          "settings": {
+            "parent_id": "id-5",
+            "title": "Fees & Billing",
+            "question_1": "1. Nullam elementum diam vitae posuere dignissim.",
+            "answer_1": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_2": "2. Morbi eget justo sit amet lacus scelerisque feugiat.",
+            "answer_2": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_3": "3. Mauris vel diam a dui consectetur vehicula.",
+            "answer_3": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_4": "4. Pellentesque aliquam leo in justo blandit, quis efficitur nulla facilisis.",
+            "answer_4": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_5": "5. Ut volutpat justo sed lorem luctus semper.",
+            "answer_5": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>"
+          },
+          "blocks": {}
+        },
+        "faq_item_jNBLhb": {
+          "type": "faq-item",
+          "settings": {
+            "parent_id": "id-6",
+            "title": "Other Topic",
+            "question_1": "1. Nullam elementum diam vitae posuere dignissim.",
+            "answer_1": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_2": "2. Morbi eget justo sit amet lacus scelerisque feugiat.",
+            "answer_2": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_3": "3. Mauris vel diam a dui consectetur vehicula.",
+            "answer_3": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_4": "4. Pellentesque aliquam leo in justo blandit, quis efficitur nulla facilisis.",
+            "answer_4": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>",
+            "question_5": "5. Ut volutpat justo sed lorem luctus semper.",
+            "answer_5": "<p>Simply add your favorite items to the shopping cart, then proceed to checkout where you fill in your shipping and payment details before confirming the purchase.</p>"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "faq_item_krH89C",
+        "faq_item_PtbMxG",
+        "faq_item_Rt77gE",
+        "faq_item_3qT6JW",
+        "faq_item_K4f8wn",
+        "faq_item_jNBLhb"
+      ],
+      "name": "FAQ Section",
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_sidebar": true,
+        "sidebar_title": "Frequently asked questions",
+        "sidebar_banner_subtitle": "Sale Upto 45%",
+        "sidebar_banner_title": "Fall winter collection",
+        "sidebar_banner_button_text": "Shop now",
+        "sidebar_banner_link": ""
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

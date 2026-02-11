@@ -1,0 +1,107 @@
+<div class="faq-extra-set-wrapper" {{ block.shopify_attributes }}>
+  {% for i in (1..5) %}
+    {% capture q_id %}question_{{ i }}{% endcapture %}
+    {% capture a_id %}answer_{{ i }}{% endcapture %}
+    {% assign question = block.settings[q_id] %}
+    {% assign answer = block.settings[a_id] %}
+    
+    {% if question != blank %}
+      {% render 'faq-question-logic', 
+        id: block.id, 
+        index: i, 
+        question: question, 
+        answer: answer, 
+        parent_id: block.settings.parent_id 
+      %}
+    {% endif %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Extra FAQ",
+  "settings": [
+    { 
+      "type": "text",
+      "id": "parent_id",
+      "label": "Parent ID",
+      "info": "Same parent ID as the category above. Ex: Category1=>id1, Category2=>id2"
+    },
+    {
+      "type": "header",
+      "content": "Extra Question Set 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question 1"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_1",
+      "label": "Answer 1"
+    },
+    {
+      "type": "header",
+      "content": "Extra Question Set 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question 2"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_2",
+      "label": "Answer 2"
+    },
+    {
+      "type": "header",
+      "content": "Extra Question Set 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question 3"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_3",
+      "label": "Answer 3"
+    },
+    {
+      "type": "header",
+      "content": "Extra Question Set 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question 4"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_4",
+      "label": "Answer 4"
+    },
+    {
+      "type": "header",
+      "content": "Extra Question Set 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question 5"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_5",
+      "label": "Answer 5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Extra FAQ"
+    }
+  ]
+}
+{% endschema %}

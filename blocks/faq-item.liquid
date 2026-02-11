@@ -1,0 +1,127 @@
+<li class="faq-item" id="faq-category-{{ block.id }}" data-title="{{ block.settings.title | escape }}" {{ block.shopify_attributes }}>
+  <h2 class="faq_title">{{ block.settings.title }}</h2>
+  <div class="faq_wrap" id="{{ block.settings.parent_id }}">
+    {% for i in (1..5) %}
+      {% capture q_id %}question_{{ i }}{% endcapture %}
+      {% capture a_id %}answer_{{ i }}{% endcapture %}
+      {% assign question = block.settings[q_id] %}
+      {% assign answer = block.settings[a_id] %}
+      
+      {% if question != blank %}
+        {% render 'faq-question-logic', 
+          id: block.id, 
+          index: i, 
+          question: question, 
+          answer: answer, 
+          parent_id: block.settings.parent_id
+        %}
+      {% endif %}
+    {% endfor %}
+
+    {%- comment -%} Allow additional nested blocks if needed {%- endcomment -%}
+    {% content_for 'blocks' %}
+  </div>
+</li>
+
+{% schema %}
+{
+  "name": "FAQ Category",
+  "settings": [
+    { 
+      "type": "text",
+      "id": "parent_id",
+      "label": "Parent ID",
+      "info": "Keep the same parent ID inside category. Ex: Category1=>id1 inside all elements, Category2=>id2"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Category Title",
+      "default": "My Account"
+    },
+    {
+      "type": "header",
+      "content": "Initial Question Set 1"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question 1"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_1",
+      "label": "Answer 1"
+    },
+    {
+      "type": "header",
+      "content": "Initial Question Set 2"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question 2"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_2",
+      "label": "Answer 2"
+    },
+    {
+      "type": "header",
+      "content": "Initial Question Set 3"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question 3"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_3",
+      "label": "Answer 3"
+    },
+    {
+      "type": "header",
+      "content": "Initial Question Set 4"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question 4"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_4",
+      "label": "Answer 4"
+    },
+    {
+      "type": "header",
+      "content": "Initial Question Set 5"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question 5"
+    },
+    {
+      "type": "richtext",
+      "id": "answer_5",
+      "label": "Answer 5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq-extra-set"
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Category",
+      "settings": {
+        "title": "My Account"
+      }
+    }
+  ]
+}
+{% endschema %}

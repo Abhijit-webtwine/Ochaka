@@ -1,0 +1,22 @@
+<div class="accordion-faq accor-mn-pl">
+  <div
+    class="accordion-title collapsed"
+    data-bs-target="#faq-{{ id }}-{{ index }}"
+    role="button"
+    data-bs-toggle="collapse"
+    aria-expanded="false"
+    aria-controls="faq-{{ id }}-{{ index }}"
+  >
+    <span class="text h5">{{ question }}</span>
+    <span class="icon">
+      <span class="ic-accordion-custom"></span>
+    </span>
+  </div>
+  <div id="faq-{{ id }}-{{ index }}" class="collapse" data-bs-parent="#{{ parent_id }}">
+    <div class="accordion-body">
+      <div class="h6">
+        {{ answer }}
+      </div>
+    </div>
+  </div>
+</div>
