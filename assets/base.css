@@ -93,6 +93,10 @@ html {
   margin: 0 auto;
 }
 
+.display-contents {
+  display: contents;
+}
+
 @media screen and (min-width: 750px) {
   .page-width {
     padding: 0 3.125rem;
