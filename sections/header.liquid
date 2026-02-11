@@ -4,7 +4,7 @@
 {% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list,faq' | split: ',' %}
 
 <header class="tf-header header-fix
-  {% unless excluded_suffixes contains template.suffix or template.name == '404' %}
+  {% unless excluded_suffixes contains template.suffix or template.name == '404' or template.name == 'blog' %}
     header-abs-1
   {% endunless %}
   {% if section.settings.enable_sticky_header %}
