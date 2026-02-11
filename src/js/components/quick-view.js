@@ -116,3 +116,5 @@ class QuickView extends HTMLElement {
 
 QuickView.cache = [];
 customElements.define('quick-view', QuickView);
+
+export default QuickView
