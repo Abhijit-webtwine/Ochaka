@@ -1,7 +1,7 @@
 {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
-{% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list' | split: ',' %}
+{% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list,faq' | split: ',' %}
 
 <header class="tf-header header-fix
   {% unless excluded_suffixes contains template.suffix or template.name == '404' %}

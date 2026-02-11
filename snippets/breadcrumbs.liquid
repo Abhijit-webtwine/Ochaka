@@ -18,7 +18,7 @@
           <li><a href="{{ routes.root_url }}" class="h6 link">Home</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
           <li>
-            <h6 class="current-page fw-normal">{{ template.name | replace: '-', ' ' | capitalize }}</h6>
+            <h6 class="current-page fw-normal">{% unless template.name == 'page' %}{{ template.name | replace: '-', ' ' | capitalize }}{% else %}{{ template.suffix | capitalize }}{% endunless %}</h6>
           </li>
         </ul>
       </div>
