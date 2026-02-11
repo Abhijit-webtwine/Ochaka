@@ -9,8 +9,7 @@ import CompareRemove from '../js/components/compare-remove.js'
 import CompareClear from '../js/components/compare-clear.js'
 import CompareCount from '../js/components/compare-count.js'
 import QuickView from '../js/components/quick-view.js'
-
-
+import GlobalPagination from '../js/components/global-pagination.js'
 
 function onPageLoad () {
   initFaqSidebar()
@@ -24,6 +23,7 @@ function onPageLoad () {
   new CompareClear()
   new CompareCount()
   new QuickView()
+  new GlobalPagination();
 }
 
 onPageLoad()

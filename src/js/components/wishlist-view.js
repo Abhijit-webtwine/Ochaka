@@ -23,9 +23,6 @@ class WishlistView extends BaseStorageElement {
 
     this.setupEventListeners();
 
-    // Listen for pagination clicks
-    this.addEventListener('click', this.handlePaginationClick.bind(this));
-
     // Listen for browser back/forward
     window.addEventListener('popstate', (e) => {
       if (e.state && e.state.page) {
@@ -36,19 +33,6 @@ class WishlistView extends BaseStorageElement {
 
   disconnectedCallback() {
     this.removeEventListeners();
-    this.removeEventListener('click', this.handlePaginationClick.bind(this));
-  }
-
-  handlePaginationClick(e) {
-    const link = e.target.closest('.pagination-item');
-    if (!link || !link.href) return;
-
-    e.preventDefault();
-
-    const url = new URL(link.href, window.location.origin);
-    const page = parseInt(url.searchParams.get('page')) || 1;
-
-    this.fetchFromSession(page);
   }
 
   updateURL(page) {
