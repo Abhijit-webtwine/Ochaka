@@ -1418,7 +1418,7 @@
         goTop();
         // variantPicker();
         changeValue();
-        sidebarMobile();
+        // sidebarMobile();
         checkClick();
         staggerWrap();
         clickModalSecond();
