@@ -47,7 +47,7 @@
             "image_4": "shopify://shop_images/gallery-4.jpg",
             "image_5": "shopify://shop_images/gallery-5.jpg",
             "image_6": "shopify://shop_images/gallery-6.jpg",
-            "link": ""
+            "link": "shopify://collections/clothing"
           }
         },
         "banner_dw8RnM": {
@@ -76,6 +76,6 @@
     }
   },
   "order": [
-    "main",
+    "main"
   ]
 }
