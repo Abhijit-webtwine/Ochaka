@@ -27,7 +27,7 @@
               "settings": {
                 "title": "Address",
                 "address": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                "map_url": "shopify://blogs/news",
+                "map_url": "shopify://blogs/elegance",
                 "button_label": "Get Direction"
               },
               "blocks": {}
@@ -68,7 +68,7 @@
               "settings": {
                 "title": "Address",
                 "address": "8500 Sunset Blvd. Los Angeles, California 90069",
-                "map_url": "shopify://blogs/news",
+                "map_url": "shopify://blogs/elegance",
                 "button_label": "Get Direction"
               },
               "blocks": {}
@@ -109,7 +109,7 @@
               "settings": {
                 "title": "Address",
                 "address": "1234 Michigan Ave. Chicago, Illinois 60611",
-                "map_url": "shopify://blogs/news",
+                "map_url": "shopify://blogs/elegance",
                 "button_label": "Get Direction"
               },
               "blocks": {}
@@ -146,9 +146,7 @@
         "show_header": true,
         "rotating_text": "Ochaka Store Fashion Style",
         "title": "Ochaka. Store",
-        "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta purus scelerisque felis condimentum.",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta purus scelerisque felis condimentum."
       }
     }
   },

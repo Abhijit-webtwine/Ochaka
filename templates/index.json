@@ -18,7 +18,7 @@
             "slide_image": "shopify://shop_images/slider-1.jpg",
             "slide_title": "Fall Winter Collection",
             "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
-            "slide_link": "shopify://blogs/news",
+            "slide_link": "shopify://blogs/elegance",
             "slide_button_text": "Shop now"
           }
         },
@@ -165,7 +165,7 @@
       "settings": {
         "spacing": true,
         "heading": "Read Our Blog",
-        "blog": "news",
+        "blog": "elegance",
         "posts_limit": 4,
         "read_more_text": "Read more"
       }
@@ -233,7 +233,6 @@
       "name": "Instagram Slider",
       "settings": {
         "spacing": true,
-        "slides-per-view": 6,
         "heading": "Follow Us On Instagram",
         "subheading": "<p>@ochaka:Follow us and get20% off coupon</p>"
       }
