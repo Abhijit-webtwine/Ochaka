@@ -148,7 +148,7 @@
 
             .blog-content {
                 padding-left: 0px;
-                max-width: 572px;
+                max-width: 547px;
             }
         }
 
@@ -362,6 +362,7 @@
         display: grid;
         gap: 8px;
         flex: 2;
+        align-content: center;
     }
 
     .entry_name {

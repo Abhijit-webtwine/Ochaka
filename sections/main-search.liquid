@@ -20,7 +20,7 @@
           {% if search.results_count == 0 %}
             <!-- No Results Found -->
             <h1 class="text--left section-header__title">
-              We couldn't find any matching products
+              We couldn't find any matching
             </h1>
             <p class="no-results-message">
               Try adjusting your search or browse our collections for more options.
@@ -32,7 +32,11 @@
                   <div class="products-grid-view">
                     <div class="tf-grid-layout tf-col-4">
                       {% for item in search.results %}
-                        {% render 'card-product', product: item, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
+                        {% if item.object_type == 'product' %}
+                          {% render 'card-product', product: item, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
+                        {% elsif item.object_type == 'article' %}
+                          {% render 'card-article',item: item %}
+                        {% endif %}
                       {% endfor %}
                     </div>
                   </div>

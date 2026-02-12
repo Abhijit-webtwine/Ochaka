@@ -1,0 +1,357 @@
+{% paginate blog.articles by section.settings.posts_per_page %}
+<div class="flat-spacing" id="BlogGridContainer" data-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 col-lg-8">
+        <div class="tf-grid-layout row-xl-gap-40">
+          {%- for article in blog.articles -%}
+            <div class="article-blog style-row hover-img4">
+              <a href="{{ article.url }}" class="entry_image img-style4" style="max-width: 333px;flex-basis: 333px;">
+                <img
+                  src="{{ article.image | image_url: width: 800 }}"
+                  data-src="{{ article.image | image_url: width: 800 }}"
+                  alt="{{ article.image.alt | escape }}"
+                  class="lazyload"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                >
+              </a>
+              <div class="blog-content">
+                <span class="entry_date name-tag h6 link">{{ article.published_at | date: "%B %d, %Y" }}</span>
+                <a href="{{ article.url }}" class="entry_name link h4">
+                  {{ article.title }}
+                </a>
+                <p class="text h6">
+                  {{ article.excerpt_or_content | strip_html | truncatewords: 30 }}
+                </p>
+                <a href="{{ article.url }}" class="tf-btn-line">
+                  {{ 'blogs.article.read_more' | t | default: 'Read more' }}
+                </a>
+              </div>
+            </div>
+          {%- else -%}
+            <p>No articles found</p>
+          {%- endfor -%}
+
+          {%- if paginate.pages > 1 -%}
+            <div class="wd-full wg-pagination">
+              {% render 'pagination', paginate: paginate %}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-4 d-none d-lg-block">
+        <div class="blog-sidebar sidebar-content-wrap sticky-top">
+          {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'search' -%}
+                <div class="sidebar-item" {{ block.shopify_attributes }}>
+                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
+                  <div class="sb-search">
+                    <form action="{{ routes.search_url }}" method="get" role="search" class="form-search style-2">
+                      <input type="hidden" name="type" value="article">
+                      <fieldset>
+                        <input
+                          type="text"
+                          placeholder="{{ 'general.search.search' | t | default: 'Search item' }}"
+                          class="style-stroke"
+                          name="q"
+                          value="{{ search.terms | escape }}"
+                        >
+                      </fieldset>
+                      <button type="submit" class="link"><i class="icon icon-magnifying-glass"></i></button>
+                    </form>
+                  </div>
+                </div>
+
+              {%- when 'tags' -%}
+                <div class="sidebar-item" {{ block.shopify_attributes }}>
+                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
+                  <ul class="sb-tag">
+                    {%- for tag in blog.all_tags -%}
+                      {% assign tag_count = 0 %}
+                      {% for article in blog.articles %}
+                        {% if article.tags contains tag %}
+                          {% assign tag_count = tag_count | plus: 1 %}
+                        {% endif %}
+                      {% endfor %}
+
+                      <li>
+                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="h6 link">
+                          {{ tag }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+
+              {%- when 'recent_posts' -%}
+                <div class="sidebar-item" {{ block.shopify_attributes }}>
+                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
+                  <ul class="sb-recent">
+                    {%- for recent_article in blog.articles limit: block.settings.limit -%}
+                      <li class="wg-recent hover-img">
+                        <a href="{{ recent_article.url }}" class="image img-style">
+                          <img
+                            src="{{ recent_article.image | image_url }}"
+                            data-src="{{ recent_article.image | image_url }}"
+                            alt="{{ recent_article.image.alt | escape }}"
+                            class="lazyload"
+                          >
+                        </a>
+                        <div class="content">
+                          <a href="{{ recent_article.url }}" class="entry_name h6 link">{{ recent_article.title }}</a>
+                          <span class="entry_date text-small">
+                            {{ recent_article.published_at | date: "%B %d, %Y" }}
+                          </span>
+                        </div>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+
+              {%- when 'instagram' -%}
+                <div class="sidebar-item" {{ block.shopify_attributes }}>
+                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
+                  <ul class="sb-gallery tf-grid-layout tf-col-2 lg-col-3">
+                    {%- for i in (1..6) -%}
+                      {%- assign img_key = 'image_' | append: i -%}
+                      {%- if block.settings[img_key] != blank -%}
+                        <li class="hover-img">
+                          <a href="{{ block.settings.link | default: '#' }}" class="img-style">
+                            <img
+                              src="{{ block.settings[img_key] | image_url: width: 200 }}"
+                              data-src="{{ block.settings[img_key] | image_url: width: 200 }}"
+                              alt="Instagram"
+                              class="lazyload"
+                            >
+                          </a>
+                        </li>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </ul>
+                </div>
+
+              {%- when 'banner' -%}
+                <div class="sidebar-item" {{ block.shopify_attributes }}>
+                  <div class="sb-banner hover-img">
+                    {%- if block.settings.image != blank -%}
+                      <a href="{{ block.settings.link | default: '#' }}" class="image img-style">
+                        <img
+                          src="{{ block.settings.image | image_url: width: 400 }}"
+                          data-src="{{ block.settings.image | image_url: width: 400 }}"
+                          alt="{{ block.settings.image.alt | escape }}"
+                          class="lazyload"
+                        >
+                      </a>
+                    {%- endif -%}
+                    <div class="content">
+                      <h5 class="sub-title text-primary">{{ block.settings.sub_title }}</h5>
+                      <h2 class="fw-semibold title">
+                        <a href="{{ block.settings.link | default: '#' }}" class="text-white link">
+                          {{ block.settings.title }}
+                        </a>
+                      </h2>
+                      <a href="{{ block.settings.link | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark">
+                        {{ block.settings.button_label | default: 'Shop now' }}
+                        <i class="icon icon-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+            {%- endcase -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Blog list",
+  "settings": [
+    {
+      "type": "range",
+      "id": "posts_per_page",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "default": 4,
+      "label": "Posts per page"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Search blog"
+        }
+      ]
+    },
+    {
+      "type": "categories",
+      "name": "Categories",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Category"
+        }
+      ]
+    },
+    {
+      "type": "recent_posts",
+      "name": "Recent posts",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Recent Post"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3,
+          "label": "Limit"
+        }
+      ]
+    },
+    {
+      "type": "tags",
+      "name": "Tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tags"
+        }
+      ]
+    },
+    {
+      "type": "instagram",
+      "name": "Instagram",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Instagram"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image 6"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Sale Upto 45%"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fall winter collection"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog list",
+      "blocks": [
+        {
+          "type": "search"
+        },
+        {
+          "type": "categories"
+        },
+        {
+          "type": "recent_posts"
+        },
+        {
+          "type": "tags"
+        },
+        {
+          "type": "instagram"
+        },
+        {
+          "type": "banner"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
