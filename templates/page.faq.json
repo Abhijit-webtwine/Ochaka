@@ -131,10 +131,9 @@
       ],
       "name": "FAQ Section",
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36,
         "show_sidebar": true,
         "sidebar_title": "Frequently asked questions",
+        "sidebar_banner_image": "shopify://shop_images/side-banner.jpg",
         "sidebar_banner_subtitle": "Sale Upto 45%",
         "sidebar_banner_title": "Fall winter collection",
         "sidebar_banner_button_text": "Shop now",
