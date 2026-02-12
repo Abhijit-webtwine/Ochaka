@@ -1,0 +1,274 @@
+{% paginate blog.articles by section.settings.posts_per_page %}
+<div class="flat-spacing" id="BlogGridContainer" data-id="{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-3 d-none d-xl-block">
+        {% render 'sidebar-blog', sticky: true %}
+      </div>
+      <div class="col-xl-9 col-lg-12">
+        <div class="tf-grid-layout sm-col-2 lg-col-3 row-xl-gap-56">
+          {%- for article in blog.articles -%}
+            {%- assign index_mod = forloop.index0 | modulo: 4 -%}
+            {%- if index_mod == 0 -%}
+              {% comment %} Large Style {% endcomment %}
+              <div class="article-blog style-large hover-img">
+                <a href="{{ article.url }}" class="entry_image img-style position-relative">
+                  {%- if article.image -%}
+                    <img
+                      src="{{ article.image | image_url: width: 1100 }}"
+                      data-src="{{ article.image | image_url: width: 1100 }}"
+                      alt="{{ article.image.alt | escape }}"
+                      class="lazyload"
+                    >
+                  {%- endif -%}
+                  <div class="entry_tag">
+                    {%- if article.tags.size > 0 -%}
+                      <p class="name-tag h6 link">{{ article.tags[0] }}</p>
+                    {%- endif -%}
+                  </div>
+                </a>
+                <div class="blog-content">
+                  <a href="{{ article.url }}" class="entry_name link h4">
+                    {{ article.title }}
+                  </a>
+                  <p class="text h6">
+                    {{ article.excerpt_or_content | strip_html | truncatewords: 30 }}
+                  </p>
+                  <a href="{{ article.url }}" class="tf-btn-line">
+                    {{ 'blogs.article.read_more' | t | default: 'Read more' }}
+                  </a>
+                </div>
+              </div>
+            {%- else -%}
+              {% comment %} Small Style {% endcomment %}
+              <div class="article-blog style-small hover-img4">
+                <div class="blog-image">
+                  <a href="{{ article.url }}" class="entry_image img-style4">
+                    {%- if article.image -%}
+                      <img
+                        src="{{ article.image | image_url: width: 600 }}"
+                        data-src="{{ article.image | image_url: width: 600 }}"
+                        alt="{{ article.image.alt | escape }}"
+                        class="lazyload"
+                      >
+                    {%- endif -%}
+                  </a>
+                  <div class="entry_tag">
+                    {%- if article.tags.size > 0 -%}
+                      <a href="{{ blog.url }}/tagged/{{ article.tags[0] | handle }}" class="name-tag h6 link">{{ article.tags[0] }}</a>
+                    {%- endif -%}
+                  </div>
+                </div>
+                <div class="blog-content">
+                  <a href="{{ article.url }}" class="entry_name link h4">
+                    {{ article.title }}
+                  </a>
+                  <p class="entry_date">{{ article.published_at | date: "%B %d, %Y" }}</p>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- else -%}
+            <p>No articles found</p>
+          {%- endfor -%}
+
+          {%- if paginate.pages > 1 -%}
+            <div class="wd-full wg-pagination">
+              {% render 'pagination', paginate: paginate %}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endpaginate %}
+
+<div class="btn-sidebar-mb d-xl-none">
+  <button data-bs-toggle="offcanvas" data-bs-target="#mbSidebar">
+    <i class="icon icon-sidebar"></i>
+  </button>
+</div>
+
+<div class="offcanvas offcanvas-start canvas-sidebar" id="mbSidebar">
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title h4 fw-bold">Sidebar</span>
+      <span class="icon-close link icon-close-popup" data-bs-dismiss="offcanvas"></span>
+    </div>
+    <div class="canvas-body sidebar-mobile-append blog-sidebar">
+      {% render 'sidebar-blog' %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blog list 2",
+  "settings": [
+    {
+      "type": "range",
+      "id": "posts_per_page",
+      "min": 1,
+      "max": 24,
+      "step": 1,
+      "default": 8,
+      "label": "Posts per page"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "search",
+      "name": "Search",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Search blog"
+        }
+      ]
+    },
+    {
+      "type": "recent_posts",
+      "name": "Recent posts",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Recent Post"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 3,
+          "label": "Limit"
+        }
+      ]
+    },
+    {
+      "type": "tags",
+      "name": "Tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tags"
+        }
+      ]
+    },
+    {
+      "type": "instagram",
+      "name": "Instagram",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Instagram"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_3",
+          "label": "Image 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_4",
+          "label": "Image 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_5",
+          "label": "Image 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_6",
+          "label": "Image 6"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub title",
+          "default": "Sale Upto 45%"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fall winter collection"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog list 2",
+      "blocks": [
+        {
+          "type": "search"
+        },
+        {
+          "type": "recent_posts"
+        },
+        {
+          "type": "tags"
+        },
+        {
+          "type": "instagram"
+        },
+        {
+          "type": "banner"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
