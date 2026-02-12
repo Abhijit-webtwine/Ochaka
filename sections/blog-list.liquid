@@ -41,132 +41,30 @@
         </div>
       </div>
       <div class="col-xl-3 col-lg-4 d-none d-lg-block">
-        <div class="blog-sidebar sidebar-content-wrap sticky-top">
-          {%- for block in section.blocks -%}
-            {%- case block.type -%}
-              {%- when 'search' -%}
-                <div class="sidebar-item" {{ block.shopify_attributes }}>
-                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
-                  <div class="sb-search">
-                    <form action="{{ routes.search_url }}" method="get" role="search" class="form-search style-2">
-                      <input type="hidden" name="type" value="article">
-                      <fieldset>
-                        <input
-                          type="text"
-                          placeholder="{{ 'general.search.search' | t | default: 'Search item' }}"
-                          class="style-stroke"
-                          name="q"
-                          value="{{ search.terms | escape }}"
-                        >
-                      </fieldset>
-                      <button type="submit" class="link"><i class="icon icon-magnifying-glass"></i></button>
-                    </form>
-                  </div>
-                </div>
-
-              {%- when 'tags' -%}
-                <div class="sidebar-item" {{ block.shopify_attributes }}>
-                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
-                  <ul class="sb-tag">
-                    {%- for tag in blog.all_tags -%}
-                      {% assign tag_count = 0 %}
-                      {% for article in blog.articles %}
-                        {% if article.tags contains tag %}
-                          {% assign tag_count = tag_count | plus: 1 %}
-                        {% endif %}
-                      {% endfor %}
-
-                      <li>
-                        <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="h6 link">
-                          {{ tag }}
-                        </a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
-
-              {%- when 'recent_posts' -%}
-                <div class="sidebar-item" {{ block.shopify_attributes }}>
-                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
-                  <ul class="sb-recent">
-                    {%- for recent_article in blog.articles limit: block.settings.limit -%}
-                      <li class="wg-recent hover-img">
-                        <a href="{{ recent_article.url }}" class="image img-style">
-                          <img
-                            src="{{ recent_article.image | image_url }}"
-                            data-src="{{ recent_article.image | image_url }}"
-                            alt="{{ recent_article.image.alt | escape }}"
-                            class="lazyload"
-                          >
-                        </a>
-                        <div class="content">
-                          <a href="{{ recent_article.url }}" class="entry_name h6 link">{{ recent_article.title }}</a>
-                          <span class="entry_date text-small">
-                            {{ recent_article.published_at | date: "%B %d, %Y" }}
-                          </span>
-                        </div>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
-
-              {%- when 'instagram' -%}
-                <div class="sidebar-item" {{ block.shopify_attributes }}>
-                  <h4 class="sb-title">{{ block.settings.title | escape }}</h4>
-                  <ul class="sb-gallery tf-grid-layout tf-col-2 lg-col-3">
-                    {%- for i in (1..6) -%}
-                      {%- assign img_key = 'image_' | append: i -%}
-                      {%- if block.settings[img_key] != blank -%}
-                        <li class="hover-img">
-                          <a href="{{ block.settings.link | default: '#' }}" class="img-style">
-                            <img
-                              src="{{ block.settings[img_key] | image_url: width: 200 }}"
-                              data-src="{{ block.settings[img_key] | image_url: width: 200 }}"
-                              alt="Instagram"
-                              class="lazyload"
-                            >
-                          </a>
-                        </li>
-                      {%- endif -%}
-                    {%- endfor -%}
-                  </ul>
-                </div>
-
-              {%- when 'banner' -%}
-                <div class="sidebar-item" {{ block.shopify_attributes }}>
-                  <div class="sb-banner hover-img">
-                    {%- if block.settings.image != blank -%}
-                      <a href="{{ block.settings.link | default: '#' }}" class="image img-style">
-                        <img
-                          src="{{ block.settings.image | image_url: width: 400 }}"
-                          data-src="{{ block.settings.image | image_url: width: 400 }}"
-                          alt="{{ block.settings.image.alt | escape }}"
-                          class="lazyload"
-                        >
-                      </a>
-                    {%- endif -%}
-                    <div class="content">
-                      <h5 class="sub-title text-primary">{{ block.settings.sub_title }}</h5>
-                      <h2 class="fw-semibold title">
-                        <a href="{{ block.settings.link | default: '#' }}" class="text-white link">
-                          {{ block.settings.title }}
-                        </a>
-                      </h2>
-                      <a href="{{ block.settings.link | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark">
-                        {{ block.settings.button_label | default: 'Shop now' }}
-                        <i class="icon icon-arrow-right"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-            {%- endcase -%}
-          {%- endfor -%}
-        </div>
+        {% render 'sidebar-blog', sticky: true %}
       </div>
     </div>
   </div>
 </div>
 {% endpaginate %}
+
+<div class="btn-sidebar-mb d-lg-none right">
+  <button data-bs-toggle="offcanvas" data-bs-target="#mbSidebar">
+    <i class="icon icon-sidebar"></i>
+  </button>
+</div>
+
+<div class="offcanvas offcanvas-end canvas-sidebar" id="mbSidebar">
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title h4 fw-bold">Sidebar</span>
+      <span class="icon-close link icon-close-popup" data-bs-dismiss="offcanvas"></span>
+    </div>
+    <div class="canvas-body sidebar-mobile-append blog-sidebar">
+      {% render 'sidebar-blog' %}
+    </div>
+  </div>
+</div>
 
 {% schema %}
 {
