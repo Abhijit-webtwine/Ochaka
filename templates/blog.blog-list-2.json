@@ -10,13 +10,6 @@
 {
   "sections": {
     "main": {
-      "type": "main-blog",
-      "disabled": true,
-      "settings": {
-        "posts_per_page": 12
-      }
-    },
-    "blog_list_2_PwUEPQ": {
       "type": "blog-list-2",
       "blocks": {
         "search_3y3rcD": {
@@ -76,7 +69,6 @@
     }
   },
   "order": [
-    "main",
-    "blog_list_2_PwUEPQ"
+    "main"
   ]
 }
