@@ -27,7 +27,7 @@
               "settings": {
                 "title": "Address",
                 "address": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-                "map_url": "shopify://blogs/elegance",
+                "map_url": "shopify://blogs/all",
                 "button_label": "Get Direction"
               },
               "blocks": {}
@@ -68,7 +68,7 @@
               "settings": {
                 "title": "Address",
                 "address": "8500 Sunset Blvd. Los Angeles, California 90069",
-                "map_url": "shopify://blogs/elegance",
+                "map_url": "shopify://blogs/all",
                 "button_label": "Get Direction"
               },
               "blocks": {}
@@ -109,7 +109,7 @@
               "settings": {
                 "title": "Address",
                 "address": "1234 Michigan Ave. Chicago, Illinois 60611",
-                "map_url": "shopify://blogs/elegance",
+                "map_url": "shopify://blogs/all",
                 "button_label": "Get Direction"
               },
               "blocks": {}

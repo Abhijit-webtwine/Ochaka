@@ -18,7 +18,7 @@
             "slide_image": "shopify://shop_images/slider-1.jpg",
             "slide_title": "Fall Winter Collection",
             "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
-            "slide_link": "shopify://blogs/elegance",
+            "slide_link": "shopify://blogs/all",
             "slide_button_text": "Shop now"
           }
         },
@@ -165,7 +165,7 @@
       "settings": {
         "spacing": true,
         "heading": "Read Our Blog",
-        "blog": "elegance",
+        "blog": "all",
         "posts_limit": 4,
         "read_more_text": "Read more"
       }
