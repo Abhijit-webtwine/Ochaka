@@ -1,0 +1,121 @@
+{% assign max_related = section.settings.limit %}
+{% assign related_count = 0 %}
+
+{% if article and article.tags.size > 0 %}
+  <section class="flat-spacing pt-0">
+    <div class="container">
+      {% if section.settings.heading != blank %}
+        <div class="sect-title">
+          <h2 class="h1 fw-medium">{{ section.settings.heading }}</h2>
+        </div>
+      {% endif %}
+
+      <div dir="ltr"
+        class="swiper tf-swiper"
+        data-preview="3"
+        data-tablet="3"
+        data-mobile-sm="2"
+        data-mobile="1"
+        data-space-lg="48"
+        data-space-md="30"
+        data-space="15"
+        data-pagination="1"
+        data-pagination-sm="2"
+        data-pagination-md="3"
+        data-pagination-lg="3"
+      >
+        <div class="swiper-wrapper">
+          {% for blog_article in blog.articles %}
+            {% if blog_article.id != article.id %}
+
+              {% assign match = false %}
+              {% for tag in article.tags %}
+                {% if blog_article.tags contains tag %}
+                  {% assign match = true %}
+                {% endif %}
+              {% endfor %}
+
+              {% if match %}
+                <div class="swiper-slide">
+                  <div class="article-blog hover-img4">
+
+                    <div class="blog-image">
+                      <a href="{{ blog_article.url }}" class="entry_image img-style4">
+                        {% if blog_article.image %}
+                          <img
+                            src="{{ blog_article.image | image_url: width: 600 }}"
+                            alt="{{ blog_article.title | escape }}"
+                            loading="lazy"
+                            width="600"
+                            height="400"
+                            >
+                        {% endif %}
+                      </a>
+                    </div>
+
+                    <div class="blog-content p-0">
+                      <a href="{{ blog_article.url }}" class="entry_name link h4">
+                        {{ blog_article.title }}
+                      </a>
+
+                      {% if section.settings.show_date %}
+                        <p class="entry_date">
+                          {{ blog_article.published_at | date: "%B %d, %Y" }}
+                        </p>
+                      {% endif %}
+                    </div>
+
+                  </div>
+                </div>
+
+                {% assign related_count = related_count | plus: 1 %}
+              {% endif %}
+
+              {% if related_count >= max_related %}
+                {% break %}
+              {% endif %}
+
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="sw-dot-default tf-sw-pagination"></div>
+      </div>
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Related Articles",
+  "tag": "section",
+  "class": "section-related-articles",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Related Articles"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Number of articles",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show publish date",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Related Articles"
+    }
+  ]
+}
+{% endschema %}
