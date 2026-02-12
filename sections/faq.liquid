@@ -5,71 +5,39 @@
         <ul class="faq-list" id="faq-accordion-{{ section.id }}">
           {% content_for 'blocks' %}
         </ul>
+        <div class="faq-no-results d-none text-center mt-4">
+          <p class="h5">No results found for your search.</p>
+        </div>
       </div>
       
       {%- if section.settings.show_sidebar -%}
         <div class="col-lg-3 d-none d-lg-block">
-          <div class="blog-sidebar sidebar-content-wrap sticky-top">
-            <div class="sidebar-item">
-              {% if section.settings.sidebar_title != blank %}
-                <h4 class="sb-title">{{ section.settings.sidebar_title }}</h4>
-              {% endif %}
-              <form class="form-search_faq style-btn-abs-end js-faq-search-form">
-                <input class="style-stroke js-faq-search-input" type="text" placeholder="Enter your question or keyword">
-                <button class="btn-submit link" type="button">
-                  <i class="icon icon-magnifying-glass"></i>
-                </button>
-              </form>
-            </div>
-            
-            <div class="sidebar-item">
-              <h4 class="sb-title">Category</h4>
-              <ul class="sb-category js-sidebar-categories">
-                <!-- Categories will be populated by JS -->
-              </ul>
-            </div>
-            
-            {%- if section.settings.sidebar_banner_image != blank -%}
-              <div class="sidebar-item">
-                <div class="sb-banner hover-img">
-                  <a href="{{ section.settings.sidebar_banner_link }}" class="image img-style">
-                    <img 
-                      class="lazyload"
-                      src="{{ section.settings.sidebar_banner_image | image_url: width: 10 }}" 
-                      data-src="{{ section.settings.sidebar_banner_image | image_url: width: 600 }}" 
-                      alt="{{ section.settings.sidebar_banner_image.alt | escape }}"
-                      width="{{ section.settings.sidebar_banner_image.width }}"
-                      height="{{ section.settings.sidebar_banner_image.height }}"
-                    >
-                  </a>
-                  <div class="content">
-                    {%- if section.settings.sidebar_banner_subtitle != blank -%}
-                      <h5 class="sub-title text-primary">{{ section.settings.sidebar_banner_subtitle }}</h5>
-                    {%- endif -%}
-                    {%- if section.settings.sidebar_banner_title != blank -%}
-                      <h2 class="fw-semibold title">
-                        <a href="{{ section.settings.sidebar_banner_link }}" class="text-white link">
-                          {{ section.settings.sidebar_banner_title }}
-                        </a>
-                      </h2>
-                    {%- endif -%}
-                    {%- if section.settings.sidebar_banner_button_text != blank -%}
-                      <a href="{{ section.settings.sidebar_banner_link }}" class="tf-btn btn-white animate-btn animate-dark">
-                        {{ section.settings.sidebar_banner_button_text }}
-                        <i class="icon icon-arrow-right"></i>
-                      </a>
-                    {%- endif -%}
-                  </div>
-                </div>
-              </div>
-            {%- endif -%}
-          </div>
+          {% render 'sidebar-faq' sticky: true %}
         </div>
       {%- endif -%}
     </div>
   </div>
 </section>
 
+{% comment %} Sidebar Mobile {% endcomment %}
+{%- if section.settings.show_sidebar -%}
+  <div class="btn-sidebar-mb d-lg-none right">
+    <button data-bs-toggle="offcanvas" data-bs-target="#mbSidebar">
+      <i class="icon icon-sidebar"></i>
+    </button>
+  </div>
+  <div class="offcanvas offcanvas-end canvas-sidebar" id="mbSidebar">
+    <div class="canvas-wrapper">
+      <div class="canvas-header">
+        <span class="title h4 fw-bold">Sidebar</span>
+        <span class="icon-close link icon-close-popup" data-bs-dismiss="offcanvas"></span>
+      </div>
+      <div class="canvas-body sidebar-mobile-append blog-sidebar">
+        {% render 'sidebar-faq' %}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
 {% schema %}
 {
   "name": "FAQ Section",
