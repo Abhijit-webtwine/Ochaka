@@ -11,12 +11,72 @@
   "sections": {
     "main": {
       "type": "main-blog",
+      "disabled": true,
       "settings": {
         "posts_per_page": 12
+      }
+    },
+    "blog_list_2_PwUEPQ": {
+      "type": "blog-list-2",
+      "blocks": {
+        "search_3y3rcD": {
+          "type": "search",
+          "settings": {
+            "title": "Search blog"
+          }
+        },
+        "recent_posts_qDVMih": {
+          "type": "recent_posts",
+          "settings": {
+            "title": "Recent Post",
+            "limit": 3
+          }
+        },
+        "tags_LrwdwB": {
+          "type": "tags",
+          "settings": {
+            "title": "Tags"
+          }
+        },
+        "instagram_HmNNzp": {
+          "type": "instagram",
+          "settings": {
+            "title": "Instagram",
+            "image_1": "shopify://shop_images/gallery-1.jpg",
+            "image_2": "shopify://shop_images/gallery-2.jpg",
+            "image_3": "shopify://shop_images/gallery-3.jpg",
+            "image_4": "shopify://shop_images/gallery-4.jpg",
+            "image_5": "shopify://shop_images/gallery-5.jpg",
+            "image_6": "shopify://shop_images/gallery-6.jpg",
+            "link": ""
+          }
+        },
+        "banner_4MnUJ7": {
+          "type": "banner",
+          "settings": {
+            "image": "shopify://shop_images/side-banner.jpg",
+            "sub_title": "Sale Upto 45%",
+            "title": "Fall winter collection",
+            "button_label": "Shop now",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "search_3y3rcD",
+        "recent_posts_qDVMih",
+        "tags_LrwdwB",
+        "instagram_HmNNzp",
+        "banner_4MnUJ7"
+      ],
+      "name": "Blog list 2",
+      "settings": {
+        "posts_per_page": 8
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "blog_list_2_PwUEPQ"
   ]
 }
