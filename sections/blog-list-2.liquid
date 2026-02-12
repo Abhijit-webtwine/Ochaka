@@ -19,6 +19,8 @@
                       data-src="{{ article.image | image_url: width: 1100 }}"
                       alt="{{ article.image.alt | escape }}"
                       class="lazyload"
+                      width="{{ article.image.width }}"
+                      height="{{ article.image.height }}"
                     >
                   {%- endif -%}
                   <div class="entry_tag">
