@@ -1,16 +1,40 @@
-<div class="tf-slideshow type-abs tf-btn-swiper-main hover-sw-nav">
+{%- style -%}
+  {%- for block in section.blocks -%}
+    #block-{{ block.id }} .sub-title_sld {
+      {%- if block.settings.subtitle_color != blank -%}
+        color: {{ block.settings.subtitle_color }};
+      {%- endif -%}
+    }
+    #block-{{ block.id }} .title_sld {
+      {%- if block.settings.title_color != blank -%}
+        color: {{ block.settings.title_color }};
+      {%- endif -%}
+    }
+    #block-{{ block.id }} .sub-text_sld {
+      {%- if block.settings.description_color != blank -%}
+        color: {{ block.settings.description_color }};
+      {%- endif -%}
+    }
+  {%- endfor -%}
+{%- endstyle -%}
+
+<div class="tf-slideshow type-abs tf-btn-swiper-main hover-sw-nav" id="section-{{ section.id }}">
   <div
     dir="ltr"
     class="swiper tf-swiper sw-slide-show slider_effect_fade"
-    data-auto="true"
+    data-auto="false"
     data-loop="true"
     data-effect="fade"
     data-delay="3000"
   >
     <div class="swiper-wrapper">
       {% for block in section.blocks %}
-        <div class="swiper-slide">
-          {% render 'tf-slideshow-l1', block: block %}
+        <div class="swiper-slide" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
+          {% render 'tf-slideshow-slide', 
+            block: block, 
+            layout: section.settings.layout, 
+            index: forloop.index 
+          %}
         </div>
       {% endfor %}
     </div>
@@ -29,6 +53,24 @@
 {% schema %}
 {
   "name": "Slideshow",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "layout-1",
+          "label": "Layout 1"
+        },
+        {
+          "value": "layout-2",
+          "label": "Layout 2"
+        }
+      ],
+      "default": "layout-1"
+    }
+  ],
   "blocks": [
     {
       "type": "slide",
@@ -41,15 +83,22 @@
         },
         {
           "type": "text",
-          "id": "slide_title",
-          "label": "Slide Title",
-          "default": "Your Slide Title"
+          "id": "slide_subtitle",
+          "label": "Slide Subtitle",
+          "default": "SALE OFF 50%"
         },
         {
           "type": "text",
-          "id": "slide_subtitle",
-          "label": "Slide Subtitle",
-          "default": "Your Slide Subtitle"
+          "id": "slide_title",
+          "label": "Slide Title",
+          "default": "Modern & Minimalistic"
+        },
+        {
+          "type": "textarea",
+          "id": "slide_description",
+          "label": "Slide Description",
+          "info": "For layout 2",
+          "default": "Ad nisi irure officia nulla culpa culpa laborum Lorem.\nAd dolore cillum non commodo ad non non."
         },
         {
           "type": "url",
@@ -61,6 +110,61 @@
           "id": "slide_button_text",
           "label": "Button Text",
           "default": "Shop now"
+        },
+        {
+          "type": "header",
+          "content": "Layout 2 Specific Settings"
+        },
+        {
+          "type": "select",
+          "id": "content_alignment",
+          "label": "Content Alignment",
+          "options": [
+            {
+              "value": "type-center text-sm-center",
+              "label": "Center"
+            },
+            {
+              "value": "type-center text-end text-sm-center",
+              "label": "Right"
+            },
+            {
+              "value": "text-center",
+              "label": "Full Center"
+            }
+          ],
+          "default": "type-center text-sm-center"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subtitle Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description Color"
+        },
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button Style",
+          "options": [
+            {
+              "value": "",
+              "label": "Default"
+            },
+            {
+              "value": "btn-white animate-dark",
+              "label": "White"
+            }
+          ],
+          "default": ""
         }
       ]
     }

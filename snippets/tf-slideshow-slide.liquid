@@ -1,0 +1,98 @@
+{% if layout == 'layout-1' %}
+  <div class="slider-wrap">
+    <div class="sld_image">
+      {% if block.settings.slide_image != blank %}
+        <img
+          src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+          data-src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+          alt="{{ block.settings.slide_title | escape }}"
+          class="lazyload"
+          width=""
+          height=""
+        >
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+    <div class="sld_content">
+      <div class="container">
+        <div class="content-sld_wrap">
+          {% if block.settings.slide_title != blank %}
+            <h1 class="title_sld text-display fade-item fade-item-1">
+              {{ block.settings.slide_title | newline_to_br }}
+            </h1>
+          {% endif %}
+          {% if block.settings.slide_subtitle != blank %}
+            <p class="sub-title_sld h5 fade-item fade-item-2">
+              {{ block.settings.slide_subtitle }}
+            </p>
+          {% endif %}
+          {% if block.settings.slide_link != blank %}
+            <div class="fade-item fade-item-3">
+              <a href="{{ block.settings.slide_link }}" class="tf-btn animate-btn fw-semibold">
+                {{ block.settings.slide_button_text }}
+                <i class="icon icon-arrow-right"></i>
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="slider-wrap style-2">
+    <div class="sld_image">
+      {% if block.settings.slide_image != blank %}
+        <img
+          src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+          data-src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+          alt="{{ block.settings.slide_title | escape }}"
+          class="lazyload scale-item"
+          width=""
+          height=""
+        >
+      {% else %}
+        {% assign placeholder_index = index | modulo: 3 | plus: 4 %}
+        {% assign placeholder_img = 'slider-' | append: placeholder_index | append: '.jpg' %}
+        <img src="{{ placeholder_img | asset_url }}" data-src="{{ placeholder_img | asset_url }}" alt="Slider" 
+          class="lazyload scale-item"
+          width=""
+          height=""
+        >
+      {% endif %}
+    </div>
+    <div class="sld_content {{ block.settings.content_alignment }}">
+      <div class="container">
+        <div class="row">
+          <div class="{% if block.settings.content_alignment contains 'text-end' %}ms-auto{% elsif block.settings.content_alignment contains 'text-center' %}mx-auto{% endif %} col-sm-8 col-10">
+            <div class="content-sld_wrap {% if block.settings.content_alignment contains 'text-end' %}ms-sm-auto{% elsif block.settings.content_alignment contains 'text-center' %}mx-auto{% endif %}">
+              {% if block.settings.slide_subtitle != blank %}
+                <p class="sub-title_sld h3 fade-item fade-item-1">
+                  {{ block.settings.slide_subtitle }}
+                </p>
+              {% endif %}
+              {% if block.settings.slide_title != blank %}
+                <h1 class="title_sld text-display fade-item fade-item-2">
+                  {{ block.settings.slide_title | newline_to_br }}
+                </h1>
+              {% endif %}
+              {% if block.settings.slide_description != blank %}
+                <p class="sub-text_sld h5 fade-item fade-item-3">
+                  {{ block.settings.slide_description | newline_to_br }}
+                </p>
+              {% endif %}
+              {% if block.settings.slide_link != blank %}
+                <div class="fade-item fade-item-4">
+                  <a href="{{ block.settings.slide_link }}" class="tf-btn {{ block.settings.btn_style }} animate-btn fw-normal">
+                    {{ block.settings.slide_button_text }}
+                    <i class="icon icon-arrow-right"></i>
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
