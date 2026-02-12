@@ -76,6 +76,8 @@
                       data-src="{{ block.settings[img_key] | image_url: width: 200 }}"
                       alt="Instagram"
                       class="lazyload"
+                      width="200"
+                      height="200"
                     >
                   </a>
                 </li>
@@ -94,6 +96,8 @@
                   data-src="{{ block.settings.image | image_url: width: 400 }}"
                   alt="{{ block.settings.image.alt | escape }}"
                   class="lazyload"
+                  width="400"
+                  height="400"
                 >
               </a>
             {%- endif -%}
