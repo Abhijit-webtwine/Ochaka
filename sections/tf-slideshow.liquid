@@ -32,8 +32,11 @@
         <div class="swiper-slide" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
           {% render 'tf-slideshow-slide', 
             block: block, 
-            layout: section.settings.layout, 
-            index: forloop.index 
+            index: forloop.index0,
+            image_animation: section.settings.image_animation,
+            enable_fade: section.settings.enable_fade_animation,
+            slider_style: section.settings.slider_style,
+            subtitle_size: section.settings.subtitle_size
           %}
         </div>
       {% endfor %}
@@ -56,19 +59,65 @@
   "settings": [
     {
       "type": "select",
-      "id": "layout",
-      "label": "Layout",
+      "id": "slider_style",
+      "label": "Slider Style",
       "options": [
         {
-          "value": "layout-1",
-          "label": "Layout 1"
+          "value": "",
+          "label": "Style 1"
         },
         {
-          "value": "layout-2",
-          "label": "Layout 2"
+          "value": "style-2",
+          "label": "Style 2"
         }
       ],
-      "default": "layout-1"
+      "default": "style-2"
+    },
+    {
+      "type": "select",
+      "id": "subtitle_size",
+      "label": "Subtitle Size",
+      "default": "h3",
+      "options": [
+        {
+          "value": "h6",
+          "label": "Small"
+        },
+        {
+          "value": "h3",
+          "label": "Medium"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Animation Settings"
+    },
+    {
+      "type": "select",
+      "id": "image_animation",
+      "label": "Image Animation",
+      "options": [
+        {
+          "value": "ani-zoom",
+          "label": "Zoom In"
+        },
+        {
+          "value": "scale-item",
+          "label": "Scale"
+        },
+        {
+          "value": "",
+          "label": "None"
+        }
+      ],
+      "default": "ani-zoom"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_fade_animation",
+      "label": "Enable Content Fade Animation",
+      "default": true
     }
   ],
   "blocks": [
@@ -81,23 +130,23 @@
           "id": "slide_image",
           "label": "Slide Image"
         },
+
         {
           "type": "text",
           "id": "slide_subtitle",
-          "label": "Slide Subtitle",
+          "label": "Subtitle",
           "default": "SALE OFF 50%"
         },
         {
           "type": "text",
           "id": "slide_title",
-          "label": "Slide Title",
+          "label": "Title",
           "default": "Modern & Minimalistic"
         },
         {
           "type": "textarea",
           "id": "slide_description",
-          "label": "Slide Description",
-          "info": "For layout 2",
+          "label": "Description",
           "default": "Ad nisi irure officia nulla culpa culpa laborum Lorem.\nAd dolore cillum non commodo ad non non."
         },
         {
@@ -113,7 +162,26 @@
         },
         {
           "type": "header",
-          "content": "Layout 2 Specific Settings"
+          "content": "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "subtitle_color",
+          "label": "Subtitle Color"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description Color"
+        },
+        {
+          "type": "header",
+          "content": "Slide 2 Layout Settings"
         },
         {
           "type": "select",
@@ -134,21 +202,6 @@
             }
           ],
           "default": "type-center text-sm-center"
-        },
-        {
-          "type": "color",
-          "id": "subtitle_color",
-          "label": "Subtitle Color"
-        },
-        {
-          "type": "color",
-          "id": "title_color",
-          "label": "Title Color"
-        },
-        {
-          "type": "color",
-          "id": "description_color",
-          "label": "Description Color"
         },
         {
           "type": "select",
