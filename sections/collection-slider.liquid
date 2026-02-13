@@ -2,7 +2,7 @@
   <div
     dir="ltr"
     class="swiper tf-swiper"
-    data-preview="3"
+    data-preview="{{ section.settings.columns_desktop }}"
     data-tablet="2"
     data-mobile-sm="2"
     data-mobile="1"
@@ -16,35 +16,12 @@
   >
     <div class="swiper-wrapper">
       {% for block in section.blocks %}
-        {% assign collection = block.settings.collection %}
-
-        {% if collection != blank %}
-          <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <div class="wg-cls-2 d-flex hover-img">
-              <a href="{{ collection.url }}" class="image img-style">
-                {% if collection.featured_image %}
-                  {{
-                    collection.featured_image
-                    | image_url: width: 800
-                    | image_tag: loading: 'lazy', class: 'lazyload', alt: collection.title
-                  }}
-                {% endif %}
-              </a>
-
-              <div class="cls-content_wrap b-16">
-                <div class="cls-content">
-                  <a href="{{ collection.url }}" class="tag_cls h3 link">
-                    {{ collection.title }}
-                  </a>
-                  <span class="br-line type-vertical"></span>
-                  <a href="{{ collection.url }}" class="tf-btn-line text-nowrap">
-                    {{ block.settings.button_text }}
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        {% endif %}
+        <div class="swiper-slide" {{ block.shopify_attributes }}>
+          {% render 'collection-card', 
+            block: block, 
+            layout: section.settings.layout 
+          %}
+        </div>
       {% endfor %}
     </div>
 
@@ -56,6 +33,40 @@
 {
   "name": "Collection Slider",
   "max_blocks": 12,
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "layout-1",
+          "label": "Layout 1 (Smaller Titles)"
+        },
+        {
+          "value": "layout-2",
+          "label": "Layout 2 (Bold Titles)"
+        }
+      ],
+      "default": "layout-1"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Items on Desktop",
+      "options": [
+        {
+          "value": "2",
+          "label": "2 items"
+        },
+        {
+          "value": "3",
+          "label": "3 items"
+        }
+      ],
+      "default": "3"
+    }
+  ],
   "blocks": [
     {
       "type": "collection_item",
@@ -65,6 +76,11 @@
           "type": "collection",
           "id": "collection",
           "label": "Select collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (Optional)"
         },
         {
           "type": "text",
@@ -79,6 +95,9 @@
     {
       "name": "Collection Slider",
       "category": "Collection",
+      "settings": {
+        "layout": "layout-1"
+      },
       "blocks": [
         { "type": "collection_item" },
         { "type": "collection_item" },
@@ -88,4 +107,3 @@
   ]
 }
 {% endschema %}
-

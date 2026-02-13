@@ -1,0 +1,44 @@
+{% comment %}
+  Renders a collection card for the collection slider.
+  Accepts:
+  - block: {Object} The block object
+  - layout: {String} The layout style ('layout-1' or 'layout-2')
+{% endcomment %}
+
+{%- assign collection = block.settings.collection -%}
+{%- assign custom_image = block.settings.custom_image -%}
+{%- assign button_text = block.settings.button_text | default: 'Shop now' -%}
+
+<div class="wg-cls-2 {% if layout == 'layout-2' %}type-space-2{% endif %} d-flex hover-img">
+  <a href="{{ collection.url | default: '#' }}" class="image img-style w-100">
+    {% if custom_image != blank %}
+      <img
+        class="lazyload"
+        src="{{ custom_image | image_url: width: 800 }}"
+        data-src="{{ custom_image | image_url: width: 800 }}"
+        alt="{{ collection.title | default: 'Collection' | escape }}"
+      >
+    {% elsif collection.featured_image != blank %}
+      <img
+        class="lazyload"
+        src="{{ collection.featured_image | image_url: width: 800 }}"
+        data-src="{{ collection.featured_image | image_url: width: 800 }}"
+        alt="{{ collection.title | escape }}"
+      >
+    {% else %}
+      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </a>
+
+  <div class="cls-content_wrap {% if layout == 'layout-1' %}b-16{% endif %}">
+    <div class="cls-content">
+      <a href="{{ collection.url | default: '#' }}" class="tag_cls {% if layout == 'layout-1' %}h3{% else %}h2 type-semibold{% endif %} link">
+        {{ collection.title | default: 'Collection Title' }}
+      </a>
+      <span class="br-line type-vertical"></span>
+      <a href="{{ collection.url | default: '#' }}" class="tf-btn-line text-nowrap">
+        {{ button_text }}
+      </a>
+    </div>
+  </div>
+</div>
