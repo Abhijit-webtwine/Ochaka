@@ -1,0 +1,106 @@
+<section class="themesFlat">
+  <div class="container-full-2">
+    <div class="tf-grid-layout lg-col-2 gap-0">
+      {%- for block in section.blocks -%}
+        <div class="box-image_V04 hover-img" {{ block.shopify_attributes }}>
+          <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
+            {%- if block.settings.image != blank -%}
+              <img 
+                src="{{ block.settings.image | image_url: width: 1000 }}" 
+                data-src="{{ block.settings.image | image_url: width: 1000 }}" 
+                alt="{{ block.settings.image.alt | escape }}" 
+                class="lazyload"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}"
+              >
+            {%- else -%}
+              {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </a>
+          <div class="box-image_content align-items-center text-center">
+            {%- if block.settings.sub_text != blank -%}
+              <span class="sub-text h6 text-primary">{{ block.settings.sub_text }}</span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h2 class="title type-semibold">
+                <a href="{{ block.settings.link | default: '#' }}" class="link">
+                  {{ block.settings.title }}
+                </a>
+              </h2>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="sub-title h6">{{ block.settings.description }}</p>
+            {%- endif -%}
+            {%- if block.settings.button_text != blank -%}
+              <a href="{{ block.settings.link | default: '#' }}" class="tf-btn animate-btn">
+                {{ block.settings.button_text }}
+                <i class="icon icon-arrow-right"></i>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Box Collection",
+  "blocks": [
+    {
+      "type": "box",
+      "name": "Box",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "sub_text",
+          "label": "Sub Text",
+          "default": "SALE OFF 50%"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Wall Shelves For Bathroom"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Keep your bathroom neat and tidy with wall shelves."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Box Collection",
+      "blocks": [
+        {
+          "type": "box"
+        },
+        {
+          "type": "box"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
