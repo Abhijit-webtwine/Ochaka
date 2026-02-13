@@ -1,578 +1,139 @@
-{%- style -%}
-    #shopify-section-{{ section.id }} {
-      --section-padding-top: {{ section.settings.padding_top }}px;
-      --section-padding-bottom: {{ section.settings.padding_bottom }}px;
-      {%- if section.settings.use_custom_colors %}
-        --color-icon: {{ section.settings.colors_icon.red }},
-        {{ section.settings.colors_icon.green }},
-        {{ section.settings.colors_icon.blue }};
-        --gradient-background: {% if section.settings.gradient_background != blank %}{{ section.settings.gradient_background }}
-      {% else %}{{ section.settings.colors_background }}
-    {% endif %};
-      --color-background: {{ section.settings.colors_background.red }},
-      {{ section.settings.colors_background.green }},
-      {{ section.settings.colors_background.blue }};
-      --color-foreground: {{ section.settings.colors_text.red }},
-      {{ section.settings.colors_text.green }},
-      {{ section.settings.colors_text.blue }};
-      --color-link: var(--color-foreground);
-    {% endif -%}
-  }
-
-  @media screen and (max-width: 768px) {
-    #shopify-section-{{ section.id }} {
-    --section-padding-top: {{ section.settings.padding_top_mobile }}px;
-    --section-padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
-    }
-    }
-{%- endstyle -%}
-
-{{ 'section-scrolling-promotion.css' | asset_url | stylesheet_tag }}
-
-<div
-  class="text-center section--padding flex items-center justify-between w-full overflow-hidden {% if section.settings.flex_direction %} flex-row {% else %} flex-col {% endif %}"
-  style="background-color: {{ section.settings.bg_color }};"
->
-  <div class="flex w-full justify-between items-center flex-col md:flex-row gap-8 md:gap-0">
-    <scrolling-promotion
-      data-speed="{{ section.settings.speed }}"
-      class="scrolling-promotion !bg-transparent scrolling-promotion--{{ section.settings.direction }} {% if section.settings.show_divider %} section--divider{% endif %}{% if section.settings.use_custom_colors and section.settings.colors_icon != section.settings.colors_background %} promotion-icon--colored{% endif %} {% if section.settings.sticky_checkbox %} md:w-5/6 {% endif %}"
-    >
-      <div class="promotion">
+{%- if section.blocks.size > 0 -%}
+  <div
+    class="themesFlat"
+    style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};"
+  >
+    <div class="tf-marquee style-3">
+      <div
+        class="marquee-wrap infiniteSlide"
+        data-clone="{{ section.settings.clone_count }}"
+        data-speed="{{ section.settings.speed }}"
+        data-style="{{ section.settings.direction }}"
+      >
         {%- for block in section.blocks -%}
-        {%- case block.type -%}
-        {%- when 'announcement' -%}
-        {% if section.settings.sticky_checkbox == false %}
-        <div class="promotion__item promotion-icon--{{ block.settings.icon_size }} px-8">
-          {%- if block.settings.link != blank -%}
-          <a href="{{ block.settings.link }}" class="promotion__link">
-            {%- endif -%}
-            {%- if block.settings.custom_icon != blank -%}
-            <span class="promotion__icon">
-              {{ block.settings.custom_icon }}
-            </span>
-            {%- elsif block.settings.icon != 'none' -%}
-            <span class="promotion__icon">
-              {% render 'icon-guarantee', icon: block.settings.icon %}
-            </span>
-            {%- endif -%}
-            <div class="promotion__text heading"
-              style="--font-size: {{ block.settings.text_size }}px; color: {{ section.settings.colors_text }};">
-              {{ block.settings.text }}
-            </div>
-            {%- if block.settings.link != blank -%}
-          </a>
-          {%- endif -%}
-        </div>
-        {% endif %}
-        {%- when 'image' -%}
-        {%- liquid
-        assign image_height = block.settings.height
-        assign image_height_2x = block.settings.height | times: 2
-        -%}
-        <div class="promotion__item media-wrapper media-wrapper--small px-8" style="--image-height: {{ image_height }}px"
-          {{ block.shopify_attributes }}>
-          {%- if block.settings.link != blank -%}
-          <a href="{{ block.settings.link }}" class="promotion__link">
-            {%- endif -%}
-            {%- if block.settings.image != blank -%}
-            <div class="image-animate media">
-              <img
-                srcset="{{ block.settings.image | image_url: height: image_height }} 1x, {{ block.settings.image | image_url: height: image_height_2x }} 2x"
-                src="{{ block.settings.image | image_url: height: image_height }}"
-                alt="{{ block.settings.image.alt | escape }}"
-                width="{{ image_height | times: block.settings.image.aspect_ratio }}" height="{{ image_height }}"
-                class="promotion__image image-fit">
-            </div>
-            {%- if block.settings.img_description != blank -%}
-            <p class="max-w-52 font-semibold leading-none" style="color: {{ block.settings.desc_color }}">
-              {{ block.settings.img_description }}
-            </p>
-            {%- endif -%}
-
-                {%- else -%}
-                  {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
-                {%- if block.settings.link != blank -%}
-                  </a>
-                {%- endif -%}
-              </div>
+          {%- case block.type -%}
+            {%- when 'promotion' -%}
+              {%- if block.settings.text != blank -%}
+                <p class="h6" style="color: {{ section.settings.text_color }};">{{ block.settings.text }}</p>
+              {%- endif -%}
+              {%- if block.settings.icon != blank -%}
+                <i class="{{ block.settings.icon }}" style="color: {{ section.settings.text_color }};"></i>
+              {%- endif -%}
           {%- endcase -%}
         {%- endfor -%}
       </div>
-    </scrolling-promotion>
-    {% if section.settings.sticky_checkbox == true %}
-      <div class="sticky_announcement">
-        {%- for block in section.blocks -%}
-          {%- case block.type -%}
-            {%- when 'announcement' -%}
-            <div class="promotion__item promotion-icon--{{ block.settings.icon_size }} pr-4 lg:pr-16">
-              {%- if block.settings.link != blank -%}
-              <a href="{{ block.settings.link }}" class="promotion__link">
-                {%- endif -%}
-                {%- if block.settings.custom_icon != blank -%}
-                <span class="promotion__icon">
-                  {{ block.settings.custom_icon }}
-                </span>
-                {%- elsif block.settings.icon != 'none' -%}
-                <span class="promotion__icon">
-                  {% render 'icon-guarantee', icon: block.settings.icon %}
-                </span>
-                {%- endif -%}
-                <div class="promotion__text heading underline"
-                  style="--font-size: {{ block.settings.text_size }}px; color: {{ section.settings.colors_text }};">
-                  {{ block.settings.text }}
-                </div>
-                {%- if block.settings.link != blank -%}
-              </a>
-              {%- endif -%}
-            </div>
-          {% endcase %}
-        {% endfor %}
-      </div>
-    {% endif %}
+    </div>
   </div>
-  {% if section.settings.link_text != blank %}
-  <a href="{{ section.settings.link_url }}" class="button_bottom button md:mt-[4.25rem] mt-[2.125rem] !px-[3.75rem] !bg-transparent">
-    {{ section.settings.link_text }}
-  </a>
-  {% endif %}
-</div>
+{%- endif -%}
+
 {% schema %}
 {
-"name": "t:sections.scrolling-promotion.name",
-"tag": "section",
-"class": "section",
-"settings": [
-{
-"type": "color",
-"id": "bg_color",
-"label": "Background Color"
-},
-{
-"type": "select",
-"id": "direction",
-"options": [
-{
-"value": "left",
-"label": "t:sections.scrolling-promotion.settings.direction.options__1.label"
-},
-{
-"value": "right",
-"label": "t:sections.scrolling-promotion.settings.direction.options__2.label"
-}
-],
-"default": "left",
-"label": "t:sections.scrolling-promotion.settings.direction.label"
-},
-{
-"type": "range",
-"id": "speed",
-"min": 0.5,
-"max": 2.5,
-"step": 0.1,
-"label": "t:sections.scrolling-promotion.settings.speed.label",
-"unit": "t:sections.scrolling-promotion.settings.speed.unit",
-"default": 1.6
-},
-{
-"type": "checkbox",
-"id": "show_divider",
-"default": false,
-"label": "t:sections.all.show_divider.label"
-},
-{
-"type": "header",
-"content": "t:sections.all.colors.header.content"
-},
-{
-"type": "checkbox",
-"id": "use_custom_colors",
-"default": false,
-"label": "t:sections.all.colors.use_custom_colors.label"
-},
-{
-"type": "color",
-"id": "colors_icon",
-"label": "t:sections.all.colors.colors_icon.label",
-"default": "#ffffff"
-},
-{
-"type": "color",
-"id": "colors_text",
-"label": "t:sections.all.colors.colors_text.label",
-"default": "#1a1b18"
-},
-{
-"type": "color",
-"id": "colors_background",
-"label": "t:sections.all.colors.colors_background.label",
-"default": "#ffffff"
-},
-{
-"type": "color_background",
-"id": "gradient_background",
-"label": "t:sections.all.colors.gradient_background.label"
-},
-{
-"type": "header",
-"content": "t:sections.all.padding.header.content"
-},
-{
-"type": "range",
-"id": "padding_top",
-"min": 0,
-"max": 200,
-"step": 2,
-"unit": "t:sections.all.padding.padding_top.unit",
-"label": "t:sections.all.padding.padding_top.label",
-"default": 36
-},
-{
-"type": "range",
-"id": "padding_bottom",
-"min": 0,
-"max": 200,
-"step": 2,
-"unit": "t:sections.all.padding.padding_bottom.unit",
-"label": "t:sections.all.padding.padding_bottom.label",
-"default": 36
-},
-{
-  "type": "range",
-  "id": "padding_top_mobile",
-  "min": 0,
-  "max": 200,
-  "step": 2,
-  "unit": "px",
-  "label": "Top Mobile Padding",
-  "default": 36
-},
-{
-  "type": "range",
-  "id": "padding_bottom_mobile",
-  "min": 0,
-  "max": 200,
-  "step": 2,
-  "unit": "px",
-  "label": "Bottom Mobile Padding",
-  "default": 36
-},
-{
-"type": "text",
-"id": "link_text",
-"label": "Link Text"
-},
-{
-"type": "url",
-"id": "link_url",
-"label": "Link Url"
-},
-{
-"type": "checkbox",
-"id": "sticky_checkbox",
-"label": "Sticky Announcement",
-"default": true
-},{
-  "type": "checkbox",
-  "id": "flex_direction",
-  "label": "Make Container horizontal",
-  "default": true
-  }
-],
-"blocks": [
-{
-"type": "announcement",
-"name": "t:sections.scrolling-promotion.blocks.announcement.name",
-"settings": [
-{
-"type": "select",
-"id": "icon",
-"options": [
-{
-"value": "none",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__1.label"
-},
-{
-"value": "apple",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__2.label"
-},
-{
-"value": "banana",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__3.label"
-},
-{
-"value": "bottle",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__4.label"
-},
-{
-"value": "carrot",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__5.label"
-},
-{
-"value": "chat_bubble",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__6.label"
-},
-{
-"value": "check_mark",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__7.label"
-},
-{
-"value": "clipboard",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__8.label"
-},
-{
-"value": "dolly",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__9.label"
-},
-{
-"value": "download",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__10.label"
-},
-{
-"value": "dryer",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__11.label"
-},
-{
-"value": "eye",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__12.label"
-},
-{
-"value": "fire",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__13.label"
-},
-{
-"value": "globe",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__14.label"
-},
-{
-"value": "gluten_free",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__15.label"
-},
-{
-"value": "headset",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__16.label"
-},
-{
-"value": "heart",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__17.label"
-},
-{
-"value": "leaf",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__18.label"
-},
-{
-"value": "light",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__19.label"
-},
-{
-"value": "lightning_bolt",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__20.label"
-},
-{
-"value": "link",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__21.label"
-},
-{
-"value": "lock",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__22.label"
-},
-{
-"value": "map_pin",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__23.label"
-},
-{
-"value": "music",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__24.label"
-},
-{
-"value": "package",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__25.label"
-},
-{
-"value": "paw_print",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__26.label"
-},
-{
-"value": "pepper",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__27.label"
-},
-{
-"value": "phone",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__28.label"
-},
-{
-"value": "plane",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__29.label"
-},
-{
-"value": "plant",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__30.label"
-},
-{
-"value": "price_tag",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__31.label"
-},
-{
-"value": "question_mark",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__32.label"
-},
-{
-"value": "recycle",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__33.label"
-},
-{
-"value": "return",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__34.label"
-},
-{
-"value": "ruler",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__35.label"
-},
-{
-"value": "shield",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__36.label"
-},
-{
-"value": "ship",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__37.label"
-},
-{
-"value": "shop",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__38.label"
-},
-{
-"value": "silhouette",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__39.label"
-},
-{
-"value": "snowflake",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__40.label"
-},
-{
-"value": "star",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__41.label"
-},
-{
-"value": "stopwatch",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__42.label"
-},
-{
-"value": "truck",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__43.label"
-},
-{
-"value": "washing",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.options__44.label"
-}
-],
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon.label",
-"default": "none"
-},
-{
-"type": "select",
-"id": "icon_size",
-"options": [
-{
-"value": "small",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon_size.options__1.label"
-},
-{
-"value": "medium",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon_size.options__2.label"
-},
-{
-"value": "large",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon_size.options__3.label"
-}
-],
-"default": "medium",
-"label": "t:sections.guarantees.blocks.guarantee.settings.icon_size.label"
-},
-{
-"type": "html",
-"id": "custom_icon",
-"label": "t:sections.guarantees.blocks.guarantee.settings.custom_icon.label",
-"info": "t:sections.guarantees.blocks.guarantee.settings.custom_icon.info"
-},
-{
-"type": "html",
-"id": "text",
-"default": "Welcome to our store",
-"label": "t:sections.scrolling-promotion.blocks.announcement.settings.text.label"
-},
-{
-"type": "range",
-"id": "text_size",
-"default": 30,
-"min": 12,
-"max": 150,
-"step": 2,
-"label": "t:sections.scrolling-promotion.blocks.announcement.settings.text_size.label",
-"unit": "t:sections.scrolling-promotion.blocks.announcement.settings.text_size.unit"
-},
-{
-"type": "url",
-"id": "link",
-"label": "t:sections.scrolling-promotion.blocks.announcement.settings.link.label"
-}
-]
-},
-{
-"type": "image",
-"name": "t:sections.scrolling-promotion.blocks.image.name",
-"settings": [
-{
-"type": "image_picker",
-"id": "image",
-"label": "t:sections.scrolling-promotion.blocks.image.settings.image.label"
-},
-{
-"type": "text",
-"id": "img_description",
-"label": "Description"
-},
-{
-"type": "color",
-"id": "desc_color",
-"label": "Description Color"
-},
-{
-"type": "range",
-"id": "height",
-"min": 0,
-"max": 200,
-"step": 4,
-"default": 80,
-"unit": "t:sections.scrolling-promotion.blocks.image.settings.height.unit",
-"label": "t:sections.scrolling-promotion.blocks.image.settings.height.label"
-},
-{
-"type": "url",
-"id": "link",
-"label": "t:sections.scrolling-promotion.blocks.image.settings.link.label"
-}
-]
-}
-],
-"presets": [
-{
-"name": "t:sections.scrolling-promotion.presets.name",
-"blocks": [
-{
-"type": "image"
-},
-{
-"type": "image"
-},
-{
-"type": "image"
-},
-{
-"type": "image"
-}
-]
-}
-]
+  "name": "Scrolling Promotion",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "clone_count",
+      "label": "Clone Count",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "info": "Number of times the content is cloned for infinite scrolling"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Scroll Speed",
+      "min": 10,
+      "max": 200,
+      "step": 10,
+      "default": 50,
+      "info": "Higher is faster"
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Scroll Direction",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promotion",
+      "name": "Promotion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Promotion Text",
+          "default": "Free shipping on all orders over $150"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icon Class",
+          "default": "icon icon-thunder-2",
+          "info": "Font icon class (e.g., icon icon-thunder-2)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling Promotion",
+      "blocks": [
+        {
+          "type": "promotion",
+          "settings": {
+            "text": "Skechers Men's Go Walk Max Effort",
+            "icon": "icon icon-thunder-2"
+          }
+        },
+        {
+          "type": "promotion",
+          "settings": {
+            "text": "ZGR Womens High Top Canvas Sneakers",
+            "icon": "icon icon-thunder-2"
+          }
+        },
+        {
+          "type": "promotion",
+          "settings": {
+            "text": "Free shipping on all orders over $150",
+            "icon": "icon icon-thunder-2"
+          }
+        },
+        {
+          "type": "promotion",
+          "settings": {
+            "text": "2% off for weekends",
+            "icon": "icon icon-thunder-2"
+          }
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}
