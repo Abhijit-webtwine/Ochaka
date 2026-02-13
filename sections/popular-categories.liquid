@@ -1,0 +1,146 @@
+<section class="flat-spacing">
+  <div class="container">
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      <div class="sect-title text-center wow fadeInUp">
+        {% if section.settings.title != blank %}
+          <h2 class="title mb-8">{{ section.settings.title }}</h2>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <div dir="ltr" class="swiper tf-swiper wow fadeInUp" 
+      data-preview="6" 
+      data-tablet="4" 
+      data-mobile-sm="3"
+      data-mobile="2" 
+      data-space-lg="48" 
+      data-space-md="24" 
+      data-space="12" 
+      data-pagination="2" 
+      data-pagination-sm="3"
+      data-pagination-md="4" 
+      data-pagination-lg="6">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% assign collection = block.settings.collection %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <a href="{{ collection.url | default: '#' }}" class="widget-collection style-circle hover-img">
+              <div class="collection_image img-style {% if section.settings.shape == 'square' %}rounded-0{% endif %}">
+                {% if block.settings.image != blank %}
+                  <img
+                    class="lazyload"
+                    src="{{ block.settings.image | image_url }}"
+                    data-src="{{ block.settings.image | image_url }}"
+                    alt="{{ block.settings.title | default: collection.title | escape }}"
+                  >
+                {% elsif collection.featured_image != blank %}
+                  <img
+                    class="lazyload"
+                    src="{{ collection.featured_image | image_url }}"
+                    data-src="{{ collection.featured_image | image_url  }}"
+                    alt="{{ collection.title | escape }}"
+                  >
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+              <p class="collection_name h5 link">
+                {{ block.settings.title | default: collection.title | default: 'Category' }}
+                {% if section.settings.show_count and collection != blank %}
+                  <span class="count text-main-2">({{ collection.all_products_count }})</span>
+                {% endif %}
+              </p>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Popular Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Popular Categories"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_count",
+      "label": "Show Product Count",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "shape",
+      "label": "Shape Style",
+      "options": [
+        {
+          "value": "circle",
+          "label": "Circle"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "circle"
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image (Optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Title (Optional)",
+          "info": "Overrides collection title if set"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popular Categories",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
