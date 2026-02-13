@@ -1,0 +1,101 @@
+<section class="flat-spacing">
+  <div class="container">
+    <div class="sect-title text-center wow fadeInUp">
+      <h1 class="title mb-8">{{ section.settings.heading | escape }}</h1>
+      <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
+    </div>
+    <div class="tf-grid-layout md-col-2">
+      {% for block in section.blocks %}
+        <div class="box-image_V05 hover-img wow fadeInUp" {{ block.shopify_attributes }} {% if forloop.index > 1 %}data-wow-delay="0.1s"{% endif %}>
+          <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
+            {% if block.settings.image != blank %}
+              {{ block.settings.image | image_url: width: 800 | image_tag: class: 'lazyload', loading: 'lazy' }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </a>
+          <div class="box-image_content">
+            <h2 class="title">
+              <a href="{{ block.settings.link | default: '#' }}" class="link fw-normal">
+                {{ block.settings.title | escape }}
+              </a>
+            </h2>
+            <a href="{{ block.settings.link | default: '#' }}" class="tf-btn-line text-nowrap">
+              {{ block.settings.button_text | escape }}
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Product Trending"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fashion week 2025"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Banner",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "title": "Fashion week 2025"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "title": "New arrival fashion"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
