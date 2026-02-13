@@ -1,0 +1,256 @@
+<section class="sect-lookbook tf-lookbook-hover">
+  <div class="banner-lookbook">
+    {% if section.settings.image != blank %}
+      {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'lazyload img-banner', loading: 'lazy' }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg img-banner' }}
+    {% endif %}
+
+    {% for block in section.blocks %}
+      {% if block.type == 'lookbook_item' %}
+        {% assign product = block.settings.product %}
+        <div class="lookbook-item" style="top: {{ block.settings.top }}%; left: {{ block.settings.left }}%;" {{ block.shopify_attributes }}>
+          <div class="dropdown dropup-center dropdown-custom dropstart">
+            <div role="dialog" class="tf-pin-btn bundle-pin-item swiper-button" data-slide="0" id="pin{{ forloop.index }}"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              <span></span>
+            </div>
+            <div class="dropdown-menu p-0">
+              <div class="lookbook-product style-row">
+                {% if product != blank %}
+                  <div class="content">
+                    <span class="tag">{{ product.type }}</span>
+                    <h6 class="name-prd">
+                      <a href="{{ product.url }}" class="link">
+                        {{ product.title }}
+                      </a>
+                    </h6>
+                    <div class="price-wrap">
+                      <span class="price-new h6">{{ product.price | money }}</span>
+                      <span class="text-third h6">
+                        {% if product.available %}
+                          {{ 'products.product.inventory.in_stock_label' | t }}
+                        {% else %}
+                          {{ 'products.product.sold_out' | t }}
+                        {% endif %}
+                      </span>
+                    </div>
+                  </div>
+                  <a href="{{ product.url }}" class="image">
+                    {{ product.featured_image | image_url: width: 300 | image_tag: alt: product.title }}
+                  </a>
+                {% else %}
+                  <div class="content">
+                    <span class="tag">Category</span>
+                    <h6 class="name-prd"><a href="#" class="link">Product Title</a></h6>
+                    <div class="price-wrap">
+                      <span class="price-new h6">$99.99</span>
+                    </div>
+                  </div>
+                  <div class="image">
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="banner-product-set">
+    <div class="banner_content">
+      {% if section.settings.badge_text != blank %}
+        <p class="product-badge_item h6 sale"> {{ section.settings.badge_text }} <span class="fw-bold"> {{ section.settings.badge_highlight }}</span></p>
+      {% endif %}
+      <div class="sect-title">
+        <h1 class="set_title text-xxl-nowrap">{{ section.settings.heading | escape }}</h1>
+        <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
+      </div>
+
+      <ul class="list-ver w-100 bundle-hover-wrap">
+        {% assign total_price = 0 %}
+        {% assign set_variant_ids = "" %}
+        {% for block in section.blocks %}
+          {% if block.type == 'lookbook_item' %}
+            {% assign product = block.settings.product %}
+            <li>
+              <div class="card-product product-style_list-mini bundle-hover-item pin{{ forloop.index }}">
+                <div class="card-product_wrapper">
+                  {% if product != blank %}
+                    <a href="{{ product.url }}" class="product-img">
+                      {{ product.featured_image | image_url: width: 200 | image_tag: class: 'lazyload img-product', alt: product.title }}
+                    </a>
+                  {% else %}
+                    <div class="product-img">
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="card-product_info">
+                  {% if product != blank %}
+                    <p class="tag-product text-small">{{ product.type }}</p>
+                    <h6>
+                      <a href="{{ product.url }}" class="name-product link">{{ product.title }}</a>
+                    </h6>
+                    <div class="price-wrap">
+                      <span class="price-new h6 fw-semibold">{{ product.price | money }}</span>
+                      <span class="h6 text-instock">
+                        {% if product.available %}
+                          {{ 'products.product.inventory.in_stock_label' | t }}
+                        {% else %}
+                          {{ 'products.product.sold_out' | t }}
+                        {% endif %}
+                      </span>
+                    </div>
+                    {% assign total_price = total_price | plus: product.price %}
+                    {% assign set_variant_ids = set_variant_ids | append: product.selected_or_first_available_variant.id | append: "," %}
+                  {% else %}
+                    <p class="tag-product text-small">Category</p>
+                    <h6><a href="#" class="name-product link">Product Title</a></h6>
+                    <div class="price-wrap">
+                      <span class="price-new h6 fw-semibold">$0.00</span>
+                    </div>
+                  {% endif %}
+                </div>
+                {% if product != blank %}
+                  <product-form>
+                    {%- assign individual_form_id = 'product-form-' | append: section.id | append: '-' | append: block.id -%}
+                    {%- form 'product', product, id: individual_form_id, data-type: 'add-to-cart-form' -%}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                      <button type="submit" name="add" class="tf-btn animate-btn type-small fw-semibold">
+                        {{ 'products.product.add_to_cart' | t }}
+                        <i class="icon icon-arrow-right d-none d-sm-block"></i>
+                      </button>
+                    {%- endform -%}
+                  </product-form>
+                {% endif %}
+              </div>
+            </li>
+            {% unless forloop.last %}
+              <li class="br-line"></li>
+            {% endunless %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+      
+      <product-form-multi-add>
+        {%- assign product_form_id = 'product-form' | append: section.id -%}
+        {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+          {% assign variant_ids = set_variant_ids | split: "," %}
+          {% for v_id in variant_ids %}
+            {% if v_id != blank %}
+              <input type="hidden" name="id" value="{{ v_id }}">
+            {% endif %}
+          {% endfor %}
+          <div class="w-100 text-center mt-4">
+            <p class="h4 text-black total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
+            <button type="submit" name="add" class="tf-btn btn-primary w-100">
+              {{ section.settings.button_text | default: 'ADD SET TO CART' }}
+              <i class="icon icon-shopping-cart-simple"></i>
+            </button>
+          </div>
+        {% endform %}
+      </product-form-multi-add>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Lookbook",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge Text",
+      "default": "Set Dress"
+    },
+    {
+      "type": "text",
+      "id": "badge_highlight",
+      "label": "Badge Highlight",
+      "default": "SALE OFF 15%"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Long Fitted Halter Neck Dress"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "ADD SET TO CART"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "lookbook_item",
+      "name": "Product Pin",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "range",
+          "id": "top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Vertical Position (Top)",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "left",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Horizontal Position (Left)",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Lookbook",
+      "blocks": [
+        {
+          "type": "lookbook_item",
+          "settings": {
+            "top": 20,
+            "left": 30
+          }
+        },
+        {
+          "type": "lookbook_item",
+          "settings": {
+            "top": 60,
+            "left": 70
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

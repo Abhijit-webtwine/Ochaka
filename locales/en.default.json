@@ -205,7 +205,7 @@
         "unit_price": "Unit price"
       },
       "inventory": {
-        "in_stock_label": "In stock, ready to ship",
+        "in_stock_label": "In stock",
         "stock_label_html": {
           "one": "Hurry, only <strong>{{ count }}<\/strong> item left in stock!",
           "other": "Hurry, only <strong>{{ count }}<\/strong> items left in stock!"
