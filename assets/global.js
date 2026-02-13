@@ -2339,95 +2339,95 @@ customElements.define('price-money', PriceMoney);
 // }
 // customElements.define('slideshow-component', SlideshowComponent);
 
-class TestimonialsComponent extends HTMLElement {
-  constructor() {
-    super();
+// class TestimonialsComponent extends HTMLElement {
+//   constructor() {
+//     super();
 
-    if (this.dataset.slider == 'true') {
-      this.settings = {
-        autorotate: this.dataset.autorotate == 'true',
-        autorotateSpeed: parseInt(this.dataset.autorotateSpeed)
-      };
-      this.slider = this.querySelector('.testimonial__list');
-      this.previews = this.querySelector('.testimonial__previews');
+//     if (this.dataset.slider == 'true') {
+//       this.settings = {
+//         autorotate: this.dataset.autorotate == 'true',
+//         autorotateSpeed: parseInt(this.dataset.autorotateSpeed)
+//       };
+//       this.slider = this.querySelector('.testimonial__list');
+//       this.previews = this.querySelector('.testimonial__previews');
 
-      theme.initWhenVisible({
-        element: this,
-        callback: this.init.bind(this),
-        threshold: 600
-      });
-      theme.initWhenVisible({
-        element: this,
-        callback: this.update.bind(this),
-        threshold: 0
-      });
-    }
-  }
+//       theme.initWhenVisible({
+//         element: this,
+//         callback: this.init.bind(this),
+//         threshold: 600
+//       });
+//       theme.initWhenVisible({
+//         element: this,
+//         callback: this.update.bind(this),
+//         threshold: 0
+//       });
+//     }
+//   }
 
-  init() {
-    setTimeout(() => {
-      if (this.slider) {
-        this.flickity = new Flickity(this.slider, {
-          accessibility: false,
-          rightToLeft: theme.config.rtl,
-          prevNextButtons: true,
-          arrowShape: 'M29.043 19.756l-28.125 28.125c-0.605 0.606-0.918 1.406-0.918 2.031s0.305 1.599 0.916 2.209l28.125 28.125c1.221 1.221 3.199 1.221 4.418 0s1.221-3.199 0-4.418l-22.793-22.793h86.209c1.727 0 3.125-1.398 3.125-2.949 0-1.727-1.398-3.125-3.125-3.125h-86.211l22.793-22.793c1.221-1.221 1.221-3.199 0-4.418s-3.203-1.217-4.414 0.006z',
-          pageDots: false,
-          wrapAround: true,
-          draggable: true,
-          cellAlign: 'center',
-          autoPlay: this.settings.autorotate ? this.settings.autorotateSpeed : false,
-          pauseAutoPlayOnHover: true,
-          asNavFor: this.previews
-        });
-      }
+//   init() {
+//     setTimeout(() => {
+//       if (this.slider) {
+//         this.flickity = new Flickity(this.slider, {
+//           accessibility: false,
+//           rightToLeft: theme.config.rtl,
+//           prevNextButtons: true,
+//           arrowShape: 'M29.043 19.756l-28.125 28.125c-0.605 0.606-0.918 1.406-0.918 2.031s0.305 1.599 0.916 2.209l28.125 28.125c1.221 1.221 3.199 1.221 4.418 0s1.221-3.199 0-4.418l-22.793-22.793h86.209c1.727 0 3.125-1.398 3.125-2.949 0-1.727-1.398-3.125-3.125-3.125h-86.211l22.793-22.793c1.221-1.221 1.221-3.199 0-4.418s-3.203-1.217-4.414 0.006z',
+//           pageDots: false,
+//           wrapAround: true,
+//           draggable: true,
+//           cellAlign: 'center',
+//           autoPlay: this.settings.autorotate ? this.settings.autorotateSpeed : false,
+//           pauseAutoPlayOnHover: true,
+//           asNavFor: this.previews
+//         });
+//       }
 
-      this.flickityNav = new Flickity(this.previews, {
-        accessibility: false,
-        rightToLeft: theme.config.rtl,
-        prevNextButtons: this.flickity ? false : true,
-        arrowShape: this.flickity ? '' : 'M29.043 19.756l-28.125 28.125c-0.605 0.606-0.918 1.406-0.918 2.031s0.305 1.599 0.916 2.209l28.125 28.125c1.221 1.221 3.199 1.221 4.418 0s1.221-3.199 0-4.418l-22.793-22.793h86.209c1.727 0 3.125-1.398 3.125-2.949 0-1.727-1.398-3.125-3.125-3.125h-86.211l22.793-22.793c1.221-1.221 1.221-3.199 0-4.418s-3.203-1.217-4.414 0.006z',
-        pageDots: false,
-        wrapAround: true,
-        selectedAttraction: 0.2,
-        friction: 0.8,
-        adaptiveHeight: true,
-      });
+//       this.flickityNav = new Flickity(this.previews, {
+//         accessibility: false,
+//         rightToLeft: theme.config.rtl,
+//         prevNextButtons: this.flickity ? false : true,
+//         arrowShape: this.flickity ? '' : 'M29.043 19.756l-28.125 28.125c-0.605 0.606-0.918 1.406-0.918 2.031s0.305 1.599 0.916 2.209l28.125 28.125c1.221 1.221 3.199 1.221 4.418 0s1.221-3.199 0-4.418l-22.793-22.793h86.209c1.727 0 3.125-1.398 3.125-2.949 0-1.727-1.398-3.125-3.125-3.125h-86.211l22.793-22.793c1.221-1.221 1.221-3.199 0-4.418s-3.203-1.217-4.414 0.006z',
+//         pageDots: false,
+//         wrapAround: true,
+//         selectedAttraction: 0.2,
+//         friction: 0.8,
+//         adaptiveHeight: true,
+//       });
 
-      this.flickityNav.previous();
-      if (this.settings.autorotate) {
-        this.flickity.pausePlayer();
-      }
+//       this.flickityNav.previous();
+//       if (this.settings.autorotate) {
+//         this.flickity.pausePlayer();
+//       }
 
-      this.flickity && this.flickity.on('staticClick', (_event, _pointer, _cellElement, cellIndex) => {
-        if (typeof cellIndex == 'number') {
-          this.flickityNav.select(cellIndex);
-        }
-      });
+//       this.flickity && this.flickity.on('staticClick', (_event, _pointer, _cellElement, cellIndex) => {
+//         if (typeof cellIndex == 'number') {
+//           this.flickityNav.select(cellIndex);
+//         }
+//       });
       
-      // Do stuff based on a successful swipe and it's direction
-      this.flickity && this.flickity.on('change', (index) => {
-        this.flickityNav.select(index);
-      });
-    });
-  }
+//       // Do stuff based on a successful swipe and it's direction
+//       this.flickity && this.flickity.on('change', (index) => {
+//         this.flickityNav.select(index);
+//       });
+//     });
+//   }
 
-  update() {
-    setTimeout(() => {
-      if (this.flickity && this.flickityNav) {
-        this.flickityNav.next();
-        if (this.settings.autorotate) {
-          this.flickity.unpausePlayer();
-        }
-      }
-    }, 300);
-  }
+//   update() {
+//     setTimeout(() => {
+//       if (this.flickity && this.flickityNav) {
+//         this.flickityNav.next();
+//         if (this.settings.autorotate) {
+//           this.flickity.unpausePlayer();
+//         }
+//       }
+//     }, 300);
+//   }
 
-  getSwipeDirection(moveVector) {
-    return moveVector.x > 0 ? 'right' : 'left';
-  }
-}
-customElements.define('testimonials-component', TestimonialsComponent);
+//   getSwipeDirection(moveVector) {
+//     return moveVector.x > 0 ? 'right' : 'left';
+//   }
+// }
+// customElements.define('testimonials-component', TestimonialsComponent);
 
 class UseAnimate extends HTMLElement {
   constructor() {
