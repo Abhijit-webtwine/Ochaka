@@ -27,52 +27,7 @@
           role="tabpanel"
           {{ block.shopify_attributes }}
         >
-          <div
-            dir="ltr"
-            class="swiper tf-swiper wrap-sw-over wow fadeInUp"
-            data-preview="4"
-            data-tablet="3"
-            data-mobile-sm="2"
-            data-mobile="2"
-            data-space-lg="48"
-            data-space-md="30"
-            data-space="12"
-            data-pagination="2"
-            data-pagination-sm="2"
-            data-pagination-md="3"
-            data-pagination-lg="4"
-            data-grid="2"
-          >
-            <div class="swiper-wrapper">
-              {% if block.settings.collection != blank %}
-                {% assign collection_products = collections[block.settings.collection].products %}
-                {% for product in collection_products limit: block.settings.products_limit %}
-                  <div class="swiper-slide">
-                    {% render 'card-product', product: product, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
-                  </div>  
-                {% endfor %}
-              {% else %}
-                {% for i in (1..4) %}
-                  <div class="swiper-slide">
-                    <div class="card-product">
-                      <div class="card-product_wrapper">
-                        <div class="product-img placeholder">
-                          {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
-                        </div>
-                      </div>
-                      <div class="card-product_info">
-                        <div class="name-product h4 link">{{ 'onboarding.product_title' | t }}</div>
-                        <div class="price-wrap">
-                          <span class="price-new h6">{{ 1999 | money }}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                {% endfor %}
-              {% endif %}
-            </div>
-            <div class="sw-dot-default tf-sw-pagination"></div>
-          </div>
+          {% render 'products-swiper', collection_ref: block.settings.collection, products_limit: block.settings.products_limit %}
         </div>
       {% endfor %}
     </div>
@@ -121,6 +76,22 @@
           "step": 1,
           "default": 8,
           "label": "Maximum products to show"
+        },
+        {
+          "type": "select",
+          "id": "grid_rows",
+          "label": "Grid Rows",
+          "options": [
+            {
+              "value": "1",
+              "label": "1 Row"
+            },
+            {
+              "value": "2",
+              "label": "2 Rows"
+            }
+          ],
+          "default": "2"
         }
       ]
     }
