@@ -3685,6 +3685,15 @@ class CountdownTimer extends HTMLElement {
       timer.appendChild(item);
 
       this._values[i] = value;
+
+      if (this._layout === "modern" && i < 3) {
+        const customElement = document.createElement("span");
+        customElement.className = "countdown__custom--element";
+        const customCss = document.createElement("span");
+        customCss.className = "countdown__custom--css";
+        customElement.appendChild(customCss);
+        timer.appendChild(customElement);
+      }
     }
 
     this.appendChild(timer);
@@ -3701,10 +3710,10 @@ class CountdownTimer extends HTMLElement {
 
       const s = Math.floor(diff / 1000);
 
-      this._values[0].textContent = Math.floor(s / 86400);
-      this._values[1].textContent = Math.floor((s % 86400) / 3600);
-      this._values[2].textContent = Math.floor((s % 3600) / 60);
-      this._values[3].textContent = s % 60;
+      this._values[0].textContent = Math.floor(s / 86400).toString().padStart(2, "0");
+      this._values[1].textContent = Math.floor((s % 86400) / 3600).toString().padStart(2, "0");
+      this._values[2].textContent = Math.floor((s % 3600) / 60).toString().padStart(2, "0");
+      this._values[3].textContent = (s % 60).toString().padStart(2, "0");
     };
 
     update();

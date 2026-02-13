@@ -1,0 +1,95 @@
+<section class="themesFlat">
+  <div class="container-full-2">
+    <div class="banner-cd_v01 style-2">
+      <div class="banner_content wow fadeInUp">
+        {%- if section.settings.title != blank -%}
+          <h1 class="title">{{ section.settings.title }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="sub-title">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+        {%- if section.settings.end_date != blank -%}
+          <div class="count-down_v01">
+            <countdown-timer
+              data-date="{{ section.settings.end_date }}"
+              data-layout="modern"
+            ></countdown-timer>
+          </div>
+        {%- endif -%}
+        {%- if section.settings.button_text != blank -%}
+          <a href="{{ section.settings.button_link | default: '#' }}" class="tf-btn animate-btn type-small-2">
+            {{ section.settings.button_text }}
+            <i class="icon icon-arrow-right"></i>
+          </a>
+        {%- endif -%}
+      </div>
+      <div class="img-item item-1">
+        {%- if section.settings.image_1 != blank -%}
+          {{ section.settings.image_1 | image_url: width: 800 | image_tag: class: 'lazyload', loading: 'lazy' }}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+      <div class="img-item item-2">
+        {%- if section.settings.image_2 != blank -%}
+          {{ section.settings.image_2 | image_url: width: 800 | image_tag: class: 'lazyload', loading: 'lazy' }}
+        {%- else -%}
+          {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deals",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "On Sale!"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End Date",
+      "info": "Format: YYYY/MM/DD HH:MM:SS (e.g. 2026/12/31 23:59:59)",
+      "default": "2026/12/31 23:59:59"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get voucher 25%"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Floating Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Floating Image 2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deals"
+    }
+  ]
+}
+{% endschema %}
