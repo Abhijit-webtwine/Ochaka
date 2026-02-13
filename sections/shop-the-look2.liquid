@@ -1,0 +1,151 @@
+<section class="flat-spacing pt-0 tf-lookbook-hover">
+  <div class="container">
+    <div class="row d-flex align-items-center">
+      <div class="col-lg-6">
+        <div class="banner-lookbook wrap-lookbook_hover">
+          {%- if section.settings.banner_image != blank -%}
+            {{ section.settings.banner_image | image_url: width: 1000 | image_tag: class: 'lazyload img-banner', loading: 'lazy' }}
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg img-banner' }}
+          {%- endif -%}
+
+          {%- for block in section.blocks -%}
+            {%- assign product = block.settings.product -%}
+            <div class="lookbook-item" style="top: {{ block.settings.pos_y }}%; left: {{ block.settings.pos_x }}%;">
+              <div class="dropdown dropup-center dropdown-custom dropstart">
+                <div role="dialog" class="tf-pin-btn bundle-pin-item swiper-button" data-slide="{{ forloop.index0 }}" id="pin{{ forloop.index }}"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="p-lg-0 pt-30">
+          <div class="sect-title wow fadeInUp">
+            <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
+            <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+          </div>
+          <div dir="ltr" class="swiper tf-sw-lookbook bundle-hover-wrap" data-preview="2" data-tablet="2"
+            data-mobile="2" data-space-lg="48" data-space-md="24" data-space="16" data-pagination="1"
+            data-pagination-md="1" data-pagination-lg="1">
+            <div class="swiper-wrapper">
+              {%- for block in section.blocks -%}
+                {%- assign product = block.settings.product -%}
+                <div class="swiper-slide">
+                  {%- if product != blank -%}
+                    {%- assign card_class = 'bundle-hover-item pin' | append: forloop.index -%}
+                    {%- render 'card-product', 
+                      product: product, 
+                      card_class: card_class,
+                      show_wishlist: true,
+                      show_compare: true,
+                      show_quick_view: true,
+                      show_add_to_cart: true
+                    -%}
+                  {%- else -%}
+                    <div class="card-product bundle-hover-item pin{{ forloop.index }}">
+                      <div class="card-product_wrapper d-flex">
+                        <div class="product-img">
+                          {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg img-product w-100' }}
+                        </div>
+                      </div>
+                      <div class="card-product_info d-flex flex-column">
+                        <a href="#" class="name-product h4 link">Product Title</a>
+                        <div class="price-wrap mb-0">
+                          <span class="price-new h6">$84,99</span>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            </div>
+            <div class="sw-dot-default sw-pagination-lookbook"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Shop the Look 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop This Look"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "range",
+          "id": "pos_x",
+          "label": "Horizontal Position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "range",
+          "id": "pos_y",
+          "label": "Vertical Position",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 50
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop the Look 2",
+      "blocks": [
+        {
+          "type": "product",
+          "settings": {
+            "pos_x": 30,
+            "pos_y": 40
+          }
+        },
+        {
+          "type": "product",
+          "settings": {
+            "pos_x": 60,
+            "pos_y": 70
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

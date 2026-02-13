@@ -33,7 +33,7 @@
     endif
   %}
 {% endfor %}
-<div class="card-product {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div class="card-product {{ card_class }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
 
