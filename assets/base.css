@@ -889,11 +889,11 @@ summary::-webkit-details-marker {
 [data-heading-center] .page-title {
   text-align: center;
 }
-
+/* 
 .title .link {
   font-size: inherit;
   line-height: normal;
-}
+} */
 
 .subtitle {
   font-size: 1.6rem;
