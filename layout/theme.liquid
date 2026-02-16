@@ -179,8 +179,16 @@
     {% render 'transition-cover' %}
 
     <div class="transition-body">
-      {% section 'announcement-bar' %}
-      {% section 'header' %}
+      
+      {% if settings.show_announcement_bar %}
+        {% section 'announcement-bar' %}
+      {% endif %}
+
+      {% if settings.header_layout == 'header_1' %}
+        {% section 'header' %}
+      {% elsif settings.header_layout == 'header_2' %}
+        {% section 'header-2' %}
+      {% endif %}
 
       {% if settings.quick_view_enabled %}
         {% render 'quick-view' %}
