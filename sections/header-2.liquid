@@ -189,6 +189,13 @@
     </div>
   </div>
 </header>
+{%- for link in section.settings.menu.links -%}
+  {% for block in section.blocks %}
+    {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
+      {% render 'megamenu-modal', block: block, link: link, modal_title: section.settings.modal_title %}
+    {% endif %}
+  {% endfor %}
+{%- endfor -%}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
