@@ -1,0 +1,161 @@
+<section class="themesFlat">
+  <div class="container-full">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="sect-title text-center wow fadeInUp">
+        {%- if section.settings.title != blank -%}
+          <h1 class="s-title mb-8">{{ section.settings.title }}</h1>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div
+      dir="ltr"
+      class="swiper tf-swiper wrap-sw-over"
+      data-preview="3"
+      data-tablet="2"
+      data-mobile-sm="1"
+      data-mobile="1"
+      data-space-lg="48"
+      data-space-md="30"
+      data-space="12"
+      data-pagination="1"
+      data-pagination-sm="2"
+      data-pagination-md="2"
+      data-pagination-lg="3"
+    >
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'collection_card' -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="box-image_V02 type-space-2 type-space-5 hover-img">
+                  <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
+                    {%- if block.settings.image != blank -%}
+                      {{
+                        block.settings.image
+                        | image_url: width: 800
+                        | image_tag: class: 'lazyload', loading: 'lazy', alt: block.settings.title
+                      }}
+                    {%- else -%}
+                      {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </a>
+                  <div class="box-image_content wow fadeInUp">
+                    {%- if block.settings.title != blank -%}
+                      <h2 class="type-semibold">
+                        <a href="{{ block.settings.link | default: '#' }}" class="title link mb-8">
+                          {{ block.settings.title }}
+                        </a>
+                      </h2>
+                    {%- endif -%}
+                    {%- if block.settings.subtitle != blank -%}
+                      <p class="sub-text h6">{{ block.settings.subtitle }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.button_text != blank -%}
+                      <a href="{{ block.settings.link | default: '#' }}" class="tf-btn animate-btn">
+                        {{ block.settings.button_text }}
+                        <i class="icon icon-arrow-right"></i>
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+      {%- if section.settings.show_pagination -%}
+        <div class="sw-dot-default tf-sw-pagination"></div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection of Day",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Heading",
+      "default": "Collection The Day"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Pagination Dots",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Collection Title"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Card Subtitle",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection of Day",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Sneakers Collection"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Suede Collection"
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Sport Collection"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
