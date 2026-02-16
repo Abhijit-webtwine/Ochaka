@@ -1,0 +1,636 @@
+{{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+
+<header class="tf-header header-abs-3">
+  {%- liquid
+    if section.settings.menu != blank
+      render 'header-drawer', main_menu: section.settings.menu
+    endif
+  -%}
+  <div class="header-top">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 col-3 d-xl-none">
+          <a
+            href="#mobileMenu"
+            data-bs-toggle="offcanvas"
+            class="btn-mobile-menu style-white"
+          >
+            <span></span>
+          </a>
+        </div>
+        <div class="col-xl-4 d-none d-xl-block">
+          <div class="list-hor">
+            <div class="tf-languages d-none d-xl-block">
+              <form class="position-static" method="post" action="{{ routes.localization_url }}">
+                <input type="hidden" name="form_type" value="localization">
+                <select
+                  name="locale_code"
+                  class="tf-dropdown-select style-default color-white type-languages"
+                  onchange="this.form.submit()"
+                >
+                  {%- for language in localization.available_languages -%}
+                    <option
+                      value="{{ language.iso_code }}"
+                      {% if language.iso_code == localization.language.iso_code %}
+                        selected
+                      {% endif %}
+                    >
+                      {{ language.endonym_name }}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              </form>
+            </div>
+            {%- liquid
+              assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
+              assign show_currencies = false
+              if currencies.size > 1
+                assign show_currencies = true
+              endif
+            -%}
+            <div class="tf-currencies d-none d-xl-block">
+              <localization-form>
+                {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form position-static' -%}
+                  {% render 'country_localization', show_currencies: show_currencies, color_white: true %}
+                {%- endform -%}
+              </localization-form>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-md-4 col-6">
+          <a href="{{ routes.root_url }}" class="logo-site justify-content-center">
+            <img
+              src="{{ section.settings.logo | image_url }}"
+              alt="LOGO"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+            >
+            <div class="logo-bottom">
+              <svg
+                width="14"
+                height="6"
+                viewBox="0 0 14 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M2.5 1L4.5 3L2.5 5L0.5 3L2.5 1Z" fill="white" />
+                <path d="M10.5 0L13.5 3L10.5 6L7.5 3L10.5 0Z" fill="white" />
+              </svg>
+              <span class="text-small-3 text-white text-uppercase">
+                {{ section.settings.logo_bottom_text }}
+              </span>
+              <svg
+                width="14"
+                height="6"
+                viewBox="0 0 14 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M3.5 0L6.5 3L3.5 6L0.5 3L3.5 0Z" fill="white" />
+                <path d="M11.5 1L13.5 3L11.5 5L9.5 3L11.5 1Z" fill="white" />
+              </svg>
+            </div>
+          </a>
+        </div>
+        <div class="col-xl-4 col-md-4 col-3">
+          <ul class="nav-icon-list">
+            <li class="d-none d-lg-flex">
+              <a class="nav-icon-item text-white link" href="{{ routes.account_login_url }}"
+                ><i class="icon icon-user"></i
+              ></a>
+            </li>
+            <li class="d-none d-md-flex">
+              <a
+                class="nav-icon-item text-white link"
+                href="#search"
+                data-bs-toggle="modal"
+              >
+                <i class="icon icon-magnifying-glass"></i>
+              </a>
+            </li>
+            {% if settings.wishlist_enabled %}
+              <li class="d-none d-sm-flex">
+                <a class="nav-icon-item text-white link" href="/pages/wishlist" style="position: relative;">
+                  <span id="wishlist-icon-bubble">
+                    <wishlist-count class="count d-none">
+                      <span aria-hidden="true">0</span>
+                      <span class="visually-hidden">Wishlist items</span>
+                    </wishlist-count>
+                  </span>
+                  <i class="icon icon-heart"></i>
+                </a>
+              </li>
+            {% endif %}
+            <li
+              class="shop-cart"
+            >
+              <cart-drawer>
+                <details class="cart-drawer-container">
+                  <summary class="cart-drawer__toggle" aria-expanded="false">
+                    <span class="" id="cart-icon-bubble">
+                      <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+                      {%- if cart != empty -%}
+                        <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+                          {%- if cart.item_count < 100 -%}
+                            <span aria-hidden="true">{{ cart.item_count }}</span>
+                          {%- endif -%}
+                          <span class="visually-hidden">
+                            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+                          </span>
+                        </span>
+                      {%- endif -%}
+                    </span>
+
+                    <span class="nav-icon-item link">
+                      <i class="icon icon-shopping-cart-simple"></i>
+                    </span>
+                  </summary>
+
+                  <mini-cart class="popup-shopping-cart" id="mini-cart" data-url="?section_id=mini-cart">
+                    {% comment %} mini cart items will be rendered {% endcomment %}
+                    {% comment %} remove the offcanvas coz of id conflict {% endcomment %}
+                  </mini-cart>
+                </details>
+              </cart-drawer>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-inner d-none d-xl-block">
+    <div class="container">
+      <nav class="box-navigation style-white">
+        <ul class="box-nav-menu">
+          {%- for link in section.settings.menu.links -%}
+            <li class="menu-item">
+              <a href="{{ link.url }}" class="item-link">
+                {{- link.title | upcase }}
+                {%- assign has_mega_menu = false -%}
+                {% for block in section.blocks %}
+                  {% if block.settings['menu-handle'] == link.handle %}
+                    {% assign has_mega_menu = true %}
+                  {% endif %}
+                {% endfor %}
+                {% if has_mega_menu %}<i class="icon icon-caret-down"></i>{% endif %}
+              </a>
+
+              {% comment %}Mega Menu{% endcomment %}
+              {% for block in section.blocks %}
+                {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
+                  {% render 'mega-menu', block: block, link: link, modal_title: section.settings.modal_title %}
+                {% endif %}
+              {% endfor %}
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'cart-recommendations.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Header 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "modal_title",
+      "label": "Modal Title",
+      "default": "Ultimate HTML Theme"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "t:sections.header.settings.logo.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Logo Mobile"
+    },
+    {
+      "type": "text",
+      "id": "logo_bottom_text",
+      "label": "Logo Bottom Text",
+      "default": "Shop Smart, Live Better"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "t:sections.header.settings.menu.label"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "mega_menu",
+      "name": "t:sections.header.blocks.mega_menu.name",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu-handle",
+          "label": "Menu Handle"
+        },
+        {
+          "type": "select",
+          "id": "menu-type",
+          "label": "Menu Type",
+          "options": [
+            {
+              "value": "grid-layout",
+              "label": "Grid Layout"
+            },
+            {
+              "value": "col-collection",
+              "label": "Column Collection Layout"
+            },
+            {
+              "value": "col-product",
+              "label": "Column Product Layout"
+            },
+            {
+              "value": "dropdown",
+              "label": "Dropdown"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "If Grid Layout",
+          "info": "Mega menu will only show 12, Modal will show all demos."
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_1_image",
+          "label": "Demo 1 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_1_url",
+          "label": "Demo 1 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_1_name",
+          "label": "Demo 1 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_2_image",
+          "label": "Demo 2 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_2_url",
+          "label": "Demo 2 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_2_name",
+          "label": "Demo 2 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_3_image",
+          "label": "Demo 3 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_3_url",
+          "label": "Demo 3 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_3_name",
+          "label": "Demo 3 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_4_image",
+          "label": "Demo 4 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_4_url",
+          "label": "Demo 4 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_4_name",
+          "label": "Demo 4 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_5_image",
+          "label": "Demo 5 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_5_url",
+          "label": "Demo 5 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_5_name",
+          "label": "Demo 5 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_6_image",
+          "label": "Demo 6 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_6_url",
+          "label": "Demo 6 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_6_name",
+          "label": "Demo 6 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_7_image",
+          "label": "Demo 7 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_7_url",
+          "label": "Demo 7 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_7_name",
+          "label": "Demo 7 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_8_image",
+          "label": "Demo 8 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_8_url",
+          "label": "Demo 8 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_8_name",
+          "label": "Demo 8 Name"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "demo_9_image",
+          "label": "Demo 9 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_9_url",
+          "label": "Demo 9 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_9_name",
+          "label": "Demo 9 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_10_image",
+          "label": "Demo 10 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_10_url",
+          "label": "Demo 10 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_10_name",
+          "label": "Demo 10 Name"
+        },
+
+        {
+          "type": "image_picker",
+          "id": "demo_11_image",
+          "label": "Demo 11 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_11_url",
+          "label": "Demo 11 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_11_name",
+          "label": "Demo 11 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_12_image",
+          "label": "Demo 12 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_12_url",
+          "label": "Demo 12 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_12_name",
+          "label": "Demo 12 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_13_image",
+          "label": "Demo 13 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_13_url",
+          "label": "Demo 13 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_13_name",
+          "label": "Demo 13 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_14_image",
+          "label": "Demo 14 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_14_url",
+          "label": "Demo 14 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_14_name",
+          "label": "Demo 14 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_15_image",
+          "label": "Demo 15 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_15_url",
+          "label": "Demo 15 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_15_name",
+          "label": "Demo 15 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_16_image",
+          "label": "Demo 16 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_16_url",
+          "label": "Demo 16 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_16_name",
+          "label": "Demo 16 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_17_image",
+          "label": "Demo 17 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_17_url",
+          "label": "Demo 17 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_17_name",
+          "label": "Demo 17 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_18_image",
+          "label": "Demo 18 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_18_url",
+          "label": "Demo 18 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_18_name",
+          "label": "Demo 18 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_19_image",
+          "label": "Demo 19 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_19_url",
+          "label": "Demo 19 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_19_name",
+          "label": "Demo 19 Name"
+        },
+        {
+          "type": "image_picker",
+          "id": "demo_20_image",
+          "label": "Demo 20 Image"
+        },
+        {
+          "type": "url",
+          "id": "demo_20_url",
+          "label": "Demo 20 URL"
+        },
+        {
+          "type": "text",
+          "id": "demo_20_name",
+          "label": "Demo 20 Name"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Label"
+        },
+        {
+          "type": "header",
+          "content": "If Column Collection"
+        },
+        {
+          "type": "link_list",
+          "id": "mega_link_list",
+          "label": "Link List"
+        },
+        {
+          "type": "collection",
+          "id": "mega_collection_1",
+          "label": "Collection 1"
+        },
+        {
+          "type": "collection",
+          "id": "mega_collection_2",
+          "label": "Collection 2"
+        },
+        {
+          "type": "text",
+          "id": "mega_col_btn_text",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "header",
+          "content": "If Column Product"
+        },
+        {
+          "type": "text",
+          "id": "mega_prod_title",
+          "label": "Title"
+        },
+        {
+          "type": "link_list",
+          "id": "mega_prod_link_list",
+          "label": "Link List"
+        },
+        {
+          "type": "product",
+          "id": "mega_product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "mega_product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "header",
+          "content": "If Dropdown"
+        },
+        {
+          "type": "link_list",
+          "id": "dropdown_link_list",
+          "label": "Link List"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
