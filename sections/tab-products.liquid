@@ -1,33 +1,84 @@
-<div class="{% if section.settings.spacing %}flat-spacing{% endif %} flat-animate-tab">
+{% comment %}
+  Unified Tab Products Section
+  - Supports V1 + V2 behaviors
+  - Schema-driven toggles
+  - Production safe
+{% endcomment %}
+
+<style>
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>
+
+<div
+  class="
+    flat-animate-tab
+    section-{{ section.id }}-padding
+  "
+>
   <div class="container">
+    {% if section.settings.title != blank %}
+      <div class="sect-title wow fadeInUp">
+        <div class="h1 title text-center mb-24">
+          {{ section.settings.title }}
+        </div>
+      </div>
+    {% endif %}
+
     <div class="sect-title wow fadeInUp">
-      <div class="h1 title text-center mb-24">{{ section.settings.title | default: 'Featured Products' }}</div>
       <ul class="tab-product_list" role="tablist">
         {% for block in section.blocks %}
-          {% assign tab_id = block.settings.tab_title | handleize | prepend: 'tab-' %}
+          {% assign tab_id = section.id | append: '-' | append: block.id %}
           <li class="nav-tab-item" role="presentation">
-            <a 
-              href="#{{ tab_id }}" 
-              data-bs-toggle="tab" 
-              class="tf-btn-line tf-btn-tab {% if forloop.first %}active{% endif %}"
+            <a
+              href="#{{ tab_id }}"
+              data-bs-toggle="tab"
+              class="
+                tf-btn-line tf-btn-tab
+                {% if section.settings.large_tab_style %}style-large style-gray{% endif %}
+                {% if forloop.first %}active{% endif %}
+              "
             >
-              {{ block.settings.tab_title | upcase }}
+              {% if section.settings.large_tab_style %}
+                <span class="h2 text-normal fw-normal">
+                  {{ block.settings.tab_title }}
+                </span>
+              {% else %}
+                {{ block.settings.tab_title | upcase }}
+              {% endif %}
             </a>
           </li>
         {% endfor %}
       </ul>
     </div>
-    
+
     <div class="tab-content">
       {% for block in section.blocks %}
-        {% assign tab_id = block.settings.tab_title | handleize | prepend: 'tab-' %}
-        <div 
-          class="tab-pane {% if forloop.first %}active show{% endif %}" 
-          id="{{ tab_id }}" 
+        {% assign tab_id = section.id | append: '-' | append: block.id %}
+        <div
+          class="tab-pane {% if forloop.first %}active show{% endif %}"
+          id="{{ tab_id }}"
           role="tabpanel"
           {{ block.shopify_attributes }}
         >
-          {% render 'products-swiper', collection_ref: block.settings.collection, products_limit: block.settings.products_limit %}
+          {% if block.settings.collection != blank %}
+            {% render 'products-swiper',
+              collection_ref: block.settings.collection,
+              products_limit: block.settings.products_limit,
+              grid_rows: block.settings.grid_rows
+            %}
+          {% else %}
+            <p class="text-center">No collection selected.</p>
+          {% endif %}
         </div>
       {% endfor %}
     </div>
@@ -41,15 +92,60 @@
   "tag": "section",
   "settings": [
     {
-      "type": "checkbox",
-      "id": "spacing",
-      "label": "Enable Section Spacing"
-    },
-    {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "Section Title",
       "default": "Featured Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "large_tab_style",
+      "label": "Large Styled Tabs",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top Desktop",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom Desktop",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top Mobile",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom Mobile",
+      "default": 24
     }
   ],
   "blocks": [
@@ -72,7 +168,7 @@
           "type": "range",
           "id": "products_limit",
           "min": 2,
-          "max": 12,
+          "max": 24,
           "step": 1,
           "default": 8,
           "label": "Maximum products to show"
@@ -82,16 +178,10 @@
           "id": "grid_rows",
           "label": "Grid Rows",
           "options": [
-            {
-              "value": "1",
-              "label": "1 Row"
-            },
-            {
-              "value": "2",
-              "label": "2 Rows"
-            }
+            { "value": "1", "label": "1 Row" },
+            { "value": "2", "label": "2 Rows" }
           ],
-          "default": "2"
+          "default": "1"
         }
       ]
     }
@@ -100,24 +190,9 @@
     {
       "name": "Tab Products",
       "blocks": [
-        {
-          "type": "tab",
-          "settings": {
-            "tab_title": "Trending"
-          }
-        },
-        {
-          "type": "tab",
-          "settings": {
-            "tab_title": "Best Sellers"
-          }
-        },
-        {
-          "type": "tab",
-          "settings": {
-            "tab_title": "On Sale"
-          }
-        }
+        { "type": "tab", "settings": { "tab_title": "Best Seller" } },
+        { "type": "tab", "settings": { "tab_title": "Trending" } },
+        { "type": "tab", "settings": { "tab_title": "On Sale" } }
       ]
     }
   ]
