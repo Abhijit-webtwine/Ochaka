@@ -5,14 +5,25 @@
 
   <!-- Header -->
   <div class="canvas-header">
-    <a href="{{ routes.root_url }}" class="logo-site">
-      <img
-        src="{{ section.settings.logo | image_url }}"
-        alt="Logo"
-        width="{{ section.settings.logo.width }}"
-        height="{{ section.settings.logo.height }}"
-      >
-    </a>
+    {% if section.settings.logo_mobile != blank %}
+      <a href="{{ routes.root_url }}" class="logo-site">
+        <img
+          src="{{ section.settings.logo_mobile | image_url }}"
+          alt="Logo"
+          width="{{ section.settings.logo_mobile.width }}"
+          height="{{ section.settings.logo_mobile.height }}"
+        >
+      </a>
+    {% else %}
+      <a href="{{ routes.root_url }}" class="logo-site">
+        <img
+          src="{{ section.settings.logo | image_url }}"
+          alt="Logo"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
+        >
+      </a>
+    {% endif %}
 
     {% if shop.customer_accounts_enabled %}
       {% if customer %}
