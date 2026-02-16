@@ -1,14 +1,30 @@
+{%- liquid
+  assign layout_style = section.settings.layout_style | default: 'layout_1'
+  assign is_layout_1 = false
+
+  if layout_style == 'layout_1'
+    assign is_layout_1 = true
+    assign wrapper_class = 'box-image_V04 hover-img'
+    assign content_class = 'box-image_content align-items-center text-center'
+    assign btn_extra_class = ''
+  else
+    assign wrapper_class = 'box-image_V01 type-3 hover-img'
+    assign content_class = 'box-image_content'
+    assign btn_extra_class = ' wow fadeInUp'
+  endif
+-%}
+
 <section class="themesFlat">
   <div class="container-full-2">
     <div class="tf-grid-layout lg-col-2 gap-0">
       {%- for block in section.blocks -%}
-        <div class="box-image_V04 hover-img" {{ block.shopify_attributes }}>
+        <div class="{{ wrapper_class }}" {{ block.shopify_attributes }}>
           <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
             {%- if block.settings.image != blank -%}
-              <img 
-                src="{{ block.settings.image | image_url: width: 1000 }}" 
-                data-src="{{ block.settings.image | image_url: width: 1000 }}" 
-                alt="{{ block.settings.image.alt | escape }}" 
+              <img
+                src="{{ block.settings.image | image_url: width: 1000 }}"
+                data-src="{{ block.settings.image | image_url: width: 1000 }}"
+                alt="{{ block.settings.image.alt | escape }}"
                 class="lazyload"
                 width="{{ block.settings.image.width }}"
                 height="{{ block.settings.image.height }}"
@@ -17,22 +33,47 @@
               {{ 'collection-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg' }}
             {%- endif -%}
           </a>
-          <div class="box-image_content align-items-center text-center">
+          <div class="{{ content_class }}">
             {%- if block.settings.sub_text != blank -%}
-              <span class="sub-text h6 text-primary">{{ block.settings.sub_text }}</span>
+              {% if is_layout_1 %}
+                <span class="sub-text h6 text-primary">{{ block.settings.sub_text }}</span>
+              {% else %}
+                <h6 class="sub-title fw-normal text-primary wow fadeInUp">
+                  {{ block.settings.sub_text }}
+                </h6>
+              {% endif %}
             {%- endif -%}
+
             {%- if block.settings.title != blank -%}
-              <h2 class="title type-semibold">
-                <a href="{{ block.settings.link | default: '#' }}" class="link">
+              {% if is_layout_1 %}
+                <h2 class="title type-semibold">
+                  <a href="{{ block.settings.link | default: '#' }}" class="link">
+                    {{ block.settings.title }}
+                  </a>
+                </h2>
+              {% else %}
+                <a
+                  href="{{ block.settings.link | default: '#' }}"
+                  class="title h2 link{{ btn_extra_class }}"
+                >
                   {{ block.settings.title }}
                 </a>
-              </h2>
+              {% endif %}
             {%- endif -%}
+
             {%- if block.settings.description != blank -%}
-              <p class="sub-title h6">{{ block.settings.description }}</p>
+              {% if is_layout_1 %}
+                <p class="sub-title h6">{{ block.settings.description }}</p>
+              {% else %}
+                <p class="desc h6 wow fadeInUp">{{ block.settings.description }}</p>
+              {% endif %}
             {%- endif -%}
+
             {%- if block.settings.button_text != blank -%}
-              <a href="{{ block.settings.link | default: '#' }}" class="tf-btn animate-btn">
+              <a
+                href="{{ block.settings.link | default: '#' }}"
+                class="tf-btn animate-btn{{ btn_extra_class }}"
+              >
                 {{ block.settings.button_text }}
                 <i class="icon icon-arrow-right"></i>
               </a>
@@ -47,6 +88,24 @@
 {% schema %}
 {
   "name": "Box Collection",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "layout_1",
+          "label": "Layout 1"
+        },
+        {
+          "value": "layout_2",
+          "label": "Layout 2"
+        }
+      ],
+      "default": "layout_1"
+    }
+  ],
   "blocks": [
     {
       "type": "box",
