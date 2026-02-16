@@ -74,7 +74,7 @@
             {% render 'products-swiper',
               collection_ref: block.settings.collection,
               products_limit: block.settings.products_limit,
-              grid_rows: block.settings.grid_rows
+              grid_rows: section.settings.grid_rows
             %}
           {% else %}
             <p class="text-center">No collection selected.</p>
@@ -102,6 +102,16 @@
       "id": "large_tab_style",
       "label": "Large Styled Tabs",
       "default": false
+    },
+    {
+      "type": "select",
+      "id": "grid_rows",
+      "label": "Grid Rows",
+      "options": [
+        { "value": "1", "label": "1 Row" },
+        { "value": "2", "label": "2 Rows" }
+      ],
+      "default": "1"
     },
     {
       "type": "header",
@@ -172,16 +182,6 @@
           "step": 1,
           "default": 8,
           "label": "Maximum products to show"
-        },
-        {
-          "type": "select",
-          "id": "grid_rows",
-          "label": "Grid Rows",
-          "options": [
-            { "value": "1", "label": "1 Row" },
-            { "value": "2", "label": "2 Rows" }
-          ],
-          "default": "1"
         }
       ]
     }

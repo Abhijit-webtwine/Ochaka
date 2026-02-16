@@ -119,7 +119,7 @@
                     {%- assign individual_form_id = 'product-form-' | append: section.id | append: '-' | append: block.id -%}
                     {%- form 'product', product, id: individual_form_id, data-type: 'add-to-cart-form' -%}
                       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                      <button type="submit" name="add" class="tf-btn animate-btn type-small fw-semibold">
+                      <button type="submit" name="add" class="tf-btn animate-btn type-small fw-semibold w-100">
                         {{ 'products.product.add_to_cart' | t }}
                         <i class="icon icon-arrow-right d-none d-sm-block"></i>
                       </button>
