@@ -6,7 +6,8 @@
     </div>
     {% render 'products-swiper',
       collection_ref: section.settings.collection.handle,
-      products_limit: section.settings.products_limit
+      products_limit: section.settings.products_limit,
+      grid_rows: section.settings.grid_rows
     %}
   </div>
 </section>
@@ -40,6 +41,16 @@
       "step": 1,
       "default": 8,
       "label": "Products Limit"
+    },
+    {
+      "type": "select",
+      "id": "grid_rows",
+      "label": "Grid Rows",
+      "options": [
+        { "value": "1", "label": "1 Row" },
+        { "value": "2", "label": "2 Rows" }
+      ],
+      "default": "1"
     }
   ],
   "presets": [

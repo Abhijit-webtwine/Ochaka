@@ -10,7 +10,7 @@
     <div
       dir="ltr"
       class="swiper tf-swiper"
-      data-preview="4"
+      data-preview="{{ section.settings.slides_to_show_desktop }}"
       data-tablet="3"
       data-mobile-sm="2"
       data-mobile="1"
@@ -85,6 +85,15 @@
       "type": "checkbox",
       "id": "spacing",
       "label": "Enable Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_desktop",
+      "label": "Slides to show on desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
     },
     {
       "type": "text",
