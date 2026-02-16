@@ -1,54 +1,27 @@
 <style>
     .section-{{ section.id }}-padding {
-    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
-    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    <div class="sect-border">
-      <div class="s-head">
-        <h3 class="s-title fw-normal">{{ section.settings.title }}</h3>
-      </div>
-      <div
-        dir="ltr"
-        class="swiper tf-swiper"
-        data-preview="4"
-        data-tablet="3"
-        data-mobile-sm="2"
-        data-mobile="1"
-        data-space-lg="97"
-        data-space-md="33"
-        data-space="13"
-        data-pagination="1"
-        data-pagination-sm="2"
-        data-pagination-md="3"
-        data-pagination-lg="4"
-      >
-        <div class="swiper-wrapper">
-          {% for block in section.blocks %}
-            <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="box-icon_V01">
-                <span class="icon">
-                  <i class="{{ block.settings.icon_class }}"></i>
-                </span>
-                <div class="content">
-                  <h4 class="title fw-normal">{{ block.settings.title }}</h4>
-                  <p class="text">{{ block.settings.text }}</p>
-                </div>
-              </div>
-            </div>
-          {% endfor %}
+    <div class="{% if section.settings.enable_border %}sect-border{% endif %}">
+      {% if section.settings.show_title %}
+        <div class="s-head">
+          {% if section.settings.title != blank %}
+            <h3 class="s-title fw-normal">{{ section.settings.title }}</h3>
+          {% endif %}
         </div>
-        <div class="sw-dot-default tf-sw-pagination"></div>
-      </div>
+      {% endif %}
+      {% render 'box-icons-swiper', blocks: section.blocks %}
     </div>
   </div>
 </section>
@@ -58,10 +31,22 @@
   "name": "Box Icons",
   "settings": [
     {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show Title",
+      "default": true
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Section Title",
       "default": "The Fresh Clothes"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_border",
+      "label": "Enable Border",
+      "default": true
     },
     {
       "type": "header",
@@ -69,23 +54,43 @@
     },
     {
       "type": "range",
-      "id": "padding_top",
+      "id": "padding_top_desktop",
       "label": "Padding Top",
       "min": 0,
-      "max": 100,
-      "step": 5,
+      "max": 120,
+      "step": 4,
       "unit": "px",
-      "default": 50
+      "default": 112
     },
     {
       "type": "range",
-      "id": "padding_bottom",
+      "id": "padding_bottom_desktop",
       "label": "Padding Bottom",
       "min": 0,
-      "max": 100,
-      "step": 5,
+      "max": 120,
+      "step": 4,
       "unit": "px",
-      "default": 50
+      "default": 112
+    },
+        {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
     }
   ],
   "blocks": [
