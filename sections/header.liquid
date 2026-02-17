@@ -4,7 +4,7 @@
 {% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list,faq' | split: ',' %}
 
 <header class="tf-header header-fix
-  {% unless excluded_suffixes contains template.suffix or template.name == '404' or template.name == 'blog' %}
+  {% unless excluded_suffixes contains template.suffix or template.name == '404' or template.name == 'blog' or section.settings.remove_transparent_header %}
     {{ section.settings.header_abs_style }}
   {% endunless %}
   {% if section.settings.enable_sticky_header %}
@@ -135,6 +135,12 @@
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "remove_transparent_header",
+      "default": false,
+      "label": "Remove Transparent Header"
+    },
     {
       "type": "select",
       "id": "header_abs_style",
