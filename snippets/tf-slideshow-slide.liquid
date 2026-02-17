@@ -23,7 +23,7 @@
       {{ placeholder_img | placeholder_svg_tag }}
     {% endif %}
   </div>
-  <div class="sld_content {% if slider_style == 'style-2' %}{{ block.settings.content_alignment }}{% endif %}">
+  <div class="sld_content {% if slider_style == 'style-2' %}{{ block.settings.content_alignment }} {% endif %}{% if block.settings.slide_description == blank and block.settings.slide_subtitle == blank %}only-title {% endif %}">
     <div class="container">
       <div class="row">
         <div class="{% if slider_style == 'style-2' %}{% if block.settings.content_alignment contains 'text-end' %}ms-auto{% elsif block.settings.content_alignment contains 'text-center' %}mx-auto{% endif %} col-sm-8 col-10{% endif %}">
@@ -34,7 +34,7 @@
               </p>
             {% endif %}
             {% if block.settings.slide_title != blank %}
-              <h1 class="title_sld text-display {{ fade_class }} fade-item-2">
+              <h1 class="title_sld text-display {{ fade_class }} fade-item-2 {% if thin_title %}fw-normal {% endif %}">
                 {{ block.settings.slide_title | newline_to_br }}
               </h1>
             {% endif %}
@@ -45,7 +45,7 @@
             {% endif %}
             {% if block.settings.slide_link != blank %}
               <div class="{{ fade_class }} fade-item-4">
-                <a href="{{ block.settings.slide_link }}" class="tf-btn {{ block.settings.btn_style }} animate-btn fw-normal">
+                <a href="{{ block.settings.slide_link }}" class="tf-btn {{ block.settings.btn_style }} animate-btn {% if thin_button_text %}fw-normal {% endif %}">
                   {{ block.settings.slide_button_text }}
                   <i class="icon icon-arrow-right"></i>
                 </a>

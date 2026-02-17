@@ -35,8 +35,9 @@
             index: forloop.index0,
             image_animation: section.settings.image_animation,
             enable_fade: section.settings.enable_fade_animation,
-            slider_style: section.settings.slider_style,
-            subtitle_size: section.settings.subtitle_size
+            slider_style: block.settings.slider_style,
+            subtitle_size: section.settings.subtitle_size,
+            thin_title: block.settings.thin_title
           %}
         </div>
       {% endfor %}
@@ -56,22 +57,6 @@
 {
   "name": "Slideshow",
   "settings": [
-    {
-      "type": "select",
-      "id": "slider_style",
-      "label": "Slider Style",
-      "options": [
-        {
-          "value": "",
-          "label": "Style 1"
-        },
-        {
-          "value": "style-2",
-          "label": "Style 2"
-        }
-      ],
-      "default": "style-2"
-    },
     {
       "type": "select",
       "id": "subtitle_size",
@@ -125,6 +110,22 @@
       "name": "Slide",
       "settings": [
         {
+          "type": "select",
+          "id": "slider_style",
+          "label": "Slider Style",
+          "options": [
+            {
+              "value": "",
+              "label": "Style 1"
+            },
+            {
+              "value": "style-2",
+              "label": "Style 2"
+            }
+          ],
+          "default": "style-2"
+        },
+        {
           "type": "image_picker",
           "id": "slide_image",
           "label": "Image"
@@ -142,6 +143,12 @@
           "label": "Title",
         },
         {
+          "type": "checkbox",
+          "id": "thin_title",
+          "label": "Thin Title",
+          "default": true
+        },
+        {
           "type": "textarea",
           "id": "slide_description",
           "label": "Description",
@@ -157,6 +164,12 @@
           "id": "slide_button_text",
           "label": "Button Text",
           "default": "Shop now"
+        },
+        {
+          "type": "checkbox",
+          "id": "thin_button_text",
+          "label": "Thin Button Text",
+          "default": true
         },
         {
           "type": "header",
