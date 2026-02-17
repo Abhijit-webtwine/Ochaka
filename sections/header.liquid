@@ -5,7 +5,7 @@
 
 <header class="tf-header header-fix
   {% unless excluded_suffixes contains template.suffix or template.name == '404' or template.name == 'blog' %}
-    header-abs-1
+    {{ section.settings.header_abs_style }}
   {% endunless %}
   {% if section.settings.enable_sticky_header %}
     header--sticky-enabled
@@ -135,6 +135,21 @@
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+      "type": "select",
+      "id": "header_abs_style",
+      "label": "Header Absolute Style",
+      "options": [
+        {
+          "value": "header-abs-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "header-abs-2",
+          "label": "Style 2"
+        }
+      ]
+    },
     {
       "type": "text",
       "id": "modal_title",
