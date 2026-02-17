@@ -14,14 +14,38 @@
 
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    <div class="sect-title {% if section.settings.subtitle == blank %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
-      {% if section.settings.title != blank %}
-        <h2 class="title {% if section.settings.subtitle != blank %} mb-8 {% endif %} {% if section.settings.large_styled_title %}h1{% endif %}{% if section.settings.thin_styled_title %}fw-normal{% endif %}">{{ section.settings.title | escape }}</h2>
-      {% endif %}
-      {% if section.settings.subtitle != blank %}
-        <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
-      {% endif %}
-    </div>
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      <div class="sect-title {% if section.settings.subtitle == blank %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+        {% liquid
+          assign subtitle = false
+          if section.settings.subtitle != blank
+            assign subtitle = true
+          endif
+        %}
+
+        {% if section.settings.heading_style == 'large' %}
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: true,
+            heading_weight: section.settings.heading_weight,
+          %}
+        {% else %}
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: false,
+            heading_weight: section.settings.heading_weight,
+          %}
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
     {% render 'products-swiper',
       collection_ref: section.settings.collection.handle,
       products_limit: section.settings.products_limit,
@@ -38,20 +62,44 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "Heading",
       "default": "Best Seller"
     },
     {
-      "type": "checkbox",
-      "id": "large_styled_title",
-      "label": "Large Styled Title",
-      "default": false
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        }
+      ],
+      "default": "large"
     },
     {
-      "type": "checkbox",
-      "id": "thin_styled_title",
-      "label": "Thin Styled Title",
-      "default": false
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
     },
     {
       "type": "text",

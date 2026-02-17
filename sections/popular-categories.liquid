@@ -1,10 +1,32 @@
 <section class="flat-spacing">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %} wow fadeInUp">
-        {% if section.settings.title != blank %}
-          <h2 class="title {% unless section.settings.shape == 'square' %}mb-8{% endunless %}{% if section.settings.large_styled_title %}h1{% endif %} {% if section.settings.thin_styled_title %}fw-normal{% endif %}">{{ section.settings.title }}</h2>
+      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+        {% liquid
+          assign subtitle = false
+          if section.settings.subtitle != blank
+            assign subtitle = true
+          endif
+        %}
+
+        {% if section.settings.heading_style == 'large' %}
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: true,
+            heading_weight: section.settings.heading_weight,
+          %}
+        {% else %}
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: false,
+            heading_weight: section.settings.heading_weight,
+          %}
         {% endif %}
+        
         {% if section.settings.subtitle != blank %}
           <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
         {% endif %}
@@ -35,6 +57,8 @@
                     src="{{ block.settings.image | image_url }}"
                     data-src="{{ block.settings.image | image_url }}"
                     alt="{{ block.settings.title | default: collection.title | escape }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
                   >
                 {% elsif collection.featured_image != blank %}
                   <img
@@ -42,6 +66,8 @@
                     src="{{ collection.featured_image | image_url }}"
                     data-src="{{ collection.featured_image | image_url  }}"
                     alt="{{ collection.title | escape }}"
+                    width="{{ collection.featured_image.width }}"
+                    height="{{ collection.featured_image.height }}"
                   >
                 {% else %}
                   {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -69,20 +95,44 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "Heading",
       "default": "Popular Categories"
     },
     {
-      "type": "checkbox",
-      "id": "large_styled_title",
-      "label": "Large Styled Title",
-      "default": false
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        }
+      ],
+      "default": "large"
     },
     {
-      "type": "checkbox",
-      "id": "thin_styled_title",
-      "label": "Thin Styled Title",
-      "default": false
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
     },
     {
       "type": "textarea",

@@ -3,7 +3,30 @@
 
     {% if section.settings.heading != blank or section.settings.subheading != blank %}
       <div class="sect-title text-center wow fadeInUp">
-        <h2 class="s-title mb-8{% if section.settings.large_styled_title %} h1{% endif %} {% if section.settings.thin_styled_title %}fw-normal{% endif %}">{{ section.settings.heading }}</h2>
+        {% liquid
+          assign subtitle = false
+          if section.settings.subheading != blank
+            assign subtitle = true
+          endif
+        %}
+
+        {% if section.settings.heading_style == 'large' %}
+          {% render 'title', 
+            class: 's-title',
+            title: section.settings.heading,
+            subtitle: subtitle,
+            large_title: true,
+            heading_weight: section.settings.heading_weight,
+          %}
+        {% else %}
+          {% render 'title', 
+            class: 's-title',
+            title: section.settings.heading,
+            subtitle: subtitle,
+            large_title: false,
+            heading_weight: section.settings.heading_weight,
+          %}
+        {% endif %}
         <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
       </div>
     {% endif %}
@@ -103,14 +126,40 @@
       "default": "Read Our Blog"
     },
     {
-      "type": "checkbox",
-      "id": "large_styled_title",
-      "label": "Enable large styled title"
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "large",
+          "label": "Large"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        }
+      ],
+      "default": "large"
     },
     {
-      "type": "checkbox",
-      "id": "thin_styled_title",
-      "label": "Enable thin styled title"
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
     },
     {
       "type": "text",
