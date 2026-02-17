@@ -1,7 +1,13 @@
+{% style %}
+  .section-{{ section.id }}-color {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+{% endstyle %}
+
 {%- if section.blocks.size > 0 -%}
   <div
-    class="themesFlat"
-    style="background-color: {{ section.settings.bg_color }}; color: {{ section.settings.text_color }};"
+    class="themesFlat section-{{ section.id }}-color"
   >
     <div class="tf-marquee style-3">
       <div
