@@ -13,7 +13,12 @@
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    <div class="{% if section.settings.enable_border %}sect-border{% endif %}">
+    {% if section.settings.enable_border %}
+      <div class="flat-spacing pt-0">
+        <span class="br-line d-flex"></span>
+      </div>
+    {% endif %}
+    <div class="">
       {% if section.settings.show_title %}
         <div class="s-head">
           {% if section.settings.title != blank %}

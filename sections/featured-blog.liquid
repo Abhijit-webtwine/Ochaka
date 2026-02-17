@@ -1,9 +1,10 @@
 <div class="{% if section.settings.spacing %}flat-spacing{% endif %}">
   <div class="container">
 
-    {% if section.settings.heading != blank %}
-      <div class="h1 sect-title text-black fw-medium text-center wow fadeInUp">
-        {{ section.settings.heading }}
+    {% if section.settings.heading != blank or section.settings.subheading != blank %}
+      <div class="sect-title text-center wow fadeInUp">
+        <h2 class="h1 s-title mb-8 fw-medium">{{ section.settings.heading }}</h2>
+        <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
       </div>
     {% endif %}
 
@@ -100,6 +101,12 @@
       "id": "heading",
       "label": "Heading",
       "default": "Read Our Blog"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {
       "type": "blog",
