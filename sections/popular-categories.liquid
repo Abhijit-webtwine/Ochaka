@@ -1,9 +1,9 @@
 <section class="flat-spacing">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title text-center wow fadeInUp">
+      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %} wow fadeInUp">
         {% if section.settings.title != blank %}
-          <h2 class="title mb-8 {% if section.settings.large_styled_title %}h1{% endif %}">{{ section.settings.title }}</h2>
+          <h2 class="title {% unless section.settings.shape == 'square' %}mb-8{% endunless %}{% if section.settings.large_styled_title %}h1{% endif %} {% if section.settings.thin_styled_title %}fw-normal{% endif %}">{{ section.settings.title }}</h2>
         {% endif %}
         {% if section.settings.subtitle != blank %}
           <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
@@ -76,6 +76,12 @@
       "type": "checkbox",
       "id": "large_styled_title",
       "label": "Large Styled Title",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "thin_styled_title",
+      "label": "Thin Styled Title",
       "default": false
     },
     {

@@ -14,9 +14,13 @@
 
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    <div class="sect-title text-center wow fadeInUp">
-      <h1 class="title mb-8">{{ section.settings.heading | escape }}</h1>
-      <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
+    <div class="sect-title {% if section.settings.subtitle == blank %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+      {% if section.settings.title != blank %}
+        <h2 class="title {% if section.settings.subtitle != blank %} mb-8 {% endif %} {% if section.settings.large_styled_title %}h1{% endif %}{% if section.settings.thin_styled_title %}fw-normal{% endif %}">{{ section.settings.title | escape }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
+      {% endif %}
     </div>
     {% render 'products-swiper',
       collection_ref: section.settings.collection.handle,
@@ -33,14 +37,26 @@
   "settings": [
     {
       "type": "text",
-      "id": "heading",
-      "label": "Heading",
+      "id": "title",
+      "label": "Title",
       "default": "Best Seller"
     },
     {
+      "type": "checkbox",
+      "id": "large_styled_title",
+      "label": "Large Styled Title",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "thin_styled_title",
+      "label": "Thin Styled Title",
+      "default": false
+    },
+    {
       "type": "text",
-      "id": "subheading",
-      "label": "Subheading",
+      "id": "subtitle",
+      "label": "Subtitle",
       "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {

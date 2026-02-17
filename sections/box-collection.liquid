@@ -15,7 +15,7 @@
 -%}
 
 <section class="themesFlat">
-  <div class="container-full-2">
+  <div class="{% unless section.settings.layout_style == 'layout_2' %}container-full-2{% endunless %}">
     <div class="tf-grid-layout lg-col-2 gap-0">
       {%- for block in section.blocks -%}
         <div class="{{ wrapper_class }}" {{ block.shopify_attributes }}>
@@ -123,10 +123,9 @@
           "default": "SALE OFF 50%"
         },
         {
-          "type": "text",
+          "type": "richtext",
           "id": "title",
           "label": "Title",
-          "default": "Wall Shelves For Bathroom"
         },
         {
           "type": "text",

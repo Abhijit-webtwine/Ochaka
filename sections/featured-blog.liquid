@@ -3,7 +3,7 @@
 
     {% if section.settings.heading != blank or section.settings.subheading != blank %}
       <div class="sect-title text-center wow fadeInUp">
-        <h2 class="h1 s-title mb-8 fw-medium">{{ section.settings.heading }}</h2>
+        <h2 class="s-title mb-8{% if section.settings.large_styled_title %} h1{% endif %} {% if section.settings.thin_styled_title %}fw-normal{% endif %}">{{ section.settings.heading }}</h2>
         <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
       </div>
     {% endif %}
@@ -101,6 +101,16 @@
       "id": "heading",
       "label": "Heading",
       "default": "Read Our Blog"
+    },
+    {
+      "type": "checkbox",
+      "id": "large_styled_title",
+      "label": "Enable large styled title"
+    },
+    {
+      "type": "checkbox",
+      "id": "thin_styled_title",
+      "label": "Enable thin styled title"
     },
     {
       "type": "text",
