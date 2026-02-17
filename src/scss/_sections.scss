@@ -2362,7 +2362,7 @@
         transition-duration: .5s;
     }
 
-    &::after {
+    &:not(.hide-seperator)::after {
         content: "";
         position: absolute;
         right: -48px;

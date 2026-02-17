@@ -5,9 +5,15 @@
   data-tablet="3"
   data-mobile-sm="2"
   data-mobile="1"
-  data-space-lg="97"
-  data-space-md="33"
-  data-space="13"
+  {% if section.settings.hide_seperator %}
+    data-space-lg="48"
+    data-space-md="24"
+    data-space="12" 
+  {% else %}
+    data-space-lg="97"
+    data-space-md="33"
+    data-space="13"
+  {% endif %}
   data-pagination="1"
   data-pagination-sm="2"
   data-pagination-md="3"
@@ -16,7 +22,9 @@
   <div class="swiper-wrapper">
     {% for block in blocks %}
       <div class="swiper-slide" {{ block.shopify_attributes }}>
-        <div class="box-icon_V01">
+        <div class="box-icon_V01 {% if section.settings.hide_seperator %}hide-seperator{% endif %}"
+          style="background-color: {{ block.settings.box_bg_color }}; padding-block: {{ block.settings.box_padding }}px;"
+        >
           <span class="icon">
             <i class="{{ block.settings.icon_class }}"></i>
           </span>
