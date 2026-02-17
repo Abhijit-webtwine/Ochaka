@@ -26,15 +26,13 @@
   "
 >
   <div class="container">
-    {% if section.settings.title != blank %}
-      <div class="sect-title wow fadeInUp">
+    <div class="sect-title wow fadeInUp">
+      {% if section.settings.title != blank %}
         <div class="h1 title text-center mb-24">
           {{ section.settings.title }}
         </div>
-      </div>
-    {% endif %}
+      {% endif %}
 
-    <div class="sect-title wow fadeInUp">
       <ul class="tab-product_list" role="tablist">
         {% for block in section.blocks %}
           {% assign tab_id = section.id | append: '-' | append: block.id %}
@@ -43,7 +41,7 @@
               href="#{{ tab_id }}"
               data-bs-toggle="tab"
               class="
-                tf-btn-line tf-btn-tab
+                tf-btn-line tf-btn-tab {% if section.settings.tab_title_thin %}fw-normal {% endif %}
                 {% if section.settings.large_tab_style %}style-large style-gray{% endif %}
                 {% if forloop.first %}active{% endif %}
               "
@@ -112,6 +110,12 @@
         { "value": "2", "label": "2 Rows" }
       ],
       "default": "1"
+    },
+    {
+      "type": "checkbox",
+      "id": "tab_title_thin",
+      "label": "Thin Tab Title",
+      "default": false
     },
     {
       "type": "header",

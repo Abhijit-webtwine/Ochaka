@@ -3,11 +3,13 @@
 
   @param {string} collection_ref - Collection reference from settings
   @param {number} products_limit - Max products to show
+  @param {string} grid_rows - Number of rows in the swiper grid
+  @param {boolean} hide_pagination_desktop - Hide pagination on desktop
 {% enddoc %}
 
 <div
   dir="ltr"
-  class="swiper tf-swiper wrap-sw-over wow fadeInUp"
+  class="swiper tf-swiper wow fadeInUp"
   data-preview="4"
   data-tablet="3"
   data-mobile-sm="2"
@@ -49,5 +51,5 @@
       {% endfor %}
     {% endif %}
   </div>
-  <div class="sw-dot-default tf-sw-pagination"></div>
+  <div class="sw-dot-default tf-sw-pagination {% if hide_pagination_desktop %}d-xl-none{% endif %}"></div>
 </div>

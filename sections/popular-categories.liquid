@@ -3,7 +3,7 @@
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
       <div class="sect-title text-center wow fadeInUp">
         {% if section.settings.title != blank %}
-          <h2 class="title mb-8">{{ section.settings.title }}</h2>
+          <h2 class="title mb-8 {% if section.settings.large_styled_title %}h1{% endif %}">{{ section.settings.title }}</h2>
         {% endif %}
         {% if section.settings.subtitle != blank %}
           <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
@@ -69,13 +69,19 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Section Title",
+      "label": "Title",
       "default": "Popular Categories"
+    },
+    {
+      "type": "checkbox",
+      "id": "large_styled_title",
+      "label": "Large Styled Title",
+      "default": false
     },
     {
       "type": "textarea",
       "id": "subtitle",
-      "label": "Section Subtitle",
+      "label": "Subtitle",
       "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {
@@ -99,10 +105,6 @@
         }
       ],
       "default": "circle"
-    },
-    {
-      "type": "header",
-      "content": "Layout Settings"
     }
   ],
   "blocks": [

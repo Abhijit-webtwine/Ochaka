@@ -1,4 +1,18 @@
-<section>
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>
+
+<section class="section-{{ section.id }}-padding">
   <div class="container">
     <div class="sect-title text-center wow fadeInUp">
       <h1 class="title mb-8">{{ section.settings.heading | escape }}</h1>
@@ -7,7 +21,8 @@
     {% render 'products-swiper',
       collection_ref: section.settings.collection.handle,
       products_limit: section.settings.products_limit,
-      grid_rows: section.settings.grid_rows
+      grid_rows: section.settings.grid_rows,
+      hide_pagination_desktop: section.settings.hide_pagination_desktop
     %}
   </div>
 </section>
@@ -51,6 +66,56 @@
         { "value": "2", "label": "2 Rows" }
       ],
       "default": "1"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_pagination_desktop",
+      "label": "Hide Pagination Desktop",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top Desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom Desktop",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 80
     }
   ],
   "presets": [
