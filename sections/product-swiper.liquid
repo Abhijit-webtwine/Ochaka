@@ -23,23 +23,13 @@
           endif
         %}
 
-        {% if section.settings.heading_style == 'large' %}
-          {% render 'title',
-            class: 's-title',
-            title: section.settings.title,
-            subtitle: subtitle,
-            large_title: true,
-            heading_weight: section.settings.heading_weight,
-          %}
-        {% else %}
-          {% render 'title',
-            class: 's-title',
-            title: section.settings.title,
-            subtitle: subtitle,
-            large_title: false,
-            heading_weight: section.settings.heading_weight,
-          %}
-        {% endif %}
+        {% render 'title',
+          class: 's-title',
+          title: section.settings.title,
+          subtitle: subtitle,
+          large_title: section.settings.heading_style,
+          heading_weight: section.settings.heading_weight,
+        %}
 
         {% if section.settings.subtitle != blank %}
           <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
@@ -71,15 +61,15 @@
       "label": "Heading Style",
       "options": [
         {
-          "value": "large",
+          "value": "true",
           "label": "Large"
         },
         {
-          "value": "small",
+          "value": "false",
           "label": "Small"
         }
       ],
-      "default": "large"
+      "default": "true"
     },
     {
       "type": "select",

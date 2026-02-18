@@ -6,10 +6,26 @@
       <div class="heading flat-spacing pt-0">
         {% render 'rotating-text', text: section.settings.rotating_text %}
         <div class="text-center">
-          <h1 class="s-title mb-8">{{ section.settings.title }}</h1>
-          <p class="s-subtitle h6-text">
-            {{ section.settings.subtitle }}
-          </p>
+          {% liquid
+            assign subtitle = false
+            if section.settings.subtitle != blank
+              assign subtitle = true
+            endif
+          %}
+
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: section.settings.heading_style,
+            heading_weight: section.settings.heading_weight,
+          %}
+
+          {% if section.settings.subtitle != blank %}
+            <p class="s-subtitle h6-text">
+              {{ section.settings.subtitle }}
+            </p>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -47,6 +63,42 @@
       "id": "title",
       "label": "Title",
       "default": "Ochaka. Store"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
     },
     {
       "type": "textarea",

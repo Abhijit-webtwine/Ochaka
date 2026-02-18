@@ -25,8 +25,24 @@
       <div class="col-lg-6">
         <div class="p-lg-0 pt-30">
           <div class="sect-title wow fadeInUp">
-            <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
-            <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+            {% liquid
+              assign subtitle = false
+              if section.settings.subtitle != blank
+                assign subtitle = true
+              endif
+            %}
+
+            {% render 'title',
+              class: 's-title',
+              title: section.settings.heading,
+              subtitle: subtitle,
+              large_title: section.settings.heading_style,
+              heading_weight: section.settings.heading_weight,
+            %}
+
+            {% if section.settings.subtitle != blank %}
+              <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+            {% endif %}
           </div>
           <div dir="ltr" class="swiper tf-sw-lookbook bundle-hover-wrap" data-preview="2" data-tablet="2"
             data-mobile="2" data-space-lg="48" data-space-md="24" data-space="16" data-pagination="1"
@@ -80,6 +96,42 @@
       "id": "heading",
       "label": "Heading",
       "default": "Shop This Look"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
     },
     {
       "type": "textarea",

@@ -1,5 +1,4 @@
 {% assign class = class %}
-
-<h2 class="title {{ class }} {% if subtitle %}mb-8 {% endif %} {% if large_title %}h1{% endif %} {% if heading_weight %}fw-{{ heading_weight }}{% endif %}">{{ title | escape }}
+<h2 class="{{ class }} {% if subtitle %}mb-8 {% endif %} {% if large_title == 'true' %}h1{% endif %} {% if heading_weight %}fw-{{ heading_weight }}{% endif %}">{{ title | escape }}
 </h2>
 
