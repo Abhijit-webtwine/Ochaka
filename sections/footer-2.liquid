@@ -1,0 +1,434 @@
+{% style %}
+  .section-{{ section.id }}-footer-2 {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-footer-2 {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-footer-2 {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<footer class="tf-footer footer-2 flat-spacing section-{{ section.id }}-footer-2">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <h2 class="footer-title fw-normal p-md-0">
+            {{ section.settings.newsletter_heading }}
+          </h2>
+        </div>
+        <div class="col-md-6">
+          <div class="sib-form sib-form_footer">
+            <div class="sib-form-container">
+              <div class="sib-container--large sib-container--vertical">
+                {% form 'customer', class: 'form_sub has_check' %}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+
+                  <div class="form-content_fieldset form-get_email">
+                    <div class="fieldset-input_email">
+                      <div class="sib-input sib-form-block">
+                        <div class="form__entry entry_block">
+                          <div class="form__label-row">
+                            <label class="entry__label d-none" for="Footer2Email"></label>
+                            <div class="entry__field ip">
+                              <input
+                                id="Footer2Email"
+                                class="input style-stroke bg-white"
+                                type="email"
+                                name="contact[email]"
+                                autocomplete="off"
+                                placeholder="{{ section.settings.newsletter_placeholder }}"
+                                required
+                              >
+                            </div>
+                          </div>
+                          <label class="entry__error entry__error--primary"></label>
+                          <label class="entry__specification"></label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="fiedset-button_submit">
+                      <div class="sib-form-block">
+                        <button
+                          class="sib-form-block__button sib-form-block__button-with-loader tf-btn animate-btn type-small-2"
+                          type="submit"
+                        >
+                          {{ section.settings.newsletter_button }}
+                          <i class="icon icon-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                {% endform %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="br-line d-flex"></div>
+  </div>
+  <div class="footer-body">
+    <div class="container">
+      <div class="row">
+        {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'menu_column' %}
+            <div class="col-lg-3 col-sm-6 mb_30 mb-lg-0" {{ block.shopify_attributes }}>
+              <div class="footer-col-block">
+                <p class="footer-heading footer-heading-mobile">
+                  {{ block.settings.heading }}
+                </p>
+                <div class="tf-collapse-content">
+                  <ul class="footer-menu-list">
+                    {% if block.settings.menu != blank %}
+                      {% for link in linklists[block.settings.menu].links %}
+                        <li>
+                          <a href="{{ link.url }}" class="link h6">
+                            {{ link.title }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% when 'contact' %}
+            <div class="col-lg-3 col-sm-6" {{ block.shopify_attributes }}>
+              <div class="footer-col-block">
+                <p class="footer-heading footer-heading-mobile">
+                  {{ block.settings.heading }}
+                </p>
+                <div class="tf-collapse-content">
+                  <ul class="footer-contact m-0">
+                    {% if block.settings.address != blank %}
+                      <li>
+                        <i class="icon icon-map-pin"></i>
+                        <span class="br-line"></span>
+                        <a href="{{ block.settings.map_url }}" target="_blank" class="h6 link text-main">
+                          {{ block.settings.address }}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.phone != blank %}
+                      <li>
+                        <i class="icon icon-phone"></i>
+                        <span class="br-line"></span>
+                        <a href="tel:{{ block.settings.phone }}" class="h6 link text-main">
+                          {{ block.settings.phone }}
+                        </a>
+                      </li>
+                    {% endif %}
+                    {% if block.settings.email != blank %}
+                      <li>
+                        <i class="icon icon-envelope-simple"></i>
+                        <span class="br-line"></span>
+                        <a href="mailto:{{ block.settings.email }}" class="h6 link text-main">
+                          {{ block.settings.email }}
+                        </a>
+                      </li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="br-line d-flex"></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="inner-bottom p-0 border-0">
+        <ul class="list-hor">
+          <li>
+            <a href="{{ section.settings.bottom_link_1 }}" class="h6 link">
+              {{ section.settings.bottom_text_1 }}
+            </a>
+          </li>
+          <li class="br-line type-vertical"></li>
+          <li>
+            <a href="{{ section.settings.bottom_link_2 }}" class="h6 link">
+              {{ section.settings.bottom_text_2 }}
+            </a>
+          </li>
+        </ul>
+        <div class="list-hor flex-wrap">
+          <span class="h6">Payment:</span>
+          <ul class="payment-method-list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li class="list-payment__item">
+                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div class="list-hor">
+          {%- liquid
+            assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
+            assign show_currencies = false
+            if currencies.size > 1
+              assign show_currencies = true
+            endif
+          -%}
+          <div class="tf-currencies">
+            <localization-form>
+            {%- form 'localization', id: 'Footer2CountryForm', class: 'localization-form position-static' -%}
+              {% render 'country_localization', show_currencies: show_currencies, color_white: false %}
+            {%- endform -%}
+            </localization-form>
+          </div>
+          <span class="br-line type-vertical"></span>
+          <div class="tf-languages">
+            <form class="position-static" method="post" action="{{ routes.localization_url }}">
+              <input type="hidden" name="form_type" value="localization">
+              <select
+                name="locale_code"
+                class="tf-dropdown-select style-default type-languages"
+                onchange="this.form.submit()"
+              >
+                {%- for language in localization.available_languages -%}
+                  <option
+                    value="{{ language.iso_code }}"
+                    {% if language.iso_code == localization.language.iso_code %}selected{% endif %}
+                  >
+                    {{ language.endonym_name }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Newsletter heading",
+      "default": "Subscribe to get a 25% off coupon for online purchases"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_placeholder",
+      "label": "Newsletter placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button",
+      "label": "Newsletter button label",
+      "default": "Subscribe"
+    },
+    {
+      "type": "richtext",
+      "id": "newsletter_terms",
+      "label": "Newsletter terms text"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom Links"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text_1",
+      "label": "Link text 1",
+      "default": "Help & FAQs"
+    },
+    {
+      "type": "url",
+      "id": "bottom_link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text_2",
+      "label": "Link text 2",
+      "default": "Factory"
+    },
+    {
+      "type": "url",
+      "id": "bottom_link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Menu"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Contact us"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Store address"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Map link"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone number"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email address"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Footer 2",
+      "blocks": [
+        {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Shop"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Support"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "heading": "Customer care"
+          }
+        },
+        {
+          "type": "contact",
+          "settings": {
+            "heading": "Contact us"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

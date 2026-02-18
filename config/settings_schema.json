@@ -40,6 +40,27 @@
     ]
   },
   {
+    "name": "Footer Layout",
+    "settings": [
+      {
+        "type": "select",
+        "id": "footer_layout",
+        "label": "Footer Layout",
+        "options": [
+          {
+            "value": "footer_1",
+            "label": "Footer 1"
+          },
+          {
+            "value": "footer_2",
+            "label": "Footer 2"
+          }
+        ],
+        "default": "footer_1"
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.colors.name",
     "settings": [
       {
