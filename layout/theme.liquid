@@ -51,6 +51,7 @@
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
     {%- if settings.predictive_search_enabled -%}
       <link
@@ -204,7 +205,13 @@
           {{ content_for_layout }}
         </main>
 
-        {% section 'footer' %}
+        {% if settings.footer_layout == 'footer_1' %}
+          {% section 'footer' %}
+        {% elsif settings.footer_layout == 'footer_2' %}
+          {% section 'footer-2' %}
+        {% else %}
+          {% section 'footer' %}
+        {% endif %}
       </div>
     </div>
 

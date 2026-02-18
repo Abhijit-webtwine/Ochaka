@@ -6,12 +6,19 @@
 {% endcomment %}
 
 <style>
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top_mobile }}px;
-      padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top_desktop }}px;
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
@@ -119,7 +126,7 @@
     },
     {
       "type": "header",
-      "content": "Section Padding"
+      "content": "Desktop padding"
     },
     {
       "type": "range",
@@ -128,7 +135,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Padding Top Desktop",
+      "label": "Padding top",
       "default": 36
     },
     {
@@ -138,8 +145,36 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Padding Bottom Desktop",
+      "label": "Padding bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
     },
     {
       "type": "range",
@@ -148,7 +183,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Padding Top Mobile",
+      "label": "Padding top",
       "default": 24
     },
     {
@@ -158,7 +193,7 @@
       "max": 120,
       "step": 4,
       "unit": "px",
-      "label": "Padding Bottom Mobile",
+      "label": "Padding bottom",
       "default": 24
     }
   ],

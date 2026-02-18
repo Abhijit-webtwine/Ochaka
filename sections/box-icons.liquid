@@ -1,10 +1,17 @@
 <style>
-    .section-{{ section.id }}-padding {
+  .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top_desktop }}px;
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
@@ -61,12 +68,12 @@
     },
     {
       "type": "header",
-      "content": "Section Padding"
+      "content": "Desktop padding"
     },
     {
       "type": "range",
       "id": "padding_top_desktop",
-      "label": "Padding Top",
+      "label": "Padding top",
       "min": 0,
       "max": 120,
       "step": 4,
@@ -76,17 +83,45 @@
     {
       "type": "range",
       "id": "padding_bottom_desktop",
-      "label": "Padding Bottom",
+      "label": "Padding bottom",
       "min": 0,
       "max": 120,
       "step": 4,
       "unit": "px",
       "default": 112
     },
-        {
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
       "type": "range",
       "id": "padding_top_mobile",
-      "label": "Padding Top",
+      "label": "Padding top",
       "min": 0,
       "max": 120,
       "step": 4,
@@ -96,7 +131,7 @@
     {
       "type": "range",
       "id": "padding_bottom_mobile",
-      "label": "Padding Bottom",
+      "label": "Padding bottom",
       "min": 0,
       "max": 120,
       "step": 4,
