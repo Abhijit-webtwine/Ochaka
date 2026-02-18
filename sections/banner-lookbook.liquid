@@ -1,4 +1,30 @@
-<section class="sect-lookbook tf-lookbook-hover">
+<style>
+  {% if section.settings.product_set_bg_color != blank %}
+    .section-{{ section.id }}-banner-lookbook .banner-product-set {
+      background-color: {{ section.settings.product_set_bg_color }};
+    }
+  {% endif %}
+
+  {% if section.settings.individual_button_bg_color != blank %}
+    .section-{{ section.id }}-banner-lookbook .banner-lookbook-individual-btn {
+      background-color: {{ section.settings.individual_button_bg_color }};
+      {% if section.settings.individual_button_text_color != blank %}
+        color: {{ section.settings.individual_button_text_color }};
+      {% endif %}
+    }
+  {% endif %}
+
+  {% if section.settings.set_button_bg_color != blank %}
+    .section-{{ section.id }}-banner-lookbook .banner-lookbook-set-btn {
+      background-color: {{ section.settings.set_button_bg_color }};
+      {% if section.settings.set_button_text_color != blank %}
+        color: {{ section.settings.set_button_text_color }};
+      {% endif %}
+    }
+  {% endif %}
+</style>
+
+<section class="sect-lookbook tf-lookbook-hover section-{{ section.id }}-banner-lookbook">
   <div class="banner-lookbook">
     {% if section.settings.image != blank %}
       {{ section.settings.image | image_url: width: 2000 | image_tag: class: 'lazyload img-banner', loading: 'lazy' }}
@@ -65,8 +91,24 @@
         <p class="product-badge_item h6 sale"> {{ section.settings.badge_text }} <span class="fw-bold"> {{ section.settings.badge_highlight }}</span></p>
       {% endif %}
       <div class="sect-title">
-        <h1 class="set_title text-xxl-nowrap">{{ section.settings.heading | escape }}</h1>
-        <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
+        {% liquid
+          assign subtitle = false
+          if section.settings.subheading != blank
+            assign subtitle = true
+          endif
+        %}
+
+        {% render 'title',
+          class: 'set_title text-xxl-nowrap',
+          title: section.settings.heading,
+          subtitle: subtitle,
+          large_title: section.settings.heading_style,
+          heading_weight: section.settings.heading_weight,
+        %}
+
+        {% if section.settings.subheading != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
+        {% endif %}
       </div>
 
       <ul class="list-ver w-100 bundle-hover-wrap">
@@ -119,7 +161,11 @@
                     {%- assign individual_form_id = 'product-form-' | append: section.id | append: '-' | append: block.id -%}
                     {%- form 'product', product, id: individual_form_id, data-type: 'add-to-cart-form' -%}
                       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                      <button type="submit" name="add" class="tf-btn animate-btn type-small fw-semibold w-100">
+                      <button
+                        type="submit"
+                        name="add"
+                        class="tf-btn animate-btn type-small fw-semibold w-100 banner-lookbook-individual-btn"
+                      >
                         {{ 'products.product.add_to_cart' | t }}
                         <i class="icon icon-arrow-right d-none d-sm-block"></i>
                       </button>
@@ -135,7 +181,7 @@
         {% endfor %}
       </ul>
       
-      <product-form-multi-add>
+      <product-form-multi-add class="w-100">
         {%- assign product_form_id = 'product-form' | append: section.id -%}
         {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
           {% assign variant_ids = set_variant_ids | split: "," %}
@@ -144,9 +190,13 @@
               <input type="hidden" name="id" value="{{ v_id }}">
             {% endif %}
           {% endfor %}
-          <div class="w-100 text-center mt-4">
+          <div class="w-100 text-center">
             <p class="h4 text-black total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
-            <button type="submit" name="add" class="tf-btn btn-primary w-100">
+            <button
+              type="submit"
+              name="add"
+              class="tf-btn w-100 banner-lookbook-set-btn"
+            >
               {{ section.settings.button_text | default: 'ADD SET TO CART' }}
               <i class="icon icon-shopping-cart-simple"></i>
             </button>
@@ -185,10 +235,71 @@
       "default": "Long Fitted Halter Neck Dress"
     },
     {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
       "type": "text",
       "id": "subheading",
       "label": "Subheading",
       "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "color",
+      "id": "product_set_bg_color",
+      "label": "Product Set Background"
+    },
+    {
+      "type": "color",
+      "id": "individual_button_text_color",
+      "label": "Individual Button Text Color"
+    },
+    {
+      "type": "color",
+      "id": "set_button_text_color",
+      "label": "Set Button Text Color"
+    },
+    {
+      "type": "color",
+      "id": "individual_button_bg_color",
+      "label": "Individual Button Background"
+    },
+    {
+      "type": "color",
+      "id": "set_button_bg_color",
+      "label": "Set Button Background"
     },
     {
       "type": "text",
