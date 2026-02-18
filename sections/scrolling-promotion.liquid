@@ -1,13 +1,18 @@
 {% style %}
-  .section-{{ section.id }}-color {
+  .section-{{ section.id }}-scrolling-promotion {
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }}-scrolling-promotion .tf-marquee {
+    padding-top: {{ section.settings.padding_vertical }}px;
+    padding-bottom: {{ section.settings.padding_vertical }}px;
   }
 {% endstyle %}
 
 {%- if section.blocks.size > 0 -%}
   <div
-    class="themesFlat section-{{ section.id }}-color"
+    class="themesFlat section-{{ section.id }}-scrolling-promotion"
   >
     <div class="tf-marquee style-3">
       <div
@@ -47,6 +52,16 @@
       "id": "text_color",
       "label": "Text Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Padding Block",
+      "min": 0,
+      "max": 16,
+      "step": 4,
+      "unit": "px",
+      "default": 16
     },
     {
       "type": "range",
