@@ -1,18 +1,41 @@
-<section class="{% if section.settings.spacing %}flat-spacing{% endif %} pt-0 pb-xl-0">
-  <div class="container">
-    <div class="sect-title text-center wow fadeInUp">
-      {% if section.settings.heading != blank %}
-        <div class="h1 title mb-16">
-          {{ section.settings.heading }}
-        </div>
-      {% endif %}
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
 
-      {% if section.settings.subheading != blank %}
-        <div class="h6">
-          {{ section.settings.subheading }}
-        </div>
-      {% endif %}
-    </div>
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>
+
+<section class="{% if section.settings.spacing %}flat-spacing{% endif %} section-{{ section.id }}-padding">
+  <div class="container">
+    {% if section.settings.heading != blank or section.settings.subheading != blank %}
+      <div class="sect-title text-center wow fadeInUp">
+        {% if section.settings.heading != blank %}
+          <div class="h1 title mb-16">
+            {{ section.settings.heading }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <div class="h6">
+            {{ section.settings.subheading }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
   </div>
 
   <div
@@ -22,7 +45,7 @@
     data-tablet="{{ section.settings.slides_tablet }}"
     data-mobile-sm="{{ section.settings.slides_mobile }}"
     data-mobile="2"
-    data-space="0"
+    data-space="{{ section.settings.space }}"
     data-pagination="2"
     data-pagination-sm="3"
     data-pagination-md="4"
@@ -69,13 +92,90 @@
   "name": "Instagram Slider",
   "settings": [
     {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
       "type": "checkbox",
       "id": "spacing",
-      "label": "Enable Section Spacing"
+      "label": "Enable Section Spacing",
+      "default": true
     },
     {
       "type": "header",
-      "content": "Slides Per View"
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
     },
     {
       "type": "range",
@@ -117,6 +217,15 @@
         }
       ],
       "default": "3"
+    },
+    {
+      "type": "range",
+      "id": "space",
+      "label": "Space",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 0
     },
     {
       "type": "text",
