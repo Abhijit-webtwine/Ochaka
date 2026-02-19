@@ -1,0 +1,190 @@
+{% style %}
+  .section-{{ section.id }}-parallax {
+    {% if section.settings.background_image != blank %}
+      background-image: url('{{ section.settings.background_image | image_url }}');
+    {% else %}
+      background-color: #6c706e ;
+    {% endif %}
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+{% endstyle %}
+
+{% assign banner_product = section.settings.banner_product %}
+<section class="banner-parallax flat-spacing parallaxie section-{{ section.id }}-parallax">
+  <div class="container">
+    <div class="card-product style-padding-3 style-2 tf-cart-item bg-white wow fadeInUp">
+      <div class="card-product_info d-grid gap-24">
+        <div class="infor-head_wrap">
+          <div class="card-product_wrapper d-flex">
+            <a href="{{ banner_product.url | default: '#' }}" class="product-img">
+              {% if banner_product.featured_image != blank %}
+                <img
+                  class="img-product ls-is-cached lazyloaded"
+                  src="{{ banner_product.featured_image | image_url: width: 600 }}"
+                  data-src="{{ banner_product.featured_image | image_url: width: 600 }}"
+                  alt="{{ banner_product.title | escape }}"
+                  width="{{ banner_product.featured_image.width }}"
+                  height="{{ banner_product.featured_image.height }}"
+                >
+                {% if banner_product.images.size > 1 %}
+                  {% assign second_image = banner_product.images[1] %}
+                  <img
+                    class="img-hover ls-is-cached lazyloaded"
+                    src="{{ second_image | image_url: width: 600 }}"
+                    data-src="{{ second_image | image_url: width: 600 }}"
+                    alt="{{ banner_product.title | escape }}"
+                    width="{{ second_image.width }}"
+                    height="{{ second_image.height }}"
+                  >
+                {% else %}
+                  <img
+                    class="img-hover ls-is-cached lazyloaded"
+                    src="{{ banner_product.featured_image | image_url: width: 600 }}"
+                    data-src="{{ banner_product.featured_image | image_url: width: 600 }}"
+                    alt="{{ banner_product.title | escape }}"
+                    width="{{ banner_product.featured_image.width }}"
+                    height="{{ banner_product.featured_image.height }}"
+                  >
+                {% endif %}
+              {% else %}
+                {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product placeholder-svg w-100 h-100' }}
+              {% endif %}
+            </a>
+          </div>
+          <div>
+            <h3>
+              <a href="{{ banner_product.url | default: '#' }}" class="name-product link mb-8">
+                {{ banner_product.title }}
+              </a>
+            </h3>
+            {% if banner_product.metafields.judgeme.badge != blank %}
+              <div class="rating d-flex gap-4 align-items-center">
+                {% assign rating = banner_product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 %}
+                {% assign rating_count = banner_product.metafields.reviews.rating_count | default: 0 %}
+                {% for i in (1..5) %}
+                  <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
+                {% endfor %}
+                <span class="rate_count">
+                  ({{ rating_count }} reviews)
+                </span>
+              </div>
+
+            {% endif %}
+          </div>
+        </div>
+        
+        {% if section.settings.show_atc_count %}
+          <div class="count-customer">
+            {% if settings.show_atc_count %}
+              <add-to-cart-count 
+                min="{{ settings.min_atc_count }}" 
+                max="{{ settings.max_atc_count }}">
+                
+                <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
+                  <i class="icon icon-shopping-cart-simple"></i>
+                  <p id="view-count" class="visitor-count h6">
+                    <span class="vc-number"></span> people just added this product to their cart
+                  </p>
+                </div>
+              </add-to-cart-count>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if banner_product != blank %}
+          <div class="tf-product-info-wrap">
+            {%- assign product_form_id = 'product-form-' | append: section.id -%}
+            {%- assign picker_type = 'button' -%}
+            {% render 'product-variant-picker', section: section, product: banner_product, product_form_id: product_form_id, picker_type: picker_type, enable_color_swatches: true, update_url: false, show_variant_labels: true %}
+          </div>
+        {% endif %}
+        
+        <div id="price-{{ section.id }}" class="price-wrap mb-0">
+          {% assign current_variant = banner_product.selected_or_first_available_variant %}
+          {% if banner_product != blank %}
+          {% if current_variant.compare_at_price > current_variant.price %}
+            <span class="price-new h4">{{ current_variant.price | money }}</span>
+            <span class="price-old h6 fw-normal">{{ current_variant.compare_at_price | money }}</span>
+          {% else %}
+            <span class="price-new h4">{{ current_variant.price | money }}</span>
+            {% endif %}
+          {% else %}
+            <span class="price-new h4">$49.00</span>
+            <span class="price-old h6 fw-normal">$79.00</span>
+          {% endif %}
+        </div>
+        
+        {% if section.settings.show_countdown and banner_product.metafields.custom.countdown_timer.value != blank %}
+          <div class="tf-product-info-countdown">
+            <div class="countdown-title">
+              <h5>Hurry up</h5>
+              <p class="text-main">offer ends in:</p>
+            </div>
+            <div class="tf-countdown style-1">
+              <countdown-timer data-date="{{ banner_product.metafields.custom.countdown_timer.value }}" data-layout="left"></countdown-timer>
+            </div>
+          </div>
+        {% endif %}
+        
+        {% if banner_product != blank %}
+          <product-form class="w-100">
+            {%- form 'product', banner_product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 position-static action_quantity-product' -%}
+                {% render 'quantity-input', product: banner_product, product_form_id: product_form_id, classes: 'rounded-0' %}
+              <input type="hidden" name="id" value="{{ banner_product.selected_or_first_available_variant.id }}" disabled="disabled"/>
+              <button
+                type="submit"
+                name="add"
+                class="tf-btn bg-deep-green animate-btn w-100 rounded-0 text-transform-uppercase"          
+                {%- if banner_product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
+              >
+                ADD TO CART
+                <i class="icon icon-shopping-cart-simple"></i>
+              </button>
+            {% endform %}
+          </product-form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Product",
+  "class": "banner-product-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Product Information"
+    },
+    {
+      "type": "product",
+      "id": "banner_product",
+      "label": "Featured Product"
+    },
+
+    {
+      "type": "header",
+      "content": "Additional Features"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_atc_count",
+      "label": "Show Add to Cart Count",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Product"
+    }
+  ]
+}
+{% endschema %}
