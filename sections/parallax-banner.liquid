@@ -1,0 +1,75 @@
+{%  style  %}
+  .section-{{ section.id }}-parallax {
+    {% if section.settings.background_image != blank %}
+      background-image: url("{{ section.settings.background_image | image_url: width: 1920 }}");
+    {% endif %}
+  }
+{% endstyle %}
+
+<div class="banner-V06 flat-spacing parallaxie section-{{ section.id }}-parallax">
+  <div class="container">
+    <div class="banner_content text-start wow fadeInUp">
+      <h2 class="title text-display text-white">{{ section.settings.title | default: 'SALE UP 70% OFF' }}</h2>
+      <p class="sub-title h5 text-white">{{ section.settings.subtitle | default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }}</p>
+      {% if section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="tf-btn btn-white animate-btn animate-dark {% if section.settings.square_button %}rounded-0 px-xxl-32{% endif %}">
+          {{ section.settings.button_text | default: 'DISCOVER NOW' }}
+          <i class="icon icon-arrow-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Parallax Banner",
+  "class": "parallax-banner-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "SALE UP 70% OFF"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "header",
+      "content": "Button Settings"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "DISCOVER NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "square_button",
+      "label": "Square Button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax Banner",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}
