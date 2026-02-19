@@ -1,4 +1,4 @@
-<div class="s-collection">
+<div class="s-collection {% if section.settings.container_type == 'full-width' %}px-0{% endif %}">
   <div
     dir="ltr"
     class="swiper tf-swiper"
@@ -35,9 +35,46 @@
   "max_blocks": 12,
   "settings": [
     {
+      "type": "header",
+      "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "container_type",
+      "label": "Container Type",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "container"
+    },
+    {
+      "type": "select",
+      "id": "content_style",
+      "label": "Content Style",
+      "options": [
+        {
+          "value": "pill",
+          "label": "Pill"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        }
+      ],
+      "default": "pill"
+    },
+    {
       "type": "select",
       "id": "layout",
       "label": "Layout Style",
+      "visible_if": "{{ section.settings.content_style == 'pill' }}",
       "options": [
         {
           "value": "layout-1",
