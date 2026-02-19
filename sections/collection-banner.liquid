@@ -1,12 +1,39 @@
 <section class="flat-spacing">
   <div class="container">
-    <div class="sect-title text-center wow fadeInUp">
-      <h1 class="title mb-8">{{ section.settings.heading | escape }}</h1>
-      <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
-    </div>
+    {% if section.settings.show_heading %}
+      <div class="sect-title text-center wow fadeInUp">
+        {% if section.settings.heading != blank %}
+          <h1 class="title mb-8">{{ section.settings.heading | escape }}</h1>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
     <div class="tf-grid-layout md-col-2">
       {% for block in section.blocks %}
-        <div class="box-image_V05 hover-img wow fadeInUp" {{ block.shopify_attributes }} {% if forloop.index > 1 %}data-wow-delay="0.1s"{% endif %}>
+        {% liquid
+          assign box_class = 'box-image_V05 hover-img wow fadeInUp'
+          assign content_class = 'fw-normal'
+          assign button_class = 'text-nowrap'
+          
+          if section.settings.layout_style == 'style-2'
+            assign box_class = 'box-image_V06 type-space-2 hover-img rounded-0'
+            assign content_class = 'text-white'
+            assign button_class = 'style-white letter-space-0'
+          endif
+        %}
+        
+        <div class="{{ box_class }}" {{ block.shopify_attributes }} {% if forloop.index > 1 %}data-wow-delay="0.1s"{% endif %}>
+          {% if section.settings.show_badge and block.settings.badge_text != blank %}
+            <ul class="product-badge_list">
+              <li class="product-badge_item h6 rounded-0"
+              style="background-color: {{ block.settings.badge_color }};">
+                {{ block.settings.badge_text }}
+              </li>
+            </ul>
+          {% endif %}
+          
           <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
             {% if block.settings.image != blank %}
               {{ block.settings.image | image_url: width: 800 | image_tag: class: 'lazyload', loading: 'lazy' }}
@@ -14,13 +41,22 @@
               {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
             {% endif %}
           </a>
+          
           <div class="box-image_content">
-            <h2 class="title">
-              <a href="{{ block.settings.link | default: '#' }}" class="link fw-normal">
-                {{ block.settings.title | escape }}
-              </a>
-            </h2>
-            <a href="{{ block.settings.link | default: '#' }}" class="tf-btn-line text-nowrap">
+            {% if section.settings.layout_style == 'style-2' %}
+              <h3 class="title">
+                <a href="{{ block.settings.link | default: '#' }}" class="link {{ content_class }}">
+                  {{ block.settings.title | escape | newline_to_br }}
+                </a>
+              </h3>
+            {% else %}
+              <h2 class="title">
+                <a href="{{ block.settings.link | default: '#' }}" class="link {{ content_class }}">
+                  {{ block.settings.title | escape | newline_to_br }}
+                </a>
+              </h2>
+            {% endif %}
+            <a href="{{ block.settings.link | default: '#' }}" class="tf-btn-line {{ button_class }}">
               {{ block.settings.button_text | escape }}
             </a>
           </div>
@@ -29,11 +65,38 @@
     </div>
   </div>
 </section>
-
 {% schema %}
 {
   "name": "Collection Banner",
   "settings": [
+    {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout Style",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-2",
+          "label": "Style 2"
+        }
+      ],
+      "default": "style-1"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_badge",
+      "label": "Show Badge",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show Heading",
+      "default": true
+    },
     {
       "type": "text",
       "id": "heading",
@@ -59,7 +122,7 @@
           "label": "Image"
         },
         {
-          "type": "text",
+          "type": "textarea",
           "id": "title",
           "label": "Title",
           "default": "Fashion week 2025"
@@ -74,6 +137,22 @@
           "id": "button_text",
           "label": "Button Text",
           "default": "Shop now"
+        },
+        {
+          "type": "header",
+          "content": "Badge Settings"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "default": "20% OFF"
+        },
+        {
+          "type": "color",
+          "id": "badge_color",
+          "label": "Badge Color",
+          "default": "#ff6b6b"
         }
       ]
     }
@@ -81,6 +160,9 @@
   "presets": [
     {
       "name": "Collection Banner",
+      "settings": {
+        "layout_style": "style-1"
+      },
       "blocks": [
         {
           "type": "banner",
