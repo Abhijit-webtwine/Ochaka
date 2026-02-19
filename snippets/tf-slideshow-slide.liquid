@@ -4,6 +4,10 @@
   if enable_fade
     assign fade_class = 'fade-item'
   endif
+  assign square_btn_class = ''
+  if square_btn
+    assign square_btn_class = 'rounded-0 px-xxl-32'
+  endif
 -%}
 
 <div class="slider-wrap {{ slider_style }}">
@@ -34,18 +38,23 @@
               </p>
             {% endif %}
             {% if block.settings.slide_title != blank %}
-              <h1 class="title_sld text-display {{ fade_class }} fade-item-2 {% if thin_title %}fw-normal {% endif %}">
-                {{ block.settings.slide_title | newline_to_br }}
-              </h1>
+              {% assign classes = 'title_sld text-display fade-item-2 ' | append: fade_class %}
+              {% render 'title',
+                class: classes,
+                title: block.settings.slide_title,
+                subtitle: block.settings.subtitle,
+                large_title: block.settings.heading_style,
+                heading_weight: block.settings.heading_weight,
+              %}
             {% endif %}
             {% if block.settings.slide_description != blank %}
               <p class="sub-text_sld h5  {{ fade_class }} fade-item-3">
-                {{ block.settings.slide_description | newline_to_br }}
+                {{ block.settings.slide_description }}
               </p>
             {% endif %}
             {% if block.settings.slide_link != blank %}
               <div class="{{ fade_class }} fade-item-4">
-                <a href="{{ block.settings.slide_link }}" class="tf-btn {{ block.settings.btn_style }} animate-btn {% if thin_button_text %}fw-normal {% endif %}">
+                <a href="{{ block.settings.slide_link }}" class="tf-btn {{ block.settings.btn_style }} animate-btn {{ square_btn_class }}">
                   {{ block.settings.slide_button_text }}
                   <i class="icon icon-arrow-right"></i>
                 </a>

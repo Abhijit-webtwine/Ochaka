@@ -30,19 +30,24 @@
     <div class="swiper-wrapper">
       {% for block in section.blocks %}
         <div class="swiper-slide" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
-          {% render 'tf-slideshow-slide', 
-            block: block, 
+          {% render 'tf-slideshow-slide',
+            block: block,
             index: forloop.index0,
             image_animation: section.settings.image_animation,
             enable_fade: section.settings.enable_fade_animation,
             slider_style: block.settings.slider_style,
             subtitle_size: section.settings.subtitle_size,
-            thin_title: block.settings.thin_title
+            square_btn: block.settings.square_btn
           %}
         </div>
       {% endfor %}
     </div>
-    <div class="sw-dot-default tf-sw-pagination"></div>
+    {% if section.settings.pagination_style == 'style_1' %}
+      {% assign pagination_class = 'sw-dot-default' %}
+    {% else %}
+      {% assign pagination_class = 'sw-dot-default-2 style-white' %}
+    {% endif %}
+    <div class="{{ pagination_class }} tf-sw-pagination"></div>
   </div>
   {% if section.blocks.size > 1 %}
     <div class="tf-sw-nav nav-prev-swiper">
@@ -102,6 +107,22 @@
       "id": "enable_fade_animation",
       "label": "Enable Content Fade Animation",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "pagination_style",
+      "label": "Pagination Style",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style_2",
+          "label": "Style 2"
+        }
+      ],
+      "default": "style_1"
     }
   ],
   "blocks": [
@@ -130,7 +151,6 @@
           "id": "slide_image",
           "label": "Image"
         },
-
         {
           "type": "text",
           "id": "slide_subtitle",
@@ -138,15 +158,45 @@
           "default": "SALE OFF 50%"
         },
         {
-          "type": "richtext",
-          "id": "slide_title",
-          "label": "Title",
+          "type": "select",
+          "id": "heading_style",
+          "label": "Heading Style",
+          "options": [
+            {
+              "value": "true",
+              "label": "Large"
+            },
+            {
+              "value": "false",
+              "label": "Small"
+            }
+          ],
+          "default": "true"
         },
         {
-          "type": "checkbox",
-          "id": "thin_title",
-          "label": "Thin Title",
-          "default": true
+          "type": "select",
+          "id": "heading_weight",
+          "label": "Heading Weight",
+          "options": [
+            {
+              "value": "normal",
+              "label": "Normal"
+            },
+            {
+              "value": "medium",
+              "label": "Medium"
+            },
+            {
+              "value": "none",
+              "label": "None"
+            }
+          ],
+          "default": "none"
+        },
+        {
+          "type": "textarea",
+          "id": "slide_title",
+          "label": "Title"
         },
         {
           "type": "textarea",
@@ -166,12 +216,6 @@
           "default": "Shop now"
         },
         {
-          "type": "checkbox",
-          "id": "thin_button_text",
-          "label": "Thin Button Text",
-          "default": true
-        },
-        {
           "type": "header",
           "content": "Color Settings"
         },
@@ -189,6 +233,28 @@
           "type": "color",
           "id": "description_color",
           "label": "Description Color"
+        },
+        {
+          "type": "select",
+          "id": "btn_style",
+          "label": "Button Style",
+          "options": [
+            {
+              "value": "",
+              "label": "Default"
+            },
+            {
+              "value": "btn-white animate-dark",
+              "label": "White"
+            }
+          ],
+          "default": ""
+        },
+        {
+          "type": "checkbox",
+          "id": "square_btn",
+          "label": "Square Button",
+          "default": false
         },
         {
           "type": "header",
@@ -213,22 +279,6 @@
             }
           ],
           "default": "type-center text-sm-center"
-        },
-        {
-          "type": "select",
-          "id": "btn_style",
-          "label": "Button Style",
-          "options": [
-            {
-              "value": "",
-              "label": "Default"
-            },
-            {
-              "value": "btn-white animate-dark",
-              "label": "White"
-            }
-          ],
-          "default": ""
         }
       ]
     }
