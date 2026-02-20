@@ -132,7 +132,7 @@
     margin-bottom: 12px;
     font-size: 24px;
     line-height: 32px;
-    color: var(--black);
+    // color: var(--black);
 
     @include res(xl, min) {
         margin-bottom: 24px;
@@ -162,7 +162,7 @@
     .br-line {
         width: 1px;
         height: 16px;
-        background-color: var(--line);
+        // background-color: var(--line);
     }
 }
 
@@ -273,7 +273,7 @@
 
     .inner-bottom {
         padding: 32px 0px;
-        border-top: 1px solid var(--line);
+        border-top: 1px solid;
         @include flex(center, space-between);
         flex-wrap: wrap;
         gap: 15px;
