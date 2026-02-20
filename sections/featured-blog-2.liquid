@@ -25,7 +25,7 @@
     >
       <div class="swiper-wrapper">
         {%- assign selected_blog = blogs[section.settings.blog] -%}
-        {%- if selected_blog and selected_blog.articles_count > 0 -%}
+        {%- if selected_blog -%}
           {%- for article in selected_blog.articles limit: section.settings.articles_count -%}
             <div class="swiper-slide">
               <div class="article-blog style-row hover-img4 wow fadeInLeft">
