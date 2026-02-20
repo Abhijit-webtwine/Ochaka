@@ -2,6 +2,8 @@
   Renders a collection card for the collection slider.
   Accepts:
   - block: {Object} The block object
+  - title_layout: {String} The layout style ('layout-1' or 'layout-2')
+  - content_style: {String} The content style ('pill' or 'default')
   - layout: {String} The layout style ('layout-1' or 'layout-2')
 {% endcomment %}
 
@@ -18,7 +20,7 @@
 {%- assign custom_image = block.settings.custom_image -%}
 {%- assign button_text = block.settings.button_text | default: 'Shop now' -%}
 
-<div class="{{ slide_class }} {% if layout == 'layout-2' %}type-space-2{% endif %} d-flex hover-img">
+<div class="{{ slide_class }} {% if title_layout == 'layout-2' %}type-space-2{% endif %} d-flex hover-img">
   <a href="{{ collection.url | default: '#' }}" class="image img-style w-100">
     {% if custom_image != blank %}
       <img
@@ -39,9 +41,10 @@
     {% endif %}
   </a>
   {% if content_style == 'pill' %}
-    <div class="cls-content_wrap {% if layout == 'layout-1' %}b-16{% endif %}">
+    <div class="cls-content_wrap {% if title_layout == 'layout-1' %}b-16{% endif %}">
+      {% if layout == 'title_with_button' %}
       <div class="cls-content">
-        <a href="{{ collection.url | default: '#' }}" class="tag_cls {% if layout == 'layout-1' %}h3{% else %}h2 type-semibold{% endif %} link">
+        <a href="{{ collection.url | default: '#' }}" class="tag_cls {% if title_layout == 'layout-1' %}h3{% else %}h2 type-semibold{% endif %} link">
           {{ collection.title | default: 'Collection Title' }}
         </a>
         <span class="br-line type-vertical"></span>
@@ -49,6 +52,12 @@
           {{ button_text }}
         </a>
       </div>
+      {% elsif layout == 'button_only' %}
+        <a href="{{ collection.url | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark rounded-0 type-small-2">
+          {{ button_text }}
+        </a>
+      {% endif %}
+
     </div>
   {% else %}
     <div class="cls-content">

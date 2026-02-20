@@ -2249,7 +2249,7 @@
     padding: 15px 15px 0px;
 
     &.type-2 {
-        padding: 16px 16px 0px;
+      padding-inline: 16px;
     }
 
     @include res(xl, min) {

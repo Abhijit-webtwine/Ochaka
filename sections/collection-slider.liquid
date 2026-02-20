@@ -1,15 +1,22 @@
-<div class="s-collection {% if section.settings.container_type == 'full-width' %}px-0{% endif %}">
+{% style %}
+  .section-{{ section.id }}-collection-slider {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{% endstyle %}
+
+<div class="s-collection {% if section.settings.spacing_style == 'style-2' %}type-2{% endif %}{% if section.settings.container_type == 'full-width' %}px-0{% endif %} section-{{ section.id }}-collection-slider">
   <div
     dir="ltr"
     class="swiper tf-swiper"
     data-preview="{{ section.settings.columns_desktop }}"
-    data-tablet="2"
+    data-tablet="{{ section.settings.columns_tablet }}"
     data-mobile-sm="2"
     data-mobile="1"
+    data-space-lg="{{ section.settings.spacing_desktop }}"
+    data-space-md="{{ section.settings.spacing_tablet }}"
+    data-space="{{ section.settings.spacing_mobile }}"
     data-pagination="1"
-    data-space-lg="24"
-    data-space-md="15"
-    data-space="10"
     data-pagination-sm="1"
     data-pagination-md="2"
     data-pagination-lg="3"
@@ -19,7 +26,9 @@
         <div class="swiper-slide" {{ block.shopify_attributes }}>
           {% render 'collection-card', 
             block: block, 
-            layout: section.settings.layout 
+            layout: section.settings.layout,
+            content_style: section.settings.content_style,
+            title_layout: section.settings.title_layout
           %}
         </div>
       {% endfor %}
@@ -37,6 +46,42 @@
     {
       "type": "header",
       "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "spacing_style",
+      "label": "Spacing Style",
+      "options": [
+        {
+          "value": "style-1",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-2",
+          "label": "Style 2 (Low Spacing)"
+        }
+      ],
+      "default": "style-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "select",
@@ -71,10 +116,31 @@
       "default": "pill"
     },
     {
+      "type": "header",
+      "content": "Layout Options"
+    },
+    {
       "type": "select",
       "id": "layout",
       "label": "Layout Style",
       "visible_if": "{{ section.settings.content_style == 'pill' }}",
+      "options": [
+        {
+          "value": "title_with_button",
+          "label": "Collection name + Shop button"
+        },
+        {
+          "value": "button_only",
+          "label": "Shop button only"
+        }
+      ],
+      "default": "title_with_button"
+    },
+    {
+      "type": "select",
+      "id": "title_layout",
+      "label": "Title Layout",
+      "visible_if": "{{ section.settings.layout == 'title_with_button' }}",
       "options": [
         {
           "value": "layout-1",
@@ -88,9 +154,18 @@
       "default": "layout-1"
     },
     {
-      "type": "select",
+      "type": "range",
       "id": "columns_desktop",
       "label": "Items on Desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Items on Tablet",
       "options": [
         {
           "value": "2",
@@ -101,7 +176,41 @@
           "label": "3 items"
         }
       ],
-      "default": "3"
+      "default": "2"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "spacing_desktop",
+      "label": "Spacing on Desktop",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "spacing_tablet",
+      "label": "Spacing on Tablet",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "spacing_mobile",
+      "label": "Spacing on Mobile",
+      "min": 0,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 10
     }
   ],
   "blocks": [
