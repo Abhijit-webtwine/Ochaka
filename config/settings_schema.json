@@ -15,6 +15,12 @@
         "id": "show_announcement_bar",
         "label": "Show announcement bar",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_scrolling_promotion",
+        "label": "Show scrolling promotion",
+        "default": true
       }
     ]
   },
