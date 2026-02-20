@@ -15,6 +15,14 @@
         color: {{ block.settings.description_color }};
       {%- endif -%}
     }
+    #block-{{ block.id }} .tf-btn {
+      {%- if block.settings.button_bg_color != blank -%}
+        background-color: {{ block.settings.button_bg_color }};
+      {%- endif -%}
+      {%- if block.settings.button_text_color != blank -%}
+        color: {{ block.settings.button_text_color }};
+      {%- endif -%}
+    }
   {%- endfor -%}
 {%- endstyle -%}
 
@@ -47,7 +55,7 @@
     {% else %}
       {% assign pagination_class = 'sw-dot-default-2 style-white' %}
     {% endif %}
-    <div class="{{ pagination_class }} tf-sw-pagination"></div>
+    <div class="{{ pagination_class }} {% if section.settings.pagination_color == 'light' %}style-white{% endif %} tf-sw-pagination"></div>
   </div>
   {% if section.blocks.size > 1 %}
     <div class="tf-sw-nav nav-prev-swiper">
@@ -115,14 +123,30 @@
       "options": [
         {
           "value": "style_1",
-          "label": "Style 1"
+          "label": "Border"
         },
         {
           "value": "style_2",
-          "label": "Style 2"
+          "label": "No Border"
         }
       ],
       "default": "style_1"
+    },
+    {
+      "type": "select",
+      "id": "pagination_color",
+      "label": "Pagination Color",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "light"
     }
   ],
   "blocks": [
@@ -137,11 +161,15 @@
           "options": [
             {
               "value": "",
-              "label": "Style 1"
+              "label": "Style 1 (left Aligned)"
             },
             {
               "value": "style-2",
-              "label": "Style 2"
+              "label": "Style 2 (Custom Aligned)"
+            },
+            {
+              "value": "style-7",
+              "label": "Style 7 (Increased Space)"
             }
           ],
           "default": "style-2"
@@ -235,20 +263,14 @@
           "label": "Description Color"
         },
         {
-          "type": "select",
-          "id": "btn_style",
-          "label": "Button Style",
-          "options": [
-            {
-              "value": "",
-              "label": "Default"
-            },
-            {
-              "value": "btn-white animate-dark",
-              "label": "White"
-            }
-          ],
-          "default": ""
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background Color"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color"
         },
         {
           "type": "checkbox",
@@ -265,6 +287,10 @@
           "id": "content_alignment",
           "label": "Content Alignment",
           "options": [
+            {
+              "value": "",
+              "label": "Left"
+            },
             {
               "value": "type-center text-sm-center",
               "label": "Center"
