@@ -1,0 +1,109 @@
+<div class="banner-V07 flat-spacing">
+  <div class="container">
+    <div class="row d-flex align-items-center flex-wrap-reverse">
+      <div class="col-lg-5">
+        <div class="content-left wow fadeInUp">
+          {% if section.settings.subtitle != blank %}
+          <h4 class="sub-title text-primary">{{ section.settings.subtitle }}</h4>
+          {% endif %}
+          {% if section.settings.title != blank %}
+          <h2 class="title text-display">
+            {{ section.settings.title }}
+          </h2>
+          {% endif %}
+          {% if section.settings.description != blank %}
+          <p class="desc h5">
+            {{ section.settings.description }}
+          </p>
+          {% endif %}
+          {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="tf-btn btn-primary rounded-0 type-small-2">
+            {{ section.settings.button_label }}
+            <i class="icon icon-arrow-right"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <div class="image-right hover-img mb-lg-0">
+          <div class="image img-1">
+            {% if section.settings.image_1 != blank %}
+              <img
+                class="lazyload"
+                src="{{ section.settings.image_1 | image_url: width: 1200 }}"
+                data-src="{{ section.settings.image_1 | image_url: width: 1200 }}"
+                alt="{{ section.settings.image_1_alt | escape }}"
+                width="{{ section.settings.image_1.width }}"
+                height="{{ section.settings.image_1.height }}"
+              >
+            {% endif %}
+          </div>
+          <div class="image img-2 img-style">
+            {% if section.settings.image_2 != blank %}
+              <img
+                class="lazyload"
+                src="{{ section.settings.image_2 | image_url: width: 1200 }}"
+                data-src="{{ section.settings.image_2 | image_url: width: 1200 }}"
+                alt="{{ section.settings.image_2_alt | escape }}"
+                width="{{ section.settings.image_2.width }}"
+                height="{{ section.settings.image_2.height }}"
+              >
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner Image",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "UNLOCK YOUR POTENTIAL"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "PREMIUM GYM SUPPORT"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent scelerisque auctor libero, sit amet ultrices tortor. Duis condimentum dui urna, eget malesuada tellus pharetra finibus. Phasellus ante tellus, ultrices ut metus eget, luctus lacinia nisl. Morbi viverra laoreet lorem vitae placerat."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Right image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Left image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Image"
+    }
+  ]
+}
+{% endschema %}
