@@ -1,18 +1,28 @@
-{%  style  %}
+{% style %}
   .section-{{ section.id }}-parallax {
     {% if section.settings.background_image != blank %}
       background-image: url("{{ section.settings.background_image | image_url: width: 1920 }}");
     {% endif %}
   }
+  
+  .section-{{ section.id }}-parallax .tf-btn {
+    {% if section.settings.button_bg_color != blank %}
+      background-color: {{ section.settings.button_bg_color }};
+    {% endif %}
+    {% if section.settings.button_text_color != blank %}
+      color: {{ section.settings.button_text_color }};
+    {% endif %}
+  }
+
 {% endstyle %}
 
 <div class="banner-V06 flat-spacing parallaxie section-{{ section.id }}-parallax">
   <div class="container">
-    <div class="banner_content text-start wow fadeInUp">
+    <div class="banner_content {{ section.settings.text_alignment }} wow fadeInUp">
       <h2 class="title text-display text-white">{{ section.settings.title | default: 'SALE UP 70% OFF' }}</h2>
       <p class="sub-title h5 text-white">{{ section.settings.subtitle | default: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }}</p>
       {% if section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="tf-btn btn-white animate-btn animate-dark {% if section.settings.square_button %}rounded-0 px-xxl-32{% endif %}">
+        <a href="{{ section.settings.button_link }}" class="tf-btn animate-btn animate-dark {% if section.settings.square_button %}rounded-0 px-xxl-32{% endif %}">
           {{ section.settings.button_text | default: 'DISCOVER NOW' }}
           <i class="icon icon-arrow-right"></i>
         </a>
@@ -44,19 +54,51 @@
       "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
     },
     {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        {
+          "value": "text-start",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-end",
+          "label": "Right"
+        }
+      ],
+      "default": "text-start"
+    },
+    {
       "type": "header",
       "content": "Button Settings"
     },
     {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
       "type": "text",
       "id": "button_text",
-      "label": "Button Text",
+      "label": "Text",
       "default": "DISCOVER NOW"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button Link"
+      "label": "Link"
     },
     {
       "type": "checkbox",
