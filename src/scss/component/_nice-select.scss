@@ -244,7 +244,7 @@
             background-color: transparent !important;
             border: 0;
             outline: none !important;
-            color: var(--black);
+            // color: var(--black);
 
             &::after {
                 border: 0;
@@ -253,7 +253,7 @@
                 content: '\e916';
                 font-family: 'icomoon';
                 font-size: 14px;
-                color: var(--black);
+                // color: var(--black);
                 margin-left: 0px;
                 top: 50%;
                 transform: translateY(-50%)

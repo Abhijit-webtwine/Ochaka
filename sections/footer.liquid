@@ -2,6 +2,8 @@
   .section-{{ section.id }}-footer {
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
   }
 
   @media screen and (min-width: 768px) {
@@ -17,6 +19,23 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  .footer-heading {
+    color: {{ section.settings.heading_color }};
+  }
+  .footer-menu-list a {
+    color: {{ section.settings.text_color }};
+  }
+  .footer-contact a, .footer-newsletter a, .footer-bottom .list-hor :is(a, button) {
+    color: {{ section.settings.text_color }};
+  }
+  .footer-contact .br-line,
+  .footer-bottom .br-line {
+    background-color: {{ section.settings.text_color }};
+  }
+  .footer-bottom .inner-bottom, .footer-newsletter form input[type=email] {
+    border-color: {{ section.settings.text_color }};
+  }
 {% endstyle %}
 
 <footer class="tf-footer style-4 section-{{ section.id }}-footer">
@@ -30,143 +49,183 @@
   <div class="footer-body">
     <div class="container">
       <div class="row">
+        {% assign last_menu_block_id = blank %}
+        {% for b in section.blocks reversed %}
+          {% if b.type == 'menu' %}
+            {% assign last_menu_block_id = b.id %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
 
         <!-- Contact -->
-        <div class="col-xl-3 col-sm-6 mb_30 mb-xl-0">
-          <div class="footer-col-block">
-            <p class="footer-heading footer-heading-mobile">
-              {{ section.settings.contact_heading }}
-            </p>
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'contact' %}
+              <div class="col-xl-4 col-sm-6 mb_30 mb-xl-0">
+                <div class="footer-col-block">
+                  <p class="footer-heading footer-heading-mobile">
+                    {{ block.settings.contact_heading }}
+                  </p>
 
-            <div class="tf-collapse-content">
-              <ul class="footer-contact">
-                {% if section.settings.address != blank %}
-                <li>
-                  <i class="icon icon-map-pin"></i>
-                  <span class="br-line"></span>
-                  <a href="{{ section.settings.map_url }}" target="_blank" class="h6 link">
-                    {{ section.settings.address }}
-                  </a>
-                </li>
-                {% endif %}
+                  <div class="tf-collapse-content">
+                    <ul class="footer-contact">
+                      {% if block.settings.address != blank %}
+                      <li>
+                        <i class="icon icon-map-pin"></i>
+                        <span class="br-line"></span>
+                        <a href="{{ block.settings.map_url }}" target="_blank" class="h6 link">
+                          {{ block.settings.address | newline_to_br }}
+                        </a>
+                      </li>
+                      {% endif %}
 
-                {% if section.settings.phone != blank %}
-                <li>
-                  <i class="icon icon-phone"></i>
-                  <span class="br-line"></span>
-                  <a href="tel:{{ section.settings.phone }}" class="h6 link">
-                    {{ section.settings.phone }}
-                  </a>
-                </li>
-                {% endif %}
+                      {% if block.settings.phone != blank %}
+                      <li>
+                        <i class="icon icon-phone"></i>
+                        <span class="br-line"></span>
+                        <a href="tel:{{ block.settings.phone }}" class="h6 link">
+                          {{ block.settings.phone }}
+                        </a>
+                      </li>
+                      {% endif %}
 
-                {% if section.settings.email != blank %}
-                <li>
-                  <i class="icon icon-envelope-simple"></i>
-                  <span class="br-line"></span>
-                  <a href="mailto:{{ section.settings.email }}" class="h6 link">
-                    {{ section.settings.email }}
-                  </a>
-                </li>
-                {% endif %}
-              </ul>
+                      {% if block.settings.email != blank %}
+                      <li>
+                        <i class="icon icon-envelope-simple"></i>
+                        <span class="br-line"></span>
+                        <a href="mailto:{{ block.settings.email }}" class="h6 link">
+                          {{ block.settings.email }}
+                        </a>
+                      </li>
+                      {% endif %}
+                    </ul>
 
-              <!-- Social -->
-              <div class="social-wrap">
-                <ul class="tf-social-icon">
-                  {%- render 'social-icons' -%}
-                </ul>
+                    <!-- Social -->
+                    <div class="social-wrap">
+                      <ul class="tf-social-icon {% if block.settings.white_social_icons %}style-2{% endif %}">
+                        {%- render 'social-icons' -%}
+                      </ul>
+                    </div>
+
+                  </div>
+                </div>
               </div>
 
-            </div>
-          </div>
-        </div>
-
-        <!-- Shopping Menu -->
-        <div class="col-xl-2 col-sm-6 mb_30 mb-xl-0">
-          <div class="footer-col-block footer-wrap-1 ms-xl-auto">
-            <p class="footer-heading footer-heading-mobile">
-              {{ section.settings.menu_1_heading }}
-            </p>
-            <div class="tf-collapse-content">
-              <ul class="footer-menu-list">
-                {% for link in linklists[section.settings.menu_1].links %}
-                  <li>
-                    <a href="{{ link.url }}" class="link h6">
-                      {{ link.title }}
+            {% when 'contact_with_logo' %}
+              <div class="col-xl-4 col-sm-6 mb_30 mb-xl-0">
+                <div class="footer-infor">
+                    <a href="{{ routes.root_url }}" class="logo-site">
+                        {% if block.settings.logo != blank %}
+                          {{ block.settings.logo | image_url: width: block.settings.logo.width | image_tag: alt: block.settings.logo.alt }}
+                        {% endif %}
                     </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Information Menu -->
-        <div class="col-xl-3 col-sm-6 mb_30 mb-sm-0">
-          <div class="footer-col-block footer-wrap-2 mx-xl-auto">
-            <p class="footer-heading footer-heading-mobile">
-              {{ section.settings.menu_2_heading }}
-            </p>
-            <div class="tf-collapse-content">
-              <ul class="footer-menu-list">
-                {% for link in linklists[section.settings.menu_2].links %}
-                  <li>
-                    <a href="{{ link.url }}" class="link h6">
-                      {{ link.title }}
-                    </a>
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Newsletter -->
-        <div class="col-xl-4 col-sm-6">
-          <div class="footer-col-block">
-            <p class="footer-heading footer-heading-mobile">
-              {{ section.settings.newsletter_heading }}
-            </p>
-
-            <div class="tf-collapse-content">
-              <div class="footer-newsletter">
-                <p class="h6 caption">
-                  {{ section.settings.newsletter_text }}
-                </p>
-
-                {% form 'customer', class: 'form_sub has_check' %}
-                  <input type="hidden" name="contact[tags]" value="newsletter">
-
-                  <div class="f-content">
-                    <fieldset class="col">
-                      <input
-                        class="style-stroke"
-                        type="email"
-                        name="contact[email]"
-                        placeholder="Enter Your Email"
-                        required
-                      >
-                    </fieldset>
-
-                    <button type="submit" class="tf-btn animate-btn type-small-2">
-                      {{ section.settings.newsletter_button }}
-                      <i class="icon icon-arrow-right"></i>
-                    </button>
-                  </div>
-
-                  <div class="checkbox-wrap">
-                    <input type="checkbox" class="tf-check style-3" required>
-                    <label class="h6">
-                      {{ section.settings.newsletter_terms }}
-                    </label>
-                  </div>
-                {% endform %}
+                    <ul class="footer-contact mb-0">
+                        {% if block.settings.address != blank %}
+                          <li>
+                              <i class="icon icon-map-pin"></i>
+                              <span class="br-line"></span>
+                              {% if block.settings.map_url != blank %}
+                                <a href="{{ block.settings.map_url }}" target="_blank" class="h6 link">
+                                  {{ block.settings.address | newline_to_br }}
+                                </a>
+                              {% else %}
+                                <span class="h6">{{ block.settings.address | newline_to_br }}</span>
+                              {% endif %}
+                          </li>
+                        {% endif %}
+                        {% if block.settings.phone != blank %}
+                          <li>
+                              <i class="icon icon-phone"></i>
+                              <span class="br-line"></span>
+                              <a href="tel:{{ block.settings.phone }}" class="h6 link">{{ block.settings.phone }}</a>
+                          </li>
+                        {% endif %}
+                        {% if block.settings.email != blank %}
+                          <li>
+                              <i class="icon icon-envelope-simple"></i>
+                              <span class="br-line"></span>
+                              <a href="mailto:{{ block.settings.email }}" class="h6 link">{{ block.settings.email }}</a>
+                          </li>
+                        {% endif %}
+                    </ul>
+                    <ul class="tf-social-icon_2">
+                      {% render 'social-icons' %}
+                    </ul>
+                </div>
               </div>
-            </div>
-          </div>
-        </div>
 
+            {% when 'menu' %}
+              {% assign is_last_menu = false %}
+              {% if block.id == last_menu_block_id %}
+                {% assign is_last_menu = true %}
+              {% endif %}
+              <!-- Shopping Menu -->
+              <div class="col-xl-2 col-sm-6 mb_30 {% unless is_last_menu %}mb-xl-0 {% else %}mb-sm-0 {% endunless %}">
+                <div class="footer-col-block footer-wrap-1">
+                  <p class="footer-heading footer-heading-mobile">
+                    {{ block.settings.menu_1_heading }}
+                  </p>
+                  <div class="tf-collapse-content">
+                    <ul class="footer-menu-list">
+                      {% for link in linklists[block.settings.menu_1].links %}
+                        <li>
+                          <a href="{{ link.url }}" class="link h6">
+                            {{ link.title }}
+                          </a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            {% when 'newsletter' %}
+              <!-- Newsletter -->
+              <div class="col-xl-4 col-sm-6">
+                <div class="footer-col-block">
+                  <p class="footer-heading footer-heading-mobile">
+                    {{ block.settings.newsletter_heading }}
+                  </p>
+
+                  <div class="tf-collapse-content">
+                    <div class="footer-newsletter">
+                      <p class="h6 caption">
+                        {{ block.settings.newsletter_text }}
+                      </p>
+
+                      {% form 'customer', class: 'form_sub has_check' %}
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+
+                        <div class="f-content">
+                          <fieldset class="col">
+                            <input
+                              class="style-stroke"
+                              type="email"
+                              name="contact[email]"
+                              placeholder="Enter Your Email"
+                              required
+                            >
+                          </fieldset>
+
+                          <button type="submit" class="tf-btn animate-btn type-small-2 {% if block.settings.button_style == 'white' %}btn-white{% endif %}">
+                            {{ block.settings.newsletter_button }}
+                            <i class="icon icon-arrow-right"></i>
+                          </button>
+                        </div>
+
+                        <div class="checkbox-wrap">
+                          <input type="checkbox" class="tf-check style-3" required>
+                          <label class="h6 {% if block.settings.newsletter_terms_text_size == 'small' %}text-small{% endif %}">
+                            {{ block.settings.newsletter_terms }}
+                          </label>
+                        </div>
+                      {% endform %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {% endcase %}
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -186,7 +245,7 @@
           <ul class="payment-method-list">
             {%- for type in shop.enabled_payment_types -%}
               <li class="list-payment__item">
-                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+                {{ type | payment_type_svg_tag: class: 'icon icon--full-color footer_payments' }}
               </li>
             {%- endfor -%}
           </ul>
@@ -248,86 +307,22 @@
       "label": "Show Top Border Line"
     },
     {
-      "type": "text",
-      "id": "contact_heading",
-      "label": "Heading",
-      "default": "Contact us"
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
     },
     {
-      "type": "textarea",
-      "id": "address",
-      "label": "Store address"
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
     },
     {
-      "type": "url",
-      "id": "map_url",
-      "label": "Map link"
-    },
-    {
-      "type": "text",
-      "id": "phone",
-      "label": "Phone number"
-    },
-    {
-      "type": "text",
-      "id": "email",
-      "label": "Email address"
-    },
-    {
-      "type": "header",
-      "content": "Menu - Column 1"
-    },
-    {
-      "type": "text",
-      "id": "menu_1_heading",
-      "label": "Menu 1 heading",
-      "default": "Shopping"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_1",
-      "label": "Menu 1 navigation"
-    },
-    {
-      "type": "header",
-      "content": "Menu - Column 2"
-    },
-    {
-      "type": "text",
-      "id": "menu_2_heading",
-      "label": "Menu 2 heading",
-      "default": "Information"
-    },
-    {
-      "type": "link_list",
-      "id": "menu_2",
-      "label": "Menu 2 navigation"
-    },
-    {
-      "type": "header",
-      "content": "Newsletter"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_heading",
-      "label": "Heading",
-      "default": "Let's keep in touch"
-    },
-    {
-      "type": "textarea",
-      "id": "newsletter_text",
-      "label": "Description"
-    },
-    {
-      "type": "text",
-      "id": "newsletter_button",
-      "label": "Button label",
-      "default": "Subscribe"
-    },
-    {
-      "type": "richtext",
-      "id": "newsletter_terms",
-      "label": "Terms and policy text"
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
     },
     {
       "type": "header",
@@ -426,6 +421,161 @@
       "step": 4,
       "unit": "px",
       "default": 24
+    }
+  ],
+  "blocks": [
+    {
+      "type": "contact",
+      "name": "Contact",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "text",
+          "id": "contact_heading",
+          "label": "Heading",
+          "default": "Contact us"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Store address"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Map link"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone number"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email address"
+        },
+        {
+          "type": "checkbox",
+          "id": "white_social_icons",
+          "label": "White social icons",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "contact_with_logo",
+      "name": "Contact with logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo image"
+        },
+        {
+          "type": "textarea",
+          "id": "address",
+          "label": "Store address"
+        },
+        {
+          "type": "url",
+          "id": "map_url",
+          "label": "Map link"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone number"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email address"
+        }
+      ]
+    },
+    {
+      "type": "menu",
+      "name": "Menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_1_heading",
+          "label": "Menu 1 heading",
+          "default": "Shopping"
+        },
+        {
+          "type": "link_list",
+          "id": "menu_1",
+          "label": "Menu 1 navigation"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "newsletter_heading",
+          "label": "Heading",
+          "default": "Let's keep in touch"
+        },
+        {
+          "type": "textarea",
+          "id": "newsletter_text",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "newsletter_button",
+          "label": "Button label",
+          "default": "Subscribe"
+        },
+        {
+          "type": "richtext",
+          "id": "newsletter_terms",
+          "label": "Terms and policy text"
+        },
+        {
+          "type": "select",
+          "id": "newsletter_terms_text_size",
+          "label": "Terms and policy text size",
+          "options": [
+            {
+              "value": "default",
+              "label": "Default"
+            },
+            {
+              "value": "small",
+              "label": "Small"
+            }
+          ],
+          "default": "default"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "options": [
+            {
+              "value": "default",
+              "label": "Default"
+            },
+            {
+              "value": "white",
+              "label": "White"
+            }
+          ],
+          "default": "default"
+        }
+      ]
     }
   ],
   "presets": [
