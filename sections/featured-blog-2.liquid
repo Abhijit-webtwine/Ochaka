@@ -1,0 +1,146 @@
+<section class="flat-spacing">
+  <div class="container">
+    <div class="sect-title wow fadeInUp">
+      {% if section.settings.heading != blank %}
+        <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+    <div
+      dir="ltr"
+      class="swiper tf-swiper"
+      data-preview="{{ section.settings.columns_desktop }}"
+      data-tablet="{{ section.settings.columns_tablet }}"
+      data-mobile-sm="2"
+      data-mobile="1"
+      data-space-lg="48"
+      data-space-md="32"
+      data-space="12"
+      data-pagination="1"
+      data-pagination-sm="1"
+      data-pagination-md="2"
+      data-pagination-lg="2"
+    >
+      <div class="swiper-wrapper">
+        {%- assign selected_blog = blogs[section.settings.blog] -%}
+        {%- if selected_blog and selected_blog.articles_count > 0 -%}
+          {%- for article in selected_blog.articles limit: section.settings.articles_count -%}
+            <div class="swiper-slide">
+              <div class="article-blog style-row hover-img4 wow fadeInLeft">
+                <a href="{{ article.url }}" class="entry_image img-style4 flex-xl-1">
+                  {%- if article.image != blank -%}
+                    <img
+                      class="lazyload"
+                      src="{{ article.image | image_url: width: 800 }}"
+                      data-src="{{ article.image | image_url: width: 800 }}"
+                      alt="{{ article.image.alt | default: article.title | escape }}"
+                      width="{{ article.image.width }}"
+                      height="{{ article.image.height }}"
+                    >
+                  {%- endif -%}
+                </a>
+                <div class="blog-content flex-1">
+                  {%- if section.settings.show_date -%}
+                    <a href="{{ article.url }}" class="entry_date name-tag h6 link">
+                      {{ article.published_at | date: "%B %d, %Y" }}
+                    </a>
+                  {%- endif -%}
+                  <a href="{{ article.url }}" class="entry_name link h4">
+                    {{ article.title }}
+                  </a>
+                  {%- if section.settings.show_excerpt -%}
+                    <p class="text h6">
+                      {{ article.excerpt_or_content | strip_html | truncatewords: 120 }}
+                    </p>
+                  {%- endif -%}
+                  <a href="{{ article.url }}" class="tf-btn-line">
+                    {{ section.settings.btn_label }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Blog 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "OUR BLOG"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "articles_count",
+      "label": "Number of articles",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show publish date",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "btn_label",
+      "label": "Button label",
+      "default": "Read more"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Items on Desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_tablet",
+      "label": "Items on Tablet",
+      "options": [
+        { "value": "2", "label": "2 items" },
+        { "value": "3", "label": "3 items" }
+      ],
+      "default": "2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Blog 2"
+    }
+  ]
+}
+{% endschema %}
