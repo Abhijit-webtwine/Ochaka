@@ -36,55 +36,107 @@
         {% endif %}
       </div>
     {% endif %}
+
+    {% if section.settings.container_type == 'container' %}
+      <div
+        dir="ltr"
+        class="swiper tf-swiper wow fadeInUp"
+        data-preview="{{ section.settings.slides_desktop }}"
+        data-tablet="{{ section.settings.slides_tablet }}"
+        data-mobile-sm="{{ section.settings.slides_mobile }}"
+        data-mobile="2"
+        data-space="{{ section.settings.space }}"
+        data-pagination="2"
+        data-pagination-sm="3"
+        data-pagination-md="4"
+        data-pagination-lg="6"
+      >
+        <div class="swiper-wrapper">
+
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="gallery-item hover-img hover-overlay">
+                <div class="image img-style">
+                  {% if block.settings.image %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 600
+                      | image_tag:
+                        class: 'lazyload',
+                        loading: 'lazy',
+                        alt: block.settings.image.alt | default: 'Instagram image'
+                    }}
+                  {% endif %}
+                </div>
+
+                {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
+                    <span class="icon icon-instagram-logo"></span>
+                    <span class="tooltip">
+                      {{ block.settings.tooltip_text }}
+                    </span>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+
+        <div class="sw-dot-default tf-sw-pagination"></div>
+      </div>
+    {% endif %}
   </div>
 
-  <div
-    dir="ltr"
-    class="swiper tf-swiper wow fadeInUp"
-    data-preview="{{ section.settings.slides_desktop }}"
-    data-tablet="{{ section.settings.slides_tablet }}"
-    data-mobile-sm="{{ section.settings.slides_mobile }}"
-    data-mobile="2"
-    data-space="{{ section.settings.space }}"
-    data-pagination="2"
-    data-pagination-sm="3"
-    data-pagination-md="4"
-    data-pagination-lg="6"
-  >
-    <div class="swiper-wrapper">
+  {% unless section.settings.container_type == 'container' %}
+    <div
+      dir="ltr"
+      class="swiper tf-swiper wow fadeInUp"
+      data-preview="{{ section.settings.slides_desktop }}"
+      data-tablet="{{ section.settings.slides_tablet }}"
+      data-mobile-sm="{{ section.settings.slides_mobile }}"
+      data-mobile="2"
+      data-space="{{ section.settings.space }}"
+      data-pagination="2"
+      data-pagination-sm="3"
+      data-pagination-md="4"
+      data-pagination-lg="6"
+    >
+      <div class="swiper-wrapper">
 
-      {% for block in section.blocks %}
-        <div class="swiper-slide" {{ block.shopify_attributes }}>
-          <div class="gallery-item hover-img hover-overlay">
-            <div class="image img-style">
-              {% if block.settings.image %}
-                {{
-                  block.settings.image
-                  | image_url: width: 600
-                  | image_tag:
-                    class: 'lazyload',
-                    loading: 'lazy',
-                    alt: block.settings.image.alt | default: 'Instagram image'
-                }}
+        {% for block in section.blocks %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="gallery-item hover-img hover-overlay">
+              <div class="image img-style">
+                {% if block.settings.image %}
+                  {{
+                    block.settings.image
+                    | image_url: width: 600
+                    | image_tag:
+                      class: 'lazyload',
+                      loading: 'lazy',
+                      alt: block.settings.image.alt | default: 'Instagram image'
+                  }}
+                {% endif %}
+              </div>
+
+              {% if block.settings.link != blank %}
+                <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
+                  <span class="icon icon-instagram-logo"></span>
+                  <span class="tooltip">
+                    {{ block.settings.tooltip_text }}
+                  </span>
+                </a>
               {% endif %}
             </div>
-
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
-                <span class="icon icon-instagram-logo"></span>
-                <span class="tooltip">
-                  {{ block.settings.tooltip_text }}
-                </span>
-              </a>
-            {% endif %}
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
 
+      </div>
+
+      <div class="sw-dot-default tf-sw-pagination"></div>
     </div>
-
-    <div class="sw-dot-default tf-sw-pagination"></div>
-  </div>
+  {% endunless %}
 </section>
 
 {% schema %}
@@ -94,6 +146,22 @@
     {
       "type": "header",
       "content": "Layout Settings"
+    },
+    {
+      "type": "select",
+      "id": "container_type",
+      "label": "Container Type",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "full-width",
+          "label": "Full Width"
+        }
+      ],
+      "default": "full-width"
     },
     {
       "type": "checkbox",
