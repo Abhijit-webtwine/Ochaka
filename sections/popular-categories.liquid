@@ -1,4 +1,24 @@
-<section class="flat-spacing">
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style> 
+<section class="section-{{ section.id }}-padding">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
       <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
@@ -24,13 +44,13 @@
     {% endif %}
     
     <div dir="ltr" class="swiper tf-swiper wow fadeInUp" 
-      data-preview="6" 
-      data-tablet="4" 
-      data-mobile-sm="3"
+      data-preview="{{ section.settings.slides_desktop }}" 
+      data-tablet="{{ section.settings.slides_tablet }}" 
+      data-mobile-sm="{{ section.settings.slides_mobile }}"
       data-mobile="2" 
-      data-space-lg="48" 
-      data-space-md="24" 
-      data-space="12" 
+      data-space-lg="{{ section.settings.space_desktop }}" 
+      data-space-md="{{ section.settings.space_tablet }}" 
+      data-space="{{ section.settings.space_mobile }}" 
       data-pagination="2" 
       data-pagination-sm="3"
       data-pagination-md="4" 
@@ -63,12 +83,24 @@
                   {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {% endif %}
               </div>
-              <p class="collection_name h5 link">
-                {{ block.settings.title | default: collection.title | default: 'Category' }}
-                {% if section.settings.show_count and collection != blank %}
-                  <span class="count text-main-2">({{ collection.all_products_count }})</span>
-                {% endif %}
-              </p>
+
+              {% if section.settings.collection_count_format == 'brackets' %}
+                <p class="collection_name h5 link">
+                  {{ block.settings.title | default: collection.title | default: 'Category' }}
+                  {% if section.settings.show_count and collection != blank %}
+                    <span class="count text-main-2">({{ collection.all_products_count }})</span>
+                  {% endif %}
+                </p>
+              {% elsif section.settings.collection_count_format == 'inline' %}
+                <div class="collection_content">
+                  <p class="collection_name h4 link">
+                    {{ block.settings.title | default: collection.title | default: 'Category' }}
+                  </p>
+                  {% if section.settings.show_count and collection != blank %}
+                    <span class="collection_count h6 text-main-2">{{ collection.all_products_count }} product</span>
+                  {% endif %}
+                </div>
+              {% endif %}
             </a>
           </div>
         {% endfor %}
@@ -138,6 +170,22 @@
     },
     {
       "type": "select",
+      "id": "collection_count_format",
+      "label": "Collection count format",
+      "options": [
+        {
+          "value": "brackets",
+          "label": "Brackets"
+        },
+        {
+          "value": "inline",
+          "label": "Inline"
+        }
+      ],
+      "default": "brackets"
+    },
+    {
+      "type": "select",
       "id": "shape",
       "label": "Shape Style",
       "options": [
@@ -151,6 +199,150 @@
         }
       ],
       "default": "circle"
+    },
+        {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Desktop",
+      "min": 4,
+      "max": 6,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "slides_tablet",
+      "label": "Tablet",
+      "options": [
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "select",
+      "id": "slides_mobile",
+      "label": "Mobile",
+      "options": [
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        }
+      ],
+      "default": "3"
+    },
+    {
+      "type": "header",
+      "content": "spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
     }
   ],
   "blocks": [
