@@ -1,0 +1,163 @@
+<div class="tf-slideshow tf-btn-swiper-main">
+  <div
+    dir="ltr"
+    class="swiper tf-swiper sw-slide-show slider_effect_fade"
+    data-preview="1.33"
+    data-tablet="1.2"
+    data-auto="true"
+    data-delay="3000"
+    data-loop="true"
+    data-center="true"
+    data-space="{{ section.settings.spacing }}"
+  >
+    <div class="swiper-wrapper">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'slide' -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="slider-wrap">
+                <div class="sld_image">
+                  {%- if block.settings.image != blank -%}
+                    {%- liquid
+                      assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
+                      assign sizes = '100vw'
+                      assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+                      assign fetch_priority = 'auto'
+                    -%}
+                    {{
+                      block.settings.image
+                      | image_url: width: 3840
+                      | image_tag:
+                        height: height,
+                        sizes: sizes,
+                        widths: widths,
+                        fetchpriority: fetch_priority,
+                        class: 'lazyload scale-item scale-item-1'
+                    }}
+                  {%- else -%}
+                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+                <div class="sld_content type-2">
+                  <div class="content-sld_wrap">
+                    {%- if block.settings.title != blank -%}
+                      <h2 class="title_sld type-semibold fade-item fade-item-1">
+                        {%- if block.settings.link != blank -%}
+                          <a href="{{ block.settings.link }}" class="link"> {{ block.settings.title }} </a>
+                        {%- else -%}
+                          <span class="link"> {{ block.settings.title }} </span>
+                        {%- endif -%}
+                      </h2>
+                    {%- endif -%}
+                    {%- if block.settings.price != blank or block.settings.compare_price != blank -%}
+                      <div class="price-wrap fade-item fade-item-2">
+                        {%- if block.settings.price != blank -%}
+                          <span class="price-old h6 fw-normal">{{ block.settings.price }}</span>
+                        {%- endif -%}
+                        {%- if block.settings.compare_price != blank -%}
+                          <span class="price-new h6">{{ block.settings.compare_price }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                    <span class="br-line width-item width-item-3"></span>
+                    {%- if block.settings.button_label != blank -%}
+                      <div class="fade-item fade-item-4">
+                        {%- if block.settings.link != blank -%}
+                          <a href="{{ block.settings.link }}" class="tf-btn-link link h6 fw-semibold">
+                            {{ block.settings.button_label }}
+                            <i class="icon icon-arrow-right"></i>
+                          </a>
+                        {%- else -%}
+                          <span class="tf-btn-link link h6 fw-semibold">
+                            {{ block.settings.button_label }}
+                            <i class="icon icon-arrow-right"></i>
+                          </span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    <div class="sw-dot-default tf-sw-pagination"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow 2",
+  "settings": [
+    {
+      "type": "range",
+      "id": "spacing",
+      "label": "Spacing",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_width",
+      "label": "Slide image width (px)",
+      "min": 200,
+      "max": 1200,
+      "step": 10,
+      "unit": "px",
+      "default": 550
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Slide title"
+        },
+        {
+          "type": "text",
+          "id": "price",
+          "label": "Price",
+          "default": "$99.99"
+        },
+        {
+          "type": "text",
+          "id": "compare_price",
+          "label": "Compare price",
+          "default": "$69.99"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow 2",
+      "blocks": [{ "type": "slide" }, { "type": "slide" }, { "type": "slide" }]
+    }
+  ]
+}
+{% endschema %}
