@@ -1,7 +1,11 @@
 {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
-
-<header class="tf-header header-abs-3">
+{% liquid
+  if section.settings.header_style == 'header-abs-3'
+    assign header_style_default = true
+  endif
+%}
+<header class="tf-header {{ section.settings.header_style }}">
   {%- liquid
     if section.settings.menu != blank
       render 'header-drawer', main_menu: section.settings.menu
@@ -20,43 +24,75 @@
           </a>
         </div>
         <div class="col-xl-4 d-none d-xl-block">
-          <div class="list-hor">
-            <div class="tf-languages d-none d-xl-block">
-              <form class="position-static" method="post" action="{{ routes.localization_url }}">
-                <input type="hidden" name="form_type" value="localization">
-                <select
-                  name="locale_code"
-                  class="tf-dropdown-select style-default color-white type-languages"
-                  onchange="this.form.submit()"
-                >
-                  {%- for language in localization.available_languages -%}
-                    <option
-                      value="{{ language.iso_code }}"
-                      {% if language.iso_code == localization.language.iso_code %}
-                        selected
+          {% if section.settings.localizaton_or_search == 'localization' %}
+            <div class="list-hor">
+              <div class="tf-languages d-none d-xl-block">
+                <form class="position-static" method="post" action="{{ routes.localization_url }}">
+                  <input type="hidden" name="form_type" value="localization">
+                  <select
+                    name="locale_code"
+                    class="tf-dropdown-select style-default color-white type-languages"
+                    onchange="this.form.submit()"
+                  >
+                    {%- for language in localization.available_languages -%}
+                      <option
+                        value="{{ language.iso_code }}"
+                        {% if language.iso_code == localization.language.iso_code %}
+                          selected
+                        {% endif %}
+                      >
+                        {{ language.endonym_name }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                </form>
+              </div>
+              {%- liquid
+                assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
+                assign show_currencies = false
+                if currencies.size > 1
+                  assign show_currencies = true
+                endif
+              -%}
+              <div class="tf-currencies d-none d-xl-block">
+                <localization-form>
+                  {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form position-static' -%}
+                    {% render 'country_localization', show_currencies: show_currencies, color_white: true %}
+                  {%- endform -%}
+                </localization-form>
+              </div>
+            </div>
+          {% elsif section.settings.localizaton_or_search == 'search' %}
+            <predictive-search-type>
+              <form class="form_search-product search" action="{{ routes.search_url }}" method="get" role="search">
+                <div class="select-category">
+                  <select name="product_cat" id="product_cat" class="dropdown_product_cat">
+                    <option value="">All categories</option>
+
+                    {% for type in shop.types %}
+                      {% if type != blank %}
+                        <option value="{{ type | escape }}">
+                          {{ type }}
+                        </option>
                       {% endif %}
-                    >
-                      {{ language.endonym_name }}
-                    </option>
-                  {%- endfor -%}
-                </select>
+                    {% endfor %}
+                  </select>
+                </div>
+                <span class="br-line type-vertical"></span>
+                <!-- IMPORTANT: must be type="search" -->
+                <input
+                  type="search"
+                  name="q"
+                  class="style-def"
+                  placeholder="Search for products..."
+                  autocomplete="off"
+                  required
+                >
+                <!-- Restrict to products only -->
+                <input type="hidden" name="type" value="product">
               </form>
-            </div>
-            {%- liquid
-              assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
-              assign show_currencies = false
-              if currencies.size > 1
-                assign show_currencies = true
-              endif
-            -%}
-            <div class="tf-currencies d-none d-xl-block">
-              <localization-form>
-                {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form position-static' -%}
-                  {% render 'country_localization', show_currencies: show_currencies, color_white: true %}
-                {%- endform -%}
-              </localization-form>
-            </div>
-          </div>
+            </predictive-search-type>
+          {% endif %}
         </div>
         <div class="col-xl-4 col-md-4 col-6">
           <a href="{{ routes.root_url }}" class="logo-site justify-content-center">
@@ -66,52 +102,56 @@
               width="{{ section.settings.logo.width }}"
               height="{{ section.settings.logo.height }}"
             >
-            <div class="logo-bottom">
-              <svg
-                width="14"
-                height="6"
-                viewBox="0 0 14 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M2.5 1L4.5 3L2.5 5L0.5 3L2.5 1Z" fill="white" />
-                <path d="M10.5 0L13.5 3L10.5 6L7.5 3L10.5 0Z" fill="white" />
-              </svg>
-              <span class="text-small-3 text-white text-uppercase">
-                {{ section.settings.logo_bottom_text }}
-              </span>
-              <svg
-                width="14"
-                height="6"
-                viewBox="0 0 14 6"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M3.5 0L6.5 3L3.5 6L0.5 3L3.5 0Z" fill="white" />
-                <path d="M11.5 1L13.5 3L11.5 5L9.5 3L11.5 1Z" fill="white" />
-              </svg>
-            </div>
+            {% if section.settings.logo_bottom_text != blank %}
+              <div class="logo-bottom">
+                <svg
+                  width="14"
+                  height="6"
+                  viewBox="0 0 14 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M2.5 1L4.5 3L2.5 5L0.5 3L2.5 1Z" fill="white" />
+                  <path d="M10.5 0L13.5 3L10.5 6L7.5 3L10.5 0Z" fill="white" />
+                </svg>
+                <span class="text-small-3 text-white text-uppercase">
+                  {{ section.settings.logo_bottom_text }}
+                </span>
+                <svg
+                  width="14"
+                  height="6"
+                  viewBox="0 0 14 6"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M3.5 0L6.5 3L3.5 6L0.5 3L3.5 0Z" fill="white" />
+                  <path d="M11.5 1L13.5 3L11.5 5L9.5 3L11.5 1Z" fill="white" />
+                </svg>
+              </div>
+            {% endif %}
           </a>
         </div>
         <div class="col-xl-4 col-md-4 col-3">
           <ul class="nav-icon-list">
             <li class="d-none d-lg-flex">
-              <a class="nav-icon-item text-white link" href="{{ routes.account_login_url }}"
+              <a class="nav-icon-item {% if header_style_default %} text-white {% endif %} link" href="{{ routes.account_login_url }}"
                 ><i class="icon icon-user"></i
               ></a>
             </li>
-            <li class="d-none d-md-flex">
-              <a
-                class="nav-icon-item text-white link"
-                href="#search"
-                data-bs-toggle="modal"
-              >
-                <i class="icon icon-magnifying-glass"></i>
-              </a>
-            </li>
+            {% unless section.settings.localizaton_or_search == 'search' %}
+              <li class="d-none d-md-flex">
+                <a
+                  class="nav-icon-item {% if header_style_default %} text-white {% endif %} link"
+                  href="#search"
+                  data-bs-toggle="modal"
+                >
+                  <i class="icon icon-magnifying-glass"></i>
+                </a>
+              </li>
+            {% endunless %}
             {% if settings.wishlist_enabled %}
               <li class="d-none d-sm-flex">
-                <a class="nav-icon-item text-white link" href="/pages/wishlist" style="position: relative;">
+                <a class="nav-icon-item {% if header_style_default %} text-white {% endif %} link" href="/pages/wishlist" style="position: relative;">
                   <span id="wishlist-icon-bubble">
                     <wishlist-count class="count d-none">
                       <span aria-hidden="true">0</span>
@@ -127,7 +167,7 @@
             >
               <cart-drawer>
                 <details class="cart-drawer-container">
-                  <summary class="cart-drawer__toggle" aria-expanded="false">
+                  <summary class="cart-drawer__toggle {% if header_style_default %} text-white {% endif %} link" aria-expanded="false">
                     <span class="" id="cart-icon-bubble">
                       <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
                       {%- if cart != empty -%}
@@ -161,7 +201,10 @@
   </div>
   <div class="header-inner d-none d-xl-block">
     <div class="container">
-      <nav class="box-navigation style-white">
+      {% unless header_style_default %}
+        <span class="br-line d-block"></span>
+      {% endunless %}
+      <nav class="box-navigation {% if header_style_default %} style-white {% endif %}">
         <ul class="box-nav-menu">
           {%- for link in section.settings.menu.links -%}
             <li class="menu-item">
@@ -205,6 +248,22 @@
   "name": "Header 2",
   "settings": [
     {
+      "type": "select",
+      "id": "header_style",
+      "label": "Header Style",
+      "default": "header-abs-3",
+      "options": [
+        {
+          "value": "header-abs-3",
+          "label": "Default Spacing"
+        },
+        {
+          "value": "style-3",
+          "label": "Extended Spacing"
+        }
+      ]
+    },
+    {
       "type": "text",
       "id": "modal_title",
       "label": "Modal Title",
@@ -224,14 +283,31 @@
       "type": "text",
       "id": "logo_bottom_text",
       "label": "Logo Bottom Text",
-      "default": "Shop Smart, Live Better"
+      "default": "Shop Smart, Live Better",
+      "visible_if": "{{ section.settings.header_style == 'header-abs-3' }}"
     },
     {
       "type": "link_list",
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
-    }
+    },
+    {
+      "type": "select",
+      "id": "localizaton_or_search",
+      "label": "Localization Or Search",
+      "default": "localization",
+      "options": [
+        {
+          "value": "localization",
+          "label": "Localization"
+        },
+        {
+          "value": "search",
+          "label": "Search"
+        }
+      ]
+    },
   ],
   "blocks": [
     {

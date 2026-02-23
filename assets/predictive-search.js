@@ -280,3 +280,49 @@ class SearchHistory extends HTMLElement {
 }
 
 customElements.define('search-history', SearchHistory);
+
+class PredictiveSearchType extends PredictiveSearch {
+
+  getSelectedType() {
+    const select = document.querySelector('#product_cat');
+    return select ? select.value.trim() : '';
+  }
+
+  buildFinalQuery() {
+    const base = this.getQuery();
+    const selectedType = this.getSelectedType();
+
+    if (!base.length) return '';
+    if (!selectedType) return base;
+
+    return `product_type:${selectedType} AND ${base}`;
+  }
+
+  /* -----------------------------
+     Disable Predictive Fetch
+  ------------------------------*/
+  onChange() {
+    return;
+  }
+
+  getSearchResults() {
+    return;
+  }
+
+  /* -----------------------------
+     Override Submit → Redirect
+  ------------------------------*/
+  onFormSubmit(event) {
+    event.preventDefault();
+
+    const finalQuery = this.buildFinalQuery();
+    if (!finalQuery.length) return;
+
+    this.saveSearch(finalQuery);
+
+    const searchUrl = `/search?q=${encodeURIComponent(finalQuery)}&type=product`;
+    window.location.href = searchUrl;
+  }
+}
+
+customElements.define('predictive-search-type', PredictiveSearchType);

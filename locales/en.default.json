@@ -44,7 +44,8 @@
     "search": {
       "search": "Search our site",
       "placeholder": "Search",
-      "clear": "Clear"
+      "clear": "Clear",
+      "submit": "Search"
     },
     "cart": {
       "view": "View cart",
