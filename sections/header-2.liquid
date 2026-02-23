@@ -24,7 +24,7 @@
           </a>
         </div>
         <div class="col-xl-4 d-none d-xl-block">
-          {% if section.settings.localizaton_or_search == 'localization' %}
+          {% if section.settings.header_style == 'header-abs-3' %}
             <div class="list-hor">
               <div class="tf-languages d-none d-xl-block">
                 <form class="position-static" method="post" action="{{ routes.localization_url }}">
@@ -62,7 +62,7 @@
                 </localization-form>
               </div>
             </div>
-          {% elsif section.settings.localizaton_or_search == 'search' %}
+          {% elsif section.settings.header_style == 'style-3' %}
             <predictive-search-type>
               <form class="form_search-product search" action="{{ routes.search_url }}" method="get" role="search">
                 <div class="select-category">
@@ -255,11 +255,11 @@
       "options": [
         {
           "value": "header-abs-3",
-          "label": "Default Spacing"
+          "label": "Localization"
         },
         {
           "value": "style-3",
-          "label": "Extended Spacing"
+          "label": "Search"
         }
       ]
     },
@@ -291,23 +291,7 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
-    },
-    {
-      "type": "select",
-      "id": "localizaton_or_search",
-      "label": "Localization Or Search",
-      "default": "localization",
-      "options": [
-        {
-          "value": "localization",
-          "label": "Localization"
-        },
-        {
-          "value": "search",
-          "label": "Search"
-        }
-      ]
-    },
+    }
   ],
   "blocks": [
     {
