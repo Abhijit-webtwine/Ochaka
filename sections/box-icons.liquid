@@ -20,12 +20,12 @@
 </style>
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    {% if section.settings.enable_border %}
+    {% if section.settings.enable_border_top %}
       <div class="flat-spacing pt-0">
         <span class="br-line d-flex"></span>
       </div>
     {% endif %}
-    <div>
+    <div class="{% if section.settings.show_title %} sect-border{% endif %}">
       {% if section.settings.show_title %}
         <div class="s-head">
           {% if section.settings.title != blank %}
@@ -56,8 +56,8 @@
     },
     {
       "type": "checkbox",
-      "id": "enable_border",
-      "label": "Enable Border",
+      "id": "enable_border_top",
+      "label": "Enable Border Top",
       "default": true
     },
     {
