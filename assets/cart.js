@@ -217,7 +217,9 @@ class CartItems extends HTMLElement {
         if (cartFooter) cartFooter.classList.toggle('is-empty', parsedState.item_count === 0);
 
         this.getSectionsToRender().forEach((section => {
-          const element = document.getElementById(section.id);
+          const element = document.querySelectorAll(`.${section.id}, #${section.id}`);
+          element.forEach((element) => {
+
           if (element) {
             const elementToReplace = element.querySelector(section.selector) || element;
 
@@ -226,6 +228,7 @@ class CartItems extends HTMLElement {
                 this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
             }
           }
+        })
         }));
 
         this.updateLiveRegions(line, parsedState.item_count);

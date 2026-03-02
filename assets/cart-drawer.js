@@ -5,7 +5,7 @@ class MiniCart extends HTMLElement {
 
   connectedCallback() {
     // this.header = document.querySelector('sticky-header');
-    this.drawer = document.querySelector('cart-drawer');
+    this.drawer = document.querySelector('cart-drawer-open');
     
     // Load cart immediately when component is connected
     this.loadCart();
@@ -47,29 +47,35 @@ class MiniCart extends HTMLElement {
   }
 
   open() {
-    const detailsElement = this.drawer?.querySelector('details');
-    if (!detailsElement || detailsElement.hasAttribute('open')) {
-      return;
-    }
+    // const detailsElement = this.drawer?.querySelector('details');
+    // if (!detailsElement || detailsElement.hasAttribute('open')) {
+    //   return;
+    // }
     
-    this.drawer.openMenuDrawer();
-  }
+    this.drawer.openDrawer();
 
+  }
+// required function in other js
   renderContents(parsedState) {
     this.productId = parsedState.id;
     this.getSectionsToRender().forEach((section) => {
-      const element = document.getElementById(section.id);
-      if (element) {
-        element.innerHTML = this.getSectionInnerHTML(
-          parsedState.sections[section.id], 
-          section.selector
-        );
-      }
+      // Find ALL elements that match either class or ID for this section
+      // This handles both single and multiple instances (like sticky header + main header)
+      const elements = document.querySelectorAll(`.${section.id}, #${section.id}`);
+      elements.forEach((element) => {
+        if (element) {
+          element.innerHTML = this.getSectionInnerHTML(
+            parsedState.sections[section.id], 
+            section.selector
+          );
+        }
+      });
     });
 
     this.open();
   }
 
+// required function in other js
   getSectionsToRender() {
     return [
       {

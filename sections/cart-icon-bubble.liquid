@@ -1,6 +1,6 @@
 <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
 {%- if cart != empty -%}
-  <span class="cart-count-bubble count{% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+  <span class="count toolbar-count{% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
     {%- if cart.item_count < 100 -%}
       <span aria-hidden="true">{{ cart.item_count }}</span>
     {%- endif -%}

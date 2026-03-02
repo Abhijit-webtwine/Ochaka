@@ -113,6 +113,23 @@
           --spacing-bottom: {{ settings.spacing_bottom_mobile }}px;
         }
       }
+
+      .mini-cart-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .cart-drawer--open .mini-cart-overlay {
+        opacity: 1;
+        visibility: visible;
+      }
     </style>
 
     <link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}">
@@ -202,6 +219,14 @@
       {% if settings.compare_enabled %}
         {% render 'compare-modal' %}
       {% endif %}
+
+      <mini-cart class="popup-shopping-cart" id="mini-cart" data-url="?section_id=mini-cart">
+        {% comment %} mini cart items will be rendered {% endcomment %}
+        {% comment %} remove the offcanvas coz of id conflict {% endcomment %}
+      </mini-cart>
+      <cart-drawer-close>
+        <div class="mini-cart-overlay cart-drawer-close"></div>
+      </cart-drawer-close>
 
       <div class="transition-content">
         <main id="MainContent" class="content-for-layout focus-none shopify-section" role="main" tabindex="-1">

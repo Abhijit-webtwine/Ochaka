@@ -93,10 +93,10 @@
     padding: 1.563rem 1.875rem;
   }
 
-  .cart-drawer-container.menu-closing .cart-recommendations {
+  /* .cart-drawer-container.menu-closing .cart-recommendations {
     transition-delay: 0s;
     transition-duration: var(--duration-short);
-  }
+  } */
 
   .cart-drawer .cart-recommendations {
     transition-delay: calc(var(--duration-long) + var(--duration-short));

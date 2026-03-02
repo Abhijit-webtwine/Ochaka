@@ -707,10 +707,10 @@ class MenuDrawer extends HTMLElement {
       trapFocus(this.mainDetailsToggle, summaryElement);
     }
 
-    setTimeout(() => {
-      this.onBodyClickEvent = this.onBodyClickEvent || this.onBodyClick.bind(this);
-      document.body.addEventListener('click', this.onBodyClickEvent);
-    });
+    // setTimeout(() => {
+    //   this.onBodyClickEvent = this.onBodyClickEvent || this.onBodyClick.bind(this);
+    //   document.body.addEventListener('click', this.onBodyClickEvent);
+    // });
     document.body.classList.add(this.classes.opening);
 
     this.openAnimation();
@@ -733,7 +733,7 @@ class MenuDrawer extends HTMLElement {
       this.mainDetailsToggle.classList.add('menu-closing');
       removeTrapFocus(elementToFocus);
       
-      document.body.removeEventListener('click', this.onBodyClickEvent);
+      // document.body.removeEventListener('click', this.onBodyClickEvent);
       document.body.classList.remove(this.classes.open);
       document.body.classList.add(this.classes.closing);
       
@@ -815,24 +815,44 @@ class MenuDrawer extends HTMLElement {
     window.requestAnimationFrame(handleAnimation);
   }
 
-  onBodyClick(event) {
-    if (!this.contains(event.target)) this.closeMenuDrawer(event);
-  }
+  // onBodyClick(event) {
+  //   if (!this.contains(event.target)) this.closeMenuDrawer(event);
+  // }
 }
 customElements.define('menu-drawer', MenuDrawer);
 
-class CartDrawer extends MenuDrawer {
+class CartDrawerOpen extends HTMLElement {
   constructor() {
     super();
+    this.classes = {
+      open: 'cart-drawer--open',
+    };
+  }
+  connectedCallback() {
+    this.querySelector('.cart-drawer-open').addEventListener('click', this.openDrawer.bind(this));
+  }
+  openDrawer() {
+    document.body.classList.add(this.classes.open);
+  }
 
-    this.setClasses({
-      open: 'mini-cart--open',
-      opening: 'mini-cart--opening',
-      closing: 'mini-cart--closing'
-    });
+}
+customElements.define('cart-drawer-open', CartDrawerOpen);
+
+class CartDrawerClose extends HTMLElement {
+  constructor() {
+    super();
+    this.classes = {
+      open: 'cart-drawer--open',
+    };
+  }
+  connectedCallback() {
+    this.querySelector('.cart-drawer-close').addEventListener('click', this.closeDrawer.bind(this));
+  }
+  closeDrawer() {
+    document.body.classList.remove(this.classes.open);
   }
 }
-customElements.define('cart-drawer', CartDrawer);
+customElements.define('cart-drawer-close', CartDrawerClose);
 
 class FacetDrawer extends MenuDrawer {
   constructor() {

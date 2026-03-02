@@ -318,7 +318,7 @@ class PredictiveSearchType extends PredictiveSearch {
     const finalQuery = this.buildFinalQuery();
     if (!finalQuery.length) return;
 
-    this.saveSearch(finalQuery);
+    this.saveSearch(this.getQuery());
 
     const searchUrl = `/search?q=${encodeURIComponent(finalQuery)}&type=product`;
     window.location.href = searchUrl;

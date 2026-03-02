@@ -18,13 +18,13 @@
           <a
             href="#mobileMenu"
             data-bs-toggle="offcanvas"
-            class="btn-mobile-menu style-white"
+            class="btn-mobile-menu {% if header_style_default %}style-white{% endif %}"
           >
             <span></span>
           </a>
         </div>
         <div class="col-xl-4 d-none d-xl-block">
-          {% if section.settings.header_style == 'header-abs-3' %}
+          {% if header_style_default %}
             <div class="list-hor">
               <div class="tf-languages d-none d-xl-block">
                 <form class="position-static" method="post" action="{{ routes.localization_url }}">
@@ -102,7 +102,7 @@
               width="{{ section.settings.logo.width }}"
               height="{{ section.settings.logo.height }}"
             >
-            {% if section.settings.logo_bottom_text != blank %}
+            {% if section.settings.logo_bottom_text != blank and header_style_default %}
               <div class="logo-bottom">
                 <svg
                   width="14"
@@ -132,69 +132,15 @@
           </a>
         </div>
         <div class="col-xl-4 col-md-4 col-3">
-          <ul class="nav-icon-list">
-            <li class="d-none d-lg-flex">
-              <a class="nav-icon-item {% if header_style_default %} text-white {% endif %} link" href="{{ routes.account_login_url }}"
-                ><i class="icon icon-user"></i
-              ></a>
-            </li>
-            {% unless section.settings.localizaton_or_search == 'search' %}
-              <li class="d-none d-md-flex">
-                <a
-                  class="nav-icon-item {% if header_style_default %} text-white {% endif %} link"
-                  href="#search"
-                  data-bs-toggle="modal"
-                >
-                  <i class="icon icon-magnifying-glass"></i>
-                </a>
-              </li>
-            {% endunless %}
-            {% if settings.wishlist_enabled %}
-              <li class="d-none d-sm-flex">
-                <a class="nav-icon-item {% if header_style_default %} text-white {% endif %} link" href="/pages/wishlist" style="position: relative;">
-                  <span id="wishlist-icon-bubble">
-                    <wishlist-count class="count d-none">
-                      <span aria-hidden="true">0</span>
-                      <span class="visually-hidden">Wishlist items</span>
-                    </wishlist-count>
-                  </span>
-                  <i class="icon icon-heart"></i>
-                </a>
-              </li>
-            {% endif %}
-            <li
-              class="shop-cart"
-            >
-              <cart-drawer>
-                <details class="cart-drawer-container">
-                  <summary class="cart-drawer__toggle {% if header_style_default %} text-white {% endif %} link" aria-expanded="false">
-                    <span class="" id="cart-icon-bubble">
-                      <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-                      {%- if cart != empty -%}
-                        <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
-                          {%- if cart.item_count < 100 -%}
-                            <span aria-hidden="true">{{ cart.item_count }}</span>
-                          {%- endif -%}
-                          <span class="visually-hidden">
-                            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
-                          </span>
-                        </span>
-                      {%- endif -%}
-                    </span>
-
-                    <span class="nav-icon-item link">
-                      <i class="icon icon-shopping-cart-simple"></i>
-                    </span>
-                  </summary>
-
-                  <mini-cart class="popup-shopping-cart" id="mini-cart" data-url="?section_id=mini-cart">
-                    {% comment %} mini cart items will be rendered {% endcomment %}
-                    {% comment %} remove the offcanvas coz of id conflict {% endcomment %}
-                  </mini-cart>
-                </details>
-              </cart-drawer>
-            </li>
-          </ul>
+          {% if header_style_default %}
+            {% assign show_search = true %}
+          {% endif %}
+          {% render 'header-icons',
+            show_account: true,
+            show_search: show_search,
+            show_wishlist: true,
+            show_cart: true
+          %}
         </div>
       </div>
     </div>
@@ -205,29 +151,7 @@
         <span class="br-line d-block"></span>
       {% endunless %}
       <nav class="box-navigation {% if header_style_default %} style-white {% endif %}">
-        <ul class="box-nav-menu">
-          {%- for link in section.settings.menu.links -%}
-            <li class="menu-item">
-              <a href="{{ link.url }}" class="item-link">
-                {{- link.title | upcase }}
-                {%- assign has_mega_menu = false -%}
-                {% for block in section.blocks %}
-                  {% if block.settings['menu-handle'] == link.handle %}
-                    {% assign has_mega_menu = true %}
-                  {% endif %}
-                {% endfor %}
-                {% if has_mega_menu %}<i class="icon icon-caret-down"></i>{% endif %}
-              </a>
-
-              {% comment %}Mega Menu{% endcomment %}
-              {% for block in section.blocks %}
-                {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
-                  {% render 'mega-menu', block: block, link: link, modal_title: section.settings.modal_title %}
-                {% endif %}
-              {% endfor %}
-            </li>
-          {% endfor %}
-        </ul>
+        {% render 'header-navs' %}
       </nav>
     </div>
   </div>
@@ -239,6 +163,39 @@
     {% endif %}
   {% endfor %}
 {%- endfor -%}
+
+{% comment %} Sticky Header for Style 3 {% endcomment %}
+{% unless section.settings.header_style == 'header-abs-3' %}
+  <header class="tf-header header-fixed">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 col-3 d-xl-none">
+          <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
+            <span></span>
+          </a>
+        </div>
+        <div class="col-xl-3 col-md-4 col-6 text-center text-xl-start">
+          <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
+            <img
+              src="{{ section.settings.logo | image_url }}"
+              alt="LOGO"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+            >
+          </a>
+        </div>
+        <div class="col-xl-6 d-none d-xl-block">
+          <nav class="box-navigation">
+            {% render 'header-navs', mobile_nav_none: true %}
+          </nav>
+        </div>
+        <div class="col-xl-3 col-md-4 col-3">
+          {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true %}
+        </div>
+      </div>
+    </div>
+  </header>
+{% endunless %}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>

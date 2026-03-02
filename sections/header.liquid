@@ -35,86 +35,11 @@
       </div>
       <div class="col-xl-6 d-none d-xl-block">
         <nav class="box-navigation">
-          <ul class="box-nav-menu">
-            {%- for link in section.settings.menu.links -%}
-              <li class="menu-item">
-                <a href="{{ link.url }}" class="item-link">
-                  {{- link.title | upcase }}
-                  {%- assign has_mega_menu = false -%}
-                  {% for block in section.blocks %}
-                    {% if block.settings.menu-handle == link.handle %}
-                      {% assign has_mega_menu = true %}
-                    {% endif %}
-                  {% endfor %}
-                  {% if has_mega_menu %}<i class="icon icon-caret-down"></i>{% endif %}
-                </a>
-
-                {% comment %}Mega Menu{% endcomment %}
-                {% for block in section.blocks %}
-                  {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
-                    {% render 'mega-menu', block: block, link: link %}
-                  {% endif %}
-                {% endfor %}
-              </li>
-            {% endfor %}
-          </ul>
+          {% render 'header-navs' %}
         </nav>
       </div>
       <div class="col-xl-3 col-md-4 col-3">
-        <ul class="nav-icon-list">
-          <li class="d-none d-lg-flex">
-            <a class="nav-icon-item link" href="{{ routes.account_login_url }}"><i class="icon icon-user"></i></a>
-          </li>
-          <li class="d-none d-md-flex">
-            <a class="nav-icon-item link" href="#search" data-bs-toggle="modal">
-              <i class="icon icon-magnifying-glass"></i>
-            </a>
-          </li>
-          {% if settings.wishlist_enabled %}
-            <li class="d-none d-sm-flex">
-              <a class="nav-icon-item link" href="/pages/wishlist" style="position: relative;">
-                <span id="wishlist-icon-bubble">
-                  <wishlist-count class="count d-none">
-                    <span aria-hidden="true">0</span>
-                    <span class="visually-hidden">Wishlist items</span>
-                  </wishlist-count>
-                </span>
-                <i class="icon icon-heart"></i>
-              </a>
-            </li>
-          {% endif %}
-          <li class="shop-cart">
-            <cart-drawer>
-              <details class="cart-drawer-container">
-                <summary class="cart-drawer__toggle" aria-expanded="false">
-
-                  <span class="" id="cart-icon-bubble">
-                    <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-                    {%- if cart != empty -%}
-                      <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
-                        {%- if cart.item_count < 100 -%}
-                          <span aria-hidden="true">{{ cart.item_count }}</span>
-                        {%- endif -%}
-                        <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-                      </span>
-                    {%- endif -%}
-                  </span>
-
-                  <span class="nav-icon-item link">
-                    <i class="icon icon-shopping-cart-simple"></i>
-                  </span>
-                </summary>
-
-                <mini-cart class="popup-shopping-cart" id="mini-cart" data-url="?section_id=mini-cart">
-                    {% comment %} mini cart items will be rendered {% endcomment %}
-                     {% comment %} remove the offcanvas coz of id conflict {% endcomment %}
-                </mini-cart>
-
-              </details>
-            </cart-drawer>
-            {% comment %} <span class="count">{{ cart.item_count }}</span> {% endcomment %}
-          </li>
-        </ul>
+        {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true %}
       </div>
     </div>
   </div>
