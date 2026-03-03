@@ -12,9 +12,19 @@
     "settings": [
       {
         "type": "checkbox",
-        "id": "show_announcement_bar",
-        "label": "Show announcement bar",
+        "id": "show_announcement",
+        "label": "Show announcement",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "announcement_bar_type",
+        "label": "Announcement Bar Type",
+        "default": "bar",
+        "options": [
+          { "value": "bar", "label": "Announcement Bar" },
+          { "value": "slider", "label": "Slider" }
+        ]
       },
       {
         "type": "checkbox",

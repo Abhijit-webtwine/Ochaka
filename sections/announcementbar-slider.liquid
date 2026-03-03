@@ -1,0 +1,76 @@
+<div class="tf-topbar_slide bg-black">
+  <div class="topbar-top tf-btn-swiper-main">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        {% if section.settings.show_nav %}
+          <div class="col-sm-1 d-none d-sm-block">
+            <div class="text-white link d-flex justify-content-end nav-prev-swiper">
+              <i class="icon icon-caret-left"></i>
+            </div>
+          </div>
+        {% endif %}
+        <div class="col-lg-4 col-sm-7 col-12">
+          <div
+            dir="ltr"
+            class="swiper tf-swiper"
+            data-auto="{{ section.settings.auto }}"
+            data-loop="{{ section.settings.loop }}"
+            data-delay="{{ section.settings.delay }}"
+          >
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  {% if block.settings.text != blank %}
+                    <h6 class="text-white fw-normal text-center">{{ block.settings.text }}</h6>
+                  {% endif %}
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% if section.settings.show_nav %}
+          <div class="col-sm-1 d-none d-sm-block">
+            <div class="text-white link d-flex nav-next-swiper">
+              <i class="icon icon-caret-right"></i>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar Slider",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "checkbox", "id": "show_nav", "label": "Show navigation arrows", "default": true },
+    { "type": "checkbox", "id": "auto", "label": "Autoplay", "default": true },
+    { "type": "checkbox", "id": "loop", "label": "Loop", "default": true },
+    { "type": "number", "id": "delay", "label": "Autoplay delay (ms)", "default": 3000 }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Slide text", "default": "Shopping day, 15% off all products" }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Announcement Bar Slider",
+      "category": "Custom",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide", "settings": { "text": "Free shipping on orders of $50 or more" } },
+        { "type": "slide", "settings": { "text": "Pick up in store: Ready in an hour" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
