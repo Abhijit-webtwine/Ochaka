@@ -1,0 +1,42 @@
+<section class="themesFlat">
+  <div class="container">
+    <div class="wg-copy primary-6 wow fadeInUp">
+      <div class="content wrap-code">
+        <h3 class="text-white">{{ section.settings.title }}</h3>
+        <div class="tf-btn btn-white btn-coppy-text animate-btn animate-dark">
+          <h6 class="coppyText fw-semibold">
+            {{ section.settings.coupon_code }}
+          </h6>
+          <span class="br-line type-vertical"></span>
+          <h6 class="text-primary">COPY</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coupon",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Buy 2 Get 1 Free and Get 35% Off Voucher"
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Coupon Code",
+      "default": "35%OFFVOUCHER"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coupon",
+      "category": "Content"
+    }
+  ]
+}
+{% endschema %}
