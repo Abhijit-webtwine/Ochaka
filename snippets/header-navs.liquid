@@ -1,8 +1,8 @@
 <ul class="box-nav-menu {{ classes }}">
   {%- for link in section.settings.menu.links -%}
     <li class="menu-item {% if mobile_nav_none %} mn-none {% endif %}">
-      <a href="{{ link.url }}" class="item-link">
-        {{- link.title | upcase }}
+      <a href="{{ link.url }}" class="item-link {{ menu_item_style }}">
+        {{- link.title }}
         {%- assign has_mega_menu = false -%}
         {% for block in section.blocks %}
           {% if block.settings['menu-handle'] == link.handle %}

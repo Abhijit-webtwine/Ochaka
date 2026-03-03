@@ -198,12 +198,14 @@
 
     <div class="transition-body">
       
-      {% if settings.show_announcement %}
-        {% if settings.announcement_bar_type == 'bar' %}
-          {% section 'announcement-bar' %}
-        {% else %}
-          {% section 'announcementbar-slider' %}
-        {% endif %}
+      {% if settings.show_announcement_bar %}
+        {% section 'announcement-bar' %}
+      {% endif %}
+      {% if settings.show_announcement_slider %}
+        {% section 'announcementbar-slider' %}
+      {% endif %}
+      {% if settings.show_announcement_bar2 %}
+        {% section 'announcement-bar-2' %}
       {% endif %}
 
       {% if settings.show_scrolling_promotion %}

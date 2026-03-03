@@ -53,7 +53,7 @@
 
       <div class="{{ nav_col }}">
         <nav class="box-navigation">
-          {% render 'header-navs', classes: classes %}
+          {% render 'header-navs', classes: classes, menu_item_style: section.settings.menu_item_style %}
         </nav>
       </div>
 
@@ -121,6 +121,22 @@
         {
           "value": "header-abs-2",
           "label": "Extra height"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "menu_item_style",
+      "label": "Menu Item Style",
+      "default": "text-uppercase",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "text-uppercase",
+          "label": "Uppercase"
         }
       ]
     },
