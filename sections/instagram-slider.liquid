@@ -19,7 +19,7 @@
   }
 </style>
 
-<section class="{% if section.settings.spacing %}flat-spacing{% endif %} section-{{ section.id }}-padding">
+<section class="section-{{ section.id }}-padding">
   <div class="container">
     {% if section.settings.heading != blank or section.settings.subheading != blank %}
       <div class="sect-title text-center wow fadeInUp">
@@ -162,12 +162,6 @@
         }
       ],
       "default": "full-width"
-    },
-    {
-      "type": "checkbox",
-      "id": "spacing",
-      "label": "Enable Section Spacing",
-      "default": true
     },
     {
       "type": "header",
