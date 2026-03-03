@@ -34,11 +34,11 @@
     background-color: {{ section.settings.text_color }};
   }
   .footer-bottom .inner-bottom, .footer-newsletter form input[type=email] {
-    border-color: {{ section.settings.text_color }};
+    border-color: {{ section.settings.border_color }};
   }
 {% endstyle %}
 
-<footer class="tf-footer style-4 section-{{ section.id }}-footer">
+<footer class="tf-footer {{ section.settings.footer_style }} section-{{ section.id }}-footer">
   
   {% if section.settings.show_border_top %}
     <div class="container d-flex">
@@ -202,7 +202,7 @@
                               class="style-stroke"
                               type="email"
                               name="contact[email]"
-                              placeholder="Enter Your Email"
+                              placeholder="Enter your email"
                               required
                             >
                           </fieldset>
@@ -301,6 +301,22 @@
   "name": "Footer",
   "settings": [
     {
+      "type": "select",
+      "id": "footer_style",
+      "label": "Footer Style",
+      "options": [
+        {
+          "value": "style-4",
+          "label": "Default"
+        },
+        {
+          "value": "footer-2",
+          "label": "Reduced Spacing"
+        }
+      ],
+      "default": "style-4"
+    },
+    {
       "type": "checkbox",
       "id": "show_border_top",
       "default": false,
@@ -322,6 +338,12 @@
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
+      "default": "#000000"
+    },
+        {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
       "default": "#000000"
     },
     {
