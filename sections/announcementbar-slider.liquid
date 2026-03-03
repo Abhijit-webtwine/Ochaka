@@ -1,4 +1,10 @@
-<div class="tf-topbar_slide bg-black">
+<style>
+.section-{{ section.id }}-bg_color {
+  background-color: {{ section.settings.bg_color }};
+}
+</style>
+
+<div class="tf-topbar_slide section-{{ section.id }}-bg_color">
   <div class="topbar-top tf-btn-swiper-main">
     <div class="container">
       <div class="row justify-content-center align-items-center">
@@ -46,6 +52,7 @@
   "tag": "section",
   "class": "section",
   "settings": [
+    { "type": "color", "id": "bg_color", "label": "Background color", "default": "#000000" },
     { "type": "checkbox", "id": "show_nav", "label": "Show navigation arrows", "default": true },
     { "type": "checkbox", "id": "auto", "label": "Autoplay", "default": true },
     { "type": "checkbox", "id": "loop", "label": "Loop", "default": true },
