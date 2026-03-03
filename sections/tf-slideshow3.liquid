@@ -1,0 +1,128 @@
+<div class="tf-slideshow tf-btn-swiper-main">
+  <div class="container-full-4">
+    <div dir="ltr" class="swiper tf-swiper slider-book sw-slide-show slider_effect_fade" data-effect="{{ section.settings.effect }}" data-loop="{{ section.settings.loop }}" data-auto="{{ section.settings.auto }}" data-delay="{{ section.settings.delay }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide">
+            <div class="slider-wrap_2">
+              <div class="sld_image type-radius">
+                {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'scale-item sale-item-1' }}
+              </div>
+              <div class="sld_content type-normal type-radius" style="background-color: {{ block.settings.bg_color }}">
+                <div class="container">
+                  <div class="content-sld_wrap text-center">
+                    <h3 class="sub-title_sld fade-item fade-item-1">
+                      {{ block.settings.subtitle }}
+                    </h3>
+                    <h2 class="title_sld text-display fw-semibold fade-item fade-item-2">
+                      {{ block.settings.title | newline_to_br }}
+                    </h2>
+                    <p class="sub-text_sld h5 text-black fade-item fade-item-3">
+                      {{ block.settings.description }}
+                    </p>
+                    <div class="fade-item fade-item-4">
+                      <a href="{{ block.settings.button_url }}" class="tf-btn animate-btn fw-normal">
+                        {{ block.settings.button_text }}
+                        <i class="icon icon-arrow-right"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow 3",
+  "settings": [
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Effect",
+      "options": [
+        { "value": "fade", "label": "Fade" },
+        { "value": "slide", "label": "Slide" }
+      ],
+      "default": "fade"
+    },
+    {
+      "type": "checkbox",
+      "id": "loop",
+      "label": "Loop",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "auto",
+      "label": "Auto Play",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "delay",
+      "label": "Delay (ms)",
+      "default": 3000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "New From The Author"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "National Security"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Limited Edition Complete Journeys of the Strongest Family in History"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "Background Color",
+          "default": "#f8e6d3"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow 3",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
