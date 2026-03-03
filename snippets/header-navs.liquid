@@ -1,4 +1,4 @@
-<ul class="box-nav-menu">
+<ul class="box-nav-menu {{ classes }}">
   {%- for link in section.settings.menu.links -%}
     <li class="menu-item {% if mobile_nav_none %} mn-none {% endif %}">
       <a href="{{ link.url }}" class="item-link">

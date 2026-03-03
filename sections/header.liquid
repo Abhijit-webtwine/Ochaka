@@ -3,7 +3,7 @@
 
 {% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list,faq' | split: ',' %}
 
-<header class="tf-header header-fix
+<header class="tf-header header-fix {% if section.settings.header_height == 'style_7' %}style-7{% endif %}
   {% unless excluded_suffixes contains template.suffix or template.name == '404' or template.name == 'blog' or section.settings.remove_transparent_header %}
     {{ section.settings.header_abs_style }}
   {% endunless %}
@@ -23,34 +23,54 @@
           <span></span>
         </a>
       </div>
-      <div class="col-xl-3 col-md-4 col-6 d-flex justify-content-center justify-content-xl-start">
-        <a href="{{ routes.root_url }}" class="logo-site">
-          <img
-            src="{{ section.settings.logo | image_url }}"
-            alt="Logo"
-            width="{{ section.settings.logo.width }}"
-            height="{{ section.settings.logo.height }}"
-          >
-        </a>
+      {% if section.settings.logo_position == 'style_7' %}
+        {% assign nav_col = 'col-xl-5 d-none d-xl-block order-first' %}
+        {% assign logo_col = 'col-xl-2 col-md-4 col-6' %}
+        {% assign logo_justify = 'justify-content-center' %}
+        {% assign icons_col = 'col-xl-5 col-md-4 col-3' %}
+        {% assign classes = 'justify-content-start' %}
+      {% else %}
+        {% assign nav_col = 'col-xl-6 d-none d-xl-block' %}
+        {% assign logo_col = 'col-xl-3 col-md-4 col-6' %}
+        {% assign logo_justify = 'justify-content-center justify-content-xl-start' %}
+        {% assign icons_col = 'col-xl-3 col-md-4 col-3' %}
+        {% assign classes = blank %}
+
+      {% endif %}
+
+      <div class="{{ logo_col }}">
+        <div class="d-flex {{ logo_justify }}">
+          <a href="{{ routes.root_url }}" class="logo-site">
+            <img
+              src="{{ section.settings.logo | image_url }}"
+              alt="Logo"
+              width="{{ section.settings.logo.width }}"
+              height="{{ section.settings.logo.height }}"
+            >
+          </a>
+        </div>
       </div>
-      <div class="col-xl-6 d-none d-xl-block">
+
+      <div class="{{ nav_col }}">
         <nav class="box-navigation">
-          {% render 'header-navs' %}
+          {% render 'header-navs', classes: classes %}
         </nav>
       </div>
-      <div class="col-xl-3 col-md-4 col-3">
+
+      <div class="{{ icons_col }}">
         {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true %}
       </div>
     </div>
   </div>
-  </header>
-  {%- for link in section.settings.menu.links -%}
-    {% for block in section.blocks %}
-      {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
-        {% render 'megamenu-modal', block: block, link: link, modal_title: section.settings.modal_title %}
-      {% endif %}
-    {% endfor %}
-  {%- endfor -%}
+</header>
+
+{%- for link in section.settings.menu.links -%}
+  {% for block in section.blocks %}
+    {% if block.type == 'mega_menu' and block.settings['menu-handle'] == link.handle %}
+      {% render 'megamenu-modal', block: block, link: link, modal_title: section.settings.modal_title %}
+    {% endif %}
+  {% endfor %}
+{%- endfor -%}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
@@ -68,16 +88,39 @@
     },
     {
       "type": "select",
+      "id": "logo_position",
+      "label": "Logo Position",
+      "visible_if": "{{ section.settings.remove_transparent_header == true }}",
+      "default": "style_1",
+      "options": [
+        { "value": "style_1", "label": "Left Logo" },
+        { "value": "style_7", "label": "Center Logo" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "header_height",
+      "label": "Header Height",
+      "visible_if": "{{ section.settings.remove_transparent_header == true }}",
+      "default": "style_1",
+      "options": [
+        { "value": "style_1", "label": "Default Height" },
+        { "value": "style_7", "label": "Small height" }
+      ]
+    },
+    {
+      "type": "select",
       "id": "header_abs_style",
+      "visible_if": "{{ section.settings.remove_transparent_header == false }}",
       "label": "Header Absolute Style",
       "options": [
         {
           "value": "header-abs-1",
-          "label": "Style 1"
+          "label": "Default Height"
         },
         {
           "value": "header-abs-2",
-          "label": "Style 2"
+          "label": "Extra height"
         }
       ]
     },
