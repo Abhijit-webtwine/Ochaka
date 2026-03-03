@@ -134,10 +134,12 @@
         <div class="col-xl-4 col-md-4 col-3">
           {% if header_style_default %}
             {% assign show_search = true %}
+            {% assign white_icons = true %}
           {% endif %}
           {% render 'header-icons',
             show_account: true,
             show_search: show_search,
+            white_icons: white_icons,
             show_wishlist: true,
             show_cart: true
           %}

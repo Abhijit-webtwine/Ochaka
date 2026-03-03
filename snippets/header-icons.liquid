@@ -2,7 +2,7 @@
   {% if show_account %}
     <li class="d-none d-lg-flex">
       <a
-        class="nav-icon-item {% if header_style_default %} text-white {% endif %} link"
+        class="nav-icon-item {% if white_icons %} text-white {% endif %} link"
         href="{{ routes.account_login_url }}"
         ><i class="icon icon-user"></i
       ></a>
@@ -11,7 +11,7 @@
   {% if show_search %}
     <li class="d-none d-md-flex">
       <a
-        class="nav-icon-item {% if header_style_default %} text-white {% endif %} link"
+        class="nav-icon-item {% if white_icons %} text-white {% endif %} link"
         href="#search"
         data-bs-toggle="modal"
       >
@@ -22,7 +22,7 @@
   {% if settings.wishlist_enabled and show_wishlist %}
     <li class="d-none d-sm-flex">
       <a
-        class="nav-icon-item {% if header_style_default %} text-white {% endif %} link"
+        class="nav-icon-item {% if white_icons %} text-white {% endif %} link"
         href="/pages/wishlist"
         style="position: relative;"
       >
