@@ -53,7 +53,7 @@
     {% if section.settings.pagination_style == 'style_1' %}
       {% assign pagination_class = 'sw-dot-default' %}
     {% else %}
-      {% assign pagination_class = 'sw-dot-default-2 style-white' %}
+      {% assign pagination_class = 'sw-dot-default-2' %}
     {% endif %}
     <div class="{{ pagination_class }} {% if section.settings.pagination_color == 'light' %}style-white{% endif %} tf-sw-pagination"></div>
   </div>
@@ -105,7 +105,7 @@
         },
         {
           "value": "",
-          "label": "None"
+          "label": "Default"
         }
       ],
       "default": "ani-zoom"
