@@ -1,0 +1,339 @@
+<section class="themesFlat">
+  <div class="tf-grid-layout xl-col-2 gap-0 watch-grid_2">
+    {% assign hero_block = null %}
+    {% for block in section.blocks %}
+      {% if block.type == 'hero_sale' %}
+        {% assign hero_block = block %}
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% if hero_block %}
+      <div class="box-image_V02 hover-img type-space-6" {{ hero_block.shopify_attributes }}>
+        <a href="{{ hero_block.settings.collection.url | default: '#' }}" class="box-image_image img-style">
+          {% if hero_block.settings.image != blank %}
+            <img
+              class="lazyload"
+              src="{{ hero_block.settings.image | image_url: width: 600 }}"
+              data-src="{{ hero_block.settings.image | image_url: width: 1200 }}"
+              alt="{{ hero_block.settings.image.alt | escape }}"
+              width="{{ hero_block.settings.image.width }}"
+              height="{{ hero_block.settings.image.height }}"
+              loading="lazy"
+            >
+          {% elsif hero_block.settings.collection.image %}
+            <img
+              class="lazyload"
+              src="{{ hero_block.settings.collection.image | image_url: width: 600 }}"
+              data-src="{{ hero_block.settings.collection.image | image_url: width: 1200 }}"
+              alt="{{ hero_block.settings.collection.image.alt | escape }}"
+              width="{{ hero_block.settings.collection.image.width }}"
+              height="{{ hero_block.settings.collection.image.height }}"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </a>
+        <div class="box-image_content wow fadeInUp">
+          {% if hero_block.settings.title != blank %}
+            <a href="{{ hero_block.settings.collection.url | default: '#' }}" class="title link text-display text-white fw-semibold">{{ hero_block.settings.title }}</a>
+          {% endif %}
+          {% if hero_block.settings.subtitle != blank %}
+            <p class="desc h5 text-white">{{ hero_block.settings.subtitle }}</p>
+          {% endif %}
+          {% if hero_block.settings.button_text != blank %}
+            <a href="{{ hero_block.settings.collection.url | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark rounded-0 px-xxl-32">
+              {{ hero_block.settings.button_text }}
+              <i class="icon icon-arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    <div class="d-grid">
+      <div class="tf-grid-layout sm-col-2 gap-0">
+        {% assign offer_block = null %}
+        {% for block in section.blocks %}
+          {% if block.type == 'offer_product' %}
+            {% assign offer_block = block %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if offer_block %}
+          <div class="box-image_V06 type-space-4 hover-img rounded-0" {{ offer_block.shopify_attributes }}>
+            <a href="{{ offer_block.settings.product.url | default: '#' }}" class="box-image_image img-style">
+              {% if offer_block.settings.image != blank %}
+                <img
+                  class="lazyload"
+                  src="{{ offer_block.settings.image | image_url: width: 600 }}"
+                  data-src="{{ offer_block.settings.image | image_url: width: 1200 }}"
+                  alt="{{ offer_block.settings.image.alt | escape }}"
+                  width="{{ offer_block.settings.image.width }}"
+                  height="{{ offer_block.settings.image.height }}"
+                  loading="lazy"
+                >
+              {% elsif offer_block.settings.product.featured_image %}
+                <img
+                  class="lazyload"
+                  src="{{ offer_block.settings.product.featured_image | image_url: width: 600 }}"
+                  data-src="{{ offer_block.settings.product.featured_image | image_url: width: 1200 }}"
+                  alt="{{ offer_block.settings.product.featured_image.alt | escape }}"
+                  width="{{ offer_block.settings.product.featured_image.width }}"
+                  height="{{ offer_block.settings.product.featured_image.height }}"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </a>
+            <div class="box-image_content wow fadeInUp">
+              {% if offer_block.settings.subtitle != blank %}
+                <p class="sub-title h4 text-white mb-0">{{ offer_block.settings.subtitle }}</p>
+              {% endif %}
+              <div class="price-wrap style-end gap-13">
+                <span class="price-new h1 fw-medium text-white">{{ offer_block.settings.product.price | money_without_trailing_zeros }}</span>
+                {% if offer_block.settings.product.compare_at_price > offer_block.settings.product.price %}
+                  <span class="price-old h3 non-cl text-white_70">{{ offer_block.settings.product.compare_at_price | money_without_trailing_zeros }}</span>
+                {% endif %}
+              </div>
+              {% if offer_block.settings.button_text != blank %}
+                <a href="{{ offer_block.settings.product.url | default: '#' }}" class="tf-btn-line style-white letter-space-0">{{ offer_block.settings.button_text }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% assign banner_block = null %}
+        {% for block in section.blocks %}
+          {% if block.type == 'banner_collection' %}
+            {% assign banner_block = block %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if banner_block %}
+          <a href="{{ banner_block.settings.collection.url | default: '#' }}" class="box-image_V08 hover-img" {{ banner_block.shopify_attributes }}>
+            <div class="box-image_image img-style">
+              {% if banner_block.settings.image != blank %}
+                <img
+                  class="lazyload"
+                  src="{{ banner_block.settings.image | image_url: width: 600 }}"
+                  data-src="{{ banner_block.settings.image | image_url: width: 1200 }}"
+                  alt="{{ banner_block.settings.image.alt | escape }}"
+                  width="{{ banner_block.settings.image.width }}"
+                  height="{{ banner_block.settings.image.height }}"
+                  loading="lazy"
+                >
+              {% elsif banner_block.settings.collection.image %}
+                <img
+                  class="lazyload"
+                  src="{{ banner_block.settings.collection.image | image_url: width: 600 }}"
+                  data-src="{{ banner_block.settings.collection.image | image_url: width: 1200 }}"
+                  alt="{{ banner_block.settings.collection.image.alt | escape }}"
+                  width="{{ banner_block.settings.collection.image.width }}"
+                  height="{{ banner_block.settings.collection.image.height }}"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+            <div class="box-image_content wow fadeInUp align-items-center">
+              {% if banner_block.settings.title != blank %}
+                <h4 class="title text-white fw-normal">{{ banner_block.settings.title }}</h4>
+              {% endif %}
+              <div class="flat-off text-white">
+                <span class="line-break"></span>
+                <p class="text-off h3">
+                  {% if banner_block.settings.flat_prefix != blank %}{{ banner_block.settings.flat_prefix }}{% endif %}
+                  <span>
+                    {% if banner_block.settings.discount_value != blank %}{{ banner_block.settings.discount_value }}{% endif %}
+                  </span>
+                  {% if banner_block.settings.off_suffix != blank %}{{ banner_block.settings.off_suffix }}{% endif %}
+                </p>
+              </div>
+            </div>
+          </a>
+        {% endif %}
+      </div>
+      <div class="tf-grid-layout sm-col-2 gap-0">
+        {% assign simple_block = null %}
+        {% for block in section.blocks %}
+          {% if block.type == 'product_simple' %}
+            {% assign simple_block = block %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if simple_block %}
+          <div class="box-image_V06 type-space-2 hover-img rounded-0" {{ simple_block.shopify_attributes }}>
+            <a href="{{ simple_block.settings.collection.url | default: '#' }}" class="box-image_image img-style">
+              {% if simple_block.settings.image != blank %}
+                <img
+                  class="lazyload"
+                  src="{{ simple_block.settings.image | image_url: width: 600 }}"
+                  data-src="{{ simple_block.settings.image | image_url: width: 1200 }}"
+                  alt="{{ simple_block.settings.image.alt | escape }}"
+                  width="{{ simple_block.settings.image.width }}"
+                  height="{{ simple_block.settings.image.height }}"
+                  loading="lazy"
+                >
+              {% elsif simple_block.settings.collection.image %}
+                <img
+                  class="lazyload"
+                  src="{{ simple_block.settings.collection.image | image_url: width: 600 }}"
+                  data-src="{{ simple_block.settings.collection.image | image_url: width: 1200 }}"
+                  alt="{{ simple_block.settings.collection.image.alt | escape }}"
+                  width="{{ simple_block.settings.collection.image.width }}"
+                  height="{{ simple_block.settings.collection.image.height }}"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </a>
+            <div class="box-image_content wow fadeInUp">
+              <h3 class="title">
+                <a href="{{ simple_block.settings.collection.url | default: '#' }}" class="link">
+                  {% if simple_block.settings.title != blank %}{{ simple_block.settings.title }}{% else %}{{ simple_block.settings.collection.title }}{% endif %}
+                </a>
+              </h3>
+              {% if simple_block.settings.button_text != blank %}
+                <a href="{{ simple_block.settings.collection.url | default: '#' }}" class="tf-btn-line letter-space-0">{{ simple_block.settings.button_text }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        {% assign limited_block = null %}
+        {% for block in section.blocks %}
+          {% if block.type == 'product_limited' %}
+            {% assign limited_block = block %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+        {% if limited_block %}
+          <div class="box-image_V06 type-space-4 hover-img rounded-0" {{ limited_block.shopify_attributes }}>
+            <a href="{{ limited_block.settings.product.url | default: '#' }}" class="box-image_image img-style">
+              {% if limited_block.settings.image != blank %}
+                <img
+                  class="lazyload"
+                  src="{{ limited_block.settings.image | image_url: width: 600 }}"
+                  data-src="{{ limited_block.settings.image | image_url: width: 1200 }}"
+                  alt="{{ limited_block.settings.image.alt | escape }}"
+                  width="{{ limited_block.settings.image.width }}"
+                  height="{{ limited_block.settings.image.height }}"
+                  loading="lazy"
+                >
+              {% elsif limited_block.settings.product.featured_image %}
+                <img
+                  class="lazyload"
+                  src="{{ limited_block.settings.product.featured_image | image_url: width: 600 }}"
+                  data-src="{{ limited_block.settings.product.featured_image | image_url: width: 1200 }}"
+                  alt="{{ limited_block.settings.product.featured_image.alt | escape }}"
+                  width="{{ limited_block.settings.product.featured_image.width }}"
+                  height="{{ limited_block.settings.product.featured_image.height }}"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </a>
+            <div class="box-image_content wow fadeInUp">
+              {% if limited_block.settings.subtitle != blank %}
+                <p class="sub-title h4 text-white mb-0">{{ limited_block.settings.subtitle }}</p>
+              {% endif %}
+              <div class="price-wrap style-end">
+                <span class="price-new h1 fw-medium text-white">{{ limited_block.settings.product.price | money_without_trailing_zeros }}</span>
+                {% if limited_block.settings.product.compare_at_price > limited_block.settings.product.price %}
+                  <span class="price-old h3 non-cl text-white_70">{{ limited_block.settings.product.compare_at_price | money_without_trailing_zeros }}</span>
+                {% endif %}
+              </div>
+              {% if limited_block.settings.button_text != blank %}
+                <a href="{{ limited_block.settings.product.url | default: '#' }}" class="tf-btn-line style-white letter-space-0">{{ limited_block.settings.button_text }}</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sale Showcase",
+  "tag": "section",
+  "class": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "hero_sale",
+      "name": "Hero Sale",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title", "default": "SALE UP 70% OFF" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit" },
+        { "type": "text", "id": "button_text", "label": "Button text", "default": "DISCOVER NOW" }
+      ]
+    },
+    {
+      "type": "offer_product",
+      "name": "Offer Product",
+      "limit": 1,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Override image" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Special Offer Watch" },
+        { "type": "text", "id": "button_text", "label": "Button text", "default": "Shop now" }
+      ]
+    },
+    {
+      "type": "banner_collection",
+      "name": "Banner Collection",
+      "limit": 1,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Limited Time Offer" },
+        { "type": "text", "id": "flat_prefix", "label": "Flat prefix", "default": "FLAT" },
+        { "type": "text", "id": "discount_value", "label": "Discount value", "default": "30%" },
+        { "type": "text", "id": "off_suffix", "label": "Off suffix", "default": "OFF" }
+      ]
+    },
+    {
+      "type": "product_simple",
+      "name": "Product Simple",
+      "limit": 1,
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "image_picker", "id": "image", "label": "Override image" },
+        { "type": "text", "id": "title", "label": "Title override", "default": "OLEVS Men's Watch" },
+        { "type": "text", "id": "button_text", "label": "Button text", "default": "Shop now" }
+      ]
+    },
+    {
+      "type": "product_limited",
+      "name": "Product Limited",
+      "limit": 1,
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "image_picker", "id": "image", "label": "Override image" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Limited Edition" },
+        { "type": "text", "id": "button_text", "label": "Button text", "default": "Shop now" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sale Showcase",
+      "category": "Custom",
+      "blocks": [
+        { "type": "hero_sale" },
+        { "type": "offer_product" },
+        { "type": "banner_collection" },
+        { "type": "product_simple" },
+        { "type": "product_limited" }
+      ]
+    }
+  ]
+}
+{% endschema %}
