@@ -28,22 +28,24 @@
             assign subtitle = true
           endif
         %}
-
-        {% render 'title',
-          class: 's-title',
-          title: section.settings.title,
-          subtitle: subtitle,
-          large_title: section.settings.section_heading_style,
-          heading_weight: section.settings.section_heading_weight,
-        %}
-        
-        {% if section.settings.subtitle != blank %}
-          <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+        <div>
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: section.settings.section_heading_style,
+            heading_weight: section.settings.section_heading_weight,
+          %}
+          
+          {% if section.settings.subtitle != blank %}
+            <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+          {% endif %}
+        </div>
+        {% if section.settings.heading_type == 'with_button' %}
+          <a href="{{ section.settings.button_link }}" class="tf-btn-line">
+            {{ section.settings.button_text }}
+          </a>
         {% endif %}
-
-        <a href="{{ section.settings.button_link }}" class="tf-btn-line">
-          {{ section.settings.button_text }}
-        </a>
       </div>
     {% endif %}
     
@@ -240,13 +242,15 @@
       "type": "text",
       "id": "button_text",
       "label": "Button Text",
-      "default": "View All Books"
+      "default": "View All Books",
+      "visible_if": "{{ section.settings.heading_type == 'with_button' }}"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button Link",
-      "default": "/collections/all"
+      "default": "/collections/all",
+      "visible_if": "{{ section.settings.heading_type == 'with_button' }}"
     },
     {
       "type": "range",
