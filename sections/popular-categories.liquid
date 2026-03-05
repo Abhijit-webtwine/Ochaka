@@ -21,7 +21,7 @@
 <section class="section-{{ section.id }}-padding">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %}{% if section.settings.heading_type == 'with_button' %} type-4{% endif %} text-center wow fadeInUp">
         {% liquid
           assign subtitle = false
           if section.settings.subtitle != blank
@@ -33,13 +33,17 @@
           class: 's-title',
           title: section.settings.title,
           subtitle: subtitle,
-          large_title: section.settings.heading_style,
-          heading_weight: section.settings.heading_weight,
+          large_title: section.settings.section_heading_style,
+          heading_weight: section.settings.section_heading_weight,
         %}
         
         {% if section.settings.subtitle != blank %}
           <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
         {% endif %}
+
+        <a href="{{ section.settings.button_link }}" class="tf-btn-line">
+          {{ section.settings.button_text }}
+        </a>
       </div>
     {% endif %}
     
@@ -85,7 +89,7 @@
               </div>
 
               {% if section.settings.collection_count_format == 'brackets' %}
-                <p class="collection_name h5 link">
+                <p class="collection_name {{ section.settings.collection_heading_style }} link">
                   {{ block.settings.title | default: collection.title | default: 'Category' }}
                   {% if section.settings.show_count and collection != blank %}
                     <span class="count text-main-2">({{ collection.all_products_count }})</span>
@@ -115,6 +119,22 @@
   "name": "Popular Categories",
   "settings": [
     {
+      "type": "select",
+      "id": "heading_type",
+      "label": "Heading Type",
+      "options": [
+        {
+          "value": "with_button",
+          "label": "With button"
+        },
+        {
+          "value": "without_button",
+          "label": "Without button"
+        }
+      ],
+      "default": "with_button"
+    },
+    {
       "type": "text",
       "id": "title",
       "label": "Heading",
@@ -122,8 +142,8 @@
     },
     {
       "type": "select",
-      "id": "heading_style",
-      "label": "Heading Style",
+      "id": "section_heading_style",
+      "label": "Section Heading Style",
       "options": [
         {
           "value": "true",
@@ -138,8 +158,8 @@
     },
     {
       "type": "select",
-      "id": "heading_weight",
-      "label": "Heading Weight",
+      "id": "section_heading_weight",
+      "label": "Section Heading Weight",
       "options": [
         {
           "value": "normal",
@@ -150,11 +170,27 @@
           "label": "Medium"
         },
         {
-          "value": "none",
-          "label": "None"
+          "value": "",
+          "label": "Default"
         }
       ],
-      "default": "none"
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "collection_heading_style",
+      "label": "Collection Heading Style",
+      "options": [
+        {
+          "value": "h4",
+          "label": "Large"
+        },
+        {
+          "value": "h5",
+          "label": "Small"
+        }
+      ],
+      "default": "h5"
     },
     {
       "type": "textarea",
@@ -200,7 +236,19 @@
       ],
       "default": "circle"
     },
-        {
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "View All Books"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
       "type": "range",
       "id": "slides_desktop",
       "label": "Desktop",
@@ -243,7 +291,7 @@
     },
     {
       "type": "header",
-      "content": "spacing"
+      "content": "Spacing"
     },
     {
       "type": "range",
