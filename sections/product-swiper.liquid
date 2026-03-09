@@ -21,8 +21,33 @@
 
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title {% if section.settings.subtitle == blank %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+    {% if section.settings.header_layout == 'with_subtitle' %}
+      {% if section.settings.title != blank or section.settings.subtitle != blank %}
+        <div class="sect-title {% if section.settings.subtitle == blank %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+          {% liquid
+            assign subtitle = false
+            if section.settings.subtitle != blank
+              assign subtitle = true
+            endif
+          %}
+
+          {% render 'title',
+            class: 's-title',
+            title: section.settings.title,
+            subtitle: subtitle,
+            large_title: section.settings.heading_style,
+            heading_weight: section.settings.heading_weight,
+          %}
+
+          {% if section.settings.subtitle != blank %}
+            <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    {% if section.settings.header_layout == 'with_button' %}
+      <div class="sect-title type-4 wow fadeInUp">
         {% liquid
           assign subtitle = false
           if section.settings.subtitle != blank
@@ -33,21 +58,28 @@
         {% render 'title',
           class: 's-title',
           title: section.settings.title,
-          subtitle: subtitle,
+          subtitle: false,
           large_title: section.settings.heading_style,
           heading_weight: section.settings.heading_weight,
         %}
-
-        {% if section.settings.subtitle != blank %}
-          <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
+        {% if section.settings.button_link != blank %}
+          <a href="{{ section.settings.button_link }}" class="tf-btn-line">
+            {{ section.settings.button_text }}
+          </a>
         {% endif %}
       </div>
     {% endif %}
+
     {% render 'products-swiper',
       collection_ref: section.settings.collection.handle,
       products_limit: section.settings.products_limit,
       grid_rows: section.settings.grid_rows,
-      hide_pagination_desktop: section.settings.hide_pagination_desktop
+      hide_pagination_desktop: section.settings.hide_pagination_desktop,
+      slides_desktop: section.settings.slides_desktop,
+      slides_tablet: section.settings.slides_tablet,
+      slides_mobile: section.settings.slides_mobile,
+      countdown_size: section.settings.countdown_size,
+      product_title_size: section.settings.product_title_size
     %}
   </div>
 </section>
@@ -56,6 +88,22 @@
 {
   "name": "Product Swiper",
   "settings": [
+    {
+      "type": "select",
+      "id": "header_layout",
+      "label": "Header Layout",
+      "options": [
+        {
+          "value": "with_subtitle",
+          "label": "With Subtitle"
+        },
+        {
+          "value": "with_button",
+          "label": "With Button"
+        }
+      ],
+      "default": "with_subtitle"
+    },
     {
       "type": "text",
       "id": "title",
@@ -102,7 +150,21 @@
       "type": "text",
       "id": "subtitle",
       "label": "Subtitle",
-      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "visible_if": "{{ section.settings.header_layout == 'with_subtitle' }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "visible_if": "{{ section.settings.header_layout == 'with_button' }}"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "visible_if": "{{ section.settings.header_layout == 'with_button' }}",
+      "default": "Shop Now"
     },
     {
       "type": "collection",
@@ -127,6 +189,53 @@
         { "value": "2", "label": "2 Rows" }
       ],
       "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "countdown_size",
+      "label": "Countdown Size",
+      "options": [
+        { "value": "type-2", "label": "Small" },
+        { "value": "", "label": "Medium" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "product_title_size",
+      "label": "Product Title Size",
+      "options": [
+        { "value": "h5", "label": "Small" },
+        { "value": "h4", "label": "Medium" }
+      ],
+      "default": "h4"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
     },
     {
       "type": "checkbox",

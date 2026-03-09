@@ -51,7 +51,7 @@
     %}
     
     {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction, show_wishlist: show_wishlist, show_compare: show_compare, show_quick_view: show_quick_view, show_add_to_cart: show_add_to_cart %}
-    {% render 'card-product-countdown', product: product %}
+    {% render 'card-product-countdown', product: product, countdown_size: countdown_size %}
     {% render 'card-product-badge', product: product %}
     {% if style_8 %}
       {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
@@ -64,7 +64,7 @@
   </div>
 
   <div class="card-product_info">
-    <a href="{{ product.url }}" class="name-product h4 link">{{ product.title }}</a>
+    <a href="{{ product.url }}" class="name-product {{ product_title_size }} link">{{ product.title }}</a>
     
     <div class="price-wrap">
       {% if product.compare_at_price > product.price %}

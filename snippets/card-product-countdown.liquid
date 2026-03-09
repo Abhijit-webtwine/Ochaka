@@ -6,7 +6,7 @@
   {% assign remaining = end_ts | minus: now_ts %}
 
   {% if remaining > 0 %}
-    <div class="product-countdown">
+    <div class="product-countdown {{ countdown_size }}">
       <countdown-timer data-date="{{ product.metafields.custom.countdown_timer }}" data-layout="classic"></countdown-timer>
     </div>
   {% endif %}
