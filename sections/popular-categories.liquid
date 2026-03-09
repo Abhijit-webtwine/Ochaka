@@ -21,7 +21,7 @@
 <section class="section-{{ section.id }}-padding">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %}{% if section.settings.heading_type == 'with_button' %} type-4{% endif %} text-center wow fadeInUp">
+      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %}{% if section.settings.heading_type == 'with_button' %} type-4{% endif %}{% unless section.settings.heading_type == 'with_button' %} text-center {% endunless %} wow fadeInUp">
         {% liquid
           assign subtitle = false
           if section.settings.subtitle != blank
