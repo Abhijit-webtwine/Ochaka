@@ -1,0 +1,230 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>
+
+<section class="section-{{ section.id }}-padding">
+  <div class="container">
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      <div class="sect-title text-center wow fadeInUp">
+        {% if section.settings.title != blank %}
+          <p class="s-title h1 fw-medium mb-8">{{ section.settings.title }}</p>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="row">
+      {% for block in section.blocks %}
+        {% assign collection = block.settings.collection %}
+        {% assign custom_image = block.settings.image %}
+        {% assign image = custom_image | default: collection.featured_image %}
+        {% assign title = collection.title | default: 'Collection' %}
+        {% assign url = collection.url | default: '#' %}
+        {% assign count = collection.all_products_count | default: 0 %}
+
+        {% if forloop.index == 1 %}
+          <div class="col-md-8" {{ block.shopify_attributes }}>
+            <div class="box-image_V02 type-space-2 hover-img">
+              <a href="{{ url }}" class="box-image_image img-style">
+                {% if image != blank %}
+                  {{ image | image_url: width: 1200 | image_tag: class: 'lazyload', loading: 'lazy', alt: title }}
+                {% else %}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg lazyload' }}
+                {% endif %}
+              </a>
+              <div class="box-image_content wow fadeInUp">
+                <h2 class="fw-semibold title">
+                  <a href="{{ url }}" class="link">{{ title }}</a>
+                </h2>
+                {% if section.settings.show_product_count %}
+                  <span class="sub-text h5 count-prd">{{ count }} product{% if count != 1 %}s{% endif %}</span>
+                {% endif %}
+                {% if block.settings.button_text != blank %}
+                  <a href="{{ url }}" class="tf-btn animate-btn">
+                    {{ block.settings.button_text }}
+                    <i class="icon icon-arrow-right"></i>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% elsif forloop.index == 2 %}
+          <div class="col-md-4" {{ block.shopify_attributes }}>
+            <div class="card-collection hover-img4 wow fadeInUp mt-md-0">
+              <a href="{{ url }}" class="cls_image img-style4">
+                {% if image != blank %}
+                  {{ image | image_url: width: 600 | image_tag: class: 'lazyload img-product', loading: 'lazy', alt: title }}
+                {% else %}
+                  {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg lazyload img-product' }}
+                {% endif %}
+              </a>
+              <div class="collection_contnet">
+                <h2 class="type-semibold">
+                  <a href="{{ url }}" class="name-cls link">{{ title }}</a>
+                </h2>
+                {% if section.settings.show_product_count %}
+                  <p class="count-cls h5">{{ count }} product{% if count != 1 %}s{% endif %}</p>
+                {% endif %}
+                {% if block.settings.button_text != blank %}
+                  <a href="{{ url }}" class="tf-btn-line letter-space-0">{{ block.settings.button_text }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Our Collection",
+  "max_blocks": 2,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Our Collection"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_count",
+      "label": "Show Product Count",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Override"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Collection",
+      "category": "Collections",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}
