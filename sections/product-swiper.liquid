@@ -80,9 +80,9 @@
       slides_mobile: section.settings.slides_mobile,
       countdown_size: section.settings.countdown_size,
       product_title_size: section.settings.product_title_size,
-      slider_space_desktop: section.settings.space_desktop,
-      slider_space_tablet: section.settings.space_tablet,
-      slider_space_mobile: section.settings.space_mobile
+      space_desktop: section.settings.space_desktop,
+      space_tablet: section.settings.space_tablet,
+      space_mobile: section.settings.space_mobile
     %}
   </div>
 </section>
@@ -248,6 +248,37 @@
     },
     {
       "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
       "content": "Desktop padding"
     },
     {
@@ -317,37 +348,6 @@
       "step": 4,
       "unit": "px",
       "default": 60
-    },
-    {
-      "type": "header",
-      "content": "Slider Spacing"
-    },
-    {
-      "type": "range",
-      "id": "space_desktop",
-      "label": "Spacing Desktop",
-      "min": 0,
-      "max": 60,
-      "step": 1,
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "space_tablet",
-      "label": "Spacing Tablet",
-      "min": 0,
-      "max": 60,
-      "step": 1,
-      "default": 8
-    },
-    {
-      "type": "range",
-      "id": "space_mobile",
-      "label": "Spacing Mobile",
-      "min": 0,
-      "max": 60,
-      "step": 1,
-      "default": 8
     }
   ],
   "presets": [
