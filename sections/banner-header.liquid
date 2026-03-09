@@ -1,0 +1,82 @@
+<section class="themesFlat">
+  <div class="container-full-2">
+    <div class="s-banner-header">
+      <div class="image">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1500 | image_tag: 
+            class: 'lazyload w-100', 
+            loading: 'lazy', 
+            alt: section.settings.image.alt | default: "Banner Image" 
+          }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
+        {%- endif -%}
+      </div>
+      
+      <div class="bot">
+        <div class="topbar-left">
+          {%- if section.settings.heading != blank -%}
+            <h6 class="text-up fw-normal text-line-clamp-1">
+              {{ section.settings.heading }}
+            </h6>
+          {%- endif -%}
+          
+          <div class="group-btn">
+            {%- if section.settings.collection_1 != blank -%}
+              <a href="{{ section.settings.collection_1.url }}" class="tf-btn-line letter-space-0">
+                {{ section.settings.collection_1.title }}
+              </a>
+            {%- endif -%}
+            
+            {%- if section.settings.collection_2 != blank -%}
+              <a href="{{ section.settings.collection_2.url }}" class="tf-btn-line letter-space-0">
+                {{ section.settings.collection_2.title }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+        
+        <span class="br-line bg-black d-none d-xl-flex"></span>
+        
+        <a href="#search" data-bs-toggle="modal" class="btn-open_search link text-nowrap d-none d-md-flex">
+          <i class="icon icon-magnifying-glass"></i>
+            Search product
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading Text",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet"
+    },
+    {
+      "type": "collection",
+      "id": "collection_1",
+      "label": "Collection 1"
+    },
+    {
+      "type": "collection",
+      "id": "collection_2",
+      "label": "Collection 2"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Header"
+    }
+  ]
+}
+{% endschema %}
