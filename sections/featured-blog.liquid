@@ -27,12 +27,12 @@
       dir="ltr"
       class="swiper tf-swiper"
       data-preview="{{ section.settings.slides_to_show_desktop }}"
-      data-tablet="3"
-      data-mobile-sm="2"
+      data-tablet="{{ section.settings.slides_to_show_tablet }}"
+      data-mobile-sm="{{ section.settings.slides_to_show_mobile }}"
       data-mobile="1"
-      data-space-lg="48"
-      data-space-md="24"
-      data-space="12"
+      data-space-lg="{{ section.settings.slides_spacing_desktop }}"
+      data-space-md="{{ section.settings.slides_spacing_tablet }}"
+      data-space="{{ section.settings.slides_spacing_mobile }}"
       data-pagination="1"
       data-pagination-sm="2"
       data-pagination-md="3"
@@ -45,7 +45,7 @@
           {% for article in blog.articles limit: section.settings.posts_limit %}
             <div class="swiper-slide">
               <div
-                class="article-blog type-space-2 hover-img4 wow fadeInLeft"
+                class="article-blog {{ section.settings.blog_style }} hover-img4 wow fadeInLeft"
                 {% if forloop.index0 > 0 %}
                   data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"
                 {% endif %}
@@ -62,25 +62,35 @@
                     }}
                   {% endif %}
                 </a>
+                {% if section.settings.show_date == "tag"%}
+                  <div class="entry_tag">
+                    <a href="{{ blog.url }}" class="name-tag h6 link">
+                      {{ article.published_at | date: "%B %d, %Y" }}
+                    </a>
+                  </div>
+                {% endif %}
 
-                <div class="entry_tag">
-                  <a href="{{ blog.url }}" class="name-tag h6 link">
-                    {{ article.published_at | date: "%B %d, %Y" }}
-                  </a>
-                </div>
-
-                <div class="blog-content">
+                <div class="blog-content {% if section.settings.disable_content_spacing %}p-0{% endif %}">
                   <a href="{{ article.url }}" class="entry_name link h4">
                     {{ article.title }}
                   </a>
 
-                  <p class="text h6">
-                    {{ article.excerpt | strip_html | truncate: 120 }}
-                  </p>
+                  {% if article.excerpt != blank %}
+                    <p class="text h6">
+                      {{ article.excerpt | strip_html | truncate: 120 }}
+                    </p>
+                  {% endif %}
 
-                  <a href="{{ article.url }}" class="tf-btn-line">
-                    {{ section.settings.read_more_text }}
-                  </a>
+                  {% if section.settings.show_date == "date" %}
+                    <p class="entry_date">
+                      {{ article.published_at | date: "%B %d, %Y" }}
+                    </p>
+                  {% endif %}
+                  {% if section.settings.show_read_more %}
+                    <a href="{{ article.url }}" class="tf-btn-line">
+                      {{ section.settings.read_more_text }}
+                    </a>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -103,13 +113,102 @@
       "label": "Enable Section Spacing"
     },
     {
+      "type": "select",
+      "id": "blog_style",
+      "label": "Blog Style",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "type-space-2",
+          "label": "Extended Space"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "show_date",
+      "label": "Show Date",
+      "options": [
+        {
+          "value": "tag",
+          "label": "Tag"
+        },
+        {
+          "value": "date",
+          "label": "Date"
+        }
+      ],
+      "default": "tag"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_read_more",
+      "label": "Show Read More",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "disable_content_spacing",
+      "label": "Disable Content Spacing",
+      "default": false
+    },
+    {
       "type": "range",
       "id": "slides_to_show_desktop",
-      "label": "Slides to show on desktop",
+      "label": "Slides desktop",
       "min": 1,
       "max": 4,
       "step": 1,
       "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_tablet",
+      "label": "Slides tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile",
+      "label": "Slides mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_spacing_desktop",
+      "label": "Spacing desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "slides_spacing_tablet",
+      "label": "Spacing tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "slides_spacing_mobile",
+      "label": "Spacing mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 12
     },
     {
       "type": "text",
