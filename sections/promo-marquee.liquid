@@ -1,0 +1,137 @@
+<section class="themesFlat overflow-hidden">
+  <div class="tf-marquee">
+    <div class="marquee-wrap infiniteSlide" data-clone="5">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'left_text' -%}
+          <p class="text-display fw-bold {% if forloop.index == 2 or forloop.index == 4 or forloop.index == 6 %}text-clip{% else %}text-black{% endif %}">
+            {{ block.settings.text }}
+          </p>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="marquee-wrap infiniteSlide" data-clone="5" data-style="right">
+      {%- assign right_index = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'right_text' -%}
+          {%- assign right_index = right_index | plus: 1 -%}
+          <p class="text-display fw-bold {% if right_index == 2 or right_index == 4 or right_index == 6 %}text-clip{% else %}text-black{% endif %}">
+            {{ block.settings.text }}
+          </p>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Promo Marquee",
+  "blocks": [
+    {
+      "type": "left_text",
+      "name": "Left Marquee Text",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Minimalism Style"
+        }
+      ]
+    },
+    {
+      "type": "right_text",
+      "name": "Right Marquee Text",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Elegance Trend"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Marquee",
+      "blocks": [
+        {
+          "type": "left_text",
+          "settings": {
+            "text": "Minimalism Style"
+          }
+        },
+        {
+          "type": "left_text",
+          "settings": {
+            "text": "Accessories Design"
+          }
+        },
+        {
+          "type": "left_text",
+          "settings": {
+            "text": "Trend Vintage"
+          }
+        },
+        {
+          "type": "left_text",
+          "settings": {
+            "text": "Layering"
+          }
+        },
+        {
+          "type": "left_text",
+          "settings": {
+            "text": "Elegance Trend"
+          }
+        },
+        {
+          "type": "left_text",
+          "settings": {
+            "text": "Minimalism"
+          }
+        },
+        {
+          "type": "right_text",
+          "settings": {
+            "text": "Elegance Trend"
+          }
+        },
+        {
+          "type": "right_text",
+          "settings": {
+            "text": "Minimalism"
+          }
+        },
+        {
+          "type": "right_text",
+          "settings": {
+            "text": "Elegance"
+          }
+        },
+        {
+          "type": "right_text",
+          "settings": {
+            "text": "Sustainable"
+          }
+        },
+        {
+          "type": "right_text",
+          "settings": {
+            "text": "Denim Vintage"
+          }
+        },
+        {
+          "type": "right_text",
+          "settings": {
+            "text": "Minimalism"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
