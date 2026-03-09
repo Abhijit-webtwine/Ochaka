@@ -56,7 +56,7 @@
             {% endif %}
             {% if block.settings.slide_description != blank %}
               <p class="sub-text_sld h5  {{ fade_class }} fade-item-3">
-                {{ block.settings.slide_description }}
+                {{ block.settings.slide_description | newline_to_br }}
               </p>
             {% endif %}
             {% if block.settings.slide_link != blank %}
