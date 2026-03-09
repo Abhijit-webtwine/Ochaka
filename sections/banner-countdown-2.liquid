@@ -1,0 +1,89 @@
+<section class="themesFlat">
+  <div class="banner-cd_v01 flex-md-nowrap">
+    <div class="banner_content wow fadeInUp">
+      <h1 class="title">{{ section.settings.title }}</h1>
+      {% if section.settings.subtitle != blank %}
+        <p class="sub-title">{{ section.settings.subtitle }}</p>
+      {% endif %}
+      <div class="count-down_v01">
+        <countdown-timer class="cd-custom-element cd-has-zero" data-date="{{ section.settings.end_date }}T{{ section.settings.end_time }}:00" data-layout="modern" data-labels="{{ section.settings.countdown_labels }}"></countdown-timer>
+      </div>
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="tf-btn animate-btn type-small-2">
+          {{ section.settings.button_text }}
+          <i class="icon icon-arrow-right"></i>
+        </a>
+      {% endif %}
+    </div>
+    <div class="banner_img">
+      {% if section.settings.banner_image != blank %}
+        {{ section.settings.banner_image | image_url: width: 800 | image_tag: 
+          class: 'lazyload', 
+          loading: 'lazy', 
+          alt: section.settings.banner_image.alt | default: section.settings.title 
+        }}
+      {% else %}
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Countdown 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "On sale!"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date",
+      "info": "Format: YYYY-MM-DD (Example: 2026-03-09)"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End time (24h)",
+      "info": "Format: HH:MM (Example: 23:59)"
+    },
+    {
+      "type": "text",
+      "id": "countdown_labels",
+      "label": "Countdown Labels",
+      "default": "Days,Hours,Mins,Secs"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get voucher 25%"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Countdown 2"
+    }
+  ]
+}
+{% endschema %}
