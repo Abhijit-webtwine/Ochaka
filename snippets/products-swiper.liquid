@@ -10,6 +10,9 @@
   @param {number} slides_mobile - Number of slides to show on mobile
   @param {string} countdown_size - Size of the countdown timer
   @param {string} product_title_size - Size of the product title
+  @param {number} space_desktop - Space between slides on desktop
+  @param {number} space_tablet - Space between slides on tablet
+  @param {number} space_mobile - Space between slides on mobile
 {% enddoc %}
 
 <div
@@ -19,9 +22,9 @@
   data-tablet="{{ slides_tablet }}"
   data-mobile-sm="{{ slides_mobile }}"
   data-mobile="2"
-  data-space-lg="48"
-  data-space-md="30"
-  data-space="12"
+  data-space-lg="{{ space_desktop }}"
+  data-space-md="{{ space_tablet }}"
+  data-space="{{ space_mobile }}"
   data-pagination="2"
   data-pagination-sm="2"
   data-pagination-md="3"
