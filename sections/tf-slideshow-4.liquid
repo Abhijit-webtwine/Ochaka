@@ -1,0 +1,158 @@
+<div class="tf-slideshow type-abs tf-btn-swiper-main">
+  <div dir="ltr" class="swiper tf-swiper sw-slide-show slider_effect_fade" data-auto="false" data-loop="true"
+    data-effect="fade" data-delay="3000">
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide" {{ block.shopify_attributes }}>
+          <div class="slider-wrap {% if block.settings.content_style == 'centered' %}style-3{% endif %}">
+            <div class="sld_image">
+              {% if block.settings.image != blank %}
+                {{ block.settings.image | image_url: width: 1920 | image_tag: 
+                  class: 'lazyload ani-zoom', 
+                  loading: 'lazy', 
+                  alt: block.settings.image.alt | default: block.settings.title 
+                }}
+              {% else %}
+                {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
+              {% endif %}
+            </div>
+            <div class="sld_content text-center">
+              <div class="container">
+                <div class="row">
+                  <div class="{% if block.settings.content_style == 'centered' %}col-12{% else %}col-md-5{% endif %}">
+                    <div class="content-sld_wrap">
+                      {% if block.settings.subtitle != blank %}
+                        <p class="sub-title_sld-2 font-2 h3 text-white fade-item fade-item-1">
+                          {{ block.settings.subtitle }}
+                        </p>
+                      {% endif %}
+                      {% if block.settings.title != blank %}
+                        <h1 class="title_sld text-white text-display fade-item fade-item-2">
+                          {{ block.settings.title }}
+                        </h1>
+                      {% endif %}
+                      {% if block.settings.description != blank %}
+                        <p class="sub-text_sld h5 text-white fade-item fade-item-3">
+                          {{ block.settings.description | newline_to_br }}
+                        </p>
+                      {% endif %}
+                      {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+                        <div class="fade-item fade-item-4">
+                          <a href="{{ block.settings.button_link }}" class="tf-btn btn-white animate-btn animate-dark fw-semibold">
+                            {{ block.settings.button_text }}
+                            <i class="icon icon-arrow-right"></i>
+                          </a>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="sw-dot-default-2 style-white tf-sw-pagination"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow 4",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Slide Image"
+        },
+        {
+          "type": "select",
+          "id": "content_style",
+          "label": "Content Style",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left Aligned"
+            },
+            {
+              "value": "centered",
+              "label": "Centered"
+            }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Classic"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Diamond Ring"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow 4",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "subtitle": "Classic",
+            "title": "Diamond Ring",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "button_text": "Shop now"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "subtitle": "Timeless",
+            "title": "Diamond Necklace",
+            "description": "A refined piece that adds a touch of sophistication to any outfit.",
+            "button_text": "Shop now",
+            "content_style": "centered"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "subtitle": "Modern",
+            "title": "Silver Earrings",
+            "description": "Sleek and minimalistic, ideal for a contemporary look.",
+            "button_text": "Shop now"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
