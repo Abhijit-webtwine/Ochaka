@@ -45,7 +45,8 @@
             enable_fade: section.settings.enable_fade_animation,
             slider_style: block.settings.slider_style,
             subtitle_size: section.settings.subtitle_size,
-            square_btn: block.settings.square_btn
+            square_btn: block.settings.square_btn,
+            description_size: block.settings.description_size
           %}
         </div>
       {% endfor %}
@@ -187,8 +188,8 @@
         },
         {
           "type": "select",
-          "id": "heading_style",
-          "label": "Heading Style",
+          "id": "heading_size",
+          "label": "Heading Size",
           "options": [
             {
               "value": "true",
@@ -231,6 +232,22 @@
           "id": "slide_description",
           "label": "Description",
           "default": "Ad nisi irure officia nulla culpa culpa laborum Lorem.\nAd dolore cillum non commodo ad non non."
+        },
+        {
+          "type": "select",
+          "id": "description_size",
+          "label": "Description Size",
+          "options": [
+            {
+              "value": "h6",
+              "label": "Small"
+            },
+            {
+              "value": "h5",
+              "label": "Medium"
+            }
+          ],
+          "default": "h5"
         },
         {
           "type": "url",

@@ -50,12 +50,12 @@
                 class: classes,
                 title: block.settings.slide_title,
                 subtitle: block.settings.subtitle,
-                large_title: block.settings.heading_style,
+                large_title: block.settings.heading_size,
                 heading_weight: block.settings.heading_weight,
               %}
             {% endif %}
             {% if block.settings.slide_description != blank %}
-              <p class="sub-text_sld h5  {{ fade_class }} fade-item-3">
+              <p class="sub-text_sld {{ description_size }}  {{ fade_class }} fade-item-3">
                 {{ block.settings.slide_description | newline_to_br }}
               </p>
             {% endif %}
