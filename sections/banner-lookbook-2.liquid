@@ -1,0 +1,446 @@
+<style>
+  {% if section.settings.bundle_bg_color != blank %}
+  .section-{{ section.id }}-color .banner-product-set {
+    background-color: {{ section.settings.bundle_bg_color }};
+  }
+  {% endif %}
+  {% if section.settings.banner_btn_text_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-banner-btn {
+    color: {{ section.settings.banner_btn_text_color }};
+  }
+  {% endif %}
+  {% if section.settings.banner_btn_bg_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-banner-btn {
+    background-color: {{ section.settings.banner_btn_bg_color }};
+    border-color: {{ section.settings.banner_btn_bg_color }};
+  }
+  {% endif %}
+  {% if section.settings.badge_text_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-badge {
+    color: {{ section.settings.badge_text_color }};
+  }
+  {% endif %}
+  {% if section.settings.badge_bg_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-badge {
+    background-color: {{ section.settings.badge_bg_color }};
+    border-color: {{ section.settings.badge_bg_color }};
+  }
+  {% endif %}
+  {% if section.settings.individual_btn_text_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-individual-btn {
+    color: {{ section.settings.individual_btn_text_color }};
+  }
+  {% endif %}
+  {% if section.settings.individual_btn_bg_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-individual-btn {
+    background-color: {{ section.settings.individual_btn_bg_color }};
+    border-color: {{ section.settings.individual_btn_bg_color }};
+  }
+  {% endif %}
+  {% if section.settings.set_btn_text_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-set-btn {
+    color: {{ section.settings.set_btn_text_color }};
+  }
+  {% endif %}
+  {% if section.settings.set_btn_bg_color != blank %}
+  .section-{{ section.id }}-color .banner-lookbook-set-btn {
+    background-color: {{ section.settings.set_btn_bg_color }};
+    border-color: {{ section.settings.set_btn_bg_color }};
+  }
+  {% endif %}
+
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>
+
+<section class="themesFlat section-{{ section.id }}-padding section-{{ section.id }}-color">
+  <div class="container-full-4">
+    <div class="tf-grid-layout lg-col-2 gap-16">
+      
+      <div class="box-image_v07 d-flex">
+        <div class="box-image_image">
+          {% if section.settings.banner_image != blank %}
+            {{
+              section.settings.banner_image
+              | image_url: width: 900
+              | image_tag:
+                class: 'lazyload ani-zoom',
+                loading: 'lazy',
+                alt: section.settings.banner_image.alt | default: 'Banner'
+            }}
+          {% else %}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg lazyload ani-zoom' }}
+          {% endif %}
+        </div>
+        <div class="box-image_content wow fadeInUp">
+          {% if section.settings.promo_text != blank %}
+            <h6 class="promo fw-normal text-primary">{{ section.settings.promo_text }}</h6>
+          {% endif %}
+          
+          {% if section.settings.title != blank %}
+            <h2 class="title fw-normal">
+              {% if section.settings.banner_link != blank %}
+                <a href="{{ section.settings.banner_link }}" class="link">{{ section.settings.title }}</a>
+              {% else %}
+                {{ section.settings.title }}
+              {% endif %}
+            </h2>
+          {% endif %}
+          
+          {% if section.settings.desc != blank %}
+            <p class="desc h6">{{ section.settings.desc }}</p>
+          {% endif %}
+          
+          {% if section.settings.button_text != blank %}
+            <a href="{{ section.settings.banner_link | default: '#' }}" class="tf-btn animate-btn banner-lookbook-banner-btn">
+              {{ section.settings.button_text }}
+              <i class="icon icon-arrow-right"></i>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="banner-product-set style-2">
+        <div class="banner_content wow fadeInUp">
+          {% if section.settings.badge_text != blank %}
+            <p class="product-badge_item h6 sale banner-lookbook-badge">{{ section.settings.badge_text }}</p>
+          {% endif %}
+          
+          <div class="sect-title">
+            {% if section.settings.bundle_heading != blank %}
+              <h1 class="set_title text-xxl-nowrap">{{ section.settings.bundle_heading }}</h1>
+            {% endif %}
+            {% if section.settings.bundle_subtitle != blank %}
+              <p class="s-subtitle">{{ section.settings.bundle_subtitle }}</p>
+            {% endif %}
+          </div>
+          
+          {%- assign total_price = 0 -%}
+          {%- assign set_variant_ids = '' -%}
+          
+          <ul class="list-ver w-100 bundle-hover-wrap">
+            {% for block in section.blocks %}
+              {% if block.type == 'product_item' %}
+                {% assign product = block.settings.product %}
+                <li class="w-100" {{ block.shopify_attributes }}>
+                  <div class="card-product product-style_list-mini bundle-hover-item pin{{ forloop.index }}">
+                    <div class="card-product_wrapper aspect-ratio-0 d-flex justify-content-center">
+                      {% if product != blank %}
+                        <a href="{{ product.url }}" class="product-img">
+                          {{
+                            product.featured_image
+                            | image_url: width: 200
+                            | image_tag: class: 'lazyload img-product', loading: 'lazy', alt: product.title
+                          }}
+                        </a>
+                      {% else %}
+                        <div class="product-img">
+                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    <div class="card-product_info align-self-auto">
+                      {% if product != blank %}
+                        <h5>
+                          <a href="{{ product.url }}" class="name-product link fw-semibold">{{ product.title }}</a>
+                        </h5>
+                        <div class="price-wrap">
+                          <span class="price-new h6 fw-semibold text-primary">{{ product.price | money }}</span>
+                          <span class="h6 fw-semibold text-primary primary-6">
+                            {% if product.available %}
+                              {{ 'products.product.inventory.in_stock_label' | t }}
+                            {% else %}
+                              {{ 'products.product.sold_out' | t }}
+                            {% endif %}
+                          </span>
+                        </div>
+                        {%- assign total_price = total_price | plus: product.price -%}
+                        {%- assign set_variant_ids = set_variant_ids | append: product.selected_or_first_available_variant.id | append: ',' -%}
+                      {% else %}
+                        <h5><a href="#" class="name-product link fw-semibold">Product Title</a></h5>
+                        <div class="price-wrap">
+                          <span class="price-new h6 fw-semibold text-primary">$0.00</span>
+                        </div>
+                      {% endif %}
+                    </div>
+                    
+                    {% if product != blank %}
+                      <product-form>
+                        {%- assign individual_form_id = 'product-form-' | append: section.id | append: '-' | append: block.id -%}
+                        {%- form 'product', product, id: individual_form_id, data-type: 'add-to-cart-form' -%}
+                          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                          <button
+                            type="submit"
+                            name="add"
+                            class="tf-btn btn-white animate-btn animate-dark type-small fw-semibold banner-lookbook-individual-btn"
+                          >
+                            Add to cart
+                            <i class="icon icon-arrow-right d-none d-sm-block"></i>
+                          </button>
+                        {%- endform -%}
+                      </product-form>
+                    {% endif %}
+                  </div>
+                </li>
+                {% unless forloop.last %}
+                  <li class="br-line"></li>
+                {% endunless %}
+              {% endif %}
+            {% endfor %}
+          </ul>
+          
+          <product-form-multi-add class="w-100 text-center">
+            {%- assign product_form_id = 'product-form' | append: section.id -%}
+            {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+              {% assign variant_ids = set_variant_ids | split: "," %}
+              {% for v_id in variant_ids %}
+                {% if v_id != blank %}
+                  <input type="hidden" name="id" value="{{ v_id }}">
+                {% endif %}
+              {% endfor %}
+              <div class="w-100 text-center">
+                <p class="h4 text-black total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
+                <button
+                  type="submit"
+                  name="add"
+                  class="tf-btn w-100 banner-lookbook-set-btn"
+                >
+                  ADD SET TO CART
+                  <i class="icon icon-shopping-cart-simple"></i>
+                </button>
+              </div>
+            {%- endform -%}
+          </product-form-multi-add>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Lookbook 2",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Image settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo Text",
+      "default": "SALE OFF 50% on 1 when you buy 2"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "I Love You to the Moon and Back"
+    },
+    {
+      "type": "textarea",
+      "id": "desc",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop now"
+    },
+    {
+      "type": "color",
+      "id": "banner_btn_text_color",
+      "label": "Banner Button Text Color"
+    },
+    {
+      "type": "color",
+      "id": "banner_btn_bg_color",
+      "label": "Banner Button Background"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Bundle Product settings"
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Badge text",
+      "default": " Set Dress SALE OFF 15%"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Background"
+    },
+    {
+      "type": "color",
+      "id": "bundle_bg_color",
+      "label": "Product Set Background",
+      "default": "#fbf4e9"
+    },
+    {
+      "type": "color",
+      "id": "individual_btn_text_color",
+      "label": "Individual Button Text Color"
+    },
+    {
+      "type": "color",
+      "id": "individual_btn_bg_color",
+      "label": "Individual Button Background"
+    },
+    {
+      "type": "color",
+      "id": "set_btn_text_color",
+      "label": "Set Button Text Color"
+    },
+    {
+      "type": "color",
+      "id": "set_btn_bg_color",
+      "label": "Set Button Background"
+    },
+    {
+      "type": "text",
+      "id": "bundle_heading",
+      "label": "Heading",
+      "default": "Frequently Bought Together"
+    },
+    {
+      "type": "textarea",
+      "id": "bundle_subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_item",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Lookbook 2",
+      "category": "Products",
+      "blocks": [
+        { "type": "product_item" },
+        { "type": "product_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
