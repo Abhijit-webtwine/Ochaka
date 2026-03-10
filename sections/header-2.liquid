@@ -1,5 +1,13 @@
 {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+<style>
+  .tf-header .header-inner {
+    background-color: {{ section.settings.header_inner_bg_color }};
+  }
+  .tf-header .header-inner .item-link {
+    color: {{ section.settings.header_inner_text_color }};
+  }
+</style>
 {% liquid
   if section.settings.header_style == 'header-abs-3'
     assign header_style_default = true
@@ -92,6 +100,16 @@
                 <input type="hidden" name="type" value="product">
               </form>
             </predictive-search-type>
+          {%  elsif section.settings.header_style == 'style-4' %}
+            <div class="box-support-online">
+              <i class="icon icon-phone"></i>
+              <span class="br-line type-vertical"></span>
+              <div class="sp-wrap">
+                <span class="text-small">{{ section.settings.support_text }}</span>
+                <a href="tel:{{ section.settings.phone_number | remove: '(' | remove: ')' | remove: ' ' | remove: '-' }}"
+                  class="phone-number h4 fw-semibold link">{{ section.settings.phone_number }}</a>
+              </div>
+            </div>
           {% endif %}
         </div>
         <div class="col-xl-4 col-md-4 col-6">
@@ -136,6 +154,11 @@
             {% assign show_search = true %}
             {% assign white_icons = true %}
           {% endif %}
+
+          {% if section.settings.header_style == 'style-4' %}
+            {% assign show_search = true %}
+          {% endif %}
+
           {% render 'header-icons',
             show_account: true,
             show_search: show_search,
@@ -149,7 +172,7 @@
   </div>
   <div class="header-inner d-none d-xl-block">
     <div class="container">
-      {% unless header_style_default %}
+      {% unless header_style_default and section.settings.show_seperator %}
         <span class="br-line d-block"></span>
       {% endunless %}
       <nav class="box-navigation {% if header_style_default %} style-white {% endif %}">
@@ -217,6 +240,10 @@
         {
           "value": "style-3",
           "label": "Search"
+        },
+        {
+          "value": "style-4",
+          "label": "Support"
         }
       ]
     },
@@ -248,6 +275,36 @@
       "id": "menu",
       "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
+    },
+    {
+      "type": "text",
+      "id": "support_text",
+      "label": "Support Text",
+      "default": "Online support",
+      "visible_if": "{{ section.settings.header_style == 'style-4' }}"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "(405) 555-0128",
+      "visible_if": "{{ section.settings.header_style == 'style-4' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_seperator",
+      "label": "Show Seperator",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "header_inner_bg_color",
+      "label": "Header Inner Background Color",
+    },
+    {
+      "type": "color",
+      "id": "header_inner_text_color",
+      "label": "Header Inner Text Color"
     }
   ],
   "blocks": [
