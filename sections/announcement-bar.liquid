@@ -1,20 +1,42 @@
+<style>
+  .tf-topbar {
+    background-color: {{ section.settings.bg_color  }};
+  }
+  .tf-topbar .topbar-left .text-up, .tf-topbar .topbar-right .link, .tf-topbar .filter-option-inner-inner,
+  .tf-topbar .tf-dropdown-select.style-default > .dropdown-toggle::after {
+    color: {{section.settings.text_color }} ;
+  }
 
-<div class="tf-topbar bg-black">
+  .tf-topbar .tf-btn-line::after {
+    background-color: {{ section.settings.text_color }};
+  }
+
+  .tf-topbar .tf-btn-line {
+    color: {{ section.settings.text_color }};
+    background: linear-gradient(to right, var(--primary) 50%, {{ section.settings.text_color }} 50%);
+    background-size: 200% 100%;
+    background-position: right;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 0.3s linear;
+  }
+</style>
+<div class="tf-topbar {{ section.settings.spacing }} {% if section.settings.show_seperator %}line-bt {% endif %}">
   <div class="container">
     <div class="row">
 
       <div class="col-xl-7 col-lg-8">
         <div class="topbar-left">
 
-          <h6 class="text-up text-white fw-normal text-line-clamp-1">
+          <h6 class="text-up fw-normal text-line-clamp-1">
             {{ section.settings.topbar_text }}
           </h6>
 
           <div class="group-btn">
-            <a href="{{ section.settings.collection_1 }}" class="tf-btn-line style-white letter-space-0">
+            <a href="{{ section.settings.collection_1 }}" class="tf-btn-line letter-space-0">
               {{ section.settings.collection_1.title }}
             </a>
-            <a href="{{ section.settings.collection_2 }}" class="tf-btn-line style-white letter-space-0">
+            <a href="{{ section.settings.collection_2 }}" class="tf-btn-line letter-space-0">
               {{ section.settings.collection_2.title }}
             </a>
           </div>
@@ -26,7 +48,7 @@
         <ul class="topbar-right topbar-option-list">
 
           <li class="h6">
-            <a href="{{ section.settings.link_1_url }}" class="text-white link">
+            <a href="{{ section.settings.link_1_url }}" class="link">
               {{ section.settings.link_1_label }}
             </a>
           </li>
@@ -34,7 +56,7 @@
           <li class="br-line"></li>
 
           <li class="h6">
-            <a href="{{ section.settings.link_2_url }}" class="text-white link">
+            <a href="{{ section.settings.link_2_url }}" class="link">
               {{ section.settings.link_2_label }}
             </a>
           </li>
@@ -67,7 +89,7 @@
               <input type="hidden" name="form_type" value="localization">
               <select
                 name="locale_code"
-                class="tf-dropdown-select style-default color-white type-languages"
+                class="tf-dropdown-select style-default type-languages"
                 onchange="this.form.submit()"
               >
                 {%- for language in localization.available_languages -%}
@@ -94,6 +116,44 @@
 {
   "name": "Topbar",
   "settings": [
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Spacing",
+      "default": "",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "type-space-2",
+          "label": "Medium"
+        },
+        {
+          "value": "type-space-3",
+          "label": "Extended"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_seperator",
+      "label": "Show Seperator",
+      "default": true
+    },
     {
       "type": "text",
       "id": "topbar_text",
