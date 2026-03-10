@@ -2291,6 +2291,13 @@
                 height: 120px;
             }
         }
+
+        .color-btn.style-small {
+          .color__swatch-dot {
+            width: 30px;
+            height: 30px;
+          }
+        }
     }
 
     .variant-size {

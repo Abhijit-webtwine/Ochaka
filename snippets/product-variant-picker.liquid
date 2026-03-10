@@ -84,8 +84,25 @@
                 data-option-value="{{ value | escape }}"
               >
               {%- if is_color -%}
-                {% assign enable_image = block.settings.enable_swatch_image %}
-                
+
+                {% if enable_image %}
+                  {% assign enable_image = enable_image %}
+                {% else %}
+                  {% assign enable_image = block.settings.enable_swatch_image %}
+                {% endif %}
+
+                {% if image_type %}
+                  {% assign image_type = image_type %}
+                {% else %}
+                  {% assign image_type = block.settings.image_type %}
+                {% endif %}
+
+                {% if swatch_image_size_small == nil %}
+                  {% assign swatch_image_size_small = false %}
+                {% else %}
+                  {% assign swatch_image_size_small = swatch_image_size_small %}
+                {% endif %}
+
                 {%- liquid
                   assign color_rgb = value.swatch.color.rgb 
                   assign color_swatch_fallback = value | split: ' ' | last | handle
@@ -98,7 +115,7 @@
                 -%}
                 <label
                   for="{{ section_id }}-{{ product.id }}-{{ option.name }}-{{ forloop.index0 }}"
-                  class="hover-tooltip tooltip-bot color-btn color__swatch {% if has_swatch_image or enable_image %} {% if block.settings.image_type == 'circle' %} style-image {% else %}style-image-square{% endif %}{% endif %}"
+                  class="hover-tooltip tooltip-bot color-btn color__swatch {% if swatch_image_size_small %}style-small {% endif %} {% if has_swatch_image or enable_image %} {% if image_type == 'circle' %} style-image {% else %}style-image-square{% endif %}{% endif %}"
                   style="{% if has_swatch_image %}--swatch-background-image: url({{ color_image }});{% elsif color_rgb != blank %}--swatch-background-color: rgb({{ color_rgb }}); {% else %}--swatch-background-color: {{ color_swatch_fallback }};{% endif %}"
                   title="{{ value | escape }}"
                 >
