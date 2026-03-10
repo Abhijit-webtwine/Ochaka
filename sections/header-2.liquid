@@ -167,37 +167,35 @@
 {%- endfor -%}
 
 {% comment %} Sticky Header for Style 3 {% endcomment %}
-{% unless section.settings.header_style == 'header-abs-3' %}
-  <header class="tf-header header-fixed">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-md-4 col-3 d-xl-none">
-          <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
-            <span></span>
-          </a>
-        </div>
-        <div class="col-xl-3 col-md-4 col-6 text-center text-xl-start">
-          <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
-            <img
-              src="{{ section.settings.logo | image_url }}"
-              alt="LOGO"
-              width="{{ section.settings.logo.width }}"
-              height="{{ section.settings.logo.height }}"
-            >
-          </a>
-        </div>
-        <div class="col-xl-6 d-none d-xl-block">
-          <nav class="box-navigation">
-            {% render 'header-navs', mobile_nav_none: true %}
-          </nav>
-        </div>
-        <div class="col-xl-3 col-md-4 col-3">
-          {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true %}
-        </div>
+<header class="tf-header header-fixed">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4 col-3 d-xl-none">
+        <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
+          <span></span>
+        </a>
+      </div>
+      <div class="col-xl-3 col-md-4 col-6 text-center text-xl-start">
+        <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
+          <img
+            src="{{ section.settings.logo | image_url }}"
+            alt="LOGO"
+            width="{{ section.settings.logo.width }}"
+            height="{{ section.settings.logo.height }}"
+          >
+        </a>
+      </div>
+      <div class="col-xl-6 d-none d-xl-block">
+        <nav class="box-navigation">
+          {% render 'header-navs', mobile_nav_none: true %}
+        </nav>
+      </div>
+      <div class="col-xl-3 col-md-4 col-3">
+        {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true %}
       </div>
     </div>
-  </header>
-{% endunless %}
+  </div>
+</header>
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
