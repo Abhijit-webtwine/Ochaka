@@ -1,0 +1,141 @@
+<div class="tf-slideshow type-abs tf-btn-swiper-main">
+  <div
+    dir="ltr"
+    class="swiper tf-swiper sw-slide-show slider_effect_{{ section.settings.effect }}"
+    data-auto="true"
+    data-loop="true"
+    data-effect="{{ section.settings.effect }}"
+    data-delay="3000"
+  >
+    <div class="swiper-wrapper">
+      {% for block in section.blocks %}
+        <div class="swiper-slide" {{ block.shopify_attributes }}>
+          <div class="slider-wrap">
+            <div class="sld_image">
+              {% if block.settings.image != blank %}
+                {% assign slide_image_url = block.settings.image | image_url: width: 2000 %}
+                {{
+                  block.settings.image
+                  | image_url: width: 2000
+                  | image_tag: loading: 'lazy', class: 'lazyload', data-src: slide_image_url
+                }}
+              {% else %}
+                {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {% endif %}
+            </div>
+            <div class="sld_content pst-center">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="content-sld_wrap">
+                      {% if block.settings.title != blank %}
+                        <h1 class="title_sld text-display fade-item fade-item-1">
+                          {{ block.settings.title }}
+                        </h1>
+                      {% endif %}
+                      {% if block.settings.sub_title != blank %}
+                        <p class="sub-title_sld text-black h5 fade-item fade-item-2">
+                          {{ block.settings.sub_title }}
+                        </p>
+                      {% endif %}
+                      {% if block.settings.button_text != blank %}
+                        <div class="fade-item fade-item-3">
+                          <a
+                            href="{{ block.settings.button_link | default: '#' }}"
+                            class="tf-btn animate-btn fw-normal"
+                          >
+                            {{ block.settings.button_text }}
+                            <i class="icon icon-arrow-right"></i>
+                          </a>
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="sw-dot-default tf-sw-pagination"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow 5",
+  "tag": "section",
+  "class": "tf-section-slideshow",
+  "settings": [
+    {
+      "type": "select",
+      "id": "effect",
+      "label": "Effect",
+      "options": [
+        {
+          "value": "fade",
+          "label": "Fade"
+        },
+        {
+          "value": "slide",
+          "label": "Slide"
+        }
+      ],
+      "default": "fade"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Fall winter collection"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Subtitle",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow 5",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
