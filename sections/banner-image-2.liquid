@@ -1,0 +1,116 @@
+{%- liquid
+    assign collection = section.settings.collection
+    assign display_image = section.settings.image | default: collection.featured_image
+    assign display_title = section.settings.title | default: collection.title
+    assign display_link = collection.url | default: '#'
+-%}
+
+<section class="flat-spacing">
+    <div class="banner-V01 hover-img4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="banner_img img-style4 mb-md-0">
+                        {% if display_image != blank %}
+                            {% assign banner_image_url = display_image | image_url: width: 1400 %}
+                            {{
+                                display_image
+                                | image_url: width: 1400
+                                | image_tag:
+                                    loading: 'lazy',
+                                    class: 'lazyload',
+                                    alt: display_image.alt,
+                                    data-src: banner_image_url
+                            }}
+                        {% else %}
+                            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-5 d-flex align-items-center">
+                    <div class="banner_content wow fadeInUp">
+                        {% if section.settings.sub_title != blank %}
+                            <h6 class="sub-title fw-semibold text-primary">
+                                {{ section.settings.sub_title }}
+                            </h6>
+                        {% endif %}
+                        {% if display_title != blank %}
+                            <a href="{{ display_link | default: '#' }}" class="title text-display fw-semibold link">
+                                {{ display_title }}
+                            </a>
+                        {% endif %}
+                        {% if section.settings.text != blank %}
+                            <p class="sub-text text-black h5">
+                                {{ section.settings.text }}
+                            </p>
+                        {% endif %}
+                        {% if section.settings.button_text != blank %}
+                            <a href="{{ display_link | default: '#' }}" class="tf-btn animate-btn">
+                                {{ section.settings.button_text }}
+                                <i class="icon icon-arrow-right"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner Image 2",
+  "tag": "section",
+  "class": "section-banner-v01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image Override",
+      "info": "Leave blank to use collection featured image"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "sub_title",
+      "label": "Subtitle",
+      "default": "Buy 1 get 1 free and 50% sale off"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title Override",
+      "info": "Leave blank to use collection title"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop now"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Image 2"
+    }
+  ]
+}
+{% endschema %}
