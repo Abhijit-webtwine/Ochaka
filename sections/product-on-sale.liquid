@@ -1,0 +1,167 @@
+<section class="flat-spacing bg-white-smoke" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="sect-title type-3 type-2 pb-0 border-0 wow fadeInUp">
+      <h2 class="s-title type-semibold text-nowrap">{{ section.settings.heading }}</h2>
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
+          {{ section.settings.view_all_text }}
+          <i class="icon icon-caret-circle-right"></i>
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="tf-pag-swiper">
+      <div class=" tf-btn-swiper-main pst-4">
+        <div
+          dir="ltr"
+          class="swiper tf-swiper wow fadeInUp"
+          data-preview="{{ section.settings.slides_desktop }}"
+          data-tablet="{{ section.settings.slides_tablet }}"
+          data-mobile-sm="{{ section.settings.slides_mobile }}"
+          data-mobile="1"
+          data-space-lg="48"
+          data-space-md="24"
+          data-space="12"
+          data-pagination="1"
+          data-pagination-sm="2"
+          data-pagination-md="2"
+          data-pagination-lg="1"
+        >
+          <div class="swiper-wrapper">
+            {%- assign collection = collections[section.settings.collection] -%}
+            {%- if collection != blank and collection.products_count > 0 -%}
+              {%- for product in collection.products limit: section.settings.limit -%}
+                <div class="swiper-slide">
+                  {% render 'card-product',
+                    product: product,
+                    card_class: 'style-padding',
+                    show_wishlist: true,
+                    show_compare: true,
+                    show_quick_view: true,
+                    show_add_to_cart: true,
+                    show_progress_bar: section.settings.show_progress_bar
+                  %}
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..6) -%}
+                <div class="swiper-slide">
+                  <div class="card-product style-5 style-padding">
+                    <div class="card-product_wrapper aspect-ratio-0 d-flex">
+                      <div class="product-img">
+                        {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'w-100 placeholder-svg' }}
+                      </div>
+                    </div>
+                    <div class="card-product_info d-grid">
+                      <p class="tag-product text-small">Category</p>
+                      <h6 class="name-product">
+                        <a href="#" class="link">Product Title</a>
+                      </h6>
+                      <div class="price-wrap mb-0">
+                        <h4 class="price-new">$0.00</h4>
+                      </div>
+                      {%- if section.settings.show_progress_bar -%}
+                        <div class="product-progress_sold">
+                          <div class="box-quantity">
+                            <p class="text-avaiable">Available: <span class="fw-bold text-black">50</span></p>
+                          </div>
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        </div>
+        <div class="tf-sw-nav type-small-2 nav-prev-swiper d-xl-flex">
+          <i class="icon icon-arrow-left"></i>
+        </div>
+        <div class="tf-sw-nav type-small-2 nav-next-swiper d-xl-flex">
+          <i class="icon icon-arrow-right"></i>
+        </div>
+      </div>
+      <div class="sw-dot-default-2 tf-sw-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product On-sale",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Product On-sale"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Product Limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Text",
+      "default": "View All Product"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show Progress Bar",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Swiper Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "default": 2.5
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product On-sale"
+    }
+  ]
+}
+{% endschema %}

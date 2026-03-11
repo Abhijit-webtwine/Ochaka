@@ -77,6 +77,21 @@
       {% render 'card-product-swatches', product: product %}
     {% endif %}
 
+    {% if show_progress_bar %}
+      {% liquid assign stock_available = product.variants.first.inventory_quantity | default: 0 %}
+      <div class="product-progress_sold">
+        <div class="box-quantity mt-3">
+          <p class="text-avaiable">
+            {% if stock_available > 0 %}
+              Available: <span class="fw-bold text-black">{{ stock_available }}</span>
+            {% else %}
+              <span class="fw-bold text-black">{{ 'products.product.sold_out' | t }}</span>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    {% endif %}
+
   </div>
   {% if style_7 %}
     {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
