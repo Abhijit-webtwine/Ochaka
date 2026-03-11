@@ -38,16 +38,27 @@
     <div class="swiper-wrapper">
       {% for block in section.blocks %}
         <div class="swiper-slide" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
-          {% render 'tf-slideshow-slide',
-            block: block,
-            index: forloop.index0,
-            image_animation: section.settings.image_animation,
-            enable_fade: section.settings.enable_fade_animation,
-            slider_style: block.settings.slider_style,
-            subtitle_size: section.settings.subtitle_size,
-            square_btn: block.settings.square_btn,
-            description_size: block.settings.description_size
-          %}
+          {% if block.settings.slider_style == 'deal_layout' %}
+            {% render 'tf-slideshow-slide-2',
+              block: block,
+              index: forloop.index0,
+              image_animation: section.settings.image_animation,
+              enable_fade: section.settings.enable_fade_animation,
+              slider_style: 'style-2',
+              subtitle_size: section.settings.subtitle_size
+            %}
+          {% else %}
+            {% render 'tf-slideshow-slide',
+              block: block,
+              index: forloop.index0,
+              image_animation: section.settings.image_animation,
+              enable_fade: section.settings.enable_fade_animation,
+              slider_style: block.settings.slider_style,
+              subtitle_size: section.settings.subtitle_size,
+              square_btn: block.settings.square_btn,
+              description_size: block.settings.description_size
+            %}
+          {% endif %}
         </div>
       {% endfor %}
     </div>
@@ -162,15 +173,19 @@
           "options": [
             {
               "value": "",
-              "label": "Style 1 (left Aligned)"
+              "label": "Left Aligned"
             },
             {
               "value": "style-2",
-              "label": "Style 2 (Custom Aligned)"
+              "label": "Custom Aligned"
             },
             {
               "value": "style-7",
-              "label": "Style 7 (Increased Space)"
+              "label": "Increased Space"
+            },
+            {
+              "value": "deal_layout",
+              "label": "Price & Icon"
             }
           ],
           "default": "style-2"
@@ -259,6 +274,29 @@
           "id": "slide_button_text",
           "label": "Button Text",
           "default": "Shop now"
+        },
+        {
+          "type": "header",
+          "content": "Deal Layout Settings",
+          "info": "Only used when Slider Style is set to Deal Layout"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_deal_icon",
+          "label": "Show Deal Icon",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "new_price",
+          "label": "New Price",
+          "default": "$89.99"
+        },
+        {
+          "type": "text",
+          "id": "old_price",
+          "label": "Old Price",
+          "default": "$120.00"
         },
         {
           "type": "header",

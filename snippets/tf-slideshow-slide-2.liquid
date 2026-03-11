@@ -1,0 +1,74 @@
+{%- liquid
+  assign image_ani_class = image_animation | default: ''
+  assign fade_class = ''
+  if enable_fade
+    assign fade_class = 'fade-item'
+  endif
+-%}
+
+<div class="slider-wrap {{ slider_style }}">
+  <div class="sld_image">
+    {% if block.settings.slide_image != blank %}
+      <img
+        src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+        data-src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+        alt="{{ block.settings.slide_title | escape }}"
+        class="lazyload {{ image_ani_class }}"
+        width="{{ block.settings.slide_image.width }}"
+        height="{{ block.settings.slide_image.height }}"
+      >
+    {% else %}
+      {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {% endif %}
+  </div>
+  <div class="sld_content">
+    <div class="container">
+      <div class="row">
+        <div class="col-11">
+          <div class="content-sld_wrap">
+            {% if block.settings.slide_subtitle != blank %}
+              <h4 class="sub-title_sld {% if block.settings.show_deal_icon %}has-icon{% endif %} text-primary {{ fade_class }} fade-item-1">
+                {% if block.settings.show_deal_icon %}
+                  <span class="icon d-flex">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9.001 11.949C9 6 11 2 15 0C15.5 6 21 8 21 15C21 17.3869 20.0518 19.6761 18.364 21.364C16.6761 23.0518 14.3869 24 12 24C9.61305 24 7.32387 23.0518 5.63604 21.364C3.94821 19.6761 3 17.3869 3 15C3 11.5 4 10 6 8C6 11 9.001 11.949 9.001 11.949Z" fill="#EB423F" />
+                      <path d="M11.9998 23.75C7.97382 23.75 4.56482 21.134 3.36182 17.512C4.44982 21.259 7.90182 24 11.9998 24C16.0978 24 19.5498 21.259 20.6378 17.512C19.4348 21.134 16.0258 23.75 11.9998 23.75Z" fill="#010101" fill-opacity="0.0627451" />
+                      <path d="M16.5 17.5C16.5 18.6935 16.0259 19.8381 15.182 20.682C14.3381 21.5259 13.1935 22 12 22C10.8065 22 9.66193 21.5259 8.81802 20.682C7.97411 19.8381 7.5 18.6935 7.5 17.5C7.5 15.823 8 14.958 9 14C9 16 10.5 16.5 10.5 16.5C10.5 13.65 11.5 11.958 13.5 11C13.75 13.875 16.5 14.813 16.5 17.5Z" fill="#FFD33A" />
+                    </svg>
+                  </span>
+                {% endif %}
+                {{ block.settings.slide_subtitle }}
+              </h4>
+            {% endif %}
+
+            {% if block.settings.slide_title != blank %}
+              <h1 class="title_sld text-display {{ fade_class }} fade-item-2">
+                <a href="{{ block.settings.slide_link | default: '#' }}" class="link fw-normal ">
+                  {{ block.settings.slide_title | newline_to_br }}
+                </a>
+              </h1>
+            {% endif %}
+
+            {% if block.settings.new_price != blank %}
+              <div class="price-wrap price_sld {{ fade_class }} fade-item-3">
+                <span class="h1 fw-medium price-new text-primary">{{ block.settings.new_price }}</span>
+                {% if block.settings.old_price != blank %}
+                  <span class=" price-old h3">{{ block.settings.old_price }}</span>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            {% if block.settings.slide_button_text != blank %}
+              <div class="{{ fade_class }} fade-item-4">
+                <a href="{{ block.settings.slide_link | default: '#' }}" class="tf-btn animate-btn fw-semibold">
+                  {{ block.settings.slide_button_text }}
+                  <i class="icon icon-arrow-right"></i>
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
