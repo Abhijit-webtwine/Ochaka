@@ -9,7 +9,6 @@
   @param {number} slides_tablet - Number of slides to show on tablet
   @param {number} slides_mobile - Number of slides to show on mobile
   @param {string} countdown_size - Size of the countdown timer
-  @param {string} product_title_size - Size of the product title
   @param {number} space_desktop - Space between slides on desktop
   @param {number} space_tablet - Space between slides on tablet
   @param {number} space_mobile - Space between slides on mobile
@@ -43,7 +42,6 @@
             show_quick_view: true,
             show_add_to_cart: true,
             countdown_size: countdown_size,
-            product_title_size: product_title_size
           %}
         </div>
       {% endfor %}
@@ -57,9 +55,9 @@
               </div>
             </div>
             <div class="card-product_info">
-              <div class="name-product {{ product_title_size }} link">{{ 'onboarding.product_title' | t }}</div>
+              <div class="name-product {{ settings.product_title_size }} link">{{ 'onboarding.product_title' | t }}</div>
               <div class="price-wrap">
-                <span class="price-new {{ product_title_size }}">{{ 1999 | money }}</span>
+                <span class="price-new {{ settings.product_title_size }}">{{ 1999 | money }}</span>
               </div>
             </div>
           </div>
