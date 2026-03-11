@@ -156,6 +156,7 @@
   },
   "onboarding": {
     "product_title": "Example product title",
+    "product_category": "Category",
     "collection_title": "Your collection's name",
     "no_content": "This section doesn't currently include any content. Add content to this section using the sidebar."
   },

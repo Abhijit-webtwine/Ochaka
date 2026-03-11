@@ -1,0 +1,193 @@
+<section class="flat-spacing flat-animate-tab" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="sect-title type-3 type-2 flex-wrap wow fadeInUp">
+      <h2 class="s-title text-nowrap">{{ section.settings.heading }}</h2>
+      <ul class="tab-product_list-2" role="tablist">
+        {%- for block in section.blocks -%}
+          <li class="nav-tab-item" role="presentation" {{ block.shopify_attributes }}>
+            <a
+              href="#tab-{{ block.id }}"
+              data-bs-toggle="tab"
+              class="tf-btn-tab-2 h6 {% if forloop.first %}active{% endif %}"
+              role="tab"
+              aria-controls="tab-{{ block.id }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            >
+              {{ block.settings.title | default: block.settings.collection.title }}
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
+          {{ section.settings.view_all_text }}
+          <i class="icon icon-caret-circle-right"></i>
+        </a>
+      {%- endif -%}
+    </div>
+    <div class="tab-content">
+      {%- for block in section.blocks -%}
+        {%- assign collection = collections[block.settings.collection] -%}
+        <div class="tab-pane {% if forloop.first %}active show{% endif %}" id="tab-{{ block.id }}" role="tabpanel">
+          <div
+            dir="ltr"
+            class="swiper tf-swiper wow fadeInUp"
+            data-preview="{{ section.settings.products_to_show_desktop }}"
+            data-tablet="{{ section.settings.products_to_show_tablet }}"
+            data-mobile-sm="{{ section.settings.products_to_show_mobile }}"
+            data-mobile="{{ section.settings.products_to_show_mobile }}"
+            data-space-lg="48"
+            data-space-md="24"
+            data-space="12"
+            data-pagination="2"
+            data-pagination-sm="2"
+            data-pagination-md="3"
+            data-pagination-lg="4"
+          >
+            <div class="swiper-wrapper">
+              {%- if collection != blank and collection.products_count > 0 -%}
+                {%- for product in collection.products limit: block.settings.limit -%}
+                  <div class="swiper-slide">
+                    {% render 'card-product',
+                      product: product,
+                      card_class: 'style-5',
+                      show_wishlist: true,
+                      show_compare: true,
+                      show_quick_view: true,
+                      show_add_to_cart: true
+                    %}
+                  </div>
+                {%- endfor -%}
+              {%- else -%}
+                {%- for i in (1..4) -%}
+                  <div class="swiper-slide">
+                    <div class="card-product style-5">
+                      <div class="card-product_wrapper aspect-ratio-0 d-flex">
+                        <div class="product-img">
+                          {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'w-100 placeholder-svg' }}
+                        </div>
+                      </div>
+                      <div class="card-product_info d-grid">
+                        <p class="tag-product text-small">{{ 'onboarding.product_category' | t | default: 'Category' }}</p>
+                        <h6 class="name-product">
+                          <a href="#" class="link">{{ 'onboarding.product_title' | t | default: 'Product Title' }}</a>
+                        </h6>
+                        <div class="price-wrap mb-0">
+                          <h4 class="price-new">{{ 0 | money }}</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
+            <div class="sw-dot-default tf-sw-pagination d-xl-none"></div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deals Tab",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Deal of the day"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Text",
+      "default": "View All Product"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    },
+    {
+      "type": "header",
+      "content": "Swiper Settings"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show_desktop",
+      "label": "Products to show (Desktop)",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "products_to_show_tablet",
+      "label": "Products to show (Tablet)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "products_to_show_mobile",
+      "label": "Products to show (Mobile)",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Label",
+          "info": "Leave blank to use Collection Title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Product Limit",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 8
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deals Tab",
+      "blocks": [
+        {
+          "type": "collection_tab",
+          "settings": {
+            "title": "All Product"
+          }
+        },
+        {
+          "type": "collection_tab",
+          "settings": {
+            "title": "Headphone"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
