@@ -32,10 +32,9 @@
           <div
             dir="ltr"
             class="swiper tf-swiper wow fadeInUp"
-            data-preview="{{ section.settings.products_to_show_desktop }}"
-            data-tablet="{{ section.settings.products_to_show_tablet }}"
-            data-mobile-sm="{{ section.settings.products_to_show_mobile }}"
-            data-mobile="{{ section.settings.products_to_show_mobile }}"
+            data-preview="{{ section.settings.slides_desktop }}"
+            data-tablet="{{ section.settings.slides_tablet }}"
+            data-mobile="{{ section.settings.slides_mobile }}"
             data-space-lg="48"
             data-space-md="24"
             data-space="12"
@@ -116,8 +115,8 @@
     },
     {
       "type": "range",
-      "id": "products_to_show_desktop",
-      "label": "Products to show (Desktop)",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
       "min": 1,
       "max": 6,
       "step": 1,
@@ -125,8 +124,8 @@
     },
     {
       "type": "range",
-      "id": "products_to_show_tablet",
-      "label": "Products to show (Tablet)",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
       "min": 1,
       "max": 4,
       "step": 1,
@@ -134,8 +133,8 @@
     },
     {
       "type": "range",
-      "id": "products_to_show_mobile",
-      "label": "Products to show (Mobile)",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
       "min": 1,
       "max": 3,
       "step": 1,
