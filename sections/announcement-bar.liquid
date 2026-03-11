@@ -1,8 +1,8 @@
 <style>
   .tf-topbar {
-    background-color: {{ section.settings.bg_color  }};
+    background-color: {{ section.settings.bg_color }};
   }
-  .tf-topbar .topbar-left .text-up, .tf-topbar .topbar-right .link, .tf-topbar .filter-option-inner-inner,
+  .tf-topbar .topbar-left .text-up, .tf-topbar .topbar-right .link, .tf-topbar .topbar-left .link, .tf-topbar .filter-option-inner-inner,
   .tf-topbar .tf-dropdown-select.style-default > .dropdown-toggle::after {
     color: {{section.settings.text_color }} ;
   }
@@ -21,34 +21,74 @@
     transition: background-position 0.3s linear;
   }
 </style>
-<div class="tf-topbar {{ section.settings.spacing }} {% if section.settings.show_seperator %}line-bt {% endif %}">
-  <div class="container">
+
+{%- liquid
+  assign layout_style = section.settings.topbar_layout
+  assign container_class = 'container'
+  assign left_col_class = 'col-xl-7 col-lg-8'
+  assign right_col_class = 'col-xl-5 col-lg-4'
+  assign wrapper_extra = ''
+
+  if layout_style == 'style_2'
+    assign container_class = 'container-full-2'
+    assign left_col_class = 'col-xl-6 col-lg-8'
+    assign right_col_class = 'col-xl-6 col-lg-4'
+    if section.settings.show_seperator
+      assign wrapper_extra = 'line-bt-3'
+    endif
+  elsif section.settings.show_seperator
+    assign wrapper_extra = 'line-bt'
+  endif
+-%}
+
+<div class="tf-topbar {{ section.settings.spacing }} {{ wrapper_extra }}" id="section-{{ section.id }}">
+  <div class="{{ container_class }}">
     <div class="row">
 
-      <div class="col-xl-7 col-lg-8">
-        <div class="topbar-left">
+      <div class="{{ left_col_class }}">
+        <div class="topbar-left {% if layout_style == 'style_2' %}justify-content-center justify-content-sm-start{% endif %}">
+          {%- if layout_style == 'style_1' -%}
+            <h6 class="text-up fw-normal text-line-clamp-1">
+              {{ section.settings.topbar_text }}
+            </h6>
 
-          <h6 class="text-up fw-normal text-line-clamp-1">
-            {{ section.settings.topbar_text }}
-          </h6>
-
-          <div class="group-btn">
-            <a href="{{ section.settings.collection_1 }}" class="tf-btn-line letter-space-0">
-              {{ section.settings.collection_1.title }}
-            </a>
-            <a href="{{ section.settings.collection_2 }}" class="tf-btn-line letter-space-0">
-              {{ section.settings.collection_2.title }}
-            </a>
-          </div>
-
+            <div class="group-btn">
+              {%- if section.settings.collection_1 != blank -%}
+                <a href="{{ section.settings.collection_1.url }}" class="tf-btn-line letter-space-0">
+                  {{ section.settings.collection_1.title }}
+                </a>
+              {%- endif -%}
+              {%- if section.settings.collection_2 != blank -%}
+                <a href="{{ section.settings.collection_2.url }}" class="tf-btn-line letter-space-0">
+                  {{ section.settings.collection_2.title }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- else -%}
+            <ul class="topbar-option-list">
+              {%- if section.settings.phone_text != blank -%}
+                <li class="h6 d-none d-sm-flex">
+                  <a href="{{ section.settings.phone_link | default: 'tel:' | append: section.settings.phone_text | replace: ' ', '' }}" class="link track">
+                    <i class="icon icon-phone"></i> {{ section.settings.phone_text }}
+                  </a>
+                </li>
+                <li class="br-line d-none d-sm-flex"></li>
+              {%- endif -%}
+              <li class="h6">
+                <a href="{{ section.settings.announcement_link | default: '#' }}" class="link">
+                  {{ section.settings.topbar_text }}
+                </a>
+              </li>
+            </ul>
+          {%- endif -%}
         </div>
       </div>
 
-      <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+      <div class="{{ right_col_class }} d-none d-lg-block">
         <ul class="topbar-right topbar-option-list">
 
           <li class="h6">
-            <a href="{{ section.settings.link_1_url }}" class="link">
+            <a href="{{ section.settings.link_1_url | default: '#' }}" class="link">
               {{ section.settings.link_1_label }}
             </a>
           </li>
@@ -56,7 +96,10 @@
           <li class="br-line"></li>
 
           <li class="h6">
-            <a href="{{ section.settings.link_2_url }}" class="link">
+            <a href="{{ section.settings.link_2_url | default: '#' }}" class="link track">
+              {%- if layout_style == 'style_2' -%}
+                <i class="icon icon-document-search"></i>
+              {%- endif -%}
               {{ section.settings.link_2_label }}
             </a>
           </li>
@@ -75,9 +118,9 @@
 
           <li class="tf-currencies d-none d-xl-block">
             <localization-form>
-            {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form position-static' -%}
-              {% render 'country_localization', show_currencies: show_currencies, color_white: true %}
-            {%- endform -%}
+              {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form position-static' -%}
+                {% render 'country_localization', show_currencies: show_currencies, color_white: true %}
+              {%- endform -%}
             </localization-form>
           </li>
 
@@ -111,11 +154,26 @@
   </div>
 </div>
 
-
 {% schema %}
 {
   "name": "Topbar",
   "settings": [
+    {
+      "type": "select",
+      "id": "topbar_layout",
+      "label": "Topbar Layout",
+      "default": "style_1",
+      "options": [
+        {
+          "value": "style_1",
+          "label": "Collection"
+        },
+        {
+          "value": "style_2",
+          "label": "Support"
+        }
+      ]
+    },
     {
       "type": "select",
       "id": "spacing",
@@ -157,12 +215,8 @@
     {
       "type": "text",
       "id": "topbar_text",
-      "label": "Topbar announcement text",
+      "label": "Announcement Text",
       "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-    },
-    {
-      "type": "header",
-      "content": "CTA Buttons"
     },
     {
       "type": "collection",
@@ -177,6 +231,29 @@
     {
       "type": "header",
       "content": "Topbar Links"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement Link",
+      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
+    },
+    {
+      "type": "text",
+      "id": "phone_text",
+      "label": "Phone Text",
+      "default": "+1(800) 123 4567",
+      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
+    },
+    {
+      "type": "url",
+      "id": "phone_link",
+      "label": "Phone Link (Custom)",
+      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
+    },
+    {
+      "type": "header",
+      "content": "Right Content Links"
     },
     {
       "type": "text",
