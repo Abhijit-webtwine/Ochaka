@@ -36,18 +36,7 @@
 
             {% if product.metafields.judgeme.badge != blank  or settings.show_atc_count %}
               <div class="product-info-meta">
-                {%- if product.metafields.judgeme.badge != blank  -%}
-                  <div class="rating d-flex gap-4">
-                    {%- assign rating = product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 -%}
-                    {%- assign rating_count = product.metafields.reviews.rating_count | default: 0 -%}
-                    {%- for i in (1..5) -%}
-                      <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
-                    {%- endfor -%}
-                    <span class="rate_count">
-                      ({{ rating_count }} reviews)
-                    </span>
-                  </div>
-                {%- endif -%}
+                {% render 'rating', product: product %}
                 <div class="people-add text-primary">
                   {% if settings.show_atc_count %}
                     <add-to-cart-count 
