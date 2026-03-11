@@ -1,0 +1,87 @@
+<section class="section-before-after flat-spacing">
+  <div class="container">
+    {% if section.settings.title != blank or section.settings.subtitle != blank %}
+      <div class="sect-title text-center wow fadeInUp">
+        {% if section.settings.title != blank %}
+          <h1 class="s-title mb-8">{{ section.settings.title }}</h1>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="banner-V04 img-viewer-compare-wrap image-compare" id="image-compare">
+      {% if section.settings.image_before != blank %}
+        <img
+          src="{{ section.settings.image_before | image_url: width: 2000 }}"
+          alt="{{ section.settings.image_before.alt | escape }}"
+          loading="eager"
+          width="{{ section.settings.image_before.width }}"
+          height="{{ section.settings.image_before.height }}"
+        >
+      {% else %}
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg placeholder-before' }}
+      {% endif %}
+
+      {% if section.settings.image_after != blank %}
+        <img
+          src="{{ section.settings.image_after | image_url: width: 2000 }}"
+          alt="{{ section.settings.image_after.alt | escape }}"
+          loading="eager"
+          width="{{ section.settings.image_after.width }}"
+          height="{{ section.settings.image_after.height }}"
+        >
+      {% else %}
+        {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg placeholder-after' }}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'image-compare-viewer.js' |  asset_url}}" defer></script>
+
+{% schema %}
+{
+  "name": "Before and After",
+  "tag": "section",
+  "class": "section-before-after",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Before And After Using Natural Products"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Skin transformation after 2 weeks of using our products"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_before",
+      "label": "Before Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_after",
+      "label": "After Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Before and After"
+    }
+  ]
+}
+{% endschema %}
