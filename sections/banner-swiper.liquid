@@ -40,36 +40,80 @@
         {% for block in section.blocks %}
           {% if block.type == 'banner_item' %}
             <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="box-image_V06 hover-img wow fadeInLeft"{% if forloop.index > 1 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
-                <div class="box-image_image img-style">
-                  {% if block.settings.image != blank %}
-                    {{
-                      block.settings.image
-                      | image_url: width: 800
-                      | image_tag:
-                        class: 'lazyload',
-                        loading: 'lazy',
-                        alt: block.settings.image.alt | default: block.settings.title | default: 'Banner'
-                    }}
-                  {% else %}
-                    {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {% endif %}
-                </div>
+              {% liquid
+                if section.settings.card_style == 'v05'
+                  assign is_v05 = true
+                endif
+                
+                assign box_class = 'box-image_V06 hover-img'
+                assign sale_class = 'sub-title h6 fw-bold text-primary'
+                assign button_class = 'tf-btn-line letter-space-0'
+                assign wrap_image_link = false
+                assign title_variant = 'v06'
+                if is_v05
+                  assign box_class = 'box-image_V05 type-space-2 hover-img'
+                  assign sale_class = 'sub-title text-primary h6 fw-semibold'
+                  assign button_class = 'tf-btn-line fw-bold letter-space-0'
+                  assign wrap_image_link = true
+                  assign title_variant = 'v05'
+                endif
+              %}
+              <div class="{{ box_class }} wow fadeInLeft"{% if forloop.index > 1 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
+                {% if wrap_image_link and block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}" class="box-image_image img-style">
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 800
+                        | image_tag:
+                          class: 'lazyload',
+                          loading: 'lazy',
+                          alt: block.settings.image.alt | default: block.settings.title | default: 'Banner'
+                      }}
+                    {% else %}
+                      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </a>
+                {% else %}
+                  <div class="box-image_image img-style">
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 800
+                        | image_tag:
+                          class: 'lazyload',
+                          loading: 'lazy',
+                          alt: block.settings.image.alt | default: block.settings.title | default: 'Banner'
+                      }}
+                    {% else %}
+                      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
                 <div class="box-image_content">
                   <div>
                     {% if block.settings.sale_text != blank %}
-                      <p class="sub-title h6 fw-bold text-primary">
+                      <p class="{{ sale_class }}">
                         {{ block.settings.sale_text }}
                       </p>
                     {% endif %}
 
                     {% if block.settings.title != blank %}
-                      <a
-                        href="{{ block.settings.link | default: '#' }}"
-                        class="title link text-display-3 fw-semibold"
-                      >
-                        {{ block.settings.title }}
-                      </a>
+                      {% if title_variant == 'v05' %}
+                        <h4 class="title">
+                          <a href="{{ block.settings.link | default: '#' }}" class="link">
+                            {{ block.settings.title }}
+                          </a>
+                        </h4>
+                      {% else %}
+                        <a
+                          href="{{ block.settings.link | default: '#' }}"
+                          class="title link text-display-3 fw-semibold"
+                        >
+                          {{ block.settings.title }}
+                        </a>
+                      {% endif %}
                     {% endif %}
 
                     {% if block.settings.subtitle != blank %}
@@ -79,7 +123,7 @@
                     {% endif %}
                   </div>
                   {% if block.settings.button_text != blank %}
-                    <a href="{{ block.settings.link | default: '#' }}" class="tf-btn-line letter-space-0">
+                    <a href="{{ block.settings.link | default: '#' }}" class="{{ button_class }}">
                       {{ block.settings.button_text }}
                     </a>
                   {% endif %}
@@ -94,12 +138,21 @@
     </div>
   </div>
 </div>
-
 {% schema %}
 {
   "name": "Banner Swiper",
   "max_blocks": 10,
   "settings": [
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Card Style",
+      "options": [
+        { "value": "v06", "label": "Style V06" },
+        { "value": "v05", "label": "Style V05" }
+      ],
+      "default": "v06"
+    },
     {
       "type": "range",
       "id": "slides_desktop",
