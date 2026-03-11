@@ -71,18 +71,7 @@
             </h2>
             {% if section.settings.featured_product.metafields.judgeme.badge != blank %}
               <div class="product-info-meta">
-                {%- if section.settings.featured_product.metafields.judgeme.badge != blank  -%}
-                  <div class="rating d-flex gap-4">
-                    {%- assign rating = section.settings.featured_product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 -%}
-                    {%- assign rating_count = section.settings.featured_product.metafields.reviews.rating_count | default: 0 -%}
-                    {%- for i in (1..5) -%}
-                      <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
-                    {%- endfor -%}
-                    <span class="rate_count">
-                      ({{ rating_count }} reviews)
-                    </span>
-                  </div>
-                {%- endif -%}
+                {% render 'rating', product: section.settings.featured_product %}
               </div>
             {% endif %}
             <div class="tf-product-heading p-0 border-0">

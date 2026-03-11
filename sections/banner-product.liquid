@@ -59,19 +59,7 @@
                 {{ banner_product.title }}
               </a>
             </h3>
-            {% if banner_product.metafields.judgeme.badge != blank %}
-              <div class="rating d-flex gap-4 align-items-center">
-                {% assign rating = banner_product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 %}
-                {% assign rating_count = banner_product.metafields.reviews.rating_count | default: 0 %}
-                {% for i in (1..5) %}
-                  <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
-                {% endfor %}
-                <span class="rate_count">
-                  ({{ rating_count }} reviews)
-                </span>
-              </div>
-
-            {% endif %}
+            {% render 'rating', product: banner_product %}
           </div>
         </div>
         
