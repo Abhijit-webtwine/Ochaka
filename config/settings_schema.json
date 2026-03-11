@@ -548,6 +548,18 @@
         "id": "compare_enabled",
         "default": true,
         "label": "Enable compare"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_custom_badge",
+        "default": true,
+        "label": "Show custom badge"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sale_badge",
+        "default": true,
+        "label": "Show sale badge percentage"
       }
     ]
   },

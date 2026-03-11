@@ -52,7 +52,7 @@
     
     {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction, show_wishlist: show_wishlist, show_compare: show_compare, show_quick_view: show_quick_view, show_add_to_cart: show_add_to_cart %}
     {% render 'card-product-countdown', product: product, countdown_size: countdown_size %}
-    {% render 'card-product-badge', product: product %}
+    {% render 'card-product-badge', product: product, show_sale_badge: show_sale_badge, show_custom_badge: show_custom_badge %}
     {% if style_8 %}
       {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
     {% endif %}

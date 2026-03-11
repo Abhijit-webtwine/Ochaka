@@ -1,10 +1,36 @@
-{% assign custom_badge = product.metafields.custom.tag.value %}
-{% if custom_badge != blank %}
-  {% assign badge_class = custom_badge | handleize %}
+{%  liquid 
+  if show_sale_badge == nil
+    assign show_sale_badge = true
+  else 
+    assign show_sale_badge = show_sale_badge
+  endif
 
+  if show_custom_badge == nil
+    assign show_custom_badge = true
+  else 
+    assign show_custom_badge = show_custom_badge
+  endif
+%}
+
+{%- liquid
+  assign custom_badge = product.metafields.custom.tag.value
+-%}
+
+{%- if custom_badge != blank or product.compare_at_price > product.price -%}
   <ul class="product-badge_list">
-    <li class="product-badge_item h6 {{ badge_class }} sale">
-      {{ custom_badge }}
-    </li>
+    
+    {%- if settings.show_sale_badge and product.compare_at_price > product.price and show_sale_badge -%}
+      {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+      <li class="product-badge_item h6 sale">
+        -{{ discount }}%
+      </li>
+    {%- endif -%}
+
+    {%- if custom_badge != blank and settings.show_custom_badge and show_custom_badge -%}
+      {%- assign badge_class = custom_badge | handleize -%}
+      <li class="product-badge_item h6 {{ badge_class }} sale">
+        {{ custom_badge }}
+      </li>
+    {%- endif -%}
   </ul>
-{% endif %}
+{%- endif -%}
