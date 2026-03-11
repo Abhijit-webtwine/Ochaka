@@ -508,8 +508,20 @@
     "name": "t:settings_schema.product_tiles.name",
     "settings": [
       {
-        "type": "header",
-        "content": "t:settings_schema.product_tiles.settings.quick_view.content"
+        "type": "select",
+        "id": "card_style",
+        "options": [
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "style-5",
+            "label": "Extended Spacing"
+          }
+        ],
+        "default": "",
+        "label": "Card Style"
       },
       {
         "type": "checkbox",
@@ -519,10 +531,6 @@
         "info": "t:settings_schema.product_tiles.settings.quick_view_enabled.info"
       },
       {
-        "type": "header",
-        "content": "t:settings_schema.product_tiles.settings.color_swatches.content"
-      },
-      {
         "type": "checkbox",
         "id": "color_swatches_enabled",
         "default": true,
@@ -530,18 +538,41 @@
         "info": "t:settings_schema.product_tiles.settings.color_swatches_enabled.info"
       },
       {
-        "type": "header",
-        "content": "Wishlist"
+        "type": "select",
+        "id": "product_title_size",
+        "label": "Product Title Size",
+        "options": [
+          { "value": "h6", "label": "Small" },
+          { "value": "h5", "label": "Medium" },
+          { "value": "h4", "label": "Large" }
+        ],
+        "default": "h4"
+      },
+      {
+        "type": "select",
+        "id": "title_weight",
+        "label": "Title Weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "default",
+            "label": "Default"
+          }
+        ],
+        "default": "default"
       },
       {
         "type": "checkbox",
         "id": "wishlist_enabled",
         "default": true,
         "label": "Enable wishlist"
-      },
-      {
-        "type": "header",
-        "content": "Compare"
       },
       {
         "type": "checkbox",
@@ -560,6 +591,34 @@
         "id": "show_sale_badge",
         "default": true,
         "label": "Show sale badge percentage"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_type",
+        "default": true,
+        "label": "Show type"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_rating",
+        "default": true,
+        "label": "Show rating"
+      },
+      {
+        "type": "select",
+        "id": "rating_position",
+        "options": [
+          {
+            "value": "above_title",
+            "label": "Above title"
+          },
+          {
+            "value": "below_title",
+            "label": "Below title"
+          }
+        ],
+        "default": "below_title",
+        "label": "Rating position"
       }
     ]
   },

@@ -16,7 +16,6 @@
   elsif settings.hover_style == 'style_8'
     assign style_8 = true
   endif
-
   
   assign show_wishlist = show_wishlist
   assign show_compare = show_compare
@@ -33,7 +32,8 @@
     endif
   %}
 {% endfor %}
-<div class="card-product {{ card_class }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+
+<div class="card-product {{ card_class }} {{ settings.card_style }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper">
     {% render 'card-product-media', product: product %}
 
@@ -63,8 +63,21 @@
     
   </div>
 
-  <div class="card-product_info">
-    <a href="{{ product.url }}" class="name-product {{ product_title_size }} link">{{ product.title }}</a>
+  <div class="card-product_info d-grid">
+
+    {%- if settings.show_type and product.type != blank -%}
+      <p class="tag-product text-small">{{ product.type }}</p>
+    {%- endif -%}
+
+    {% if settings.show_rating and settings.rating_position == 'above_title' %}
+      {% render 'rating', product: product %}
+    {% endif %}
+
+    <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+    
+    {% if settings.show_rating and settings.rating_position == 'below_title' %}
+      {% render 'rating', product: product %}
+    {% endif %}
     
     <div class="price-wrap">
       {% if product.compare_at_price > product.price %}
