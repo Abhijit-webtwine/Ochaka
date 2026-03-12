@@ -1,0 +1,176 @@
+<section class="flat-spacing" id="Section-{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="sect-title text-center wow fadeInUp">
+        <h2 class="s-title h1 fw-medium">{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+    <div
+      dir="ltr"
+      class="swiper tf-swiper wow fadeInUp"
+      data-preview="{{ section.settings.slides_desktop }}"
+      data-tablet="{{ section.settings.slides_tablet }}"
+      data-mobile-sm="{{ section.settings.slides_mobile }}"
+      data-mobile="2"
+      data-space-lg="{{ section.settings.space_lg }}"
+      data-space-md="24"
+      data-space="12"
+      data-pagination="2"
+      data-pagination-sm="3"
+      data-pagination-md="4"
+      data-pagination-lg="6"
+    >
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- assign collection = block.settings.collection -%}
+          {%- assign collection_image = block.settings.image
+            | default: collection.image
+            | default: collection.products.first.featured_image
+          -%}
+          {%- assign collection_title = block.settings.title | default: collection.title | default: 'Category Name' -%}
+
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <a
+              href="{{ collection.url | default: '#' }}"
+              class="widget-collection style-2 hover-img"
+              {% if block.settings.border_color != blank %}style="border-color: {{ block.settings.border_color }};"{% endif %}
+            >
+              <div class="collection_image img-style overflow-visible">
+                {%- if collection_image != blank -%}
+                  <img
+                    class="lazyload"
+                    src="{{ collection_image | image_url: width: 600 }}"
+                    data-src="{{ collection_image | image_url: width: 600 }}"
+                    alt="{{ collection_title | escape }}"
+                    width="{{ collection_image.width }}"
+                    height="{{ collection_image.height }}"
+                  >
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'lazyload placeholder-svg' }}
+                {%- endif -%}
+              </div>
+              <div class="collection_content">
+                <h4 class="collection_name link fw-normal primary-2">{{ collection_title }}</h4>
+                <span class="collection_count h6">
+                  {%- if collection != blank and collection.all_products_count -%}
+                    {{ collection.all_products_count }}
+                    {{ collection.all_products_count | pluralize: 'product', 'products' }}
+                  {%- else -%}
+                    0 products
+                  {%- endif -%}
+                </span>
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Popular Categories 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop By Category"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 3,
+      "max": 5,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "number",
+      "id": "space_lg",
+      "label": "Slide Spacincg Desktop",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image",
+          "info": "Overrides the collections default image."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Custom Title",
+          "info": "Overrides the collections default title."
+        },
+        {
+          "type": "color",
+          "id": "border_color",
+          "label": "Border Color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popular Categories 2",
+      "blocks": [
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        },
+        {
+          "type": "collection"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
