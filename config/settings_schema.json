@@ -51,6 +51,10 @@
           {
             "value": "header_2",
             "label": "Header 2"
+          },
+          {
+            "value": "header_3",
+            "label": "Header 3"
           }
         ],
         "default": "header_1"
