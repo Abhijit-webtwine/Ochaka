@@ -4,77 +4,97 @@
   assign show_quick_view = show_quick_view
   assign show_add_to_cart = show_add_to_cart
 
-  if show_wishlist == nil
+  if show_wishlist == null
     assign show_wishlist = true
   endif
-  if show_compare == nil
+  if show_compare == null
     assign show_compare = true
   endif
-  if show_quick_view == nil
+  if show_quick_view == null
     assign show_quick_view = true
   endif
-  if show_add_to_cart == nil
+  if show_add_to_cart == null
     assign show_add_to_cart = true
   endif
 
   assign show_tooltips = settings.show_tooltips
   assign tooltip_direction = settings.tooltip_direction | default: 'top'
 -%}
-<div class="card-product product-style_list-mini type-2 hover-img {{ card_class }}" 
-     data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" 
-     data-brand="{{ product.vendor }}">
-    <div class="card-product_wrapper">
-        <a href="{{ product.url }}" class="product-img img-style w-100 h-100">
-            {%- liquid
-                assign main_image = product.featured_media | default: product.images[0]
-            -%}
-            {%- if main_image != blank -%}
-                <img class="img-product lazyload" 
-                    src="{{ main_image | image_url: width: 300 }}"
-                    data-src="{{ main_image | image_url: width: 600 }}" 
-                    alt="{{ main_image.alt | escape }}"
-                    width="{{ main_image.width }}"
-                    height="{{ main_image.height }}"
-                    loading="lazy"
-                >
-            {%- else -%}
-                {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product' }}
-            {%- endif -%}
-        </a>
-    </div>
-    <div class="card-product_info">
-        {%- if product.vendor != blank -%}
-            <p class="tag-product text-small">{{ product.vendor }}</p>
-        {%- elsif product.type != blank -%}
-            <p class="tag-product text-small">{{ product.type }}</p>
+<div
+  class="card-product product-style_list-mini type-2 hover-img {{ card_class }}"
+  data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
+  data-brand="{{ product.vendor }}"
+>
+  <div class="card-product_wrapper">
+    <a href="{{ product.url }}" class="product-img img-style w-100 h-100">
+      {%- liquid
+        assign main_image = product.featured_media | default: product.images[0]
+      -%}
+      {%- if main_image != blank -%}
+        <img
+          class="img-product lazyload"
+          src="{{ main_image | image_url: width: 300 }}"
+          data-src="{{ main_image | image_url: width: 600 }}"
+          alt="{{ main_image.alt | escape }}"
+          width="{{ main_image.width }}"
+          height="{{ main_image.height }}"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product' }}
+      {%- endif -%}
+    </a>
+  </div>
+  <div class="card-product_info">
+    {%- if product.vendor != blank -%}
+      <p class="tag-product text-small">{{ product.vendor }}</p>
+    {%- elsif product.type != blank -%}
+      <p class="tag-product text-small">{{ product.type }}</p>
+    {%- endif -%}
+    <h6 class="name-product">
+      <a href="{{ product.url }}" class="text-line-clamp-2 link">{{ product.title }}</a>
+    </h6>
+    <div class="group-action">
+      <div class="price-wrap mb-0">
+        <h4 class="price-new">{{ product.price | money }}</h4>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="price-old h6 text-decoration-line-through">{{ product.compare_at_price | money }}</span>
         {%- endif -%}
-        <h6 class="name-product">
-            <a href="{{ product.url }}" class="text-line-clamp-2 link">{{ product.title }}</a>
-        </h6>
-        <div class="group-action">
-            <div class="price-wrap mb-0">
-                <h4 class="price-new">{{ product.price | money }}</h4>
-                {%- if product.compare_at_price > product.price -%}
-                    <span class="price-old h6 text-decoration-line-through">{{ product.compare_at_price | money }}</span>
-                {%- endif -%}
-            </div>
-            <ul class="product-action_list style-row">
-                {% if show_add_to_cart %}
-                    {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-                {% endif %}
-                
-                {% if show_wishlist and settings.wishlist_enabled %}
-                    {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-                {% endif %}
-                
-                {% if show_compare and settings.compare_enabled %}
-                    {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-                {% endif %}
-                
-                {% if settings.quick_view_enabled and show_quick_view %}
-                    {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
-                {% endif %}
-            </ul>
-        </div>
+      </div>
+      <ul class="product-action_list style-row">
+        {% if show_add_to_cart %}
+          {% render 'icon-add-to-cart',
+            type: 'icon',
+            product: product,
+            show_tooltip: show_tooltips,
+            tooltip_direction: tooltip_direction
+          %}
+        {% endif %}
+
+        {% if show_wishlist and settings.wishlist_enabled %}
+          {% render 'icon-wishlist',
+            product: product,
+            show_tooltip: show_tooltips,
+            tooltip_direction: tooltip_direction
+          %}
+        {% endif %}
+
+        {% if show_compare and settings.compare_enabled %}
+          {% render 'icon-compare',
+            product: product,
+            show_tooltip: show_tooltips,
+            tooltip_direction: tooltip_direction
+          %}
+        {% endif %}
+
+        {% if settings.quick_view_enabled and show_quick_view %}
+          {% render 'icon-quick-view',
+            product: product,
+            show_tooltip: show_tooltips,
+            tooltip_direction: tooltip_direction
+          %}
+        {% endif %}
+      </ul>
     </div>
+  </div>
 </div>
