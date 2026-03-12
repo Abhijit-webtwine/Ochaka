@@ -32,7 +32,7 @@
     background-color: {{ section.settings.cart_count_bg }};
     color: {{ section.settings.cart_count_color }};
   }
-  .tf-header .nav-icon-item-2 {
+  .tf-header .nav-icon-item-2, .tf-header .btn-mobile-menu {
     color: {{ section.settings.header_top_color }};
   }
   .tf-header .header-inner_wrap .col-right .icon {
@@ -62,7 +62,7 @@
     <div class="container-full-2">
       <div class="row align-items-center">
         <div class="col-md-4 col-3 d-xl-none">
-          <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu style-white">
+          <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
             <span></span>
           </a>
         </div>
@@ -355,14 +355,8 @@
       "label": "Menu Item Style",
       "default": "text-uppercase",
       "options": [
-        {
-          "value": "",
-          "label": "Default"
-        },
-        {
-          "value": "text-uppercase",
-          "label": "Uppercase"
-        }
+        { "value": "", "label": "Default" },
+        { "value": "text-uppercase", "label": "Uppercase" }
       ]
     },
     {
@@ -411,11 +405,6 @@
       "label": "Logo Mobile"
     },
     {
-      "type": "image_picker",
-      "id": "logo_white",
-      "label": "White Logo"
-    },
-    {
       "type": "header",
       "content": "Menu Settings"
     },
@@ -435,6 +424,10 @@
       "id": "department_menu_title",
       "label": "Department Menu Title",
       "default": "All Departments"
+    },
+    {
+      "type": "header",
+      "content": "Department Icon"
     },
     {
       "type": "select",
@@ -495,9 +488,10 @@
       "default": "150$"
     },
     {
-      "type": "checkbox",
-      "id": "show_header_inner_border",
-      "label": "Show Header Inner Border"
+      "type": "color",
+      "id": "promo_highlight_color",
+      "label": "Promo Highlighted Text Color",
+      "default": "#000000"
     },
     {
       "type": "header",
@@ -509,19 +503,13 @@
       "label": "Button Style",
       "default": "btn-submit",
       "options": [
-        {
-          "value": "btn-submit",
-          "label": "Flat"
-        },
-        {
-          "value": "btn-submit-2",
-          "label": "Rounded"
-        }
+        { "value": "btn-submit", "label": "Flat" },
+        { "value": "btn-submit-2", "label": "Rounded" }
       ]
     },
     {
       "type": "header",
-      "content": "Color Settings"
+      "content": "Header Top Colors"
     },
     {
       "type": "color",
@@ -535,22 +523,23 @@
       "label": "Header Top Icon Color"
     },
     {
+      "type": "header",
+      "content": "Header Inner Styling"
+    },
+    {
       "type": "color",
       "id": "header_inner_bg",
       "label": "Header Inner BG",
       "default": "#ffffff"
     },
     {
-      "type": "color",
-      "id": "header_inner_icon_color",
-      "label": "Header Inner Icon Color",
-      "default": "#000000"
+      "type": "checkbox",
+      "id": "show_header_inner_border",
+      "label": "Show Header Inner Border"
     },
     {
-      "type": "color",
-      "id": "promo_highlight_color",
-      "label": "Promo Highlighted Text Color",
-      "default": "#000000"
+      "type": "header",
+      "content": "Search UI Colors"
     },
     {
       "type": "color",
@@ -560,15 +549,13 @@
     },
     {
       "type": "color",
-      "id": "search_btn_text_color",
-      "label": "Search Button Text Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
       "id": "search_border_color",
       "label": "Search Border Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Wishlist Counter"
     },
     {
       "type": "color",
@@ -583,6 +570,10 @@
       "default": "#ffffff"
     },
     {
+      "type": "header",
+      "content": "Cart Counter"
+    },
+    {
       "type": "color",
       "id": "cart_count_bg",
       "label": "Cart Count Background",
@@ -595,412 +586,14 @@
       "default": "#ffffff"
     }
   ],
+
   "blocks": [
     {
       "type": "mega_menu",
       "name": "t:sections.header.blocks.mega_menu.name",
-      "settings": [
-        {
-          "type": "text",
-          "id": "menu-handle",
-          "label": "Menu Handle"
-        },
-        {
-          "type": "select",
-          "id": "menu-type",
-          "label": "Menu Type",
-          "options": [
-            {
-              "value": "grid-layout",
-              "label": "Grid Layout"
-            },
-            {
-              "value": "col-collection",
-              "label": "Column Collection Layout"
-            },
-            {
-              "value": "col-product",
-              "label": "Column Product Layout"
-            },
-            {
-              "value": "dropdown",
-              "label": "Dropdown"
-            }
-          ]
-        },
-        {
-          "type": "header",
-          "content": "If Grid Layout",
-          "info": "Mega menu will only show 12, Modal will show all demos."
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_1_image",
-          "label": "Demo 1 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_1_url",
-          "label": "Demo 1 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_1_name",
-          "label": "Demo 1 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_2_image",
-          "label": "Demo 2 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_2_url",
-          "label": "Demo 2 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_2_name",
-          "label": "Demo 2 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_3_image",
-          "label": "Demo 3 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_3_url",
-          "label": "Demo 3 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_3_name",
-          "label": "Demo 3 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_4_image",
-          "label": "Demo 4 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_4_url",
-          "label": "Demo 4 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_4_name",
-          "label": "Demo 4 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_5_image",
-          "label": "Demo 5 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_5_url",
-          "label": "Demo 5 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_5_name",
-          "label": "Demo 5 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_6_image",
-          "label": "Demo 6 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_6_url",
-          "label": "Demo 6 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_6_name",
-          "label": "Demo 6 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_7_image",
-          "label": "Demo 7 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_7_url",
-          "label": "Demo 7 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_7_name",
-          "label": "Demo 7 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_8_image",
-          "label": "Demo 8 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_8_url",
-          "label": "Demo 8 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_8_name",
-          "label": "Demo 8 Name"
-        },
-
-        {
-          "type": "image_picker",
-          "id": "demo_9_image",
-          "label": "Demo 9 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_9_url",
-          "label": "Demo 9 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_9_name",
-          "label": "Demo 9 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_10_image",
-          "label": "Demo 10 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_10_url",
-          "label": "Demo 10 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_10_name",
-          "label": "Demo 10 Name"
-        },
-
-        {
-          "type": "image_picker",
-          "id": "demo_11_image",
-          "label": "Demo 11 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_11_url",
-          "label": "Demo 11 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_11_name",
-          "label": "Demo 11 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_12_image",
-          "label": "Demo 12 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_12_url",
-          "label": "Demo 12 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_12_name",
-          "label": "Demo 12 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_13_image",
-          "label": "Demo 13 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_13_url",
-          "label": "Demo 13 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_13_name",
-          "label": "Demo 13 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_14_image",
-          "label": "Demo 14 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_14_url",
-          "label": "Demo 14 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_14_name",
-          "label": "Demo 14 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_15_image",
-          "label": "Demo 15 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_15_url",
-          "label": "Demo 15 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_15_name",
-          "label": "Demo 15 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_16_image",
-          "label": "Demo 16 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_16_url",
-          "label": "Demo 16 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_16_name",
-          "label": "Demo 16 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_17_image",
-          "label": "Demo 17 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_17_url",
-          "label": "Demo 17 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_17_name",
-          "label": "Demo 17 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_18_image",
-          "label": "Demo 18 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_18_url",
-          "label": "Demo 18 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_18_name",
-          "label": "Demo 18 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_19_image",
-          "label": "Demo 19 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_19_url",
-          "label": "Demo 19 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_19_name",
-          "label": "Demo 19 Name"
-        },
-        {
-          "type": "image_picker",
-          "id": "demo_20_image",
-          "label": "Demo 20 Image"
-        },
-        {
-          "type": "url",
-          "id": "demo_20_url",
-          "label": "Demo 20 URL"
-        },
-        {
-          "type": "text",
-          "id": "demo_20_name",
-          "label": "Demo 20 Name"
-        },
-        {
-          "type": "text",
-          "id": "btn_text",
-          "label": "Button Label"
-        },
-        {
-          "type": "header",
-          "content": "If Column Collection"
-        },
-        {
-          "type": "link_list",
-          "id": "mega_link_list",
-          "label": "Link List"
-        },
-        {
-          "type": "collection",
-          "id": "mega_collection_1",
-          "label": "Collection 1"
-        },
-        {
-          "type": "collection",
-          "id": "mega_collection_2",
-          "label": "Collection 2"
-        },
-        {
-          "type": "text",
-          "id": "mega_col_btn_text",
-          "label": "Button Label",
-          "default": "Shop Now"
-        },
-        {
-          "type": "header",
-          "content": "If Column Product"
-        },
-        {
-          "type": "text",
-          "id": "mega_prod_title",
-          "label": "Title"
-        },
-        {
-          "type": "link_list",
-          "id": "mega_prod_link_list",
-          "label": "Link List"
-        },
-        {
-          "type": "product",
-          "id": "mega_product_1",
-          "label": "Product 1"
-        },
-        {
-          "type": "product",
-          "id": "mega_product_2",
-          "label": "Product 2"
-        },
-        {
-          "type": "header",
-          "content": "If Dropdown"
-        },
-        {
-          "type": "link_list",
-          "id": "dropdown_link_list",
-          "label": "Link List"
-        }
-      ]
     }
   ],
+
   "presets": [
     {
       "name": "Header 3"
