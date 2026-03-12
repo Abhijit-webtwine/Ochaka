@@ -21,7 +21,7 @@
   assign tooltip_direction = settings.tooltip_direction | default: 'top'
 -%}
 <div
-  class="card-product product-style_list-mini type-2 hover-img {{ card_class }}"
+  class="card-product product-style_list-mini type-2 hover-img {% if settings.show_border %} style-border {% endif %}{{ card_class }}"
   data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
   data-brand="{{ product.vendor }}"
 >
@@ -46,14 +46,12 @@
     </a>
   </div>
   <div class="card-product_info">
-    {%- if product.vendor != blank -%}
-      <p class="tag-product text-small">{{ product.vendor }}</p>
-    {%- elsif product.type != blank -%}
+    {%- if settings.show_type and  product.type != blank -%}
       <p class="tag-product text-small">{{ product.type }}</p>
     {%- endif -%}
-    <h6 class="name-product">
-      <a href="{{ product.url }}" class="text-line-clamp-2 link">{{ product.title }}</a>
-    </h6>
+
+    <a href="{{ product.url }}" class="name-product {{ settings.card_product_mini_title_size }} {{ settings.card_product_mini_title_weight }} text-line-clamp-2 link">{{ product.title }}</a>
+
     <div class="group-action">
       <div class="price-wrap mb-0">
         <h4 class="price-new">{{ product.price | money }}</h4>

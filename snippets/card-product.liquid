@@ -34,7 +34,7 @@
 {% endfor %}
 
 <div class="card-product {{ card_class }} {{ settings.card_style }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
-  <div class="card-product_wrapper">
+  <div class="card-product_wrapper {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
     {% render 'card-product-media', product: product %}
 
     {% if show_wishlist_remove %}
@@ -79,11 +79,28 @@
       {% render 'rating', product: product %}
     {% endif %}
     
+    {%  liquid 
+      assign price = product.price | money
+      assign compare_at_price = product.compare_at_price | money
+
+      if settings.price_style == 'without_trailing_zero'
+        assign price = product.price | money_without_trailing_zeros
+        assign compare_at_price = product.compare_at_price | money_without_trailing_zeros
+      endif
+    %}
+
     <div class="price-wrap">
-      {% if product.compare_at_price > product.price %}
-        <span class="price-old h6 fw-normal">{{ product.compare_at_price | money }}</span>
+      {% if settings.price_position == 'price_last' %}
+        {% if product.compare_at_price > product.price %}
+          <span class="price-old h6 fw-normal">{{ compare_at_price }}</span>
+        {% endif %}
+          <span class="price-new h6">{{ price }}</span>
+      {% else %}
+        <span class="price-new h6">{{ price }}</span>
+        {% if product.compare_at_price > product.price %}
+          <span class="price-old h6 fw-normal">{{ compare_at_price }}</span>
+        {% endif %}
       {% endif %}
-      <span class="price-new h6">{{ product.price | money }}</span>
     </div>
     
     {% if settings.color_swatches_enabled %}

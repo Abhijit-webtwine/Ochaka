@@ -543,6 +543,22 @@
       },
       {
         "type": "select",
+        "id": "card_height",
+        "options": [
+          {
+            "value": "aspect-ratio-0",
+            "label": "Small"
+          },
+          {
+            "value": "",
+            "label": "Large"
+          }
+        ],
+        "default": "",
+        "label": "Card Height"
+      },
+      {
+        "type": "select",
         "id": "product_title_size",
         "label": "Product Title Size",
         "options": [
@@ -571,6 +587,38 @@
           }
         ],
         "default": "default"
+      },
+      {
+        "type": "select",
+        "id": "price_position",
+        "label": "Price Position",
+        "options": [
+          {
+            "value": "price_first",
+            "label": "Price First"
+          },
+          {
+            "value": "price_last",
+            "label": "Price Last"
+          }
+        ],
+        "default": "price_first",
+      },
+      {
+        "type": "select",
+        "id": "price_style",
+        "options": [
+          {
+            "value": "trailing_zero",
+            "label": "Trailing Zero"
+          },
+          {
+            "value": "without_trailing_zero",
+            "label": "Without Trailing Zero"
+          }
+        ],
+        "default": "trailing_zero",
+        "label": "Price Style"
       },
       {
         "type": "checkbox",
@@ -609,6 +657,13 @@
         "label": "Show rating"
       },
       {
+        "type": "checkbox",
+        "id": "show_border",
+        "default": true,
+        "label": "Show Border",
+        "info": "Does not work with colored background product"
+      },
+      {
         "type": "select",
         "id": "rating_position",
         "options": [
@@ -623,6 +678,42 @@
         ],
         "default": "below_title",
         "label": "Rating position"
+      }
+    ]
+  },
+  {
+    "name": "Product tiles mini",
+    "settings": [
+  {
+        "type": "select",
+        "id": "card_product_mini_title_size",
+        "label": "Product Title Size",
+        "options": [
+          { "value": "h6", "label": "Small" },
+          { "value": "h5", "label": "Medium" },
+          { "value": "h4", "label": "Large" }
+        ],
+        "default": "h4"
+      },
+      {
+        "type": "select",
+        "id": "card_product_mini_title_weight",
+        "label": "Title Weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Normal"
+          },
+          {
+            "value": "medium",
+            "label": "Medium"
+          },
+          {
+            "value": "default",
+            "label": "Default"
+          }
+        ],
+        "default": "default"
       }
     ]
   },
