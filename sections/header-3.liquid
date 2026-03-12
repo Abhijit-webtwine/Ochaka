@@ -2,19 +2,49 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .tf-header.style-5 .header-top {
+  .tf-header {
+    margin-bottom: {{ section.settings.header_bottom_spacing }}px;
+  }
+  .tf-header .header-top {
     background-color: {{ section.settings.header_top_bg }};
   }
-  .tf-header.style-5 .header-inner {
+  .tf-header .header-inner {
     background-color: {{ section.settings.header_inner_bg }};
   }
   .logo-site img {
     max-width: {{ section.settings.logo_width }}px;
   }
+  .tf-header .form-btn-submit {
+    background-color: {{ section.settings.search_btn_bg }};
+    color: {{ section.settings.search_btn_color }};
+  }
+  .tf-header .form-btn-submit i {
+    color: {{ section.settings.search_btn_color }};
+  }
+  .tf-header .form_search-product {
+    border-color: {{ section.settings.search_border_color }};
+  }
+  .tf-header .nav-icon-list .count {
+    background-color: {{ section.settings.wishlist_count_bg }};
+    color: {{ section.settings.wishlist_count_color }};
+  }
+  .tf-header .cart-icon-bubble .count {
+    background-color: {{ section.settings.cart_count_bg }};
+    color: {{ section.settings.cart_count_color }};
+  }
+  .tf-header .nav-icon-item-2 {
+    color: {{ section.settings.header_top_color }};
+  }
+  .tf-header .header-inner_wrap .col-right .icon {
+    color: {{ section.settings.header_inner_icon_color }};
+  }
+  .tf-header .header-inner_wrap .highlight_text {
+    color: {{ section.settings.promo_highlight_color }}
+  }
 {%- endstyle -%}
 
 {%- liquid
-  assign header_class = 'tf-header style-5'
+  assign header_class = 'style-5'
   
   if section.settings.enable_sticky_header
     assign header_class = header_class | append: ' header--sticky-enabled'
@@ -27,7 +57,7 @@
   endif
 -%}
 
-<header class="{{ header_class }}">
+<header class="tf-header {{ header_class }}">
   <div class="header-top">
     <div class="container-full-2">
       <div class="row align-items-center">
@@ -53,7 +83,12 @@
         <div class="col-xl-10 col-md-4 col-3">
           <div class="header-right">
             <predictive-search-type class="w-100">
-              <form action="{{ routes.search_url }}" method="get" role="search" class="form_search-product style-search-2 d-none d-xl-flex search">
+              <form
+                action="{{ routes.search_url }}"
+                method="get"
+                role="search"
+                class="form_search-product style-search-2 d-none d-xl-flex search"
+              >
                 <div class="select-category">
                   <select name="product_cat" id="product_cat" class="dropdown_product_cat">
                     <option value="">All categories</option>
@@ -65,17 +100,19 @@
                   </select>
                 </div>
                 <span class="br-line type-vertical"></span>
-                <input 
-                  class="style-def" 
-                  type="search" 
-                  name="q" 
-                  placeholder="Search for products..." 
+                <input
+                  class="style-def"
+                  type="search"
+                  name="q"
+                  placeholder="Search for products..."
                   autocomplete="off"
                   required
                 >
                 <input type="hidden" name="type" value="product">
-                <button type="submit" class="btn-submit">
-                  <i class="icon icon-magnifying-glass"></i>
+                <button type="submit" class="form-btn-submit {{ section.settings.btn_style }}">
+                  {% if section.settings.btn_style == 'btn-submit' %}
+                    <i class="icon icon-magnifying-glass"></i>
+                  {% endif %}
                   <span class="h6 fw-bold">Search</span>
                 </button>
               </form>
@@ -84,10 +121,10 @@
             <ul class="nav-icon-list text-nowrap">
               {%- if shop.customer_accounts_enabled -%}
                 <li class="d-none d-lg-flex">
-                  <a class="nav-icon-item-2 text-white link" href="{{ routes.account_url }}">
+                  <a class="nav-icon-item-2 link" href="{{ routes.account_url }}">
                     <i class="icon icon-user"></i>
                     <div class="nav-icon-item_sub">
-                      <span class="text-sub text-small-2">
+                      <span class="text-small-2">
                         {%- if customer -%}
                           {{ customer.first_name }}
                         {%- else -%}
@@ -102,7 +139,7 @@
               
               {%- if settings.wishlist_enabled -%}
                 <li class="d-none d-sm-flex">
-                  <a class="nav-icon-item-2 text-white link" href="/pages/wishlist">
+                  <a class="nav-icon-item-2 link" href="/pages/wishlist">
                     <div class="position-relative d-flex" id="wishlist-icon-bubble">
                       <i class="icon icon-heart"></i>
                       <wishlist-count class="count">
@@ -115,27 +152,30 @@
 
               <li>
                 <cart-drawer-open>
-                  <button type="button" class="nav-icon-item-2 text-white link cart-drawer-open" aria-controls="mini-cart">
-                    <span class="cart-icon-bubble">
-                      <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-                      {%- if cart != empty -%}
-                        <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
-                          {%- if cart.item_count < 100 -%}
-                            <span aria-hidden="true">{{ cart.item_count }}</span>
-                          {%- endif -%}
-                          <span class="visually-hidden">
-                            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
-                          </span>
-                        </span>
-                      {%- endif -%}
-                    </span>
-
-                    <span class="nav-icon-item">
+                  <button
+                    type="button"
+                    class="nav-icon-item-2 link cart-drawer-open"
+                    aria-controls="mini-cart"
+                  >
+                    <span class="nav-icon-item position-relative">
                       <i class="icon icon-shopping-cart-simple"></i>
+                      <span class="cart-icon-bubble">
+                        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+                        {%- if cart != empty -%}
+                          <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+                            {%- if cart.item_count < 100 -%}
+                              <span aria-hidden="true">{{ cart.item_count }}</span>
+                            {%- endif -%}
+                            <span class="visually-hidden">
+                              {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+                            </span>
+                          </span>
+                        {%- endif -%}
+                      </span>
                     </span>
                     <div class="nav-icon-item_sub d-none d-sm-grid">
-                      <span class="text-sub text-small-2">Your cart</span>
-                      <span class="h6">{{ cart.total_price | money }}</span>
+                      <span class="text-small-2">Your cart</span>
+                      <span class="h6 cart-total-price">{{ cart.total_price | money }}</span>
                     </div>
                   </button>
                 </cart-drawer-open>
@@ -146,7 +186,7 @@
       </div>
     </div>
   </div>
-  <div class="header-inner d-none d-xl-block">
+  <div class="header-inner d-none d-xl-block {% if section.settings.show_header_inner_border %} outline {% endif %}">
     <div class="container-full-2">
       <div class="header-inner_wrap">
         <div class="col-left">
@@ -158,41 +198,12 @@
             </div>
             <ul class="box-nav-category active-item">
               {%- for link in section.settings.department_menu.links -%}
+                {% assign icon = link.title | split: '|' | last %}
+                {% assign title = link.title | split: '|' | first %}
                 <li>
                   <a href="{{ link.url }}" class="nav-category_link h5">
-                    {%- liquid
-                      assign title_dc = link.title | downcase
-                      if title_dc contains 'elec'
-                        echo '<i class="icon icon-tv"></i>'
-                      elsif title_dc contains 'furn'
-                        echo '<i class="icon icon-arm-chair"></i>'
-                      elsif title_dc contains 'fash'
-                        echo '<i class="icon icon-shirt"></i>'
-                      elsif title_dc contains 'book'
-                        echo '<i class="icon icon-book"></i>'
-                      elsif title_dc contains 'musi' or title_dc contains 'head'
-                        echo '<i class="icon icon-headset"></i>'
-                      elsif title_dc contains 'cosm' or title_dc contains 'beau'
-                        echo '<i class="icon icon-drop"></i>'
-                      elsif title_dc contains 'phon' or title_dc contains 'smart'
-                        echo '<i class="icon icon-mobile"></i>'
-                      elsif title_dc contains 'spor'
-                        echo '<i class="icon icon-volley-ball"></i>'
-                      elsif title_dc contains 'shoe'
-                        echo '<i class="icon icon-sneaker"></i>'
-                      elsif title_dc contains 'came'
-                        echo '<i class="icon icon-camera"></i>'
-                      elsif title_dc contains 'cloc' or title_dc contains 'watc'
-                        echo '<i class="icon icon-clock-cd"></i>'
-                      elsif title_dc contains 'jewe'
-                        echo '<i class="icon icon-diamond"></i>'
-                      elsif title_dc contains 'gym' or title_dc contains 'fitn'
-                        echo '<i class="icon icon-barbell"></i>'
-                      elsif title_dc contains 'bag'
-                        echo '<i class="icon icon-bag"></i>'
-                      endif
-                    -%}
-                    {{ link.title }}
+                    <i class="icon {{ icon }}"></i>
+                    {{ title }}
                   </a>
                 </li>
               {%- endfor -%}
@@ -204,12 +215,14 @@
           </nav>
         </div>
         <div class="col-right">
-          <i class="icon icon-truck"></i>
+          <i class="icon {{ section.settings.header_inner_icon }}"></i>
+          {% assign highlight = section.settings.promo_highlight_text %}
+          {% capture highlight_html %}
+          <span class="highlight_text fw-bold">{{ highlight }}</span>
+          {% endcapture %}
+
           <p class="h6 text-black">
-            {{ section.settings.shipping_text }}
-            {%- if section.settings.shipping_highlight != blank -%}
-              <span class="fw-bold text-primary">{{ section.settings.shipping_highlight }}</span>
-            {%- endif -%}
+            {{ section.settings.promo_text | replace: highlight, highlight_html }}
           </p>
         </div>
       </div>
@@ -230,7 +243,12 @@
           <div class="col-xl-2 col-md-4 col-6 text-center text-xl-start">
             <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
               {%- if section.settings.logo != blank -%}
-                 <img src="{{ section.settings.logo | image_url }}" alt="{{ shop.name }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}">
+                <img
+                  src="{{ section.settings.logo | image_url }}"
+                  alt="{{ shop.name }}"
+                  width="{{ section.settings.logo.width }}"
+                  height="{{ section.settings.logo.height }}"
+                >
               {%- else -%}
                 <h4 class="text-white">{{ shop.name }}</h4>
               {%- endif -%}
@@ -241,7 +259,7 @@
               <ul class="nav-icon-list text-nowrap">
                 {%- if settings.wishlist_enabled -%}
                   <li class="d-none d-sm-flex">
-                    <a class="nav-icon-item-2 text-white link" href="/pages/wishlist">
+                    <a class="nav-icon-item-2 link" href="/pages/wishlist">
                       <div class="position-relative d-flex" id="wishlist-icon-bubble-sticky">
                         <i class="icon icon-heart"></i>
                         <wishlist-count class="count">
@@ -253,7 +271,11 @@
                 {%- endif -%}
                 <li>
                   <cart-drawer-open>
-                    <button type="button" class="nav-icon-item-2 text-white link cart-drawer-open" aria-controls="mini-cart">
+                    <button
+                      type="button"
+                      class="nav-icon-item-2 link cart-drawer-open"
+                      aria-controls="mini-cart"
+                    >
                       <div class="position-relative d-flex cart-icon-bubble">
                         <i class="icon icon-shopping-cart-simple"></i>
                         <span class="count">{{ cart.item_count }}</span>
@@ -279,7 +301,9 @@
               </div>
               <ul class="box-nav-category active-item">
                 {%- for link in section.settings.department_menu.links -%}
-                  <li><a href="{{ link.url }}" class="nav-category_link h5">{{ link.title }}</a></li>
+                  <li>
+                    <a href="{{ link.url }}" class="nav-category_link h5">{{ link.title }}</a>
+                  </li>
                 {%- endfor -%}
               </ul>
             </div>
@@ -289,10 +313,14 @@
             </nav>
           </div>
           <div class="col-right">
-            <i class="icon icon-truck"></i>
+            <i class="icon {{ section.settings.header_inner_icon }}"></i>
+            {% assign highlight = section.settings.promo_highlight_text %}
+            {% capture highlight_html %}
+            <span class="highlight_text fw-bold">{{ highlight }}</span>
+            {% endcapture %}
+
             <p class="h6 text-black">
-              {{ section.settings.shipping_text }}
-              <span class="fw-bold text-primary">{{ section.settings.shipping_highlight }}</span>
+              {{ section.settings.promo_text | replace: highlight, highlight_html }}
             </p>
           </div>
         </div>
@@ -318,6 +346,10 @@
   "name": "Header 3",
   "settings": [
     {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
       "type": "select",
       "id": "menu_item_style",
       "label": "Menu Item Style",
@@ -340,6 +372,25 @@
       "default": "Ultimate HTML Theme"
     },
     {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "label": "Enable Sticky Header",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "header_bottom_spacing",
+      "label": "Header Bottom Spacing",
+      "default": 24,
+      "min": 0,
+      "max": 30,
+      "step": 1
+    },
+    {
+      "type": "header",
+      "content": "Logo & Branding"
+    },
+    {
       "type": "image_picker",
       "id": "logo",
       "label": "Logo"
@@ -360,6 +411,15 @@
       "label": "Logo Mobile"
     },
     {
+      "type": "image_picker",
+      "id": "logo_white",
+      "label": "White Logo"
+    },
+    {
+      "type": "header",
+      "content": "Menu Settings"
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "label": "Main Menu",
@@ -377,26 +437,91 @@
       "default": "All Departments"
     },
     {
-      "type": "text",
-      "id": "shipping_text",
-      "label": "Shipping Text",
-      "default": "Free Shipping for orders over"
-    },
-    {
-      "type": "text",
-      "id": "shipping_highlight",
-      "label": "Shipping Price Highlight",
-      "default": "$150"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_sticky_header",
-      "label": "Enable Sticky Header",
-      "default": true
+      "type": "select",
+      "id": "header_inner_icon",
+      "label": "Header Inner Icon",
+      "options": [
+        { "value": "icon-arm-chair", "label": "Arm Chair" },
+        { "value": "icon-bag", "label": "Bag" },
+        { "value": "icon-barbell", "label": "Barbell" },
+        { "value": "icon-book", "label": "Book" },
+        { "value": "icon-camera", "label": "Camera" },
+        { "value": "icon-caret-down", "label": "Caret Down" },
+        { "value": "icon-canned", "label": "Canned Food" },
+        { "value": "icon-clock-cd", "label": "Clock" },
+        { "value": "icon-diamond", "label": "Diamond" },
+        { "value": "icon-drop", "label": "Drop / Beauty" },
+        { "value": "icon-dry", "label": "Dry Food" },
+        { "value": "icon-fresh", "label": "Fresh" },
+        { "value": "icon-gift", "label": "Gift" },
+        { "value": "icon-grain", "label": "Grain" },
+        { "value": "icon-headset", "label": "Headset" },
+        { "value": "icon-heart", "label": "Heart" },
+        { "value": "icon-magnifying-glass", "label": "Search" },
+        { "value": "icon-mobile", "label": "Mobile" },
+        { "value": "icon-mushroom", "label": "Mushroom" },
+        { "value": "icon-noodles", "label": "Noodles" },
+        { "value": "icon-nut", "label": "Nut" },
+        { "value": "icon-ponk", "label": "Pork" },
+        { "value": "icon-poultry", "label": "Poultry" },
+        { "value": "icon-rice", "label": "Rice" },
+        { "value": "icon-seasonal", "label": "Seasonal" },
+        { "value": "icon-seafood", "label": "Seafood" },
+        { "value": "icon-shirt", "label": "Shirt / Fashion" },
+        { "value": "icon-shopping-cart-simple", "label": "Cart" },
+        { "value": "icon-sneaker", "label": "Sneaker" },
+        { "value": "icon-truck", "label": "Truck / Shipping" },
+        { "value": "icon-tv", "label": "TV / Electronics" },
+        { "value": "icon-user", "label": "User" },
+        { "value": "icon-vegetable", "label": "Vegetable" },
+        { "value": "icon-volley-ball", "label": "Volleyball / Sports" }
+      ],
+      "default": "icon-user"
     },
     {
       "type": "header",
-      "content": "Colors"
+      "content": "Promo Settings"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo Text",
+      "default": "Free Shipping for orders over 150$"
+    },
+    {
+      "type": "text",
+      "id": "promo_highlight_text",
+      "label": "Promo Highlighted Text",
+      "default": "150$"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header_inner_border",
+      "label": "Show Header Inner Border"
+    },
+    {
+      "type": "header",
+      "content": "Search Settings"
+    },
+    {
+      "type": "select",
+      "id": "btn_style",
+      "label": "Button Style",
+      "default": "btn-submit",
+      "options": [
+        {
+          "value": "btn-submit",
+          "label": "Flat"
+        },
+        {
+          "value": "btn-submit-2",
+          "label": "Rounded"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Color Settings"
     },
     {
       "type": "color",
@@ -406,8 +531,67 @@
     },
     {
       "type": "color",
+      "id": "header_top_color",
+      "label": "Header Top Icon Color"
+    },
+    {
+      "type": "color",
       "id": "header_inner_bg",
       "label": "Header Inner BG",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_inner_icon_color",
+      "label": "Header Inner Icon Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "promo_highlight_color",
+      "label": "Promo Highlighted Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "search_btn_bg",
+      "label": "Search Button Background",
+      "default": "#1e3a8a"
+    },
+    {
+      "type": "color",
+      "id": "search_btn_text_color",
+      "label": "Search Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "search_border_color",
+      "label": "Search Border Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_count_bg",
+      "label": "Wishlist Count Background",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "wishlist_count_color",
+      "label": "Wishlist Count Text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "cart_count_bg",
+      "label": "Cart Count Background",
+      "default": "#ff0000"
+    },
+    {
+      "type": "color",
+      "id": "cart_count_color",
+      "label": "Cart Count Text",
       "default": "#ffffff"
     }
   ],
@@ -750,7 +934,7 @@
           "type": "text",
           "id": "demo_20_name",
           "label": "Demo 20 Name"
-        },  
+        },
         {
           "type": "text",
           "id": "btn_text",

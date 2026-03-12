@@ -182,6 +182,11 @@ class CartItems extends HTMLElement {
         id: 'js-cart-summary',
         section: 'main-cart-items',
         selector: '.js-summary-contents',
+      },
+      {
+        id: 'cart-total-price',
+        section: 'cart-total-price',
+        selector: '.shopify-section'
       }
     ];
     if (document.querySelector('#main-cart-footer .free-shipping')) {

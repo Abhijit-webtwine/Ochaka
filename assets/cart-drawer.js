@@ -92,6 +92,11 @@ class MiniCart extends HTMLElement {
         id: 'mobile-cart-icon-bubble',
         section: 'mobile-cart-icon-bubble',
         selector: '.shopify-section'
+      },
+      {
+        id: 'cart-total-price',
+        section: 'cart-total-price',
+        selector: '.shopify-section'
       }
     ];
   }
