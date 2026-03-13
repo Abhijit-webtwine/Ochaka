@@ -8,7 +8,7 @@
             {{ section.settings.coupon_code }}
           </h6>
           <span class="br-line type-vertical"></span>
-          <h6 class="{% if section.settings.copy_color == blank %}text-primary{% endif %}"{% if section.settings.copy_color != blank %} style="color: {{ section.settings.copy_color }};"{% endif %}>COPY</h6>
+          <h6 {% if section.settings.copy_color != blank %} style="color: {{ section.settings.copy_color }};"{% endif %}>COPY</h6>
         </div>
       </div>
     </div>
