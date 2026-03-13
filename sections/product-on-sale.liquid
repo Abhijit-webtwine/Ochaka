@@ -38,7 +38,7 @@
                     show_compare: true,
                     show_quick_view: true,
                     show_add_to_cart: true,
-                    show_progress_bar: section.settings.show_progress_bar,
+                    show_stock: section.settings.show_stock,
                     show_sale_badge: false,
                     show_custom_badge: false
                   %}
@@ -61,7 +61,7 @@
                       <div class="price-wrap mb-0">
                         <h4 class="price-new">$0.00</h4>
                       </div>
-                      {%- if section.settings.show_progress_bar -%}
+                      {%- if section.settings.show_stock -%}
                         <div class="product-progress_sold">
                           <div class="box-quantity">
                             <p class="text-avaiable">Available: <span class="fw-bold text-black">50</span></p>
@@ -124,8 +124,8 @@
     },
     {
       "type": "checkbox",
-      "id": "show_progress_bar",
-      "label": "Show Progress Bar",
+      "id": "show_stock",
+      "label": "Show Stock",
       "default": true
     },
     {
