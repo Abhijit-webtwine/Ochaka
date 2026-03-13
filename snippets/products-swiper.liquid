@@ -4,7 +4,6 @@
   @param {string} collection_ref - Collection reference from settings
   @param {number} products_limit - Max products to show
   @param {string} grid_rows - Number of rows in the swiper grid
-  @param {boolean} hide_pagination_desktop - Hide pagination on desktop
   @param {number} slides_desktop - Number of slides to show on desktop
   @param {number} slides_tablet - Number of slides to show on tablet
   @param {number} slides_mobile - Number of slides to show on mobile
@@ -65,5 +64,5 @@
       {% endfor %}
     {% endif %}
   </div>
-  <div class="sw-dot-default tf-sw-pagination {% if hide_pagination_desktop %}d-xl-none{% endif %}"></div>
+  <div class="sw-dot-default tf-sw-pagination"></div>
 </div>
