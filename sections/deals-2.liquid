@@ -1,0 +1,236 @@
+<section class="flat-spacing" id="Section-{{ section.id }}">
+  <div class="container">
+    {%- if section.settings.title != blank or section.settings.subtitle != blank -%}
+      <div class="sect-title text-center wow fadeInUp">
+        {%- if section.settings.title != blank -%}
+          <h2 class="title h1 mb-8">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subtitle != blank -%}
+          <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="box-image_V01 type-2 hover-img mb-xl-0">
+          <a href="{{ section.settings.banner_link | default: '#' }}" class="box-image_image img-style">
+            {%- if section.settings.banner_image != blank -%}
+              <img src="{{ section.settings.banner_image | image_url: width: 800 }}" 
+                   data-src="{{ section.settings.banner_image | image_url: width: 800 }}" 
+                   alt="{{ section.settings.banner_title | escape }}" 
+                   class="lazyload" 
+                   width="{{ section.settings.banner_image.width }}" 
+                   height="{{ section.settings.banner_image.height }}">
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'img-style lazyload placeholder-svg' }}
+            {%- endif -%}
+          </a>
+          <div class="box-image_content wow fadeInUp">
+            {%- if section.settings.banner_title != blank -%}
+              <a href="{{ section.settings.banner_link | default: '#' }}" class="title h1 fw-bold text-white link primary-2">{{ section.settings.banner_title }}</a>
+            {%- endif -%}
+            
+            {%- if section.settings.banner_subtitle != blank -%}
+              <span class="sub-title h4 text-white fw-semibold">{{ section.settings.banner_subtitle }}</span>
+            {%- endif -%}
+            
+            {%- if section.settings.banner_button_text != blank -%}
+              <a href="{{ section.settings.banner_link | default: '#' }}" class="tf-btn btn-white animate-btn animate-dark">
+                {{ section.settings.banner_button_text }}
+                <i class="icon icon-arrow-right"></i>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-8">
+        <div dir="ltr" class="swiper tf-swiper grid-colum-3 wow fadeInUp" 
+             data-preview="{{ section.settings.slides_desktop }}" 
+             data-tablet="{{ section.settings.slides_tablet }}" 
+             data-mobile-sm="{{ section.settings.slides_mobile }}"
+             data-mobile="1" 
+             data-space-lg="{{ section.settings.space_desktop }}" 
+             data-space-md="{{ section.settings.space_tablet }}" 
+             data-space="{{ section.settings.space_mobile }}" 
+             data-pagination="1" 
+             data-pagination-sm="2"
+             data-pagination-md="3" 
+             data-pagination-lg="4" 
+             data-grid="3">
+          <div class="swiper-wrapper">
+            {%- assign collection = section.settings.collection -%}
+            {%- if collection != blank and collection.products_count > 0 -%}
+              {%- for product in collection.products limit: section.settings.product_limit -%}
+                <div class="swiper-slide">
+                  {% render 'card-product-mini', product: product %}
+                </div>
+              {%- endfor -%}
+            {%- else -%}
+              {%- for i in (1..6) -%}
+                 <div class="swiper-slide">
+                     <div class="card-product product-style_list-mini type-2 style-border hover-img">
+                         <div class="card-product_wrapper">
+                             <a href="#" class="product-img img-style">
+                                 {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'img-product lazyload placeholder-svg' }}
+                             </a>
+                         </div>
+                         <div class="card-product_info">
+                             <a href="#" class="name-product h5 link">
+                                 Example Product Title
+                             </a>
+                             <div class="group-action">
+                                 <div class="price-wrap mb-0">
+                                     <h4 class="price-new">$19.99</h4>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+          <div class="sw-dot-default tf-sw-pagination"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deals 2",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Deal Of The Day"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "header",
+      "content": "Banner Settings"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "FRESH FRUITS"
+    },
+    {
+      "type": "text",
+      "id": "banner_subtitle",
+      "label": "Banner Subtitle",
+      "default": "100% NATURE"
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "Button Text",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link"
+    },
+    {
+      "type": "header",
+      "content": "Collection Settings"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Maximum products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Slider Configuration"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deals 2"
+    }
+  ]
+}
+{% endschema %}

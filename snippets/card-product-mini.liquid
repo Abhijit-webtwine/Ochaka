@@ -52,13 +52,25 @@
 
     <a href="{{ product.url }}" class="name-product {{ settings.card_product_mini_title_size }} {{ settings.card_product_mini_title_weight }} text-line-clamp-2 link">{{ product.title }}</a>
 
+    {%  liquid 
+      assign price = product.price | money
+      assign compare_at_price = product.compare_at_price | money
+
+      if settings.price_style == 'without_trailing_zero'
+        assign price = product.price | money_without_trailing_zeros
+        assign compare_at_price = product.compare_at_price | money_without_trailing_zeros
+      endif
+    %}
+
     <div class="group-action">
+      
       <div class="price-wrap mb-0">
-        <h4 class="price-new">{{ product.price | money }}</h4>
+        <h4 class="price-new">{{ price }}</h4>
         {%- if product.compare_at_price > product.price -%}
-          <span class="price-old h6 text-decoration-line-through">{{ product.compare_at_price | money }}</span>
+          <span class="price-old h6 text-decoration-line-through">{{ compare_at_price }}</span>
         {%- endif -%}
       </div>
+
       <ul class="product-action_list style-row">
         {% if show_add_to_cart %}
           {% render 'icon-add-to-cart',
