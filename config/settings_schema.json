@@ -645,6 +645,22 @@
         "label": "Show sale badge percentage"
       },
       {
+        "type": "select",
+        "id": "badge_style",
+        "options": [
+          {
+            "value": "",
+            "label": "Square"
+          },
+          {
+            "value": "type-radius",
+            "label": "Rounded"
+          }
+        ],
+        "default": "",
+        "label": "Badge Style"
+      },
+      {
         "type": "checkbox",
         "id": "show_type",
         "default": true,

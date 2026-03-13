@@ -21,14 +21,14 @@
     
     {%- if settings.show_sale_badge and product.compare_at_price > product.price and show_sale_badge -%}
       {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-      <li class="product-badge_item h6 sale">
+      <li class="product-badge_item {{ settings.badge_style }} h6 sale">
         -{{ discount }}%
       </li>
     {%- endif -%}
 
     {%- if custom_badge != blank and settings.show_custom_badge and show_custom_badge -%}
       {%- assign badge_class = custom_badge | handleize -%}
-      <li class="product-badge_item h6 {{ badge_class }} sale">
+      <li class="product-badge_item {{ settings.badge_style }} h6 {{ badge_class }} sale">
         {{ custom_badge }}
       </li>
     {%- endif -%}
