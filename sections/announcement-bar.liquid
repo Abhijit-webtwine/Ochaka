@@ -33,11 +33,18 @@
     assign container_class = 'container-full-2'
     assign left_col_class = 'col-xl-6 col-lg-8'
     assign right_col_class = 'col-xl-6 col-lg-4'
-    if section.settings.show_seperator
+    if section.settings.show_seperator and section.settings.announcement_type == 'text'
       assign wrapper_extra = 'line-bt-3'
+    else
+      assign wrapper_extra = 'line-bt'
     endif
   elsif section.settings.show_seperator
     assign wrapper_extra = 'line-bt'
+  endif
+
+  assign show_right_seperator = false
+  if section.settings.show_right_seperator
+    assign show_right_seperator = true
   endif
 -%}
 
@@ -66,19 +73,35 @@
             </div>
           {%- else -%}
             <ul class="topbar-option-list">
-              {%- if section.settings.phone_text != blank -%}
+              {%- if section.settings.phone_number != blank -%}
                 <li class="h6 d-none d-sm-flex">
-                  <a href="{{ section.settings.phone_link | default: 'tel:' | append: section.settings.phone_text | replace: ' ', '' }}" class="link track">
-                    <i class="icon icon-phone"></i> {{ section.settings.phone_text }}
+                  <a href="tel:{{ section.settings.phone_number | replace: ' ', '' }}" class="link track">
+                    <i class="icon icon-phone"></i> {{ section.settings.phone_text }}{{ section.settings.phone_number }}
                   </a>
                 </li>
-                <li class="br-line d-none d-sm-flex"></li>
               {%- endif -%}
-              <li class="h6">
-                <a href="{{ section.settings.announcement_link | default: '#' }}" class="link">
-                  {{ section.settings.topbar_text }}
-                </a>
-              </li>
+              {% if section.settings.topbar_layout == 'style_2' %}
+                <li class="br-line d-none d-sm-flex bg-line opacity-100"></li>
+              {% endif %}
+              {% if section.settings.announcement_type == 'text' %}
+                <li class="h6">
+                  <a href="{{ section.settings.announcement_link | default: '#' }}" class="link">
+                    {{ section.settings.topbar_text }}
+                  </a>
+                </li>
+              {% elsif section.settings.announcement_type == 'email' %}
+                <li class="h6">
+                  <a href="mailto:{{ section.settings.email_address }}" class="text-main link track">
+                    <i class="icon icon-envelope-simple"></i>
+                    <span>
+                        {{ section.settings.email_label }}
+                    </span>
+                    <span>
+                        {{ section.settings.email_address }}
+                    </span>
+                  </a>
+                </li>
+              {% endif %}
             </ul>
           {%- endif -%}
         </div>
@@ -92,8 +115,10 @@
               {{ section.settings.link_1_label }}
             </a>
           </li>
-
-          <li class="br-line"></li>
+          
+          {% if show_right_seperator %}
+            <li class="br-line d-none d-sm-flex bg-line opacity-100"></li>
+          {% endif %}
 
           <li class="h6">
             <a href="{{ section.settings.link_2_url | default: '#' }}" class="link track">
@@ -104,7 +129,9 @@
             </a>
           </li>
 
-          <li class="br-line d-none d-xl-inline-flex"></li>
+          {% if show_right_seperator %}
+            <li class="br-line d-none d-xl-inline-flex bg-line opacity-100"></li>
+          {% endif %}
 
           {%- comment -%} Currency Selector (Shopify Localization) {%- endcomment -%}
           
@@ -123,8 +150,9 @@
               {%- endform -%}
             </localization-form>
           </li>
-
-          <li class="br-line d-none d-xl-inline-flex"></li>
+          {% if show_right_seperator %}
+            <li class="br-line d-none d-xl-inline-flex bg-line opacity-100"></li>
+          {% endif %}
 
           {%- comment -%} Language Selector (Shopify Localization) {%- endcomment -%}
           <li class="tf-languages d-none d-xl-block">
@@ -146,7 +174,6 @@
               </select>
             </form>
           </li>
-
         </ul>
       </div>
 
@@ -208,52 +235,87 @@
     },
     {
       "type": "checkbox",
-      "id": "show_seperator",
-      "label": "Show Seperator",
+      "id": "show_right_seperator",
+      "label": "Show Topbar Right Seperator",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "announcement_type",
+      "label": "Announcement Type",
+      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}",
+      "default": "text",
+      "options": [
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "email",
+          "label": "Email"
+        }
+      ]
     },
     {
       "type": "text",
       "id": "topbar_text",
       "label": "Announcement Text",
-      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "visible_if": "{{ section.settings.announcement_type == 'text' }}"
     },
     {
       "type": "collection",
       "id": "collection_1",
-      "label": "Collection 1"
+      "label": "Collection 1",
+      "info": "Select a collection to display in the announcement bar"
     },
     {
       "type": "collection",
       "id": "collection_2",
-      "label": "Collection 2"
+      "label": "Collection 2",
+      "info": "Select a collection to display in the announcement bar"
     },
     {
       "type": "header",
-      "content": "Topbar Links"
+      "content": "Topbar Links",
+      "visible_if": "{{ section.settings.topbar_layout == 'style_2' or section.settings.announcement_type == 'email' }}"
     },
     {
-      "type": "url",
-      "id": "announcement_link",
-      "label": "Announcement Link",
-      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
+      "type": "text",
+      "id": "email_label",
+      "label": "Email Label",
+      "default": "Email us:",
+      "visible_if": "{{ section.settings.announcement_type == 'email' }}"
+    },
+    {
+      "type": "text",
+      "id": "email_address",
+      "label": "Email Address",
+      "default": "support@ochaka.com",
+      "visible_if": "{{ section.settings.announcement_type == 'email' }}"
     },
     {
       "type": "text",
       "id": "phone_text",
       "label": "Phone Text",
+      "default": "Call us for free:",
+      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
       "default": "+1(800) 123 4567",
       "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
     },
     {
-      "type": "url",
-      "id": "phone_link",
-      "label": "Phone Link (Custom)",
-      "visible_if": "{{ section.settings.topbar_layout == 'style_2' }}"
+      "type": "header",
+      "content": "Right Content"
     },
     {
-      "type": "header",
-      "content": "Right Content Links"
+      "type": "checkbox",
+      "id": "show_seperator",
+      "label": "Show Seperator"
     },
     {
       "type": "text",
