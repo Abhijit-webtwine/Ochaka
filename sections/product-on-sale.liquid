@@ -125,8 +125,24 @@
     {
       "type": "checkbox",
       "id": "show_stock",
-      "label": "Show Stock",
-      "default": true
+      "default": true,
+      "label": "Show Stock"
+    },
+    {
+      "type": "select",
+      "id": "stock_position",
+      "label": "Stock Position",
+      "options": [
+        {
+          "value": "above_price",
+          "label": "Above Price"
+        },
+        {
+          "value": "below_price",
+          "label": "Below Price"
+        }
+      ],
+      "default": "above_price"
     },
     {
       "type": "header",
