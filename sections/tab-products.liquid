@@ -27,44 +27,79 @@
 </style>
 
 <div
-  class="
-    flat-animate-tab
-    section-{{ section.id }}-padding
-  "
+  class="flat-animate-tab section-{{ section.id }}-padding"
 >
   <div class="container">
-    <div class="sect-title wow fadeInUp">
-      {% if section.settings.title != blank %}
-        <div class="h1 title text-center mb-24">
-          {{ section.settings.title }}
-        </div>
+    <div class="sect-title wow fadeInUp text-center">
+      {% liquid
+        assign subtitle = false
+        if section.settings.subheading != blank and section.settings.tab_style == '2'
+          assign subtitle = true
+          assign class = 'title'
+        else
+          assign class = 'title mb-24'
+        endif
+      %}
+
+      {% render 'title',
+        class: class,
+        title: section.settings.title,
+        subtitle: subtitle,
+        large_title: section.settings.heading_style,
+        heading_weight: section.settings.heading_weight
+      %}
+
+      {% if section.settings.subheading != blank and section.settings.tab_style == '2' %}
+        <p class="s-subtitle h6">{{ section.settings.subheading | escape }}</p>
       {% endif %}
 
-      <ul class="tab-product_list" role="tablist">
-        {% for block in section.blocks %}
-          {% assign tab_id = section.id | append: '-' | append: block.id %}
-          <li class="nav-tab-item" role="presentation">
-            <a
-              href="#{{ tab_id }}"
-              data-bs-toggle="tab"
-              class="
-                tf-btn-line tf-btn-tab {% if section.settings.tab_title_thin %}fw-normal {% endif %}
-                {% if section.settings.large_tab_style %}style-large style-gray{% endif %}
-                {% if forloop.first %}active{% endif %}
-              "
-            >
-              {% if section.settings.large_tab_style %}
-                <span class="h2 text-normal fw-normal">
-                  {{ block.settings.tab_title }}
-                </span>
-              {% else %}
-                {{ block.settings.tab_title | upcase }}
-              {% endif %}
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
+      {% if section.settings.tab_style == '1' %}
+        <ul class="tab-product_list" role="tablist">
+          {% for block in section.blocks %}
+            {% assign tab_id = section.id | append: '-' | append: block.id %}
+            <li class="nav-tab-item" role="presentation">
+              <a
+                href="#{{ tab_id }}"
+                data-bs-toggle="tab"
+                class="
+                  tf-btn-line tf-btn-tab {% if section.settings.tab_title_thin %}fw-normal {% endif %}
+                  {% if section.settings.large_tab_style %}style-large style-gray{% endif %}
+                  {% if forloop.first %}active{% endif %}
+                "
+              >
+                {% if section.settings.large_tab_style %}
+                  <span class="h2 text-normal fw-normal">
+                    {{ block.settings.tab_title }}
+                  </span>
+                {% else %}
+                  {{ block.settings.tab_title | upcase }}
+                {% endif %}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </div>
+
+    {% if section.settings.tab_style == '2' %}
+        <ul class="tab-product_list-2 style-2 wow fadeInUp animated" role="tablist" style="visibility: visible; animation-name: fadeInUp;">
+          {% for block in section.blocks %}
+            {% assign tab_id = section.id | append: '-' | append: block.id %}
+            <li class="nav-tab-item" role="presentation">
+              <a 
+                href="#{{ tab_id }}" 
+                data-bs-toggle="tab" 
+                class="tf-btn-tab-2 style-primary primary-2 h6 {% if forloop.first %}active{% endif %}" 
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" 
+                role="tab"
+                {% unless forloop.first %}tabindex="-1"{% endunless %}
+              >
+                {{ block.settings.tab_title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
 
     <div class="tab-content">
       {% for block in section.blocks %}
@@ -79,7 +114,14 @@
             {% render 'products-swiper',
               collection_ref: block.settings.collection,
               products_limit: block.settings.products_limit,
-              grid_rows: section.settings.grid_rows
+              grid_rows: section.settings.grid_rows,
+              slides_desktop: section.settings.slides_desktop,
+              slides_tablet: section.settings.slides_tablet,
+              slides_mobile: section.settings.slides_mobile,
+              countdown_size: section.settings.countdown_size,
+              space_desktop: section.settings.space_desktop,
+              space_tablet: section.settings.space_tablet,
+              space_mobile: section.settings.space_mobile
             %}
           {% else %}
             <p class="text-center">No collection selected.</p>
@@ -103,10 +145,71 @@
       "default": "Featured Products"
     },
     {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Shop the latest styles",
+      "visible_if": "{{ section.settings.tab_style == '2' }}"
+    },
+    {
+      "type": "select",
+      "id": "tab_style",
+      "label": "Tab Style",
+      "options": [
+        { "value": "1", "label": "Inline" },
+        { "value": "2", "label": "Pills" }
+      ],
+      "default": "1"
+    },
+    {
       "type": "checkbox",
       "id": "large_tab_style",
       "label": "Large Styled Tabs",
-      "default": false
+      "default": false,
+      "visible_if": "{{ section.settings.tab_style == '1' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "tab_title_thin",
+      "label": "Thin Tab Title",
+      "default": false,
+      "visible_if": "{{ section.settings.tab_style == '1' }}"
     },
     {
       "type": "select",
@@ -117,12 +220,6 @@
         { "value": "2", "label": "2 Rows" }
       ],
       "default": "1"
-    },
-    {
-      "type": "checkbox",
-      "id": "tab_title_thin",
-      "label": "Thin Tab Title",
-      "default": false
     },
     {
       "type": "header",
@@ -195,6 +292,85 @@
       "unit": "px",
       "label": "Padding bottom",
       "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Swiper Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Slides desktop"
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "label": "Slides tablet"
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2,
+      "label": "Slides mobile"
+    },
+    {
+      "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "default": 48,
+      "unit": "px",
+      "label": "Space between slides desktop"
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "default": 24,
+      "unit": "px",
+      "label": "Space between slides tablet"
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "default": 12,
+      "unit": "px",
+      "label": "Space between slides mobile"
+    },
+    {
+      "type": "header",
+      "content": "Countdown Settings"
+    },
+    {
+      "type": "select",
+      "id": "countdown_size",
+      "label": "Countdown Size",
+      "options": [
+        { "value": "type-2", "label": "Small" },
+        { "value": "", "label": "Medium" }
+      ],
+      "default": ""
     }
   ],
   "blocks": [
