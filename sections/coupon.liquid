@@ -1,6 +1,6 @@
 <section class="themesFlat">
   <div class="container">
-    <div class="wg-copy primary-6 wow fadeInUp">
+    <div class="wg-copy wow fadeInUp"{% if section.settings.bg_color != blank %} style="background-color: {{ section.settings.bg_color }};"{% endif %}>
       <div class="content wrap-code">
         <h3 class="text-white">{{ section.settings.title }}</h3>
         <div class="tf-btn btn-white btn-coppy-text animate-btn animate-dark">
@@ -8,7 +8,7 @@
             {{ section.settings.coupon_code }}
           </h6>
           <span class="br-line type-vertical"></span>
-          <h6 class="text-primary">COPY</h6>
+          <h6 class="{% if section.settings.copy_color == blank %}text-primary{% endif %}"{% if section.settings.copy_color != blank %} style="color: {{ section.settings.copy_color }};"{% endif %}>COPY</h6>
         </div>
       </div>
     </div>
@@ -30,6 +30,16 @@
       "id": "coupon_code",
       "label": "Coupon Code",
       "default": "35%OFFVOUCHER"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "copy_color",
+      "label": "Copy Text Color"
     }
   ],
   "presets": [
