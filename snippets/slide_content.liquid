@@ -1,0 +1,28 @@
+{% doc %}
+  Renders slide content for banner slider including subtitle, title, and button
+  @param {object} slide_block - The slide block object
+{% enddoc %}
+
+{%- if slide_block.settings.sub_title != blank -%}
+  <h3 class="sub-title_sld text-white fade-item fade-item-1">
+    {{ slide_block.settings.sub_title }}
+  </h3>
+{%- endif -%}
+
+{%- if slide_block.settings.title != blank -%}
+  <h2 class="title_sld h1 text-white fade-item fade-item-2">
+    {{ slide_block.settings.title | newline_to_br }}
+  </h2>
+{%- endif -%}
+
+{%- if slide_block.settings.btn_text != blank -%}
+  <div class="fade-item fade-item-4">
+    <a
+      href="{{ slide_block.settings.btn_link | default: '#' }}"
+      class="tf-btn btn-white animate-btn animate-dark"
+    >
+      {{ slide_block.settings.btn_text }}
+      <i class="icon icon-arrow-right"></i>
+    </a>
+  </div>
+{%- endif -%}
