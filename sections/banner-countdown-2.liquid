@@ -1,38 +1,118 @@
-<section class="themesFlat">
-  <div class="banner-cd_v01 flex-md-nowrap">
-    <div class="banner_content wow fadeInUp">
-      <h1 class="title">{{ section.settings.title }}</h1>
-      {% if section.settings.subtitle != blank %}
-        <p class="sub-title">{{ section.settings.subtitle }}</p>
-      {% endif %}
-      <div class="count-down_v01">
-        <countdown-timer class="cd-custom-element cd-has-zero" data-date="{{ section.settings.end_date }}T{{ section.settings.end_time }}:00" data-layout="modern" data-labels="{{ section.settings.countdown_labels }}"></countdown-timer>
-      </div>
-      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="tf-btn animate-btn type-small-2">
-          {{ section.settings.button_text }}
-          <i class="icon icon-arrow-right"></i>
-        </a>
-      {% endif %}
-    </div>
-    <div class="banner_img">
-      {% if section.settings.banner_image != blank %}
-        {{ section.settings.banner_image | image_url: width: 800 | image_tag: 
-          class: 'lazyload', 
-          loading: 'lazy', 
-          alt: section.settings.banner_image.alt | default: section.settings.title 
-        }}
-      {% else %}
-        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
-      {% endif %}
-    </div>
+{%- capture banner_bg -%}
+  <div class="img-item_bg">
+    {% if section.settings.bg_image != blank %}
+      {{ section.settings.bg_image | image_url: width: 2000 | image_tag: 
+        class: 'lazyload', 
+        loading: 'lazy', 
+        alt: section.settings.bg_image.alt | default: section.settings.title 
+      }}
+    {% endif %}
   </div>
+{%- endcapture -%}
+
+{%- capture banner_content -%}
+  <div class="banner_content wow fadeInUp{% if section.settings.banner_style == '2' %} p-0{% endif %}"{% if section.settings.banner_style == '1' and section.settings.bg_color != blank %} style="background-color: {{ section.settings.bg_color }};"{% endif %}>
+    <h2 class="title h1 fw-medium">{{ section.settings.title }}</h2>
+    {% if section.settings.subtitle != blank %}
+      <p class="sub-title">{{ section.settings.subtitle }}</p>
+    {% endif %}
+    <div class="count-down_v01">
+      <countdown-timer class="cd-custom-element cd-has-zero" data-date="{{ section.settings.end_date }}T{{ section.settings.end_time }}:00" data-layout="modern" data-labels="{{ section.settings.countdown_labels }}"></countdown-timer>
+    </div>
+    {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+      <a href="{{ section.settings.button_link }}" class="tf-btn {% if section.settings.banner_style == '2' %}bg-primary primary-2 {% endif %}animate-btn type-small-2">
+        {{ section.settings.button_text }}
+        <i class="icon icon-arrow-right"></i>
+      </a>
+    {% endif %}
+  </div>
+{%- endcapture -%}
+
+{%- capture banner_img -%}
+  <div class="banner_img">
+    {% if section.settings.banner_image != blank %}
+      {{ section.settings.banner_image | image_url: width: 800 | image_tag: 
+        class: 'lazyload', 
+        loading: 'lazy', 
+        alt: section.settings.banner_image.alt | default: section.settings.title 
+      }}
+    {% else %}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
+    {% endif %}
+  </div>
+{%- endcapture -%}
+
+<section class="themesFlat">
+  {% if section.settings.banner_style == '1' %}
+    <div class="banner-cd_v01 flex-md-nowrap">
+      {% if section.settings.banner_image_alignment == 'left' %}
+        {{ banner_img }}
+        {{ banner_content }}
+      {% else %}
+        {{ banner_content }}
+        {{ banner_img }}
+      {% endif %}
+    </div>
+  {% elsif section.settings.banner_style == '2' %}
+    <div class="banner-cd_v01 style-3">
+      {{ banner_bg }}
+      <div class="container">
+        <div class="row{% if section.settings.banner_image_alignment == 'right' %} flex-row-reverse{% endif %} align-items-center">
+          <div class="col-lg-6">
+            <div class="position-relative">
+              {{ banner_img }}
+            </div>
+          </div>
+          <div class="col-lg-6 d-flex justify-content-center">
+            {{ banner_content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 </section>
 
 {% schema %}
 {
   "name": "Banner Countdown 2",
   "settings": [
+    {
+      "type": "select",
+      "id": "banner_style",
+      "label": "Banner Style",
+      "options": [
+        { "value": "1", "label": "Full Width" },
+        { "value": "2", "label": "Container Grid" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Content Background Color",
+      "visible_if": "{{ section.settings.banner_style == '1' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image",
+      "visible_if": "{{ section.settings.banner_style == '2' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "select",
+      "id": "banner_image_alignment",
+      "label": "Banner Image Alignment",
+      "options": [
+        { "value": "left", "label": "Image Left" },
+        { "value": "right", "label": "Image Right" }
+      ],
+      "default": "right"
+    },
     {
       "type": "text",
       "id": "title",
@@ -62,11 +142,6 @@
       "id": "countdown_labels",
       "label": "Countdown Labels",
       "default": "Days,Hours,Mins,Secs"
-    },
-    {
-      "type": "image_picker",
-      "id": "banner_image",
-      "label": "Banner Image"
     },
     {
       "type": "text",

@@ -1788,7 +1788,7 @@
     }
 
     .banner_content {
-        background-color: var(--bg-8);
+        // background-color: var(--bg-8);
         @include flex(center, center);
         flex-direction: column;
         text-align: center;
