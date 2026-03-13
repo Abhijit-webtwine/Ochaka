@@ -36,7 +36,7 @@
     color: {{ section.settings.header_top_color }};
   }
   .tf-header .header-inner_wrap .col-right .icon {
-    color: {{ section.settings.header_inner_icon_color }};
+    color: {{ section.settings.promo_icon_color }};
   }
   .tf-header .header-inner_wrap .highlight_text {
     color: {{ section.settings.promo_highlight_color }}
@@ -215,7 +215,7 @@
           </nav>
         </div>
         <div class="col-right">
-          <i class="icon {{ section.settings.header_inner_icon }}"></i>
+          <i class="icon {{ section.settings.promo_icon }}"></i>
           {% assign highlight = section.settings.promo_highlight_text %}
           {% capture highlight_html %}
           <span class="highlight_text fw-bold">{{ highlight }}</span>
@@ -313,7 +313,7 @@
             </nav>
           </div>
           <div class="col-right">
-            <i class="icon {{ section.settings.header_inner_icon }}"></i>
+            <i class="icon {{ section.settings.promo_icon }}"></i>
             {% assign highlight = section.settings.promo_highlight_text %}
             {% capture highlight_html %}
             <span class="highlight_text fw-bold">{{ highlight }}</span>
@@ -425,14 +425,15 @@
       "label": "Department Menu Title",
       "default": "All Departments"
     },
+
     {
       "type": "header",
-      "content": "Department Icon"
+      "content": "Promo Settings"
     },
     {
       "type": "select",
-      "id": "header_inner_icon",
-      "label": "Header Inner Icon",
+      "id": "promo_icon",
+      "label": "Promo Icon",
       "options": [
         { "value": "icon-arm-chair", "label": "Arm Chair" },
         { "value": "icon-bag", "label": "Bag" },
@@ -472,8 +473,9 @@
       "default": "icon-user"
     },
     {
-      "type": "header",
-      "content": "Promo Settings"
+      "type": "color",
+      "id": "promo_icon_color",
+      "label": "Promo Icon Color"
     },
     {
       "type": "text",
