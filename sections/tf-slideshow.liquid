@@ -246,12 +246,14 @@
           "type": "textarea",
           "id": "slide_description",
           "label": "Description",
-          "default": "Ad nisi irure officia nulla culpa culpa laborum Lorem.\nAd dolore cillum non commodo ad non non."
+          "default": "Ad nisi irure officia nulla culpa culpa laborum Lorem.\nAd dolore cillum non commodo ad non non.",
+          "visible_if": "{{ block.settings.slider_style != 'deal_layout' }}"
         },
         {
           "type": "select",
           "id": "description_size",
           "label": "Description Size",
+          "visible_if": "{{ block.settings.slider_style != 'deal_layout' }}",
           "options": [
             {
               "value": "h6",
@@ -278,7 +280,7 @@
         {
           "type": "header",
           "content": "Deal Layout Settings",
-          "info": "Only used when Slider Style is set to Deal Layout"
+          "info": "Only used when Slider Style is set to Price & Icon"
         },
         {
           "type": "checkbox",
@@ -315,7 +317,8 @@
         {
           "type": "color",
           "id": "description_color",
-          "label": "Description Color"
+          "label": "Description Color",
+          "visible_if": "{{ block.settings.slider_style != 'deal_layout' }}"
         },
         {
           "type": "color",
@@ -335,7 +338,7 @@
         },
         {
           "type": "header",
-          "content": "Slide 2 Layout Settings"
+          "content": "Custom Aligned Layout Settings"
         },
         {
           "type": "select",
