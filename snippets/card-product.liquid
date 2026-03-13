@@ -33,7 +33,7 @@
   %}
 {% endfor %}
 
-<div class="card-product {{ card_class }} {{ settings.card_style }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div class="card-product {% if show_stock %}style-6 {% endif %} {{ card_class }} {{ settings.card_style }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
   <div class="card-product_wrapper {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
     {% render 'card-product-media', product: product %}
 
@@ -70,13 +70,15 @@
     {%- endif -%}
 
     {% if settings.show_rating and settings.rating_position == 'above_title' %}
+      <div>
+        {% render 'rating', product: product %}
+        <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+      </div>
+    {% elsif settings.show_rating and settings.rating_position == 'below_title' %}
+      <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
       {% render 'rating', product: product %}
-    {% endif %}
-
-    <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
-    
-    {% if settings.show_rating and settings.rating_position == 'below_title' %}
-      {% render 'rating', product: product %}
+    {% else %}
+      <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
     {% endif %}
     
     {%  liquid 
@@ -88,6 +90,10 @@
         assign compare_at_price = product.compare_at_price | money_without_trailing_zeros
       endif
     %}
+
+    {% if show_stock and stock_position == 'above_price' %}
+      {% render 'product-stock', product: product %}
+    {% endif %}
 
     <div class="price-wrap">
       {% if settings.price_position == 'price_last' %}
@@ -107,19 +113,8 @@
       {% render 'card-product-swatches', product: product %}
     {% endif %}
 
-    {% if show_progress_bar %}
-      {% liquid assign stock_available = product.variants.first.inventory_quantity | default: 0 %}
-      <div class="product-progress_sold">
-        <div class="box-quantity mt-3">
-          <p class="text-avaiable">
-            {% if stock_available > 0 %}
-              Available: <span class="fw-bold text-black">{{ stock_available }}</span>
-            {% else %}
-              <span class="fw-bold text-black">{{ 'products.product.sold_out' | t }}</span>
-            {% endif %}
-          </p>
-        </div>
-      </div>
+    {% if show_stock and stock_position == 'below_price' %}
+      {% render 'product-stock', product: product %}
     {% endif %}
 
   </div>

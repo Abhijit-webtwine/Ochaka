@@ -93,6 +93,8 @@
       space_desktop: section.settings.space_desktop,
       space_tablet: section.settings.space_tablet,
       space_mobile: section.settings.space_mobile,
+      show_stock: section.settings.show_stock,
+      stock_position: section.settings.stock_position
     %}
   </div>
 </section>
@@ -216,6 +218,28 @@
         { "value": "", "label": "Medium" }
       ],
       "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "default": true,
+      "label": "Show Stock"
+    },
+    {
+      "type": "select",
+      "id": "stock_position",
+      "label": "Stock Position",
+      "options": [
+        {
+          "value": "above_price",
+          "label": "Above Price"
+        },
+        {
+          "value": "below_price",
+          "label": "Below Price"
+        }
+      ],
+      "default": "above_price"
     },
     {
       "type": "range",

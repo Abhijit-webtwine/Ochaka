@@ -1,0 +1,14 @@
+{% liquid
+  assign stock_available = product.variants.first.inventory_quantity | default: 0
+%}
+<div class="product-progress_sold">
+  <div class="box-quantity">
+    <p class="text-avaiable">
+      {% if stock_available > 0 %}
+        Available: <span class="fw-bold text-black">{{ stock_available }}</span>
+      {% else %}
+        <span class="fw-bold text-black">{{ 'products.product.sold_out' | t }}</span>
+      {% endif %}
+    </p>
+  </div>
+</div>
