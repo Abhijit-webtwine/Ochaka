@@ -34,7 +34,7 @@
 {% endfor %}
 
 <div class="card-product {% if show_stock %}style-6 {% endif %} {{ card_class }} {{ settings.card_style }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
-  <div class="card-product_wrapper {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
+  <div class="card-product_wrapper d-flex {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
     {% render 'card-product-media', product: product %}
 
     {% if show_wishlist_remove %}
