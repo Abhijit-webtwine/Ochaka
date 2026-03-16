@@ -106,57 +106,59 @@
               section_id: section.id,
             %}
           <div class="tf-product-total-quantity mb-0">
-            <product-form>
-              {%- form 'product',
-                section.settings.featured_product,
-                id: product_form_id,
-                data-type: 'add-to-cart-form',
-                class: 'w-100 position-static'
-              -%}
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ section.settings.featured_product.selected_or_first_available_variant.id }}"
-                  disabled="disabled"
-                >
-                <div class="group-btn">
-                  {% render 'quantity-input', product: section.settings.featured_product, product_form_id: product_form_id %}
-
-                  {% if section.settings.featured_product.available %}
-                    <span id="inventory-{{ section.id }}" class="h6 d-none d-sm-block">
-                      {{ section.settings.featured_product.selected_or_first_available_variant.inventory_quantity }} products available
-                    </span>
-                  {% endif %}
-                </div>
-
-                <div class="group-btn">
-                  <button
-                    type="submit"
-                    name="add"
-                    class="tf-btn animate-btn btn-add-to-cart"
-                    {%- if section.settings.featured_product.selected_or_first_available_variant.available == false %}
-                      disabled="disabled"
-                    {% endif -%}
+            {% if section.settings.featured_product != blank %}
+              <product-form>
+                {%- form 'product',
+                  section.settings.featured_product,
+                  id: product_form_id,
+                  data-type: 'add-to-cart-form',
+                  class: 'w-100 position-static'
+                -%}
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ section.settings.featured_product.selected_or_first_available_variant.id }}"
+                    disabled="disabled"
                   >
-                    ADD TO CART
-                    <i class="icon icon-shopping-cart-simple"></i>
-                  </button>
-                  {% if settings.wishlist_enabled %}
-                    {% render 'icon-wishlist', product: section.settings.featured_product %}
-                  {% endif %}
+                  <div class="group-btn">
+                    {% render 'quantity-input', product: section.settings.featured_product, product_form_id: product_form_id %}
 
-                  {% if settings.compare_enabled %}
-                    {% render 'icon-compare' %}
-                  {% endif %}
-                </div>
-
-                <div class="group-btn">
-                  <div class="shopify-payment-btn w-100">
-                    {{ form | payment_button }}
+                    {% if section.settings.featured_product.available %}
+                      <span id="inventory-{{ section.id }}" class="h6 d-none d-sm-block">
+                        {{ section.settings.featured_product.selected_or_first_available_variant.inventory_quantity }} products available
+                      </span>
+                    {% endif %}
                   </div>
-                </div>
-              {%- endform -%}
-            </product-form>
+
+                  <div class="group-btn">
+                    <button
+                      type="submit"
+                      name="add"
+                      class="tf-btn animate-btn btn-add-to-cart"
+                      {%- if section.settings.featured_product.selected_or_first_available_variant.available == false %}
+                        disabled="disabled"
+                      {% endif -%}
+                    >
+                      ADD TO CART
+                      <i class="icon icon-shopping-cart-simple"></i>
+                    </button>
+                    {% if settings.wishlist_enabled %}
+                      {% render 'icon-wishlist', product: section.settings.featured_product %}
+                    {% endif %}
+
+                    {% if settings.compare_enabled %}
+                      {% render 'icon-compare' %}
+                    {% endif %}
+                  </div>
+
+                  <div class="group-btn">
+                    <div class="shopify-payment-btn w-100">
+                      {{ form | payment_button }}
+                    </div>
+                  </div>
+                {%- endform -%}
+              </product-form>
+            {% endif %}
           </div>
           </div>
         </div>

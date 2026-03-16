@@ -40,7 +40,13 @@
             </h2>
           {%- endif -%}
           {%- if section.settings.subtitle != blank -%}
-            <h4 class="sub-title fw-bold">{{ section.settings.subtitle }}</h4>
+          {% assign highlight = section.settings.subtitle_highlight %}
+
+          {% capture highlight_html %}
+            <span style="color: {{ section.settings.highlight_color }}">{{ highlight }}</span>
+          {% endcapture %}
+
+            <h4 class="sub-title fw-bold">{{ section.settings.subtitle | replace: highlight, highlight_html }}</h4>
           {%- endif -%}
         </div>
         <div class="group-btn">
@@ -90,7 +96,18 @@
     {
       "type": "inline_richtext",
       "id": "subtitle",
-      "label": "Subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "text",
+      "id": "subtitle_highlight",
+      "label": "Subtitle Highlight"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Highlight Color",
+      "default": "#FF6B6B"
     },
     {
       "type": "header",

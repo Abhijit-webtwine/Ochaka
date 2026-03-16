@@ -50,7 +50,7 @@
       <p class="tag-product text-small">{{ product.type }}</p>
     {%- endif -%}
 
-    <a href="{{ product.url }}" class="name-product {{ settings.card_product_mini_title_size }} {{ settings.card_product_mini_title_weight }} text-line-clamp-2 link">{{ product.title }}</a>
+    <a href="{{ product.url }}" class="name-product {{ settings.card_product_mini_title_size }} fw-{{ settings.card_product_mini_title_weight }} text-line-clamp-2 link">{{ product.title }}</a>
 
     {%  liquid 
       assign price = product.price | money
