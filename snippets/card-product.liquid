@@ -106,7 +106,7 @@
       {% render 'product-stock', product: product %}
     {% endif %}
 
-    <div class="price-wrap">
+    <div class="price-wrap {% unless show_stock and stock_position == 'below_price' or product.variants.size > 1 %}mb-0{% endunless %}">
       {% if settings.price_position == 'price_last' %}
         {% if product.compare_at_price > product.price %}
           <span class="price-old h6 fw-normal">{{ compare_at_price }}</span>
