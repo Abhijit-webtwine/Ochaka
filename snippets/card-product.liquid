@@ -65,20 +65,31 @@
 
   <div class="card-product_info d-grid">
 
-    {%- if settings.show_type and product.type != blank -%}
-      <p class="tag-product text-small">{{ product.type }}</p>
-    {%- endif -%}
-
     {% if settings.show_rating and settings.rating_position == 'above_title' %}
       <div>
         {% render 'rating', product: product %}
-        <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+        <div>
+          {%- if settings.show_type and product.type != blank -%}
+            <p class="tag-product text-small">{{ product.type }}</p>
+          {%- endif -%}
+          <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+        </div>
       </div>
     {% elsif settings.show_rating and settings.rating_position == 'below_title' %}
-      <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+      <div>
+        {%- if settings.show_type and product.type != blank -%}
+          <p class="tag-product text-small">{{ product.type }}</p>
+        {%- endif -%}
+        <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+      </div>
       {% render 'rating', product: product %}
     {% else %}
+    <div>
+      {%- if settings.show_type and product.type != blank -%}
+        <p class="tag-product text-small">{{ product.type }}</p>
+      {%- endif -%}
       <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+    </div>
     {% endif %}
     
     {%  liquid 
