@@ -23,7 +23,7 @@
   <div class="container">
     {% if section.settings.header_layout == 'with_subtitle' %}
       {% if section.settings.title != blank or section.settings.subtitle != blank %}
-        <div class="sect-title {% if section.settings.subtitle == blank %}type-4 justify-content-center{% endif %} text-center wow fadeInUp">
+        <div class="sect-title {% if section.settings.subtitle == blank %}justify-content-center{% endif %} {{ section.settings.header_spacing }} text-center wow fadeInUp">
           {% liquid
             assign subtitle = false
             if section.settings.subtitle != blank
@@ -164,6 +164,22 @@
         }
       ],
       "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "header_spacing",
+      "label": "Header Spacing",
+      "options": [
+        {
+          "value": "type-4",
+          "label": "Default"
+        },
+        {
+          "value": "",
+          "label": "Extended Space"
+        }
+      ],
+      "default": ""
     },
     {
       "type": "text",
