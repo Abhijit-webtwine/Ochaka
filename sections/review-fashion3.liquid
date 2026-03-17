@@ -105,7 +105,12 @@
                   </p>
                 {% endif %}
                 {% if block.settings.author != blank %}
-                  <p class="tes_author h4">{{ block.settings.author }}</p>
+                  <div class="tes_author d-flex align-items-center gap-10">
+                    <p class="h4 mb-0 text-black">{{ block.settings.author }}</p>
+                    {% if block.settings.verified %}
+                      <i class="author-verified icon-check-circle fs-24"></i>
+                    {% endif %}
+                  </div>
                 {% endif %}
                 {% render 'testimonial-review', rating: block.settings.rating %}
               </div>
@@ -321,6 +326,12 @@
           "default": "Brooklyn Simmons"
         },
         {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Purchase",
+          "default": true
+        },
+        {
           "type": "range",
           "id": "rating",
           "min": 1,
@@ -347,6 +358,7 @@
             "title": "Dedicated service",
             "text": "The support from ACIS has been outstanding. Anytime we had a question or needed help, their team responded quickly and professionally.",
             "author": "Brooklyn Simmons",
+            "verified": true,
             "rating": 5
           }
         },
@@ -356,6 +368,7 @@
             "title": "Exceptional Reliability",
             "text": "No surprises, just consistent and dependable performance every single time without fail.",
             "author": "Mas Shin",
+            "verified": true,
             "rating": 5
           }
         },
@@ -365,6 +378,7 @@
             "title": "Best Product Quality",
             "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands",
             "author": "Sil Vox",
+            "verified": true,
             "rating": 5
           }
         }
