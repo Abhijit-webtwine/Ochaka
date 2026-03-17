@@ -2,6 +2,43 @@
   .section-{{ section.id }}-review-fashion1 {
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+    {% if section.settings.bg_color != blank %}
+      background-color: {{ section.settings.bg_color }};
+    {% endif %}
+    {% if section.settings.bg_image != blank %}
+      background-image: url("{{ section.settings.bg_image | image_url }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      {% if section.settings.enable_parallex %}
+        background-attachment: fixed;
+        background-position: center 20.25px;
+      {% endif %}
+    {% endif %}
+  }
+
+  {% if section.settings.heading_color != blank %}
+    .section-{{ section.id }}-review-fashion1 .s-title,
+    .section-{{ section.id }}-review-fashion1 .s-subtitle {
+      color: {{ section.settings.heading_color }};
+    }
+  {% endif %}
+
+  .section-{{ section.id }}-review-fashion1 .testimonial-V01 {
+    {% if section.settings.box_bg_color != blank %}
+      background-color: {{ section.settings.box_bg_color }};
+    {% endif %}
+    {% if section.settings.enable_border %}
+      border: 1px solid {{ section.settings.border_color }};
+    {% endif %}
+  }
+
+  .section-{{ section.id }}-review-fashion1 .sw-dot-default .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    border: 1px solid {{ section.settings.pagination_color }};
+  }
+
+  .section-{{ section.id }}-review-fashion1 .sw-dot-default .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+    background-color: {{ section.settings.pagination_color }};
   }
 
   @media screen and (min-width: 768px) {
@@ -19,81 +56,140 @@
   }
 {% endstyle %}
 
-<section class="section-{{ section.id }}-review-fashion1">
+{%- liquid
+  assign layout_style = section.settings.layout_style | default: 'layout_1'
+  assign is_layout_1 = false
+
+  assign section_class = 'section-' | append: section.id | append: '-review-fashion1'
+
+  if layout_style == 'layout_1'
+    assign is_layout_1 = true
+    assign testimonial_class = 'testimonial-V01 wow fadeInLeft'
+    assign text_class = 'tes_text h4'
+    assign pagination_class = 'sw-dot-default tf-sw-pagination'
+  else
+    assign testimonial_class = 'testimonial-V01 wow fadeInLeft'
+    assign text_class = 'tes_text mb-md-32 h4'
+    assign pagination_class = 'sw-dot-default style-primary type-space-2 tf-sw-pagination primary-3'
+  endif
+
+  if section.settings.enable_border_radius
+    assign testimonial_class = testimonial_class | append: ' radius-16'
+  endif
+-%}
+
+<section class="{% if section.settings.enable_parallex %}has-overlay-50 {% endif %} {{ section_class }}">
+  {% if section.settings.bg_image != blank and section.settings.enable_parallex %}
+    <div class="position-relative z-5">
+  {% endif %}
   <div class="container">
-    {% if section.settings.heading != blank %}
-      <div class="h1 sect-title text-black fw-medium text-center wow fadeInUp">{{ section.settings.heading }}</div>
-    {% endif %}
+    <div class="sect-title {{ section.settings.heading_spacing }} {% if section.settings.header_center %} text-center {% endif %} wow fadeInUp ">
+      {% if section.settings.heading != blank %}
+        {% liquid
+          assign subtitle = false
+          if section.settings.subtitle != blank
+            assign subtitle = true
+          endif
+        %}
+
+        {% render 'title',
+          class: 's-title',
+          title: section.settings.heading,
+          subtitle: subtitle,
+          large_title: section.settings.heading_style,
+          heading_weight: section.settings.heading_weight
+        %}
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
     
-    <div dir="ltr" class="swiper tf-swiper" 
-      data-preview="{{ section.settings.slides_desktop }}"
-      data-tablet="{{ section.settings.slides_tablet }}"
-      data-mobile-sm="{{ section.settings.slides_mobile }}"
-      data-mobile="1"
-      data-space-lg="{{ section.settings.space_desktop }}"
-      data-space-md="{{ section.settings.space_tablet }}"
-      data-space="{{ section.settings.space_mobile }}" 
-      data-pagination="1" 
-      data-pagination-sm="1"
-      data-pagination-md="2" 
-      data-pagination-lg="3">
-      <div class="swiper-wrapper">
-        {% for block in section.blocks %}
-          {%- liquid
-            assign delay = 0 | plus: forloop.index0 | times: 1
-          -%}
-          <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <div class="testimonial-V01 wow fadeInLeft" {% if forloop.index > 1 %}data-wow-delay="0.{{ delay }}s"{% endif %}>
-              <div class="">
-                {% if block.settings.title != blank %}
-                  <h4 class="tes_title">{{ block.settings.title }}</h4>
-                {% endif %}
-                {% if block.settings.text != blank %}
-                  <p class="tes_text h4">
-                    “{{ block.settings.text }}“
-                  </p>
-                {% endif %}
-                <div class="tes_author">
-                  {% if block.settings.author != blank %}
-                    <p class="author-name h5">{{ block.settings.author }}</p>
+    <div {% unless is_layout_1 %}class="tf-btn-swiper-main pst-2"{% endunless %}>
+      <div dir="ltr" class="swiper tf-swiper" 
+        data-preview="{{ section.settings.slides_desktop }}"
+        data-tablet="{{ section.settings.slides_tablet }}"
+        data-mobile-sm="{{ section.settings.slides_mobile }}"
+        data-mobile="1"
+        data-space-lg="{{ section.settings.space_desktop }}"
+        data-space-md="{{ section.settings.space_tablet }}"
+        data-space="{{ section.settings.space_mobile }}" 
+        data-pagination="1" 
+        data-pagination-sm="1"
+        data-pagination-md="2" 
+        data-pagination-lg="3">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            {%- liquid
+              assign delay = 0 | plus: forloop.index0 | times: 1
+            -%}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="{{ testimonial_class }}" {% if forloop.index > 1 %}data-wow-delay="0.{{ delay }}s"{% endif %}>
+                <div class="">
+                  {% if block.settings.title != blank %}
+                    <h4 class="tes_title">{{ block.settings.title }}</h4>
                   {% endif %}
-                  {% if block.settings.verified %}
-                    <i class="author-verified icon-check-circle"></i>
+                  {% if block.settings.text != blank %}
+                    <p class="{{ text_class }}">
+                      “{{ block.settings.text }}“
+                    </p>
                   {% endif %}
-                </div>
-                {% render 'testimonial-review', rating: block.settings.rating %}
-              </div>
-              <span class="br-line"></span>
-              
-              {% if block.settings.product != blank %}
-                {% assign product = block.settings.product %}
-                <div class="tes_product">
-                  <div class="product-image">
-                    {% if product.featured_image != blank %}
-                      <img class="lazyload" 
-                        src="{{ product.featured_image | image_url }}" 
-                        data-src="{{ product.featured_image | image_url }}"
-                        alt="{{ product.title | escape }}"
-                      >
-                    {% else %}
-                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                  <div class="tes_author">
+                    {% if block.settings.author != blank %}
+                      <p class="author-name h5">{{ block.settings.author }}</p>
+                    {% endif %}
+                    {% if block.settings.verified %}
+                      <i class="author-verified icon-check-circle{% unless is_layout_1 %} fs-24{% endunless %}"></i>
                     {% endif %}
                   </div>
-                  <div class="product-infor">
-                    <h5 class="prd_name">
-                      <a href="{{ product.url }}" class="link">{{ product.title }}</a>
-                    </h5>
-                    <h6 class="prd_price">{{ product.price | money_without_trailing_zeros }}</h6>
-                  </div>
+                  {% render 'testimonial-review', rating: block.settings.rating %}
                 </div>
-              {% endif %}
+                <span class="br-line"></span>
+                
+                {% if block.settings.product != blank %}
+                  {% assign product = block.settings.product %}
+                  <div class="tes_product">
+                    <div class="product-image">
+                      {% if product.featured_image != blank %}
+                        <img class="lazyload" 
+                          src="{{ product.featured_image | image_url: width: 100 }}" 
+                          data-src="{{ product.featured_image | image_url: width: 100 }}"
+                          alt="{{ product.title | escape }}"
+                          width="100"
+                          height="{{ 100 | divided_by: product.featured_image.aspect_ratio | round }}"
+                        >
+                      {% else %}
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      {% endif %}
+                    </div>
+                    <div class="product-infor">
+                      <h5 class="prd_name">
+                        <a href="{{ product.url }}" class="link">{{ product.title }}</a>
+                      </h5>
+                      <h6 class="prd_price">{{ product.price | money_without_trailing_zeros }}</h6>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
             </div>
-          </div>
-        {% endfor %}
+          {% endfor %}
+        </div>
+        <div class="{{ pagination_class }}"></div>
       </div>
-      <div class="sw-dot-default tf-sw-pagination"></div>
+      {% unless is_layout_1 %}
+        <div class="tf-sw-nav nav-prev-swiper">
+          <i class="icon icon-caret-left"></i>
+        </div>
+        <div class="tf-sw-nav nav-next-swiper">
+          <i class="icon icon-caret-right"></i>
+        </div>
+      {% endunless %}
     </div>
   </div>
+  {% if section.settings.bg_image != blank and section.settings.enable_parallex %}
+    </div>
+  {% endif %}
 </section>
 
 {% schema %}
@@ -101,10 +197,145 @@
   "name": "Review Fashion 1",
   "settings": [
     {
+      "type": "select",
+      "id": "layout_style",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "layout_1",
+          "label": "Layout 1"
+        },
+        {
+          "value": "layout_2",
+          "label": "Layout 2"
+        }
+      ],
+      "default": "layout_1"
+    },
+    {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Customer Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "header_center",
+      "label": "Header Center",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "heading_spacing",
+      "label": "Heading Spacing",
+      "options": [
+        {
+          "value": "",
+          "label": "Large"
+        },
+        {
+          "value": "type-4",
+          "label": "Small"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "medium"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading & Subheading Color"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f4f9f9"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_parallex",
+      "label": "Enable Parallex",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Box Settings"
+    },
+    {
+      "type": "color",
+      "id": "box_bg_color",
+      "label": "Box Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_border",
+      "label": "Enable Border",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "visible_if": "{{ section.settings.enable_border }}",
+      "default": "#e5e8eb"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_border_radius",
+      "label": "Enable Border Radius",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Pagination Color"
     },
     {
       "type": "header",
@@ -145,7 +376,7 @@
       "type": "range",
       "id": "space_desktop",
       "min": 0,
-      "max": 100,
+      "max": 50,
       "step": 1,
       "label": "Spacing Desktop",
       "default": 48
@@ -154,7 +385,7 @@
       "type": "range",
       "id": "space_tablet",
       "min": 0,
-      "max": 100,
+      "max": 50,
       "step": 1,
       "label": "Spacing Tablet",
       "default": 24
@@ -177,8 +408,8 @@
       "type": "range",
       "id": "padding_top_desktop",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 120,
+      "step": 2,
       "unit": "px",
       "label": "Padding Top Desktop",
       "default": 0
@@ -187,8 +418,8 @@
       "type": "range",
       "id": "padding_bottom_desktop",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 120,
+      "step": 2,
       "unit": "px",
       "label": "Padding Bottom Desktop",
       "default": 0
@@ -198,7 +429,7 @@
       "id": "padding_top_tablet",
       "min": 0,
       "max": 100,
-      "step": 1,
+      "step": 2,
       "unit": "px",
       "label": "Padding Top Tablet",
       "default": 0
@@ -208,7 +439,7 @@
       "id": "padding_bottom_tablet",
       "min": 0,
       "max": 100,
-      "step": 1,
+      "step": 2,
       "unit": "px",
       "label": "Padding Bottom Tablet",
       "default": 0
@@ -217,8 +448,8 @@
       "type": "range",
       "id": "padding_top_mobile",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 80,
+      "step": 2,
       "unit": "px",
       "label": "Padding Top Mobile",
       "default": 0
@@ -227,8 +458,8 @@
       "type": "range",
       "id": "padding_bottom_mobile",
       "min": 0,
-      "max": 100,
-      "step": 1,
+      "max": 80,
+      "step": 2,
       "unit": "px",
       "label": "Padding Bottom Mobile",
       "default": 0
