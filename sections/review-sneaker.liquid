@@ -49,11 +49,9 @@
                 <div class="author-image">
                   {% if block.settings.author_image != blank %}
                     <img class="lazyload" 
-                      src="{{ block.settings.author_image | image_url: width: 100 }}" 
-                      data-src="{{ block.settings.author_image | image_url: width: 100 }}" 
+                      src="{{ block.settings.author_image | image_url }}" 
+                      data-src="{{ block.settings.author_image | image_url }}" 
                       alt="{{ block.settings.author_image.alt | escape }}"
-                      width="100"
-                      height="{{ 100 | divided_by: block.settings.author_image.aspect_ratio | round }}"
                     >
                   {% else %}
                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -78,11 +76,9 @@
                   <a href="{{ product.url }}" class="product-image">
                     {% if product.featured_image != blank %}
                       <img class="lazyload" 
-                        src="{{ product.featured_image | image_url: width: 100 }}" 
-                        data-src="{{ product.featured_image | image_url: width: 100 }}" 
+                        src="{{ product.featured_image | image_url }}" 
+                        data-src="{{ product.featured_image | image_url }}" 
                         alt="{{ product.title | escape }}"
-                        width="100"
-                        height="{{ 100 | divided_by: product.featured_image.aspect_ratio | round }}"
                       >
                     {% else %}
                       {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
