@@ -23,9 +23,19 @@
   <div class="container">
     <div class="sect-title type-2">
       <div class="flex-sm-1 wow fadeInUp">
-        {% if section.settings.heading != blank %}
-          <p class="s-title h1 fw-medium mb-8">{{ section.settings.heading }}</p>
-        {% endif %}
+        {% liquid
+          assign subtitle = false
+          if section.settings.subheading != blank
+            assign subtitle = true
+          endif
+        %}
+        {% render 'title',
+          class: 's-title',
+          title: section.settings.heading,
+          subtitle: subtitle,
+          large_title: section.settings.heading_style,
+          heading_weight: section.settings.heading_weight
+        %}
         {% if section.settings.subheading != blank %}
           <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
         {% endif %}
@@ -123,6 +133,42 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "medium"
     },
     {
       "type": "header",
