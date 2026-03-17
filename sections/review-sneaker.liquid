@@ -1,0 +1,333 @@
+{% style %}
+  .section-{{ section.id }}-review-sneaker {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-review-sneaker {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-review-sneaker {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="section-{{ section.id }}-review-sneaker">
+  <div class="container">
+    <div class="sect-title text-center wow fadeInUp">
+      {% if section.settings.heading != blank %}
+        <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
+      {% endif %}
+      {% if section.settings.subheading != blank %}
+        <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
+      {% endif %}
+    </div>
+    <div dir="ltr" class="swiper tf-swiper wow fadeInUp" 
+      data-preview="{{ section.settings.slides_desktop }}"
+      data-tablet="{{ section.settings.slides_tablet }}"
+      data-mobile-sm="{{ section.settings.slides_mobile }}"
+      data-mobile="1"
+      data-space-lg="{{ section.settings.space_desktop }}"
+      data-space-md="{{ section.settings.space_tablet }}"
+      data-space="{{ section.settings.space_mobile }}"
+      data-pagination="1" 
+      data-pagination-sm="2"
+      data-pagination-md="2" 
+      data-pagination-lg="3">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="testimonial-V04">
+              <div class="tes_content">
+                <div class="author-image">
+                  {% if block.settings.author_image != blank %}
+                    <img class="lazyload" 
+                      src="{{ block.settings.author_image | image_url: width: 100 }}" 
+                      data-src="{{ block.settings.author_image | image_url: width: 100 }}" 
+                      alt="{{ block.settings.author_image.alt | escape }}"
+                      width="100"
+                      height="{{ 100 | divided_by: block.settings.author_image.aspect_ratio | round }}"
+                    >
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {% endif %}
+                </div>
+                {% if block.settings.title != blank %}
+                  <h4 class="tes_title fw-semibold">{{ block.settings.title }}</h4>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <p class="tes_text h6">
+                    “{{ block.settings.text }}”
+                  </p>
+                {% endif %}
+                {% if block.settings.author != blank %}
+                  <p class="tes_author h4">{{ block.settings.author }}</p>
+                {% endif %}
+                {% render 'testimonial-review', rating: block.settings.rating %}
+              </div>
+              {% if block.settings.product != blank %}
+                {% assign product = block.settings.product %}
+                <div class="tes_product">
+                  <a href="{{ product.url }}" class="product-image">
+                    {% if product.featured_image != blank %}
+                      <img class="lazyload" 
+                        src="{{ product.featured_image | image_url: width: 100 }}" 
+                        data-src="{{ product.featured_image | image_url: width: 100 }}" 
+                        alt="{{ product.title | escape }}"
+                        width="100"
+                        height="{{ 100 | divided_by: product.featured_image.aspect_ratio | round }}"
+                      >
+                    {% else %}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {% endif %}
+                  </a>
+                  <div class="product-infor">
+                    <h5 class="prd_name">
+                      <a href="{{ product.url }}" class="link">
+                        {{ product.title }}
+                      </a>
+                    </h5>
+                    <h6 class="prd_price">{{ product.price | money_without_trailing_zeros }}</h6>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Review Sneaker",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "label": "Slides Desktop",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Slides Tablet",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "label": "Slides Mobile",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Spacing Desktop",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Spacing Tablet",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "label": "Spacing Mobile",
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top Desktop",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom Desktop",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top Tablet",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom Tablet",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top Mobile",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom Mobile",
+      "default": 0
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Dedicated service"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Brooklyn Simmons"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review Sneaker",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "title": "Dedicated service",
+            "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands.",
+            "author": "Brooklyn Simmons",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Best Product Quality",
+            "text": "The support from ACIS has been outstanding. Anytime we had a question or needed help, their team responded quickly and professionally.",
+            "author": "Mas Shin",
+            "rating": 5
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "title": "Exceptional Reliability",
+            "text": "No surprises, just consistent and dependable performance every single time without fail.",
+            "author": "Sil Vox",
+            "rating": 5
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
