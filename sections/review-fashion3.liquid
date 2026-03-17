@@ -78,7 +78,7 @@
                         {{ product.title }}
                       </a>
                     </h5>
-                    <h6 class="prd_price">{{ product.price | money }}</h6>
+                    <h6 class="prd_price">{{ product.price | money_without_trailing_zeros }}</h6>
                   </div>
                 </div>
               {% endif %}

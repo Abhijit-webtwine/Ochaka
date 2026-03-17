@@ -100,7 +100,7 @@
                         <a href="{{ product.url }}" class="link h4 name text-black">
                           {{ product.title }}
                         </a>
-                        <p class="h6 price text-black">{{ product.price | money }}</p>
+                        <p class="h6 price text-black">{{ product.price | money_without_trailing_zeros }}</p>
                       </div>
                     </div>
                   {% endif %}

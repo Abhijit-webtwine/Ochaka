@@ -71,8 +71,8 @@
                   <div class="product-image">
                     {% if product.featured_image != blank %}
                       <img class="lazyload" 
-                        src="{{ product.featured_image | image_url: width: 100 }}" 
-                        data-src="{{ product.featured_image | image_url: width: 100 }}"
+                        src="{{ product.featured_image | image_url }}" 
+                        data-src="{{ product.featured_image | image_url }}"
                         alt="{{ product.title | escape }}"
                       >
                     {% else %}
@@ -83,7 +83,7 @@
                     <h5 class="prd_name">
                       <a href="{{ product.url }}" class="link">{{ product.title }}</a>
                     </h5>
-                    <h6 class="prd_price">{{ product.price | money }}</h6>
+                    <h6 class="prd_price">{{ product.price | money_without_trailing_zeros }}</h6>
                   </div>
                 </div>
               {% endif %}
