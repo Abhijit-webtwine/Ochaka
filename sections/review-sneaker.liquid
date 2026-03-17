@@ -21,14 +21,33 @@
 
 <section class="section-{{ section.id }}-review-sneaker">
   <div class="container">
-    <div class="sect-title text-center wow fadeInUp">
-      {% if section.settings.heading != blank %}
-        <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
-      {% endif %}
-      {% if section.settings.subheading != blank %}
-        <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
-      {% endif %}
-    </div>
+    {% if section.settings.header_layout == 'with_subtitle' %}
+      <div class="sect-title text-center wow fadeInUp">
+        {% if section.settings.heading != blank %}
+          <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
+        {% endif %}
+        {% if section.settings.subheading != blank %}
+          <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.header_layout == 'with_button' %}
+      <div class="sect-title type-4">
+        <div class="flex-sm-1 wow fadeInUp">
+          <h2 class="s-title fw-normal">{{ section.settings.heading }}</h2>
+        </div>
+        <div class="group-btn-slider wow fadeInUp" data-wow-delay="0.1s">
+          <div class="tf-sw-nav style-2 type-small nav-prev-swiper">
+            <i class="icon icon-caret-left"></i>
+          </div>
+          <div class="tf-sw-nav style-2 type-small nav-next-swiper">
+            <i class="icon icon-caret-right"></i>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
     <div dir="ltr" class="swiper tf-swiper wow fadeInUp" 
       data-preview="{{ section.settings.slides_desktop }}"
       data-tablet="{{ section.settings.slides_tablet }}"
@@ -98,7 +117,6 @@
           </div>
         {% endfor %}
       </div>
-      <div class="sw-dot-default tf-sw-pagination"></div>
     </div>
   </div>
 </section>
@@ -107,6 +125,22 @@
 {
   "name": "Review Sneaker",
   "settings": [
+    {
+      "type": "select",
+      "id": "header_layout",
+      "label": "Header Layout",
+      "options": [
+      {
+      "value": "with_subtitle",
+      "label": "With Subtitle"
+      },
+      {
+      "value": "with_button",
+      "label": "With Button"
+      }
+      ],
+      "default": "with_subtitle"
+    },
     {
       "type": "text",
       "id": "heading",
