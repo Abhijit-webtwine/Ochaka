@@ -67,7 +67,7 @@
             assign delay = 0 | plus: forloop.index0 | times: 1
           -%}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <div class="testimonial-V02 hover-img wow fadeInLeft" {% if forloop.index > 1 %}data-wow-delay="0.{{ delay }}s"{% endif %}>
+            <div class="testimonial-V02 type-space-2 hover-img wow fadeInLeft" {% if forloop.index > 1 %}data-wow-delay="0.{{ delay }}s"{% endif %}>
               {% if block.settings.product != blank %}
                 {% assign product = block.settings.product %}
                 <div class="tes_product">
@@ -105,8 +105,8 @@
                   </p>
                 {% endif %}
                 {% if block.settings.author != blank %}
-                  <div class="tes_author d-flex align-items-center gap-10">
-                    <p class="h4 mb-0 text-black">{{ block.settings.author }}</p>
+                  <div class="tes_author">
+                    <p class="author-name h4">{{ block.settings.author }}</p>
                     {% if block.settings.verified %}
                       <i class="author-verified icon-check-circle fs-24"></i>
                     {% endif %}
