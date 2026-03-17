@@ -149,7 +149,7 @@
                         {% endif %}
                     </ul>
                     <ul class="tf-social-icon_2">
-                      {% render 'social-icons' %}
+                      {% render 'social-icons', white_social_icons: block.settings.white_social_icons %}
                     </ul>
                 </div>
               </div>
@@ -513,6 +513,12 @@
           "type": "text",
           "id": "email",
           "label": "Email address"
+        },
+        {
+          "type": "checkbox",
+          "id": "white_social_icons",
+          "label": "White social icons",
+          "default": false
         }
       ]
     },

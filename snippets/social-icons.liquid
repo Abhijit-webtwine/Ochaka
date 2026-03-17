@@ -1,6 +1,6 @@
 {%- if settings.social_facebook_link != blank -%}
 <li>
-  <a target="_blank" class="social-facebook" rel="noopener" href="{{ settings.social_facebook_link }}" aria-describedby="a11y-external-message">
+  <a target="_blank" class="social-facebook {% if white_social_icons %}text-white{% endif %}" rel="noopener" href="{{ settings.social_facebook_link }}" aria-describedby="a11y-external-message">
       <span class="icon">
         <i class="icon-fb"></i>
       </span>
@@ -11,7 +11,7 @@
 
 {%- if settings.social_instagram_link != blank -%}
   <li>
-    <a target="_blank" class="social-instagram" rel="noopener" href="{{ settings.social_instagram_link }}" aria-describedby="a11y-external-message">
+    <a target="_blank" class="social-instagram {% if white_social_icons %}text-white{% endif %}" rel="noopener" href="{{ settings.social_instagram_link }}" aria-describedby="a11y-external-message">
       <span class="icon">
         <i class="icon-instagram-logo"></i>
       </span>
@@ -22,7 +22,7 @@
 
 {%- if settings.social_twitter_link != blank -%}
   <li>
-    <a target="_blank" class="social-x" rel="noopener" href="{{ settings.social_twitter_link }}" aria-describedby="a11y-external-message">
+    <a target="_blank" class="social-x {% if white_social_icons %}text-white{% endif %}" rel="noopener" href="{{ settings.social_twitter_link }}" aria-describedby="a11y-external-message">
       <span class="icon">
         <i class="icon-x"></i>
       </span>
@@ -33,7 +33,7 @@
 
 {%- if settings.social_tiktok_link != blank -%}
   <li>
-    <a target="_blank" class="social-tiktok" rel="noopener" href="{{ settings.social_tiktok_link }}" aria-describedby="a11y-external-message">
+    <a target="_blank" class="social-tiktok {% if white_social_icons %}text-white{% endif %}" rel="noopener" href="{{ settings.social_tiktok_link }}" aria-describedby="a11y-external-message">
       <span class="icon">
         <i class="icon-tiktok"></i>
       </span>
