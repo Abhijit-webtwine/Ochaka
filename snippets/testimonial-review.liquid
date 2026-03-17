@@ -1,0 +1,10 @@
+<div class="rate_wrap">
+  {% assign current_rating = rating | default: 5 | plus: 0 %}
+  {% for i in (1..5) %}
+    {% if i <= current_rating %}
+      <i class="icon-star text-star"></i>
+    {% else %}
+      <i class="icon-star"></i>
+    {% endif %}
+  {% endfor %}
+</div>
