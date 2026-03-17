@@ -201,10 +201,10 @@
       <div class="col-xl-3 col-md-4 col-6 text-center text-xl-start">
         <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
           <img
-            src="{{ section.settings.logo | image_url }}"
-            alt="LOGO"
-            width="{{ section.settings.logo.width }}"
-            height="{{ section.settings.logo.height }}"
+            src="{{ section.settings.sticky_logo | image_url }}"
+            alt="{{ section.settings.sticky_logo.alt }}"
+            width="{{ section.settings.sticky_logo.width }}"
+            height="{{ section.settings.sticky_logo.height }}"
           >
         </a>
       </div>
@@ -262,6 +262,11 @@
       "type": "image_picker",
       "id": "logo_mobile",
       "label": "Logo Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "sticky_logo",
+      "label": "Sticky Logo"
     },
     {
       "type": "text",

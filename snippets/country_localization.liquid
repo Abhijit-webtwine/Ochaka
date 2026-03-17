@@ -1,6 +1,6 @@
   <select
     name="country_code"
-    class="selectpicker tf-dropdown-select style-default type-currencies"
+    class="selectpicker tf-dropdown-select style-default type-currencies {% if color_white %} color-white {% endif %}"
     onchange="this.form.submit()"
   >
     {%- for country in localization.available_countries -%}

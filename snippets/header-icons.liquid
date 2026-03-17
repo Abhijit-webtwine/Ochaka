@@ -41,7 +41,7 @@
       class="shop-cart"
     >
       <cart-drawer-open class="d-flex">
-        <button type="button" class="cart-drawer-open" aria-controls="mini-cart">
+        <button type="button" class="cart-drawer-open {% if white_icons %} text-white {% endif %}" aria-controls="mini-cart">
         <span class="cart-icon-bubble">
           <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
           {%- if cart != empty -%}
