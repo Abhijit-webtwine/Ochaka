@@ -67,7 +67,7 @@
 
 <header class="tf-header {{ header_class }}">
   <div class="header-top">
-    <div class="container-full-2">
+    <div class="{{ section.settings.header_width }}">
       <div class="row align-items-center">
         <div class="col-md-4 col-3 d-xl-none">
           <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
@@ -195,16 +195,16 @@
     </div>
   </div>
   <div class="header-inner d-none d-xl-block {% if section.settings.show_header_inner_border %} outline {% endif %}">
-    <div class="container-full-2">
+    <div class="{{ section.settings.header_width }}">
       <div class="header-inner_wrap {% if header_inner_style_2 %}wrap-2 {% endif %}">
         <div class="col-left">
-          <div class="nav-category-wrap main-action-active">
-            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active ">
+          <div class="nav-category-wrap main-action-active {% if section.settings.department_menu_open %} active-1600 {% endif %}">
+            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active">
               <span class="btn-mobile-menu {% if header_inner_style_2 %}style-white {% endif %}type-small"><span></span></span>
               <h6 class="name-category fw-semibold">{{ section.settings.department_menu_title }}</h6>
               <i class="icon icon-caret-down"></i>
             </div>
-            <ul class="box-nav-category {% if header_inner_style_2 %}type-2 {% endif %}active-item">
+            <ul class="box-nav-category {% if header_inner_style_2 %}type-2 {% endif %}active-item {% if section.settings.department_menu_open %}active {% endif %}">
               {%- for link in section.settings.department_menu.links -%}
                 {% assign icon = link.title | split: '|' | last %}
                 {% assign title = link.title | split: '|' | first %}
@@ -243,7 +243,7 @@
 {%- if section.settings.enable_sticky_header -%}
   <header class="tf-header header-fixed style-5">
     <div class="header-top d-xl-none">
-      <div class="container-full-2">
+      <div class="{{ section.settings.header_width }}">
         <div class="row align-items-center">
           <div class="col-md-4 col-3 d-xl-none">
             <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu style-white">
@@ -300,11 +300,11 @@
       </div>
     </div>
     <div class="header-inner d-none d-xl-block">
-      <div class="container-full-2">
+      <div class="{{ section.settings.header_width }}">
         <div class="header-inner_wrap">
           <div class="col-left">
             <div class="nav-category-wrap main-action-active">
-              <div class="btn-nav-drop">
+              <div class="btn-nav-drop btn-active text-nowrap">
                 <span class="btn-mobile-menu type-small"><span></span></span>
                 <h6 class="name-category fw-semibold">{{ section.settings.department_menu_title }}</h6>
                 <i class="icon icon-caret-down"></i>
@@ -358,6 +358,22 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "header_width",
+      "label": "Header Width",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "container-full-2",
+          "label": "Full Width"
+        }
+      ],
+      "default": "container-full-2"
     },
     {
       "type": "select",
@@ -428,6 +444,11 @@
       "type": "link_list",
       "id": "department_menu",
       "label": "Department Menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "department_menu_open",
+      "label": "Department Menu Initial Open"
     },
     {
       "type": "color",
