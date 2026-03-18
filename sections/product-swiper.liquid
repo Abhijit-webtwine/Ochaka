@@ -17,9 +17,17 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  .section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+  }
+  .section-{{ section.id }} .card-product {
+    background-color: {{ section.settings.card_background_color }};
+  }
+  
 </style>
 
-<section class="section-{{ section.id }}-padding">
+<section class="section-{{ section.id }}-padding section-{{ section.id }}">
   <div class="container">
     {% if section.settings.header_layout == 'with_subtitle' %}
       {% if section.settings.title != blank or section.settings.subtitle != blank %}
@@ -82,9 +90,9 @@
       </div>
     {% endif %}
 
-    {% assign classes = "" %}
+    {% assign swiper_classes = "" %}
     {% if section.settings.show_seperator %}
-      {% assign classes = "swiper-medical" %}
+      {% assign swiper_classes = "swiper-medical" %}
     {% endif %}
 
     {% render 'products-swiper',
@@ -100,7 +108,7 @@
       space_mobile: section.settings.space_mobile,
       show_stock: section.settings.show_stock,
       stock_position: section.settings.stock_position,
-      classes: classes
+      swiper_classes: swiper_classes,
     %}
   </div>
 </section>
@@ -109,6 +117,18 @@
 {
   "name": "Product Swiper",
   "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
     {
       "type": "select",
       "id": "header_layout",
