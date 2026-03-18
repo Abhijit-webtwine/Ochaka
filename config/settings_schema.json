@@ -324,7 +324,7 @@
         "id": "page_width",
         "min": 1000,
         "max": 1600,
-        "step": 100,
+        "step": 8,
         "default": 1600,
         "unit": "t:settings_schema.layout.settings.page_width.unit",
         "label": "t:settings_schema.layout.settings.page_width.label"
