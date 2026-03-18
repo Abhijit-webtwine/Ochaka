@@ -21,7 +21,7 @@
 <section class="section-{{ section.id }}-padding">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title {% if section.settings.shape == 'square' %}type-4 justify-content-center{% endif %}{% if section.settings.heading_type == 'with_button' %} type-4{% endif %}{% unless section.settings.heading_type == 'with_button' %} text-center {% endunless %} wow fadeInUp">
+      <div class="sect-title {{ section.settings.header_alignment }} {{ section.settings.header_spacing }} wow fadeInUp">
         {% liquid
           assign subtitle = false
           if section.settings.subtitle != blank
@@ -99,7 +99,7 @@
                 </p>
               {% elsif section.settings.collection_count_format == 'inline' %}
                 <div class="collection_content">
-                  <p class="collection_name h4 link">
+                  <p class="collection_name {{ section.settings.collection_heading_style }} link">
                     {{ block.settings.title | default: collection.title | default: 'Category' }}
                   </p>
                   {% if section.settings.show_count and collection != blank %}
@@ -141,6 +141,38 @@
       "id": "title",
       "label": "Heading",
       "default": "Popular Categories"
+    },
+    {
+      "type": "select",
+      "id": "header_spacing",
+      "label": "Header Spacing",
+      "options": [
+        {
+          "value": "type-4",
+          "label": "Default"
+        },
+        {
+          "value": "",
+          "label": "Extended Space"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Header Alignment",
+      "options": [
+        {
+          "value": "justify-content-center text-center",
+          "label": "Center"
+        },
+        {
+          "value": "",
+          "label": "Left"
+        }
+      ],
+      "default": ""
     },
     {
       "type": "select",
