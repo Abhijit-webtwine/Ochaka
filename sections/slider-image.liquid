@@ -1,0 +1,177 @@
+<div class="tf-slideshow-2 tf-btn-swiper-main" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="slideshow-container width-2">
+      <div dir="ltr" class="swiper tf-swiper sw-slide-show slider_effect_fade" data-loop="true" data-effect="fade"
+        data-delay="3000" data-auto="true">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'slide' -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="slider-wrap style-5">
+                  <div class="sld_image type-radius">
+                    {%- if block.settings.image != blank -%}
+                      <img src="{{ block.settings.image | image_url }}" data-src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt | default: 'Slider' }}"
+                        width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" class="lazyload scale-item sale-item-1">
+                    {%- else -%}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-100 h-100' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="sld_content type-space-x">
+                    {%- if block.settings.subheading != blank -%}
+                      <h4 class="sub-title_sld mb-8 text-primary fade-item fade-item-1">
+                        {{ block.settings.subheading }}
+                      </h4>
+                    {%- endif -%}
+                    {%- if block.settings.heading != blank -%}
+                      <h2 class="title_sld h2 type-semibold mb-16 fade-item fade-item-2">
+                        {{ block.settings.heading |  newline_to_br }}
+                      </h2>
+                    {%- endif -%}
+                    {%- if block.settings.btn_text != blank -%}
+                      <div class="fade-item fade-item-4">
+                        <a href="{{ block.settings.btn_link | default: '#' }}" class="tf-btn bg-primary primary-3 animate-btn">
+                          {{ block.settings.btn_text }}
+                          <i class="icon icon-arrow-right"></i>
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="sw-dot-default-2 style-primary primary-3 tf-sw-pagination"></div>
+      </div>
+      <div class="col-right d-none d-md-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'banner' -%}
+            <div class="box-image_V06 type-space-3 pst-center-y hover-img" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.btn_link | default: '#' }}" class="box-image_image img-style">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url }}" data-src="{{ block.settings.image | image_url }}" alt="{{ block.settings.image.alt | default: 'IMG' }}"
+                    width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" class="lazyload">
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'lazyload' }}
+                {%- endif -%}
+              </a>
+              <div class="box-image_content">
+                {%- if block.settings.subheading != blank -%}
+                  <p class="sub-title h5 fw-semibold text-primary">
+                    {{ block.settings.subheading }}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.heading != blank -%}
+                  <h4 class="title">
+                    <a href="{{ block.settings.btn_link | default: '#' }}" class="link">
+                      {{ block.settings.heading }}
+                    </a>
+                  </h4>
+                {%- endif -%}
+                {%- if block.settings.btn_text != blank -%}
+                  <a href="{{ block.settings.btn_link | default: '#' }}" class="tf-btn type-small-5 animate-btn bg-primary primary-3">
+                    {{ block.settings.btn_text }}
+                    <i class="icon icon-arrow-right"></i>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slider Image",
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "SALE OFF 50%"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Supply and distribute <br> the best medicines"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        }
+      ]
+    },
+    {
+      "type": "banner",
+      "name": "Banner",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "SALE OFF 50%"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "30 Eye and <br> Eyelash Wipes"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "btn_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider Image",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
