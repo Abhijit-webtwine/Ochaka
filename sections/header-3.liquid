@@ -32,7 +32,7 @@
     background-color: {{ section.settings.cart_count_bg }};
     color: {{ section.settings.cart_count_color }};
   }
-  .tf-header .nav-icon-item-2, .tf-header .btn-mobile-menu {
+  .tf-header .nav-icon-item-2 {
     color: {{ section.settings.header_top_color }};
   }
   .tf-header .header-inner_wrap .col-right .icon {
@@ -41,6 +41,9 @@
   .tf-header .header-inner_wrap .highlight_text {
     color: {{ section.settings.promo_highlight_color }}
   }
+  .tf-header .btn-nav-drop.style-2 {
+    background-color: {{ section.settings.department_menu_bg }};
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -48,6 +51,11 @@
   
   if section.settings.enable_sticky_header
     assign header_class = header_class | append: ' header--sticky-enabled'
+  endif
+
+  assign header_inner_style_2 = false
+  if section.settings.header_inner_style == 'style-2'
+    assign header_inner_style_2 = true
   endif
 -%}
 
@@ -188,15 +196,15 @@
   </div>
   <div class="header-inner d-none d-xl-block {% if section.settings.show_header_inner_border %} outline {% endif %}">
     <div class="container-full-2">
-      <div class="header-inner_wrap">
+      <div class="header-inner_wrap {% if header_inner_style_2 %}wrap-2 {% endif %}">
         <div class="col-left">
           <div class="nav-category-wrap main-action-active">
-            <div class="btn-nav-drop btn-active">
-              <span class="btn-mobile-menu type-small"><span></span></span>
+            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active ">
+              <span class="btn-mobile-menu {% if header_inner_style_2 %}style-white {% endif %}type-small"><span></span></span>
               <h6 class="name-category fw-semibold">{{ section.settings.department_menu_title }}</h6>
               <i class="icon icon-caret-down"></i>
             </div>
-            <ul class="box-nav-category active-item">
+            <ul class="box-nav-category {% if header_inner_style_2 %}type-2 {% endif %}active-item">
               {%- for link in section.settings.department_menu.links -%}
                 {% assign icon = link.title | split: '|' | last %}
                 {% assign title = link.title | split: '|' | first %}
@@ -209,7 +217,9 @@
               {%- endfor -%}
             </ul>
           </div>
-          <span class="br-line type-vertical h-24"></span>
+          {% unless section.settings.header_inner_style == 'style-2' %}
+            <span class="br-line type-vertical h-24"></span>
+          {% endunless %}
           <nav class="box-navigation">
             {%- render 'header-navs', menu_item_style: section.settings.menu_item_style -%}
           </nav>
@@ -420,6 +430,12 @@
       "label": "Department Menu"
     },
     {
+      "type": "color",
+      "id": "department_menu_bg",
+      "label": "Department Menu Background",
+      "default": "#ffffff"
+    },
+    {
       "type": "text",
       "id": "department_menu_title",
       "label": "Department Menu Title",
@@ -527,6 +543,16 @@
     {
       "type": "header",
       "content": "Header Inner Styling"
+    },
+    {
+      "type": "select",
+      "id": "header_inner_style",
+      "label": "Header Inner Style",
+      "default": "",
+      "options": [
+        { "value": "", "label": "Style 1" },
+        { "value": "style-2", "label": "Style 2" }
+      ]
     },
     {
       "type": "color",
