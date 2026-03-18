@@ -18,7 +18,8 @@
                   </div>
                   <div class="sld_content type-space-x">
                     {%- if block.settings.subheading != blank -%}
-                      <h4 class="sub-title_sld mb-8 text-primary fade-item fade-item-1">
+                      <h4 class="sub-title_sld mb-8 fade-item fade-item-1"
+                      style="color: {{ block.settings.subheading_color }}">
                         {{ block.settings.subheading }}
                       </h4>
                     {%- endif -%}
@@ -29,7 +30,9 @@
                     {%- endif -%}
                     {%- if block.settings.btn_text != blank -%}
                       <div class="fade-item fade-item-4">
-                        <a href="{{ block.settings.btn_link | default: '#' }}" class="tf-btn bg-primary primary-3 animate-btn">
+                        <a href="{{ block.settings.btn_link | default: '#' }}" 
+                           class="tf-btn animate-btn" 
+                           style="background-color: {{ block.settings.btn_bg_color }}; color: {{ block.settings.btn_text_color }};">
                           {{ block.settings.btn_text }}
                           <i class="icon icon-arrow-right"></i>
                         </a>
@@ -57,19 +60,22 @@
               </a>
               <div class="box-image_content">
                 {%- if block.settings.subheading != blank -%}
-                  <p class="sub-title h5 fw-semibold text-primary">
+                  <p class="sub-title h5 fw-semibold"
+                    style="color: {{ block.settings.subheading_color }}">
                     {{ block.settings.subheading }}
                   </p>
                 {%- endif -%}
                 {%- if block.settings.heading != blank -%}
                   <h4 class="title">
                     <a href="{{ block.settings.btn_link | default: '#' }}" class="link">
-                      {{ block.settings.heading }}
+                      {{ block.settings.heading |  newline_to_br }}
                     </a>
                   </h4>
                 {%- endif -%}
                 {%- if block.settings.btn_text != blank -%}
-                  <a href="{{ block.settings.btn_link | default: '#' }}" class="tf-btn type-small-5 animate-btn bg-primary primary-3">
+                  <a href="{{ block.settings.btn_link | default: '#' }}" 
+                     class="tf-btn type-small-5 animate-btn" 
+                     style="background-color: {{ block.settings.btn_bg_color }}; color: {{ block.settings.btn_text_color }};">
                     {{ block.settings.btn_text }}
                     <i class="icon icon-arrow-right"></i>
                   </a>
@@ -103,6 +109,12 @@
           "default": "SALE OFF 50%"
         },
         {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading Color",
+          "default": "#000000"
+        },
+        {
           "type": "textarea",
           "id": "heading",
           "label": "Heading",
@@ -118,6 +130,18 @@
           "type": "url",
           "id": "btn_link",
           "label": "Button Link"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Button Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
         }
       ]
     },
@@ -138,6 +162,12 @@
           "default": "SALE OFF 50%"
         },
         {
+          "type": "color",
+          "id": "subheading_color",
+          "label": "Subheading Color",
+          "default": "#000000"
+        },
+        {
           "type": "textarea",
           "id": "heading",
           "label": "Heading",
@@ -153,6 +183,18 @@
           "type": "url",
           "id": "btn_link",
           "label": "Button Link"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Button Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
         }
       ]
     }
