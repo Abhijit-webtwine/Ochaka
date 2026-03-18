@@ -1,30 +1,39 @@
-{% liquid 
-    assign style_4 = false
-    assign style_5 = false
-    assign style_6 = false
-    assign style_7 = false
-    assign style_8 = false
+{% liquid
+  assign style_4 = false
+  assign style_5 = false
+  assign style_6 = false
+  assign style_7 = false
+  assign style_8 = false
+  assign style_9 = false
 
   if settings.hover_style == 'style_4'
     assign style_4 = true
   elsif settings.hover_style == 'style_5'
     assign style_5 = true
-  elsif settings.hover_style == 'style_6'
+  elsif settings.hover_style == 'style_6' or settings.hover_style == 'style_9'
     assign style_6 = true
   elsif settings.hover_style == 'style_7'
     assign style_7 = true
   elsif settings.hover_style == 'style_8'
     assign style_8 = true
   endif
-  
+
+  if settings.hover_style == 'style_9'
+    assign style_9 = true
+  endif
+
   assign show_wishlist = show_wishlist
   assign show_compare = show_compare
   assign show_quick_view = show_quick_view
   assign show_add_to_cart = show_add_to_cart
+
+  if style_9
+    assign show_add_to_cart = false
+  endif
 %}
 {% assign has_size = false %}
 {% for option in product.options_with_values %}
-  {%  liquid 
+  {% liquid
     assign size_option = 'Size' | downcase
     assign downcased_option = option.name | downcase
     if downcased_option contains size_option
@@ -33,38 +42,66 @@
   %}
 {% endfor %}
 
-<div class="card-product {% if show_stock %}style-6 {% endif %} {{ card_class }} {{ settings.card_style }} {% if has_size %}has-size {% endif %}{% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}" data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}" data-brand="{{ product.vendor }}">
+<div
+  class="
+    card-product {% if show_stock %}style-6 {% endif %} {{ card_class }} {{ settings.card_spacing }} {{ settings.card_style }}
+    {% if has_size %}has-size {% endif %}
+    {% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}
+    {% if style_9 %}style-5 {% endif %}
+  "
+  data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
+  data-brand="{{ product.vendor }}"
+>
   <div class="card-product_wrapper d-flex {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
     {% render 'card-product-media', product: product %}
 
     {% if show_wishlist_remove %}
-      <wishlist-toggle class="remove box-icon wishlist-toggle" data-product-handle="{{ product.handle }}" data-update-icon="false">
+      <wishlist-toggle
+        class="remove box-icon wishlist-toggle"
+        data-product-handle="{{ product.handle }}"
+        data-update-icon="false"
+      >
         <i class="icon icon-trash"></i>
       </wishlist-toggle>
     {% endif %}
-    
+
     {% render 'card-product-sizes', product: product %}
 
-    {%  liquid 
+    {% liquid
       assign show_tooltips = settings.show_tooltips
       assign tooltip_direction = settings.tooltip_direction
     %}
-    
-    {% render 'icon-action-list', product: product, show_tooltips: show_tooltips, tooltip_direction: tooltip_direction, show_wishlist: show_wishlist, show_compare: show_compare, show_quick_view: show_quick_view, show_add_to_cart: show_add_to_cart %}
+
+    {% render 'icon-action-list',
+      product: product,
+      show_tooltips: show_tooltips,
+      tooltip_direction: tooltip_direction,
+      show_wishlist: show_wishlist,
+      show_compare: show_compare,
+      show_quick_view: show_quick_view,
+      show_add_to_cart: show_add_to_cart
+    %}
     {% render 'card-product-countdown', product: product, countdown_size: countdown_size %}
-    {% render 'card-product-badge', product: product, show_sale_badge: show_sale_badge, show_custom_badge: show_custom_badge %}
+    {% render 'card-product-badge',
+      product: product,
+      show_sale_badge: show_sale_badge,
+      show_custom_badge: show_custom_badge
+    %}
     {% if style_8 %}
-      {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+      {% render 'icon-add-to-cart',
+        type: 'quick_add',
+        product: product,
+        show_tooltip: show_tooltips,
+        tooltip_direction: tooltip_direction
+      %}
     {% endif %}
-    
+
     {% if product.metafields.custom.marquee_text != blank %}
       {% render 'card-product-marquee-sale', product: product %}
     {% endif %}
-    
   </div>
 
   <div class="card-product_info d-grid">
-
     {% if settings.show_rating and settings.rating_position == 'above_title' %}
       <div>
         {% render 'rating', product: product %}
@@ -72,7 +109,12 @@
           {%- if settings.show_type and product.type != blank -%}
             <p class="tag-product text-small">{{ product.type }}</p>
           {%- endif -%}
-          <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+          <a
+            href="{{ product.url }}"
+            class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link"
+          >
+            {{- product.title -}}
+          </a>
         </div>
       </div>
     {% elsif settings.show_rating and settings.rating_position == 'below_title' %}
@@ -80,19 +122,29 @@
         {%- if settings.show_type and product.type != blank -%}
           <p class="tag-product text-small">{{ product.type }}</p>
         {%- endif -%}
-        <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
+        <a
+          href="{{ product.url }}"
+          class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link"
+        >
+          {{- product.title -}}
+        </a>
       </div>
       {% render 'rating', product: product %}
     {% else %}
-    <div>
-      {%- if settings.show_type and product.type != blank -%}
-        <p class="tag-product text-small">{{ product.type }}</p>
-      {%- endif -%}
-      <a href="{{ product.url }}" class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link">{{ product.title }}</a>
-    </div>
+      <div>
+        {%- if settings.show_type and product.type != blank -%}
+          <p class="tag-product text-small">{{ product.type }}</p>
+        {%- endif -%}
+        <a
+          href="{{ product.url }}"
+          class="name-product {{ settings.product_title_size }} fw-{{ settings.title_weight }} link"
+        >
+          {{- product.title -}}
+        </a>
+      </div>
     {% endif %}
-    
-    {%  liquid 
+
+    {% liquid
       assign price = product.price | money
       assign compare_at_price = product.compare_at_price | money
 
@@ -111,7 +163,7 @@
         {% if product.compare_at_price > product.price %}
           <span class="price-old h6 fw-normal">{{ compare_at_price }}</span>
         {% endif %}
-          <span class="price-new h6">{{ price }}</span>
+        <span class="price-new h6">{{ price }}</span>
       {% else %}
         <span class="price-new h4">{{ price }}</span>
         {% if product.compare_at_price > product.price %}
@@ -119,7 +171,7 @@
         {% endif %}
       {% endif %}
     </div>
-    
+
     {% if settings.color_swatches_enabled %}
       {% render 'card-product-swatches', product: product %}
     {% endif %}
@@ -127,9 +179,25 @@
     {% if show_stock and stock_position == 'below_price' %}
       {% render 'product-stock', product: product %}
     {% endif %}
-
   </div>
+
+  {% if style_9 %}
+    <div class="card-product_action-bot mt-auto">
+      {% render 'icon-add-to-cart',
+        type: 'button',
+        product: product,
+        show_tooltip: show_tooltips,
+        tooltip_direction: tooltip_direction
+      %}
+    </div>
+  {% endif %}
+
   {% if style_7 %}
-    {% render 'icon-add-to-cart', type: 'quick_add', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% render 'icon-add-to-cart',
+      type: 'quick_add',
+      product: product,
+      show_tooltip: show_tooltips,
+      tooltip_direction: tooltip_direction
+    %}
   {% endif %}
 </div>

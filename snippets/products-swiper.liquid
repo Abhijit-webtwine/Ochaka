@@ -13,11 +13,12 @@
   @param {number} space_mobile - Space between slides on mobile
   @param {boolean} show_stock - Show stock
   @param {string} stock_position - Stock position
+  @param {string} classes - Additional classes
 {% enddoc %}
 
 <div
   dir="ltr"
-  class="swiper tf-swiper wow fadeInUp"
+  class="swiper tf-swiper wow fadeInUp {{ classes }}"
   data-preview="{{ slides_desktop }}"
   data-tablet="{{ slides_tablet }}"
   data-mobile-sm="{{ slides_mobile }}"

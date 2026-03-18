@@ -212,10 +212,9 @@
         transform: translateX(-50%);
         opacity: 0;
         visibility: hidden;
-        color: var(--white);
-        background-color: var(--black);
-        transition:
-            transform 0.3s ease 0.1s, opacity 0.3s ease 0.1s;
+        // color: var(--white);
+        // background-color: var(--black);
+        transition: transform 0.3s ease 0.1s, opacity 0.3s ease 0.1s;
         z-index: 5;
         font-size: 12px;
         line-height: 22px;
@@ -231,7 +230,7 @@
             transform: translateX(-50%) rotate(45deg);
             top: 26px;
             position: absolute;
-            background: var(--black);
+            // background: var(--black);
             width: 9px;
             height: 9px;
             z-index: -1;

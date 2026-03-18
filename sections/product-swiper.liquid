@@ -82,6 +82,11 @@
       </div>
     {% endif %}
 
+    {% assign classes = "" %}
+    {% if section.settings.show_seperator %}
+      {% assign classes = "swiper-medical" %}
+    {% endif %}
+
     {% render 'products-swiper',
       collection_ref: section.settings.collection.handle,
       products_limit: section.settings.products_limit,
@@ -94,7 +99,8 @@
       space_tablet: section.settings.space_tablet,
       space_mobile: section.settings.space_mobile,
       show_stock: section.settings.show_stock,
-      stock_position: section.settings.stock_position
+      stock_position: section.settings.stock_position,
+      classes: classes
     %}
   </div>
 </section>
@@ -240,6 +246,12 @@
       "id": "show_stock",
       "default": true,
       "label": "Show Stock"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_seperator",
+      "default": false,
+      "label": "Show Seperator"
     },
     {
       "type": "select",

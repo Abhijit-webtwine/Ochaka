@@ -90,30 +90,6 @@
     {% comment %} google fonts import ends{% endcomment %}
 
     <style>
-      :root {
-        --spacing-top: {{ settings.spacing_top_desktop }}px;
-        --spacing-bottom: {{ settings.spacing_bottom_desktop }}px;
-      }
-
-      .flat-spacing {
-        padding-top: var(--spacing-top);
-        padding-bottom: var(--spacing-bottom);
-      }
-
-      @media (max-width: 1024px) {
-        :root {
-          --spacing-top: {{ settings.spacing_top_tablet }}px;
-          --spacing-bottom: {{ settings.spacing_bottom_tablet }}px;
-        }
-      }
-
-      @media (max-width: 767px) {
-        :root {
-          --spacing-top: {{ settings.spacing_top_mobile }}px;
-          --spacing-bottom: {{ settings.spacing_bottom_mobile }}px;
-        }
-      }
-
       .mini-cart-overlay {
         position: fixed;
         top: 0;
@@ -129,6 +105,17 @@
       .cart-drawer--open .mini-cart-overlay {
         opacity: 1;
         visibility: visible;
+      }
+      .product-action_list .box-icon:hover,
+      .hover-tooltip .tooltip,
+      .hover-tooltip .tooltip::before {
+        background-color: {{ settings.hover_icon_bg_color }};
+        color: {{ settings.hover_icon_text_color }};
+      }
+
+      .tf-btn {
+        background-color: {{ settings.add_to_cart_bg_color }};
+        color: {{ settings.add_to_cart_text_color }};
       }
     </style>
 

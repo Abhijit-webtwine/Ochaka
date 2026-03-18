@@ -49,7 +49,7 @@
       </li>
     {% endif %}
 
-  {% when 'button' %}
+  {% when 'button_with_icon' %}
     {% if product.available %}
       <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
         <button type="button" class="tf-btn animate-btn add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
@@ -72,4 +72,16 @@
         <i class="icon icon-shopping-cart-simple"></i>
       </button>
     </add-to-cart>
+  {% when 'button' %}
+    {% if product.available %}
+      <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+        <button type="button" class="tf-btn type-small-4 w-100 animate-btn add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+          Add to cart
+        </button>
+      </add-to-cart>
+    {% else %}
+      <button type="button" class="tf-btn type-small-4 w-100 button--soldout" disabled="disabled">
+        Add to cart
+      </button>
+    {% endif %}
 {% endcase %}
