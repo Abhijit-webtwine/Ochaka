@@ -27,19 +27,14 @@
   assign container_class = 'container'
   assign left_col_class = 'col-xl-7 col-lg-8'
   assign right_col_class = 'col-xl-5 col-lg-4'
-  assign wrapper_extra = ''
 
   if layout_style == 'style_2'
     assign container_class = 'container-full-2'
     assign left_col_class = 'col-xl-6 col-lg-8'
     assign right_col_class = 'col-xl-6 col-lg-4'
-    if section.settings.show_seperator and section.settings.announcement_type == 'text'
-      assign wrapper_extra = 'line-bt-3'
-    else
-      assign wrapper_extra = 'line-bt'
+    if section.settings.show_seperator
+      assign seperator_type = section.settings.seperator_type
     endif
-  elsif section.settings.show_seperator
-    assign wrapper_extra = 'line-bt'
   endif
 
   assign show_right_seperator = false
@@ -48,7 +43,7 @@
   endif
 -%}
 
-<div class="tf-topbar {{ section.settings.spacing }} {{ wrapper_extra }}" id="section-{{ section.id }}">
+<div class="tf-topbar {{ section.settings.spacing }} {{ seperator_type }}" id="section-{{ section.id }}">
   <div class="{{ container_class }}">
     <div class="row">
 
@@ -235,9 +230,24 @@
     },
     {
       "type": "checkbox",
-      "id": "show_right_seperator",
-      "label": "Show Topbar Right Seperator",
-      "default": true
+      "id": "show_seperator",
+      "label": "Show Bottom Seperator"
+    },
+    {
+      "type": "select",
+      "id": "seperator_type",
+      "label": "Seperator Type",
+      "visible_if": "{{ section.settings.show_seperator }}",
+      "options": [
+        {
+          "value": "line-bt-3",
+          "label": "Style 1"
+        },
+        {
+          "value": "line-bt",
+          "label": "Style 2"
+        }
+      ]
     },
     {
       "type": "select",
@@ -314,8 +324,9 @@
     },
     {
       "type": "checkbox",
-      "id": "show_seperator",
-      "label": "Show Seperator"
+      "id": "show_right_seperator",
+      "label": "Show Seperator",
+      "default": true
     },
     {
       "type": "text",
