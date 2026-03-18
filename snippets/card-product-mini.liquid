@@ -65,10 +65,17 @@
     <div class="group-action">
       
       <div class="price-wrap mb-0">
-        <h4 class="price-new">{{ price }}</h4>
-        {%- if product.compare_at_price > product.price -%}
-          <span class="price-old h6 text-decoration-line-through">{{ compare_at_price }}</span>
-        {%- endif -%}
+        {% if settings.card_product_mini_price_position == 'price_last' %}
+          {%- if product.compare_at_price > product.price -%}
+            <span class="price-old h6 fw-normal text-decoration-line-through">{{ compare_at_price }}</span>
+          {%- endif -%}
+          <span class="price-new h6">{{ price }}</span>
+        {% else %}
+          <h4 class="price-new">{{ price }}</h4>
+          {%- if product.compare_at_price > product.price -%}
+            <span class="price-old h6 text-decoration-line-through">{{ compare_at_price }}</span>
+          {%- endif -%}
+        {% endif %}
       </div>
 
       <ul class="product-action_list style-row">

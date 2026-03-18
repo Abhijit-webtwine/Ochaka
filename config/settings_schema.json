@@ -686,6 +686,22 @@
           }
         ],
         "default": "default"
+      },
+      {
+        "type": "select",
+        "id": "card_product_mini_price_position",
+        "label": "Price Position",
+        "options": [
+          {
+            "value": "price_first",
+            "label": "Price First"
+          },
+          {
+            "value": "price_last",
+            "label": "Price Last"
+          }
+        ],
+        "default": "price_first"
       }
     ]
   },
