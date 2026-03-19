@@ -1,0 +1,348 @@
+{% capture swiper_content %}
+  {% render 'product-swiper-block', section: block %}
+{% endcapture %}
+
+{% render 'product-swiper-wrapper', id: block.id, settings: block.settings, content: swiper_content %}
+
+{% schema %}
+{
+  "name": "Product Swiper",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Card Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "select",
+      "id": "header_layout",
+      "label": "Header Layout",
+      "options": [
+        {
+          "value": "with_subtitle",
+          "label": "With Subtitle"
+        },
+        {
+          "value": "with_button",
+          "label": "With Button"
+        },
+        {
+          "value": "with_button_and_icon",
+          "label": "With Button and Icon"
+        }
+      ],
+      "default": "with_subtitle"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Best Seller"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "options": [
+        {
+          "value": "true",
+          "label": "Large"
+        },
+        {
+          "value": "false",
+          "label": "Small"
+        }
+      ],
+      "default": "true"
+    },
+    {
+      "type": "select",
+      "id": "heading_weight",
+      "label": "Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "none",
+          "label": "None"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "header_spacing",
+      "label": "Header Spacing",
+      "options": [
+        {
+          "value": "type-4",
+          "label": "Default"
+        },
+        {
+          "value": "",
+          "label": "Extended Space"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "visible_if": "{{ block.settings.header_layout == 'with_subtitle' }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "visible_if": "{{ block.settings.header_layout == 'with_button' or block.settings.header_layout == 'with_button_and_icon' }}"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "visible_if": "{{ block.settings.header_layout == 'with_button' or block.settings.header_layout == 'with_button_and_icon' }}",
+      "default": "Shop Now"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Products Limit"
+    },
+    {
+      "type": "select",
+      "id": "grid_rows",
+      "label": "Grid Rows",
+      "options": [
+        { "value": "1", "label": "1 Row" },
+        { "value": "2", "label": "2 Rows" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "countdown_size",
+      "label": "Product Countdown Size",
+      "options": [
+        { "value": "type-2", "label": "Small" },
+        { "value": "", "label": "Medium" }
+      ],
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timer",
+      "default": false,
+      "label": "Show Timer",
+      "visible_if": "{{ block.settings.header_layout == 'with_button' or block.settings.header_layout == 'with_button_and_icon' }}"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date",
+      "info": "Format: YYYY-MM-DD (Example: 2026-03-09)",
+      "visible_if": "{{ block.settings.show_timer }}"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End time (24h)",
+      "info": "Format: HH:MM (Example: 23:59)",
+      "default": "23:59",
+      "visible_if": "{{ block.settings.show_timer }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_seperator",
+      "default": false,
+      "label": "Show Seperator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "default": true,
+      "label": "Show Stock"
+    },
+    {
+      "type": "select",
+      "id": "stock_position",
+      "label": "Stock Position",
+      "options": [
+        {
+          "value": "above_price",
+          "label": "Above Price"
+        },
+        {
+          "value": "below_price",
+          "label": "Below Price"
+        }
+      ],
+      "default": "above_price"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 12
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Swiper"
+    }
+  ]
+}
+{% endschema %}

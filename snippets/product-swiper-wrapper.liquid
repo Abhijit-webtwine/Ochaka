@@ -1,0 +1,49 @@
+<style>
+  .section-{{ id }}-padding {
+    padding-top: {{ settings.padding_top_mobile }}px;
+    padding-bottom: {{ settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ id }}-padding {
+      padding-top: {{ settings.padding_top_tablet }}px;
+      padding-bottom: {{ settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ id }}-padding {
+      padding-top: {{ settings.padding_top_desktop }}px;
+      padding-bottom: {{ settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  .section-{{ id }} {
+    background-color: {{ settings.background_color }};
+  }
+
+  .section-{{ id }} .sect-title h2 {
+    color: {{ settings.text_color }};
+  }
+
+  .section-{{ id }} .tf-btn-line {
+    color: {{ settings.text_color }};
+    background: linear-gradient(to right, var(--primary) 50%, {{ settings.text_color }} 50%);
+    background-size: 200% 100%;
+    background-position: right;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .section-{{ id }} .tf-btn-line::after {
+    background-color: {{ settings.text_color }};
+  }
+  .section-{{ id }} .card-product {
+    background-color: {{ settings.card_background_color }};
+  }
+</style>
+
+<section class="section-{{ id }}-padding section-{{ id }}">
+  <div class="container">
+    {{ content }}
+  </div>
+</section>

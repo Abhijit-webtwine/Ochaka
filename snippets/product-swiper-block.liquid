@@ -2,7 +2,6 @@
   Renders a product swiper block with a section header.
   @param {object} section - The section object containing settings
 {% endcomment %}
-
 {% if section.settings.header_layout == 'with_subtitle' %}
   {% if section.settings.title != blank or section.settings.subtitle != blank %}
     <div class="sect-title {% if section.settings.subtitle == blank %}justify-content-center{% endif %} {{ section.settings.header_spacing }} text-center wow fadeInUp">
@@ -32,17 +31,17 @@
   assign show_timer = false
   if section.settings.show_timer
     assign show_timer = true
+  endif
 
-    if section.settings.header_layout == 'with_button'
-      assign header_class = "s-title flex-grow-1 flex-shrink-1 flex-basis-0"
-      assign button_class = "d-flex justify-content-end flex-grow-1 flex-shrink-1 flex-basis-0"
-    endif
+  if section.settings.header_layout == 'with_button'
+    assign header_class = "s-title flex-grow-1 flex-shrink-1 flex-basis-0"
+    assign button_class = "d-flex justify-content-end flex-grow-1 flex-shrink-1 flex-basis-0"
+  endif
 
-    if section.settings.header_layout == "with_button_and_icon"
-      assign header_class = "s-title flex-grow-1 flex-shrink-1 flex-basis-0"
-      assign button_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
-    endif
-  endif  
+  if section.settings.header_layout == "with_button_and_icon"
+    assign header_class = "s-title flex-grow-1 flex-shrink-1 flex-basis-0"
+    assign button_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
+  endif
 %}
 
 {% if section.settings.header_layout == 'with_button' %}
