@@ -40,92 +40,11 @@
   .section-{{ section.id }} .card-product {
     background-color: {{ section.settings.card_background_color }};
   }
-  
 </style>
 
 <section class="section-{{ section.id }}-padding section-{{ section.id }}">
   <div class="container">
-    {% if section.settings.header_layout == 'with_subtitle' %}
-      {% if section.settings.title != blank or section.settings.subtitle != blank %}
-        <div class="sect-title {% if section.settings.subtitle == blank %}justify-content-center{% endif %} {{ section.settings.header_spacing }} text-center wow fadeInUp">
-          {% liquid
-            assign subtitle = false
-            if section.settings.subtitle != blank
-              assign subtitle = true
-            endif
-          %}
-
-          {% render 'title',
-            class: 's-title',
-            title: section.settings.title,
-            subtitle: subtitle,
-            large_title: section.settings.heading_style,
-            heading_weight: section.settings.heading_weight,
-          %}
-
-          {% if section.settings.subtitle != blank %}
-            <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
-          {% endif %}
-        </div>
-      {% endif %}
-    {% endif %}
-
-    {% if section.settings.header_layout == 'with_button' %}
-      <div class="sect-title type-4 wow fadeInUp">
-        {% liquid
-          assign subtitle = false
-          if section.settings.subtitle != blank
-            assign subtitle = true
-          endif
-        %}
-
-        {% render 'title',
-          class: 's-title',
-          title: section.settings.title,
-          subtitle: false,
-          large_title: section.settings.heading_style,
-          heading_weight: section.settings.heading_weight,
-        %}
-        {% if section.settings.button_link != blank %}
-          <a href="{{ section.settings.button_link }}" class="tf-btn-line">
-            {{ section.settings.button_text }}
-          </a>
-        {% endif %}
-      </div>
-    {% endif %}
-
-    {% if section.settings.header_layout == 'with_button_and_icon' %}
-      <div class="sect-title type-3 type-2 wow fadeInUp">
-        <h2 class="s-title type-semibold text-nowrap">{{ section.settings.title }}</h2>
-        {% if section.settings.button_link != blank %}
-          <a href="{{ section.settings.button_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
-            {{ section.settings.button_text }}
-            <i class="icon icon-caret-circle-right"></i>
-          </a>
-        {% endif %}
-      </div>
-    {% endif %}
-
-    {% assign swiper_classes = "" %}
-    {% if section.settings.show_seperator %}
-      {% assign swiper_classes = "swiper-medical" %}
-    {% endif %}
-
-    {% render 'products-swiper',
-      collection_ref: section.settings.collection.handle,
-      products_limit: section.settings.products_limit,
-      grid_rows: section.settings.grid_rows,
-      slides_desktop: section.settings.slides_desktop,
-      slides_tablet: section.settings.slides_tablet,
-      slides_mobile: section.settings.slides_mobile,
-      countdown_size: section.settings.countdown_size,
-      space_desktop: section.settings.space_desktop,
-      space_tablet: section.settings.space_tablet,
-      space_mobile: section.settings.space_mobile,
-      show_stock: section.settings.show_stock,
-      stock_position: section.settings.stock_position,
-      swiper_classes: swiper_classes,
-    %}
+    {% render 'product-swiper-block', section: section %}
   </div>
 </section>
 
@@ -285,15 +204,37 @@
     },
     {
       "type": "checkbox",
-      "id": "show_stock",
-      "default": true,
-      "label": "Show Stock"
+      "id": "show_timer",
+      "default": false,
+      "label": "Show Timer",
+      "visible_if": "{{ section.settings.header_layout == 'with_button' or section.settings.header_layout == 'with_button_and_icon' }}"
+    },
+    {
+      "type": "text",
+      "id": "end_date",
+      "label": "End date",
+      "info": "Format: YYYY-MM-DD (Example: 2026-03-09)",
+      "visible_if": "{{ section.settings.show_timer }}"
+    },
+    {
+      "type": "text",
+      "id": "end_time",
+      "label": "End time (24h)",
+      "info": "Format: HH:MM (Example: 23:59)",
+      "default": "23:59",
+      "visible_if": "{{ section.settings.show_timer }}"
     },
     {
       "type": "checkbox",
       "id": "show_seperator",
       "default": false,
       "label": "Show Seperator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "default": true,
+      "label": "Show Stock"
     },
     {
       "type": "select",
