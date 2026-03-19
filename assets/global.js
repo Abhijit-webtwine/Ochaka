@@ -825,14 +825,14 @@ class CartDrawerOpen extends HTMLElement {
   constructor() {
     super();
     this.classes = {
-      open: 'cart-drawer--open',
+      open: ['cart-drawer--open', 'overflow-hidden']  
     };
   }
   connectedCallback() {
     this.querySelector('.cart-drawer-open').addEventListener('click', this.openDrawer.bind(this));
   }
   openDrawer() {
-    document.body.classList.add(this.classes.open);
+    document.body.classList.add(...this.classes.open);
   }
 
 }
@@ -842,14 +842,14 @@ class CartDrawerClose extends HTMLElement {
   constructor() {
     super();
     this.classes = {
-      open: 'cart-drawer--open',
+      open: ['cart-drawer--open', 'overflow-hidden']
     };
   }
   connectedCallback() {
     this.querySelector('.cart-drawer-close').addEventListener('click', this.closeDrawer.bind(this));
   }
   closeDrawer() {
-    document.body.classList.remove(this.classes.open);
+    document.body.classList.remove(...this.classes.open);
   }
 }
 customElements.define('cart-drawer-close', CartDrawerClose);
