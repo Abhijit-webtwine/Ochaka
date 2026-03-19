@@ -775,6 +775,10 @@
           {
             "value": "style_9",
             "label": "Style 9"
+          },
+          {
+            "value": "style_10",
+            "label": "Style 10"
           }
         ],
         "default": "style_4",

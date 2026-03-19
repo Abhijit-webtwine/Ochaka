@@ -10,16 +10,18 @@
     assign style_4 = true
   elsif settings.hover_style == 'style_5'
     assign style_5 = true
-  elsif settings.hover_style == 'style_6' or settings.hover_style == 'style_9'
+  elsif settings.hover_style == 'style_6'
     assign style_6 = true
   elsif settings.hover_style == 'style_7'
     assign style_7 = true
   elsif settings.hover_style == 'style_8'
     assign style_8 = true
-  endif
-
-  if settings.hover_style == 'style_9'
+  elsif settings.hover_style == 'style_9'
     assign style_9 = true
+    assign style_6 = true
+  elsif settings.hover_style == 'style_10'
+    assign style_6 = true
+    assign style_10 = true
   endif
 
   assign show_wishlist = show_wishlist
@@ -27,7 +29,7 @@
   assign show_quick_view = show_quick_view
   assign show_add_to_cart = show_add_to_cart
 
-  if style_9
+  if style_9 or style_10
     assign show_add_to_cart = false
   endif
 %}
@@ -48,6 +50,8 @@
     {% if has_size %}has-size {% endif %}
     {% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}
     {% if style_9 %}style-5 {% endif %}
+    {% if style_10 %}hover-xl-btn_bot {% endif %}
+
   "
   data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
   data-brand="{{ product.vendor }}"
@@ -181,7 +185,7 @@
     {% endif %}
   </div>
 
-  {% if style_9 %}
+  {% if style_9 or style_10 %}
     <div class="card-product_action-bot mt-auto">
       {% render 'icon-add-to-cart',
         type: 'button',
