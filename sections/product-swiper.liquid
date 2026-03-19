@@ -21,6 +21,22 @@
   .section-{{ section.id }} {
     background-color: {{ section.settings.background_color }};
   }
+
+  .section-{{ section.id }} .sect-title h2 {
+    color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }} .tf-btn-line {
+    color: {{ section.settings.text_color }};
+    background: linear-gradient(to right, var(--primary) 50%, {{ section.settings.text_color }} 50%);
+    background-size: 200% 100%;
+    background-position: right;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .section-{{ section.id }} .tf-btn-line::after {
+    background-color: {{ section.settings.text_color }};
+  }
   .section-{{ section.id }} .card-product {
     background-color: {{ section.settings.card_background_color }};
   }
@@ -128,6 +144,12 @@
       "id": "card_background_color",
       "label": "Card Background Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
     },
     {
       "type": "select",

@@ -49,11 +49,18 @@
                 assign button_class = 'tf-btn-line letter-space-0'
                 assign wrap_image_link = false
                 assign title_variant = 'v06'
+
                 if is_v05
                   assign sale_class = 'fw-semibold'
-                  assign button_class = 'tf-btn-line fw-bold letter-space-0'
+                  if section.settings.button_type == 'underline'
+                    assign button_class = 'tf-btn-line fw-bold letter-space-0'
+                  endif
                   assign wrap_image_link = true
                   assign title_variant = 'v05'
+                endif
+
+                if section.settings.button_type == 'pill'
+                  assign button_class = 'tf-btn type-small-5 animate-btn'
                 endif
               %}
               <div class="{{ section.settings.box_type }} {{ section.settings.spacing_type }} hover-img wow fadeInLeft"{% if forloop.index > 1 %} data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"{% endif %}>
@@ -99,7 +106,7 @@
                 <div class="box-image_content">
                   <div>
                     {% if block.settings.sale_text != blank %}
-                      <p class="{{ sale_class }} sub-title h6 text-primary">
+                      <p class="{{ sale_class }} sub-title {{ block.settings.sale_text_size }}" style="color: {{ block.settings.sale_text_color }}">
                         {{ block.settings.sale_text }}
                       </p>
                     {% endif %}
@@ -130,6 +137,9 @@
                   {% if block.settings.button_text != blank %}
                     <a href="{{ block.settings.link | default: '#' }}" class="{{ button_class }}">
                       {{ block.settings.button_text }}
+                      {% if section.settings.button_type == 'pill' %}
+                        <i class="icon icon-arrow-right"></i>
+                      {% endif %}
                     </a>
                   {% endif %}
                 </div>
@@ -181,6 +191,10 @@
       "default": "type-space-1",
       "options": [
         {
+          "value": "type-space-3",
+          "label": "Extra Loose"
+        },
+        {
           "value": "type-space-1",
           "label": "Loose"
         },
@@ -189,6 +203,36 @@
           "label": "Tight"
         }
       ]
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "Button Type",
+      "default": "underline",
+      "options": [
+        {
+          "value": "pill",
+          "label": "Pill"
+        },
+        {
+          "value": "underline",
+          "label": "Underline"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.button_type == 'pill' }}"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.button_type == 'pill' }}"
     },
     {
       "type": "range",
@@ -345,6 +389,28 @@
           "type": "richtext",
           "id": "subtitle",
           "label": "Subtitle"
+        },
+        {
+          "type": "color",
+          "id": "sale_text_color",
+          "label": "Sale Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "select",
+          "id": "sale_text_size",
+          "label": "Sale Text Size",
+          "options": [
+            {
+              "value": "h6",
+              "label": "Small"
+            },
+            {
+              "value": "h5",
+              "label": "Medium"
+            }
+          ],
+          "default": "h6"
         },
         {
           "type": "text",
