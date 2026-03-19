@@ -17,6 +17,12 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  {% if section.settings.show_date == 'tag' %}
+    .section-{{ section.id }}-featured-blog .entry_tag .name-tag {
+      background-color: {{ section.settings.date_color }};
+    }
+  {% endif %}
 {% endstyle %}
 
 <div class="section-{{ section.id }}-featured-blog">
@@ -24,7 +30,7 @@
 
     {% if section.settings.header_layout == 'with_subtitle' %}
       {% if section.settings.heading != blank or section.settings.subheading != blank %}
-        <div class="sect-title {% if section.settings.subheading == blank %}justify-content-center{% endif %} {{ section.settings.header_spacing }} text-center wow fadeInUp">
+        <div class="sect-title {{ section.settings.header_alignment }} {{ section.settings.header_spacing }} wow fadeInUp">
           {% liquid
             assign subtitle = false
             if section.settings.subheading != blank
@@ -80,7 +86,7 @@
           {% for article in blog.articles limit: section.settings.posts_limit %}
             <div class="swiper-slide">
               <div
-                class="article-blog {{ section.settings.blog_style }} hover-img4 wow fadeInLeft"
+                class="article-blog {{ section.settings.card_layout }} {{ section.settings.blog_style }} hover-img4 wow fadeInLeft"
                 {% if forloop.index0 > 0 %}
                   data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"
                 {% endif %}
@@ -99,7 +105,7 @@
                 </a>
                 
                 {% if section.settings.show_date == "tag"%}
-                  <div class="entry_tag">
+                  <div class="entry_tag {% if section.settings.card_layout == 'style-radius' %}pst-2{% endif %}">
                     <a href="{{ blog.url }}" class="name-tag h6 link">
                       {{ article.published_at | date: "%B %d, %Y" }}
                     </a>
@@ -147,39 +153,6 @@
   "settings": [
     {
       "type": "select",
-      "id": "header_layout",
-      "label": "Header Layout",
-      "options": [
-        {
-          "value": "with_subtitle",
-          "label": "With Subtitle"
-        },
-
-        {
-          "value": "with_button_and_icon",
-          "label": "With Button and Icon"
-        }
-      ],
-      "default": "with_subtitle"
-    },
-    {
-      "type": "select",
-      "id": "header_spacing",
-      "label": "Header Spacing",
-      "options": [
-        {
-          "value": "type-4",
-          "label": "Default"
-        },
-        {
-          "value": "",
-          "label": "Extended Space"
-        }
-      ],
-      "default": ""
-    },
-    {
-      "type": "select",
       "id": "blog_style",
       "label": "Blog Style",
       "options": [
@@ -211,6 +184,13 @@
       "default": "tag"
     },
     {
+      "type": "color",
+      "id": "date_color",
+      "label": "Date Color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.show_date == 'tag' }}"
+    },
+    {
       "type": "checkbox",
       "id": "show_read_more",
       "label": "Show Read More",
@@ -228,6 +208,22 @@
       "label": "Disable Content Spacing",
       "default": false,
       "visible_if": "{{ section.settings.blog_style == '' }}"
+    },
+    {
+      "type": "select",
+      "id": "card_layout",
+      "label": "Card Layout",
+      "options": [
+        {
+          "value": "style-radius",
+          "label": "Rounded"
+        },
+        {
+          "value": "",
+          "label": "Sharp"
+        }
+      ],
+      "default": ""
     },
     {
       "type": "range",
@@ -282,6 +278,50 @@
       "max": 100,
       "step": 1,
       "default": 12
+    },
+    {
+      "type": "select",
+      "id": "header_layout",
+      "label": "Header Layout",
+      "options": [
+        {
+          "value": "with_subtitle",
+          "label": "With Subtitle"
+        },
+
+        {
+          "value": "with_button_and_icon",
+          "label": "With Button and Icon"
+        }
+      ],
+      "default": "with_subtitle"
+    },
+    {
+      "type": "select",
+      "id": "header_spacing",
+      "label": "Header Spacing",
+      "options": [
+        {
+          "value": "type-4",
+          "label": "Default"
+        },
+        {
+          "value": "",
+          "label": "Extended Space"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "justify-content-between", "label": "Left" },
+        { "value": "justify-content-center", "label": "Center" },
+        { "value": "justify-content-end", "label": "Right" }
+      ],
+      "default": "justify-content-center"
     },
     {
       "type": "text",
