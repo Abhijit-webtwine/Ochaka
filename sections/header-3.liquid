@@ -194,17 +194,20 @@
       </div>
     </div>
   </div>
+  {% if section.settings.department_menu_open and template == 'index' %}
+    {% assign department_menu_open = true %}
+  {% endif %}
   <div class="header-inner d-none d-xl-block {% if section.settings.show_header_inner_border %} outline {% endif %}">
     <div class="{{ section.settings.header_width }}">
       <div class="header-inner_wrap {% if header_inner_style_2 %}wrap-2 {% endif %}">
         <div class="col-left">
-          <div class="nav-category-wrap main-action-active {% if section.settings.department_menu_open %} active-1600 {% endif %}">
+          <div class="nav-category-wrap main-action-active {% if department_menu_open %} active-1600 {% endif %}">
             <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active">
               <span class="btn-mobile-menu {% if header_inner_style_2 %}style-white {% endif %}type-small"><span></span></span>
               <h6 class="name-category fw-semibold">{{ section.settings.department_menu_title }}</h6>
               <i class="icon icon-caret-down"></i>
             </div>
-            <ul class="box-nav-category {% if header_inner_style_2 %}type-2 {% endif %}active-item {% if section.settings.department_menu_open %}active {% endif %}">
+            <ul class="box-nav-category {% if header_inner_style_2 %}type-2 {% endif %}active-item {% if department_menu_open %}active {% endif %}">
               {%- for link in section.settings.department_menu.links -%}
                 {% assign icon = link.title | split: '|' | last %}
                 {% assign title = link.title | split: '|' | first %}
