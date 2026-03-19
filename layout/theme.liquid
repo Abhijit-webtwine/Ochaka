@@ -44,7 +44,6 @@
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 
     {%- liquid
-      render 'css-variables'
       echo 'base.css' | asset_url | stylesheet_tag: preload: true
 
       if text_direction == 'rtl'
