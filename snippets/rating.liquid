@@ -1,10 +1,8 @@
-{%- if product.metafields.judgeme.badge != blank -%}
-  <div class="rate_wrap {{ classes }}">
-    {%- assign rating = product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 -%}
-    {%- assign rating_count = product.metafields.reviews.rating_count | default: 0 -%}
-    {%- for i in (1..5) -%}
-      <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
-    {%- endfor -%}
-    <span class="rate_count"> ({{ rating_count }} reviews) </span>
-  </div>
-{% endif %}
+<div class="rate_wrap {{ classes }}">
+  {%- assign rating = product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 -%}
+  {%- assign rating_count = product.metafields.reviews.rating_count | default: 0 -%}
+  {%- for i in (1..5) -%}
+    <i class="icon-star {% if i <= rating %}text-star{% endif %}"></i>
+  {%- endfor -%}
+  <span class="rate_count"> ({{ rating_count }} reviews) </span>
+</div>

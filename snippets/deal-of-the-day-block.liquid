@@ -1,0 +1,112 @@
+<div class="sect-title type-4 wow fadeInUp">
+  <h2 class="s-title fw-normal">{{ section.settings.title }}</h2>
+  {%- if section.settings.button_link != blank -%}
+    <a href="{{ section.settings.button_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
+      {{ section.settings.button_text }}
+      <i class="icon icon-caret-circle-right"></i>
+    </a>
+  {%- endif -%}
+</div>
+
+{%- assign collection = section.settings.collection -%}
+{%- assign products_limit = section.settings.products_limit | default: 6 -%}
+{%- assign slides_desktop = section.settings.slides_desktop | default: 3 -%}
+{%- assign slides_tablet = section.settings.slides_tablet | default: 2 -%}
+{%- assign slides_mobile = section.settings.slides_mobile | default: 1 -%}
+
+<div
+  dir="ltr"
+  class="swiper tf-swiper wow fadeInUp"
+  data-preview="{{ slides_desktop }}"
+  data-tablet="{{ slides_tablet }}"
+  data-mobile-sm="{{ slides_mobile }}"
+  data-mobile="1"
+  data-space-lg="24"
+  data-space-md="24"
+  data-space="24"
+  data-pagination="1"
+  data-pagination-sm="1"
+  data-pagination-md="2"
+  data-pagination-lg="3"
+>
+  <div class="swiper-wrapper">
+    {%- if collection != blank and collection.products.size > 0 -%}
+
+      {%- assign featured_product = collection.products.first -%}
+
+      {%- comment -%} Slide 1: Featured large card (hidden on mobile, shown sm+) {%- endcomment -%}
+      <div class="swiper-slide d-none d-sm-block">
+        {% render 'card-product', product: featured_product, card_class: 'radius-16',
+          show_tooltips: true,
+          tooltip_direction: 'left',
+          show_wishlist: true,
+          show_compare: true,
+          show_quick_view: true,
+          show_add_to_cart: true,
+          show_stock: true,
+          stock_position: 'above_price'
+        %}
+      </div>
+
+      {%- comment -%} Slides 2+: Group products into slides of 3 cards each {%- endcomment -%}
+      {%- assign product_limit_mini = products_limit | minus: 1 -%}
+      {%- assign current_group_markup = '' -%}
+      {%- assign products_per_slide = 3 -%}
+      
+      {%- for product in collection.products offset: 1 limit: product_limit_mini -%}
+        {%- capture card_html -%}
+          {% render 'card-product-mini', product: product, card_class: 'style-border bg-white' %}
+        {%- endcapture -%}
+        
+        {%- assign current_group_markup = current_group_markup | append: card_html -%}
+        
+        {%- assign index_in_loop = forloop.index -%}
+        {%- assign modulo_val = index_in_loop | modulo: products_per_slide -%}
+        
+        {%- if modulo_val == 0 or forloop.last -%}
+          <div class="swiper-slide">
+            <div class="list-ver gap-24">
+              {{ current_group_markup }}
+            </div>
+          </div>
+          {%- assign current_group_markup = '' -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+    {%- else -%}
+
+      {%- comment -%} Fallback placeholders when no collection is selected {%- endcomment -%}
+      <div class="swiper-slide d-none d-sm-block">
+        <div class="card-product style-6 style-padding-3 radius-16">
+          <div class="card-product_wrapper aspect-ratio-0 d-flex h-100">
+            {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product bg-light w-100' }}
+          </div>
+          <div class="card-product_info d-grid">
+            <div>
+              <a href="#" class="link name-product h4">Assign a Collection in Settings</a>
+            </div>
+            <div class="price-wrap">
+              <span class="price-new h6">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {%- for i in (1..2) -%}
+        <div class="swiper-slide">
+          <div class="list-ver gap-24">
+            {%- for j in (1..3) -%}
+              <div class="card-product product-style_list-mini type-2 style-border hover-img bg-white">
+                <div class="card-product_wrapper aspect-ratio-0 d-flex">
+                  {{ 'product-apparel-' | append: j | placeholder_svg_tag: 'img-style img-product bg-light w-100' }}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endfor -%}
+
+    {%- endif -%}
+  </div>
+  <div class="sw-dot-default tf-sw-pagination"></div>
+</div>
