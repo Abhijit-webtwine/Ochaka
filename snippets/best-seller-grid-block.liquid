@@ -156,7 +156,7 @@
 
           <div class="hidden-variant-data d-none">
             {% for variant in main_product.variants %}
-              <div data-variant-id="{{ variant.id }}">
+              <div data-variant-id="{{ variant.id }}" data-variant-image="{{ variant.featured_image | image_url: width: 800 }}">
                 <div class="variant-price">
                   <span class="price-new h4">{{ variant.price | money }}</span>
                   {%- if variant.compare_at_price > variant.price -%}
@@ -170,22 +170,59 @@
             {% endfor %}
           </div>
           <script>
-            document.addEventListener('variant:change', function (e) {
-              if (e.detail.sectionId === '{{ section.id }}') {
-                const variantId = e.detail.variant.id;
-                const box = e.target.closest('.banner-card_product');
+            (function() {
+              var sectionId = '{{ section.id }}';
+              var swiperInstance = null;
+
+              // Initialize Swiper for this block's main image gallery
+              document.addEventListener('DOMContentLoaded', function() {
+                var container = document.querySelector('#price-' + sectionId);
+                if (!container) return;
+                var block = container.closest('.banner-card_product');
+                if (!block) return;
+                var swiperEl = block.querySelector('.tf-product-media-main');
+                if (swiperEl && typeof Swiper !== 'undefined') {
+                  swiperInstance = new Swiper(swiperEl, {
+                    spaceBetween: 0,
+                    slidesPerView: 1,
+                    allowTouchMove: true
+                  });
+                }
+              });
+
+              // Handle variant change: update price, inventory and slide image
+              document.addEventListener('variant:change', function(e) {
+                if (e.detail.sectionId !== sectionId) return;
+                var variantId = e.detail.variant.id;
+                var box = e.target.closest('.banner-card_product');
                 if (!box) return;
 
-                const hiddenData = box.querySelector('.hidden-variant-data [data-variant-id="' + variantId + '"]');
-                if (hiddenData) {
-                  const priceWrap = box.querySelector('#price-{{ section.id }}');
-                  if (priceWrap) priceWrap.innerHTML = hiddenData.querySelector('.variant-price').innerHTML;
+                var hiddenData = box.querySelector('.hidden-variant-data [data-variant-id="' + variantId + '"]');
+                if (!hiddenData) return;
 
-                  const inventoryWrap = box.querySelector('#inventory-{{ section.id }}');
-                  if (inventoryWrap) inventoryWrap.innerHTML = hiddenData.querySelector('.variant-inventory').innerHTML;
+                // Update price
+                var priceWrap = box.querySelector('#price-' + sectionId);
+                if (priceWrap) priceWrap.innerHTML = hiddenData.querySelector('.variant-price').innerHTML;
+
+                // Update inventory
+                var inventoryWrap = box.querySelector('#inventory-' + sectionId);
+                if (inventoryWrap) inventoryWrap.innerHTML = hiddenData.querySelector('.variant-inventory').innerHTML;
+
+                // Slide to variant image
+                var variantImg = hiddenData.getAttribute('data-variant-image');
+                if (variantImg && swiperInstance) {
+                  var baseTarget = variantImg.split('?')[0];
+                  var slides = box.querySelectorAll('.tf-product-media-main .swiper-slide img');
+                  for (var i = 0; i < slides.length; i++) {
+                    var slideSrc = (slides[i].getAttribute('data-src') || slides[i].src || '').split('?')[0];
+                    if (slideSrc === baseTarget || slideSrc.includes(baseTarget) || baseTarget.includes(slideSrc)) {
+                      swiperInstance.slideTo(i, 600, false);
+                      break;
+                    }
+                  }
                 }
-              }
-            });
+              });
+            })();
           </script>
         </div>
       {%- else -%}
