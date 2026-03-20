@@ -6,6 +6,14 @@
 
 {% capture swiper_content %}
   {% render 'product-swiper-block', section: block %}
+  {% if block.settings.show_coupon %}
+    {% render 'coupon-card',
+      title: block.settings.coupon_title,
+      coupon_code: block.settings.coupon_code,
+      bg_color: block.settings.coupon_bg_color,
+      copy_color: block.settings.coupon_copy_color
+    %}
+  {% endif %}
 {% endcapture %}
 
 {% render 'product-swiper-wrapper', id: block.id, settings: block.settings, content: swiper_content %}
@@ -158,6 +166,10 @@
         {
           "value": "medium",
           "label": "Medium"
+        },
+        {
+          "value": "semibold",
+          "label": "Semibold"
         },
         {
           "value": "none",
@@ -343,6 +355,42 @@
       "max": 60,
       "step": 1,
       "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Coupon settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_coupon",
+      "label": "Show Coupon",
+      "default": false
+    },
+    {
+      "type": "textarea",
+      "id": "coupon_title",
+      "label": "Coupon Title",
+      "default": "Buy 2 Get 1 Free and Get 35% Off Voucher",
+      "visible_if": "{{ block.settings.show_coupon }}"
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Coupon Code",
+      "default": "35%OFFVOUCHER",
+      "visible_if": "{{ block.settings.show_coupon }}"
+    },
+    {
+      "type": "color",
+      "id": "coupon_bg_color",
+      "label": "Coupon Background Color",
+      "visible_if": "{{ block.settings.show_coupon }}"
+    },
+    {
+      "type": "color",
+      "id": "coupon_copy_color",
+      "label": "Coupon Copy Text Color",
+      "visible_if": "{{ block.settings.show_coupon }}"
     }
   ],
   "presets": [

@@ -33,13 +33,14 @@
     assign show_timer = true
   endif
 
-  if section.settings.header_layout == 'with_button'
-    assign header_class = "s-title flex-grow-1 flex-shrink-1 flex-basis-0"
+  assign header_class = "s-title"
+  if section.settings.header_layout == 'with_button' and show_timer
+    assign header_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
     assign button_class = "d-flex justify-content-end flex-grow-1 flex-shrink-1 flex-basis-0"
   endif
 
-  if section.settings.header_layout == "with_button_and_icon"
-    assign header_class = "s-title flex-grow-1 flex-shrink-1 flex-basis-0"
+  if section.settings.header_layout == "with_button_and_icon" and show_timer
+    assign header_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
     assign button_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
   endif
 %}
@@ -78,8 +79,8 @@
 {% endif %}
 
 {% if section.settings.header_layout == 'with_button_and_icon' %}
-  <div class="sect-title type-3 type-2 wow fadeInUp">
-    <h2 class="type-semibold text-nowrap {{ header_class }}">{{ section.settings.title }}</h2>
+  <div class="sect-title {{ section.settings.header_spacing }} {% unless section.settings.header_spacing == 'type-4' %}type-3 {% endunless %} type-2 wow fadeInUp">
+    <h2 class="fw-{{ section.settings.heading_weight }} text-nowrap {{ header_class }}">{{ section.settings.title }}</h2>
 
     {% if show_timer %}
       <div class="count-down_v02 style-3">
