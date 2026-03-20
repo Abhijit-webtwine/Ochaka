@@ -65,6 +65,12 @@
     "name": "Footer Layout",
     "settings": [
       {
+        "type": "checkbox",
+        "id": "show_footer",
+        "label": "Show Footer",
+        "default": true
+      },
+      {
         "type": "select",
         "id": "footer_layout",
         "label": "Footer Layout",

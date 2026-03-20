@@ -229,12 +229,14 @@
           {{ content_for_layout }}
         </main>
 
-        {% if settings.footer_layout == 'footer_1' %}
-          {% section 'footer' %}
-        {% elsif settings.footer_layout == 'footer_2' %}
-          {% section 'footer-2' %}
-        {% else %}
-          {% section 'footer' %}
+        {% if settings.show_footer %}
+          {% if settings.footer_layout == 'footer_1' %}
+            {% section 'footer' %}
+          {% elsif settings.footer_layout == 'footer_2' %}
+            {% section 'footer-2' %}
+          {% else %}
+            {% section 'footer' %}
+          {% endif %}
         {% endif %}
       </div>
     </div>

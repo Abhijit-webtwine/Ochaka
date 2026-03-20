@@ -112,7 +112,8 @@
   "newsletter": {
     "label": "Enter email here",
     "success": "Thanks for subscribing",
-    "button_label": "Subscribe"
+    "button_label": "Subscribe",
+    "terms": "By clicking subscribe, you agree to the Terms of Service and Privacy Policy."
   },
   "accessibility": {
     "skip_to_text": "Skip to content",

@@ -1,0 +1,372 @@
+<style>
+  #shopify-block-{{ block.id }} {
+    background-color: {{ block.settings.background_color | default: '#ffffff' }};
+    color: {{ block.settings.text_color | default: '#000000' }};
+  }
+  #shopify-block-{{ block.id }} .footer-heading {
+    color: {{ block.settings.heading_color | default: '#000000' }};
+  }
+  #shopify-block-{{ block.id }} .footer-menu-list a,
+  #shopify-block-{{ block.id }} .footer-contact a,
+  #shopify-block-{{ block.id }} .footer-newsletter a,
+  #shopify-block-{{ block.id }} .footer-bottom .list-hor :is(a, button) {
+    color: {{ block.settings.text_color | default: '#000000' }};
+  }
+  #shopify-block-{{ block.id }} .footer-contact .br-line,
+  #shopify-block-{{ block.id }} .footer-bottom .br-line {
+    background-color: {{ block.settings.border_color | default: '#e9e9e9' }};
+  }
+  #shopify-block-{{ block.id }} .footer-bottom .inner-bottom,
+  #shopify-block-{{ block.id }} .footer-newsletter form input[type=email],
+  #shopify-block-{{ block.id }} .br-line {
+    border-color: {{ block.settings.border_color | default: '#e9e9e9' }};
+  }
+</style>
+
+<footer class="tf-footer style-4" id="Footer-{{ block.id }}">
+  <!-- Benefits Swiper -->
+  <div dir="ltr" class="swiper tf-swiper" 
+    data-preview="4" data-tablet="3" data-mobile-sm="2" data-mobile="1" 
+    data-space-lg="97" data-space-md="33" data-space="13" 
+    data-pagination="1" data-pagination-sm="2" data-pagination-md="3" data-pagination-lg="4">
+    <div class="swiper-wrapper">
+      {% content_for 'blocks' %}
+    </div>
+    <div class="sw-dot-default tf-sw-pagination"></div>
+  </div>
+
+  <div class="footer-body">
+    <div class="container">
+      <div class="row">
+        <!-- Contact Column -->
+        <div class="col-xl-3 col-sm-6 mb_30 mb-xl-0">
+          <div class="footer-col-block">
+            <p class="footer-heading footer-heading-mobile">{{ block.settings.contact_heading }}</p>
+            <div class="tf-collapse-content">
+              <ul class="footer-contact">
+                {% if block.settings.address != blank %}
+                  <li>
+                    <i class="icon icon-map-pin"></i>
+                    <span class="br-line"></span>
+                    <a href="{{ block.settings.map_url | default: '#' }}" target="_blank" class="h6 link">
+                      {{ block.settings.address | newline_to_br }}
+                    </a>
+                  </li>
+                {% endif %}
+                {% if block.settings.phone != blank %}
+                  <li>
+                    <i class="icon icon-phone"></i>
+                    <span class="br-line"></span>
+                    <a href="tel:{{ block.settings.phone }}" class="h6 link">{{ block.settings.phone }}</a>
+                  </li>
+                {% endif %}
+                {% if block.settings.email != blank %}
+                  <li>
+                    <i class="icon icon-envelope-simple"></i>
+                    <span class="br-line"></span>
+                    <a href="mailto:{{ block.settings.email }}" class="h6 link">{{ block.settings.email }}</a>
+                  </li>
+                {% endif %}
+              </ul>
+              <div class="social-wrap">
+                <ul class="tf-social-icon">
+                  {% render 'social-icons' %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menu 1 -->
+        <div class="col-xl-2 col-sm-6 mb_30 mb-xl-0">
+          <div class="footer-col-block footer-wrap-1 ms-xl-auto">
+            <p class="footer-heading footer-heading-mobile">{{ block.settings.menu_1_heading }}</p>
+            <div class="tf-collapse-content">
+              <ul class="footer-menu-list">
+                {% if block.settings.menu_1 != blank %}
+                  {% for link in linklists[block.settings.menu_1].links %}
+                    <li><a href="{{ link.url }}" class="link h6">{{ link.title }}</a></li>
+                  {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menu 2 -->
+        <div class="col-xl-3 col-sm-6 mb_30 mb-sm-0">
+          <div class="footer-col-block footer-wrap-2 mx-xl-auto">
+            <p class="footer-heading footer-heading-mobile">{{ block.settings.menu_2_heading }}</p>
+            <div class="tf-collapse-content">
+              <ul class="footer-menu-list">
+                {% if block.settings.menu_2 != blank %}
+                  {% for link in linklists[block.settings.menu_2].links %}
+                    <li><a href="{{ link.url }}" class="link h6">{{ link.title }}</a></li>
+                  {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="col-xl-4 col-sm-6">
+          <div class="footer-col-block">
+            <p class="footer-heading footer-heading-mobile">{{ block.settings.newsletter_heading }}</p>
+            <div class="tf-collapse-content">
+              <div class="footer-newsletter">
+                <p class="h6 caption">{{ block.settings.newsletter_text }}</p>
+                <div class="sib-form sib-form_footer">
+                  {% form 'customer', class: 'has_check' %}
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <div class="form-content_fieldset form-get_email">
+                      <div class="fieldset-input_email">
+                        <div class="sib-input sib-form-block">
+                          <div class="form__entry entry_block">
+                            <div class="form__label-row">
+                              <label class="entry__label d-none" for="EMAIL-{{ block.id }}"></label>
+                              <div class="entry__field ip">
+                                <input class="input" type="email" id="EMAIL-{{ block.id }}" name="contact[email]"
+                                  autocomplete="off" placeholder="{{ 'newsletter.label' | t | default: 'Enter your email' }}"
+                                  required>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="fiedset-button_submit">
+                        <div class="sib-form-block">
+                          <button class="sib-form-block__button sib-form-block__button-with-loader tf-btn animate-btn type-small-2" type="submit">
+                            {{ block.settings.newsletter_button_text | default: 'Subscribe' }}
+                            <i class="icon icon-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="checkbox-wrap">
+                      <input type="checkbox" class="input_replaced tf-check style-3" value="1" id="OPT_IN-{{ block.id }}" required>
+                      <label for="OPT_IN-{{ block.id }}" class="h6 font-main text-main">
+                        {{ 'newsletter.terms' | t | default: 'By clicking subscribe, you agree to the Terms of Service and Privacy Policy.' }}
+                      </label>
+                    </div>
+                  {% endform %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="inner-bottom">
+        <ul class="list-hor">
+          {% if block.settings.bottom_link_1_text != blank %}
+            <li><a href="{{ block.settings.bottom_link_1_url | default: '#' }}" class="h6 link">{{ block.settings.bottom_link_1_text }}</a></li>
+          {% endif %}
+          <li class="br-line type-vertical"></li>
+          {% if block.settings.bottom_link_2_text != blank %}
+            <li><a href="{{ block.settings.bottom_link_2_url | default: '#' }}" class="h6 link">{{ block.settings.bottom_link_2_text }}</a></li>
+          {% endif %}
+        </ul>
+        <div class="list-hor flex-wrap">
+          <span class="h6">Payment:</span>
+          <ul class="payment-method-list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag: class: 'icon icon--full-color footer_payments' }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div class="list-hor">
+          <div class="tf-currencies">
+            {%- liquid
+              assign currencies = localization.available_countries | map: 'currency' | map: 'iso_code' | uniq
+              assign show_currencies = false
+              if currencies.size > 1
+                assign show_currencies = true
+              endif
+            -%}
+            <localization-form>
+              {%- form 'localization', id: 'Footer4CountryForm', class: 'localization-form position-static' -%}
+                {% render 'country_localization', show_currencies: show_currencies, color_white: false %}
+              {%- endform -%}
+            </localization-form>
+          </div>
+          <span class="br-line type-vertical"></span>
+          <div class="tf-languages">
+            <form class="position-static" method="post" action="{{ routes.localization_url }}">
+              <input type="hidden" name="form_type" value="localization">
+              <select name="locale_code" class="tf-dropdown-select style-default type-languages" onchange="this.form.submit()">
+                {%- for language in localization.available_languages -%}
+                  <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
+                    {{ language.endonym_name }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer 4",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color",
+      "default": "#e9e9e9"
+    },
+    {
+      "type": "header",
+      "content": "Column 1: Contact"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Heading",
+      "default": "Contact us"
+    },
+    {
+      "type": "textarea",
+      "id": "address",
+      "label": "Address",
+      "default": "8500 Lorem Street Chicago, IL 55030"
+    },
+    {
+      "type": "url",
+      "id": "map_url",
+      "label": "Map Link"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "+8(800) 123 4567"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "jthemesonline@gmail.com"
+    },
+    {
+      "type": "header",
+      "content": "Column 2: Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_1_heading",
+      "label": "Heading",
+      "default": "Shopping"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_1",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 3: Menu"
+    },
+    {
+      "type": "text",
+      "id": "menu_2_heading",
+      "label": "Heading",
+      "default": "Information"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Column 4: Newsletter"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_heading",
+      "label": "Heading",
+      "default": "Let’s keep in touch"
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Caption",
+      "default": "Enter your email below to be the first to know about new collections and product launches."
+    },
+    {
+      "type": "text",
+      "id": "newsletter_button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "header",
+      "content": "Footer Bottom"
+    },
+    {
+      "type": "text",
+      "id": "bottom_link_1_text",
+      "label": "Link 1 Text",
+      "default": "Help & FAQs"
+    },
+    {
+      "type": "url",
+      "id": "bottom_link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "bottom_link_2_text",
+      "label": "Link 2 Text",
+      "default": "Factory"
+    },
+    {
+      "type": "url",
+      "id": "bottom_link_2_url",
+      "label": "Link 2 URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "footer-benefit"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer 4"
+    }
+  ]
+}
+{% endschema %}
