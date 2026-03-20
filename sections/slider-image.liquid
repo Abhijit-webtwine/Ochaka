@@ -17,10 +17,10 @@
                     {%- endif -%}
                   </div>
                   <div class="sld_content type-space-x">
-                    {%- if block.settings.subheading != blank -%}
+                    {%- if block.settings.promo_text != blank -%}
                       <h4 class="sub-title_sld mb-8 fade-item fade-item-1"
-                      style="color: {{ block.settings.subheading_color }}">
-                        {{ block.settings.subheading }}
+                      style="color: {{ block.settings.promo_text_color }}">
+                        {{ block.settings.promo_text }}
                       </h4>
                     {%- endif -%}
                     {%- if block.settings.heading != blank -%}
@@ -59,10 +59,10 @@
                 {%- endif -%}
               </a>
               <div class="box-image_content">
-                {%- if block.settings.subheading != blank -%}
+                {%- if block.settings.promo_text != blank -%}
                   <p class="sub-title h5 fw-semibold"
-                    style="color: {{ block.settings.subheading_color }}">
-                    {{ block.settings.subheading }}
+                    style="color: {{ block.settings.promo_text_color }}">
+                    {{ block.settings.promo_text }}
                   </p>
                 {%- endif -%}
                 {%- if block.settings.heading != blank -%}
@@ -104,14 +104,14 @@
         },
         {
           "type": "text",
-          "id": "subheading",
-          "label": "Subheading",
+          "id": "promo_text",
+          "label": "Promo Text",
           "default": "SALE OFF 50%"
         },
         {
           "type": "color",
-          "id": "subheading_color",
-          "label": "Subheading Color",
+          "id": "promo_text_color",
+          "label": "Promo Text Color",
           "default": "#000000"
         },
         {
@@ -157,14 +157,14 @@
         },
         {
           "type": "text",
-          "id": "subheading",
-          "label": "Subheading",
+          "id": "promo_text",
+          "label": "Promo Text",
           "default": "SALE OFF 50%"
         },
         {
           "type": "color",
-          "id": "subheading_color",
-          "label": "Subheading Color",
+          "id": "promo_text_color",
+          "label": "Promo Text Color",
           "default": "#000000"
         },
         {
