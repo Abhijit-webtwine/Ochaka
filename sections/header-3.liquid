@@ -202,7 +202,7 @@
       <div class="header-inner_wrap {% if header_inner_style_2 %}wrap-2 {% endif %}">
         <div class="col-left">
           <div class="nav-category-wrap main-action-active {% if department_menu_open %} active-1600 {% endif %}">
-            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active">
+            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active {% unless rounded_corners %} rounded-0 {% endunless %}">
               <span class="btn-mobile-menu {% if header_inner_style_2 %}style-white {% endif %}type-small"><span></span></span>
               <h6 class="name-category fw-semibold">{{ section.settings.department_menu_title }}</h6>
               <i class="icon icon-caret-down"></i>
@@ -577,6 +577,12 @@
         { "value": "", "label": "Style 1" },
         { "value": "style-2", "label": "Style 2" }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded_corners",
+      "label": "Rounded Department Corners",
+      "default": false
     },
     {
       "type": "color",
