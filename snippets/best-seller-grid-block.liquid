@@ -1,0 +1,247 @@
+<div class="sect-title type-4 wow fadeInUp">
+  <h2 class="s-title fw-normal">{{ section.settings.title }}</h2>
+  {%- if section.settings.button_link != blank -%}
+    <a href="{{ section.settings.button_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
+      {{ section.settings.button_text }}
+      <i class="icon icon-caret-circle-right"></i>
+    </a>
+  {%- endif -%}
+</div>
+
+<div class="grid-layout-product">
+  <div class="item-grid-1">
+    {%- assign main_product = section.settings.main_product -%}
+    {%- assign product_form_id = 'product-form-' | append: section.id -%}
+    <div class="banner-card_product wow fadeInUp">
+      {%- if main_product != blank -%}
+        <div class="flat-wrap-media-product ">
+          <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
+            <div class="swiper-wrapper">
+              {% for image in main_product.images %}
+                <div class="swiper-slide">
+                  <a
+                    href="{{ main_product.url }}"
+                    target="_blank"
+                    class="item product-image w-100 d-block"
+                    data-pswp-width="{{ image.width }}px"
+                    data-pswp-height="{{ image.height }}px"
+                  >
+                    <img
+                      class="tf-image-zoom lazyload img-product object-fit-cover w-100"
+                      data-zoom="{{ image | image_url }}"
+                      src="{{ image | image_url: width: 800 }}"
+                      alt="{{ image.alt | escape }}"
+                      width="{{ image.width }}"
+                      height="{{ image.height }}"
+                    >
+                  </a>
+                </div>
+              {% else %}
+                <div class="swiper-slide">
+                  <a href="{{ main_product.url }}" target="_blank" class="item product-image w-100 d-block">
+                    <img
+                      class="tf-image-zoom lazyload img-product object-fit-cover w-100"
+                      src="{{ main_product.featured_image | image_url: width: 800 }}"
+                      alt="{{ main_product.title | escape }}"
+                      width="{{ main_product.featured_image.width }}"
+                      height="{{ main_product.featured_image.height }}"
+                    >
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="product-content tf-product-info-wrap tf-product-info-list product-detail_info_mini">
+          <div class="product_info">
+            {%- if main_product.type != blank -%}
+              <span class="info-cate text-small">{{ main_product.type }}</span>
+            {%- endif -%}
+            <h3 class="info-name">
+              <a href="{{ main_product.url }}" class="link">
+                {{ main_product.title }}
+              </a>
+            </h3>
+            {% if main_product.metafields.judgeme.badge != blank %}
+              <div class="infor-rate rate_wrap">
+                {% render 'rating', product: main_product %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="product_count_buy">
+            {% if settings.show_atc_count %}
+              <add-to-cart-count
+                min="{{ settings.min_atc_count }}"
+                max="{{ settings.max_atc_count }}"
+              >
+                <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
+                  <i class="icon icon-shopping-cart-simple"></i>
+                  <p id="view-count" class="visitor-count h6">
+                    <span class="vc-number"></span> people just added this product to their cart
+                  </p>
+                </div>
+              </add-to-cart-count>
+            {% endif %}
+          </div>
+
+          {% render 'product-variant-picker',
+            product: main_product,
+            product_form_id: product_form_id,
+            picker_type: 'button',
+            enable_color_swatches: true,
+            enable_image: true,
+            image_type: 'circle',
+            show_variant_labels: true,
+            update_url: false,
+            swatch_image_size_small: true,
+            section_id: section.id
+          %}
+
+          <div class="product_price price-wrap style-end" id="price-{{ section.id }}">
+            <span class="price-new h4">{{ main_product.selected_or_first_available_variant.price | money }}</span>
+            {%- if main_product.selected_or_first_available_variant.compare_at_price
+                > main_product.selected_or_first_available_variant.price
+            -%}
+              <span class="price-old h6 fw-normal text-decoration-line-through">
+                {{- main_product.selected_or_first_available_variant.compare_at_price | money -}}
+              </span>
+            {%- endif -%}
+          </div>
+
+          {%- if main_product.available -%}
+            <div class="product-progress_sold">
+              <div class="box-quantity">
+                <p class="text-avaiable">
+                  Available:
+                  <span id="inventory-{{ section.id }}" class="fw-bold text-black">
+                    {{- main_product.selected_or_first_available_variant.inventory_quantity -}}
+                  </span>
+                </p>
+              </div>
+            </div>
+          {%- endif -%}
+
+          <div class="tf-product-total-quantity mb-0 w-100">
+            <product-form class="w-100">
+              {%- form 'product',
+                main_product,
+                id: product_form_id,
+                data-type: 'add-to-cart-form',
+                class: 'w-100 position-static'
+              -%}
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ main_product.selected_or_first_available_variant.id }}"
+                  disabled="disabled"
+                >
+                <div class="product_action w-100">
+                  {% render 'quantity-input', product: main_product, product_form_id: product_form_id %}
+                  <button
+                    type="submit"
+                    name="add"
+                    class="tf-btn animate-btn w-100 btn-add-to-cart"
+                    {%- if main_product.selected_or_first_available_variant.available == false %}
+                      disabled="disabled"
+                    {% endif -%}
+                  >
+                    ADD TO CART
+                    <i class="icon icon-shopping-cart-simple"></i>
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form>
+          </div>
+
+          <div class="hidden-variant-data d-none">
+            {% for variant in main_product.variants %}
+              <div data-variant-id="{{ variant.id }}">
+                <div class="variant-price">
+                  <span class="price-new h4">{{ variant.price | money }}</span>
+                  {%- if variant.compare_at_price > variant.price -%}
+                    <span class="price-old h6 fw-normal text-decoration-line-through">
+                      {{- variant.compare_at_price | money -}}
+                    </span>
+                  {%- endif -%}
+                </div>
+                <div class="variant-inventory">{{ variant.inventory_quantity }}</div>
+              </div>
+            {% endfor %}
+          </div>
+          <script>
+            document.addEventListener('variant:change', function (e) {
+              if (e.detail.sectionId === '{{ section.id }}') {
+                const variantId = e.detail.variant.id;
+                const box = e.target.closest('.banner-card_product');
+                if (!box) return;
+
+                const hiddenData = box.querySelector('.hidden-variant-data [data-variant-id="' + variantId + '"]');
+                if (hiddenData) {
+                  const priceWrap = box.querySelector('#price-{{ section.id }}');
+                  if (priceWrap) priceWrap.innerHTML = hiddenData.querySelector('.variant-price').innerHTML;
+
+                  const inventoryWrap = box.querySelector('#inventory-{{ section.id }}');
+                  if (inventoryWrap) inventoryWrap.innerHTML = hiddenData.querySelector('.variant-inventory').innerHTML;
+                }
+              }
+            });
+          </script>
+        </div>
+      {%- else -%}
+        <!-- fallback static product content if main_product not selected -->
+        <a href="#" class="product-image">
+          {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product bg-light w-100 h-100' }}
+        </a>
+        <div class="product-content tf-product-info-list product-detail_info_mini">
+          <div class="product_info">
+            <span class="info-cate text-small">Placeholder</span>
+            <h3 class="info-name">
+              <a href="#" class="link">Assign a Product in Settings</a>
+            </h3>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="item-grid-2">
+    <div
+      dir="ltr"
+      class="swiper tf-swiper wow fadeInUp"
+      data-preview="3"
+      data-tablet="2"
+      data-mobile-sm="1"
+      data-mobile="1"
+      data-space-lg="24"
+      data-space-md="24"
+      data-space="24"
+      data-pagination="1"
+      data-pagination-sm="1"
+      data-pagination-md="2"
+      data-pagination-lg="3"
+    >
+      <div class="swiper-wrapper">
+        {%- assign collection = section.settings.collection -%}
+        {%- assign products_limit = section.settings.products_limit | default: 3 -%}
+        {%- for product in collection.products limit: products_limit -%}
+          <div class="swiper-slide">
+            {% render 'card-product-mini', product: product, card_class: 'style-border' %}
+          </div>
+        {%- else -%}
+          <!-- fallback empty state -->
+          {%- for i in (1..3) -%}
+            <div class="swiper-slide">
+              <div class="card-product product-style_list-mini type-2 style-border hover-img bg-white">
+                <div class="card-product_wrapper aspect-ratio-0 d-flex">
+                  {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'img-style img-product bg-light w-100' }}
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+      <div class="sw-dot-default style-white d-xl-none tf-sw-pagination"></div>
+    </div>
+  </div>
+</div>

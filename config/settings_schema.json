@@ -392,7 +392,7 @@
   {
     "name": "Product tiles mini",
     "settings": [
-  {
+      {
         "type": "select",
         "id": "card_product_mini_title_size",
         "label": "Product Title Size",
@@ -438,6 +438,23 @@
           }
         ],
         "default": "price_first"
+      },
+      {
+        "type": "select",
+        "id": "card_product_mini_price_title_size",
+        "label": "Product Price Size",
+        "options": [
+          { "value": "h6", "label": "Small" },
+          { "value": "h5", "label": "Medium" },
+          { "value": "h4", "label": "Large" }
+        ],
+        "default": "h4"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_rating_mini",
+        "label": "Show rating",
+        "default": false
       }
     ]
   },

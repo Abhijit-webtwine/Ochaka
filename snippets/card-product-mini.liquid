@@ -33,8 +33,8 @@
       {%- if main_image != blank -%}
         <img
           class="img-product lazyload"
-          src="{{ main_image | image_url: width: 300 }}"
-          data-src="{{ main_image | image_url: width: 600 }}"
+          src="{{ main_image | image_url }}"
+          data-src="{{ main_image | image_url }}"
           alt="{{ main_image.alt | escape }}"
           width="{{ main_image.width }}"
           height="{{ main_image.height }}"
@@ -46,6 +46,11 @@
     </a>
   </div>
   <div class="card-product_info">
+    {%- if settings.show_rating_mini -%}
+      <div class="rating">
+        {% render 'rating', product: product, classes: 'mb-12 fs-12' %}
+      </div>
+    {%- endif -%}
     {%- if settings.show_type and  product.type != blank -%}
       <p class="tag-product text-small">{{ product.type }}</p>
     {%- endif -%}
@@ -69,9 +74,9 @@
           {%- if product.compare_at_price > product.price -%}
             <span class="price-old h6 fw-normal text-decoration-line-through">{{ compare_at_price }}</span>
           {%- endif -%}
-          <span class="price-new h6">{{ price }}</span>
+          <span class="price-new {{ settings.card_product_mini_price_title_size }}">{{ price }}</span>
         {% else %}
-          <h4 class="price-new">{{ price }}</h4>
+          <span class="price-new {{ settings.card_product_mini_price_title_size }}">{{ price }}</span>
           {%- if product.compare_at_price > product.price -%}
             <span class="price-old h6 text-decoration-line-through">{{ compare_at_price }}</span>
           {%- endif -%}

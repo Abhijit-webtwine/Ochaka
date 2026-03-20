@@ -1,5 +1,5 @@
 {%- if product.metafields.judgeme.badge != blank -%}
-  <div class="rate_wrap">
+  <div class="rate_wrap {{ classes }}">
     {%- assign rating = product.metafields.reviews.rating.value.rating | split: '.' | first | plus: 0 | default: 0 -%}
     {%- assign rating_count = product.metafields.reviews.rating_count | default: 0 -%}
     {%- for i in (1..5) -%}

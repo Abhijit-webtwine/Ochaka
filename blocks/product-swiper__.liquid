@@ -1,3 +1,9 @@
+<style>
+  #shopify-block-{{ block.id }} {
+    background-color: {{ block.settings.background_color }};
+  }
+</style>
+
 {% capture swiper_content %}
   {% render 'product-swiper-block', section: block %}
 {% endcapture %}
