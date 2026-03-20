@@ -1,0 +1,124 @@
+{% comment %}
+  Renders a Featured Blog block.
+  @param {object} block - The block object containing settings.
+{% endcomment %}
+
+<div class="container">
+  {% if block.settings.header_layout == 'with_subtitle' %}
+    {% if block.settings.heading != blank or block.settings.subheading != blank %}
+      <div class="sect-title {{ block.settings.header_alignment }} {{ block.settings.header_spacing }} wow fadeInUp">
+        {% liquid
+          assign subtitle = false
+          if block.settings.subheading != blank
+            assign subtitle = true
+          endif
+        %}
+
+        {% render 'title', 
+          class: 's-title',
+          title: block.settings.heading,
+          subtitle: subtitle,
+          large_title: block.settings.heading_style,
+          heading_weight: block.settings.heading_weight,
+        %}
+        {% if block.settings.subheading != blank %}
+          <p class="s-subtitle h6">{{ block.settings.subheading }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endif %}
+
+  {% if block.settings.header_layout == 'with_button_and_icon' %}
+    <div class="sect-title type-3 type-2 wow fadeInUp">
+      <h2 class="s-title type-semibold text-nowrap">{{ block.settings.heading }}</h2>
+      {% if block.settings.button_link != blank %}
+        <a href="{{ block.settings.button_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
+          {{ block.settings.button_text }}
+          <i class="icon icon-caret-circle-right"></i>
+        </a>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div
+    dir="ltr"
+    class="swiper tf-swiper"
+    data-preview="{{ block.settings.slides_to_show_desktop }}"
+    data-tablet="{{ block.settings.slides_to_show_tablet }}"
+    data-mobile-sm="{{ block.settings.slides_to_show_mobile }}"
+    data-mobile="1"
+    data-space-lg="{{ block.settings.slides_spacing_desktop }}"
+    data-space-md="{{ block.settings.slides_spacing_tablet }}"
+    data-space="{{ block.settings.slides_spacing_mobile }}"
+    data-pagination="1"
+    data-pagination-sm="2"
+    data-pagination-md="3"
+    data-pagination-lg="4"
+  >
+    <div class="swiper-wrapper">
+
+      {% assign blog = block.settings.blog %}
+      {% if blog != blank %}
+        {% for article in blog.articles limit: block.settings.posts_limit %}
+          <div class="swiper-slide">
+            <div
+              class="article-blog {{ block.settings.card_layout }} {{ block.settings.blog_style }} hover-img4 wow fadeInLeft"
+              {% if forloop.index0 > 0 %}
+                data-wow-delay="{{ forloop.index0 | times: 0.1 }}s"
+              {% endif %}
+            >
+              <a href="{{ article.url }}" class="entry_image img-style4">
+                {% if article.image %}
+                  {{
+                    article.image
+                    | image_url: width: 900
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'lazyload aspect-ratio-0',
+                      alt: article.title
+                  }}
+                {% endif %}
+              </a>
+              
+              {% if block.settings.show_date == "tag"%}
+                <div class="entry_tag {% if block.settings.card_layout == 'style-radius' %}pst-2{% endif %}">
+                  <a href="{{ blog.url }}" class="name-tag h6 link">
+                    {{ article.published_at | date: "%B %d, %Y" }}
+                  </a>
+                </div>
+              {% endif %}
+
+              <div class="blog-content {% if block.settings.disable_content_spacing %}p-0{% endif %}">
+                <a href="{{ article.url }}" class="entry_name link h4">
+                  {{ article.title }}
+                </a>
+
+                {% if block.settings.show_excerpt %}
+                  {% if article.excerpt != blank %}
+                    <p class="text h6">
+                      {{ article.excerpt | strip_html | truncate: 120 }}
+                    </p>
+                  {% endif %}
+                {% endif %}
+
+                {% if block.settings.show_date == "date" %}
+                  <p class="entry_date">
+                    {{ article.published_at | date: "%B %d, %Y" }}
+                  </p>
+                {% endif %}
+                {% if block.settings.show_read_more %}
+                  <a href="{{ article.url }}" class="tf-btn-line">
+                    {{ block.settings.read_more_text }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+    </div>
+
+    <div class="sw-dot-default tf-sw-pagination"></div>
+  </div>
+</div>
