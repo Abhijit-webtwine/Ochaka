@@ -1,17 +1,11 @@
 <section class="themesFlat">
   <div class="container">
-    <div class="wg-copy wow fadeInUp"{% if section.settings.bg_color != blank %} style="background-color: {{ section.settings.bg_color }};"{% endif %}>
-      <div class="content wrap-code">
-        <h3 class="text-white">{{ section.settings.title }}</h3>
-        <div class="tf-btn btn-white btn-coppy-text animate-btn animate-dark">
-          <h6 class="coppyText fw-semibold">
-            {{ section.settings.coupon_code }}
-          </h6>
-          <span class="br-line type-vertical"></span>
-          <h6 {% if section.settings.copy_color != blank %} style="color: {{ section.settings.copy_color }};"{% endif %}>COPY</h6>
-        </div>
-      </div>
-    </div>
+    {% render 'coupon-card',
+      title: section.settings.title,
+      coupon_code: section.settings.coupon_code,
+      bg_color: section.settings.bg_color,
+      copy_color: section.settings.copy_color
+    %}
   </div>
 </section>
 
