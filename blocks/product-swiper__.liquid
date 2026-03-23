@@ -11,7 +11,9 @@
       title: block.settings.coupon_title,
       coupon_code: block.settings.coupon_code,
       bg_color: block.settings.coupon_bg_color,
-      copy_color: block.settings.coupon_copy_color
+      copy_color: block.settings.coupon_copy_color,
+      rounded: block.settings.coupon_rounded,
+      button_rounded: block.settings.coupon_button_rounded
     %}
   {% endif %}
 {% endcapture %}
@@ -390,6 +392,20 @@
       "type": "color",
       "id": "coupon_copy_color",
       "label": "Coupon Copy Text Color",
+      "visible_if": "{{ block.settings.show_coupon }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "coupon_rounded",
+      "label": "Banner Rounded",
+      "default": true,
+      "visible_if": "{{ block.settings.show_coupon }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "coupon_button_rounded",
+      "label": "Button Rounded",
+      "default": true,
       "visible_if": "{{ block.settings.show_coupon }}"
     }
   ],

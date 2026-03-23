@@ -4,12 +4,14 @@
   @param {string} coupon_code - The copyable coupon code
   @param {color} bg_color - Background color of the container
   @param {color} copy_color - Color of the "COPY" text
+  @param {boolean} rounded - Whether the card container should be rounded (default: true)
+  @param {boolean} button_rounded - Whether the copy button should be rounded (default: true)
 {%- endcomment -%}
 
-<div class="wg-copy wow fadeInUp" {% if bg_color != blank %} style="background-color: {{ bg_color }};"{% endif %}>
+<div class="wg-copy wow fadeInUp {% unless rounded %}rounded-0{% endunless %}" {% if bg_color != blank %} style="background-color: {{ bg_color }};"{% endif %}>
   <div class="content wrap-code">
     <h3 class="text-white">{{ title }}</h3>
-    <div class="tf-btn btn-white btn-coppy-text animate-btn animate-dark">
+    <div class="tf-btn btn-white btn-coppy-text animate-btn animate-dark {% unless button_rounded %}rounded-0{% endunless %}">
       <h6 class="coppyText fw-semibold">
         {{ coupon_code }}
       </h6>

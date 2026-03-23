@@ -4,7 +4,9 @@
       title: section.settings.title,
       coupon_code: section.settings.coupon_code,
       bg_color: section.settings.bg_color,
-      copy_color: section.settings.copy_color
+      copy_color: section.settings.copy_color,
+      rounded: section.settings.rounded,
+      button_rounded: section.settings.button_rounded
     %}
   </div>
 </section>
@@ -34,6 +36,18 @@
       "type": "color",
       "id": "copy_color",
       "label": "Copy Text Color"
+    },
+    {
+      "type": "checkbox",
+      "id": "rounded",
+      "label": "Banner Rounded",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "button_rounded",
+      "label": "Button Rounded",
+      "default": true
     }
   ],
   "presets": [
