@@ -1,0 +1,252 @@
+<div id="tf-slideshow-{{ section.id }}" class="tf-slideshow-2 tf-btn-swiper-main" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="container">
+    <div class="slideshow-container width-2">
+      <div dir="ltr" class="swiper tf-swiper sw-slide-show slider_effect_fade rounded-0" 
+        data-loop="true"
+        data-effect="fade" 
+        data-delay="3000" 
+        data-auto="true">
+        <div class="swiper-wrapper">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'slide' -%}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="slider-wrap style-5">
+                  <div class="sld_image">
+                    {%- if block.settings.image != blank -%}
+                      <img src="{{ block.settings.image | image_url: width: 1500 }}" data-src="{{ block.settings.image | image_url: width: 1500 }}" alt="{{ block.settings.image.alt | default: 'Slider' }}"
+                        width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" class="lazyload scale-item sale-item-1">
+                    {%- else -%}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'w-100 h-100' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="sld_content type-space-x">
+                    {%- if block.settings.sub_title != blank -%}
+                      <h5 class="sub-title_sld has-icon mb-8 text-primary fade-item fade-item-1" style="color: {{ block.settings.sub_title_color }};">
+                        <span class="icon d-flex">
+                          {%- render 'icon-fire' -%}
+                        </span>
+                        {{ block.settings.sub_title }}
+                      </h5>
+                    {%- endif -%}
+                    
+                    {%- if block.settings.heading != blank -%}
+                      <h2 class="title_sld h2 fw-normal mb-16 fade-item fade-item-2">
+                        <a href="{{ block.settings.link | default: '#' }}" class="link">
+                          {{ block.settings.heading }}
+                        </a>
+                      </h2>
+                    {%- endif -%}
+
+                    {%- if block.settings.price_new != blank -%}
+                      <div class="price-wrap align-items-end fade-item fade-item-4">
+                        <span class="price-new h2 fw-semibold text-primary primary-4" style="color: {{ block.settings.price_color }};">{{ block.settings.price_new }}</span>
+                        {%- if block.settings.price_old != blank -%}
+                          <span class="price-old h4">{{ block.settings.price_old }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        <div class="sw-dot-default-2 style-primary primary-4 tf-sw-pagination" style="--pagination-color: {{ section.settings.pagination_color }};"></div>
+      </div>
+      <div class="col-right d-sm-flex d-md-grid">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'promo' -%}
+            <div class="box-image_V06 type-space-3 pst-center-y hover-img rounded-0" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 800 }}" data-src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.image.alt | default: 'IMG' }}"
+                    width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" class="lazyload">
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'w-100 h-100' }}
+                {%- endif -%}
+              </a>
+              <div class="box-image_content wow fadeInUp">
+                {%- if block.settings.sub_title != blank -%}
+                  <p class="sub-title h5 fw-semibold text-primary" style="color: {{ block.settings.sub_title_color }};">
+                    {{ block.settings.sub_title }}
+                  </p>
+                {%- endif -%}
+                {%- if block.settings.heading != blank -%}
+                  <h4 class="title fw-normal">
+                    <a href="{{ block.settings.link | default: '#' }}" class="link">
+                      {{ block.settings.heading }}
+                    </a>
+                  </h4>
+                {%- endif -%}
+                {%- if block.settings.btn_text != blank -%}
+                  <a href="{{ block.settings.link | default: '#' }}" class="tf-btn-line primary-4 letter-space-0" style="--btn-color: {{ block.settings.btn_color }};">
+                    {{ block.settings.btn_text }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  #tf-slideshow-{{ section.id }} .tf-sw-pagination {
+    --swiper-pagination-color: var(--pagination-color, #000);
+  }
+  #tf-slideshow-{{ section.id }} .tf-btn-line {
+    color: var(--btn-color, #000);
+  }
+  #tf-slideshow-{{ section.id }} .tf-btn-line::after {
+    background-color: var(--btn-color, #000);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Slider Image 2",
+  "settings": [
+
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Pagination Color",
+      "default": "#0068C9"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "Don't miss the opportunity"
+        },
+        {
+          "type": "color",
+          "id": "sub_title_color",
+          "label": "Sub Title Color",
+          "default": "#0068C9"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Vanjua Case for <br> Samsung Galaxy S25"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "price_new",
+          "label": "New Price",
+          "default": "$69,99"
+        },
+        {
+          "type": "text",
+          "id": "price_old",
+          "label": "Old Price",
+          "default": "$99,99"
+        },
+        {
+          "type": "color",
+          "id": "price_color",
+          "label": "Price Color",
+          "default": "#0068C9"
+        }
+      ]
+    },
+    {
+      "type": "promo",
+      "name": "Promo Box",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "sub_title",
+          "label": "Sub Title",
+          "default": "SALE upto 50%"
+        },
+        {
+          "type": "color",
+          "id": "sub_title_color",
+          "label": "Sub Title Color",
+          "default": "#0068C9"
+        },
+        {
+          "type": "textarea",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Headphone Case <br> for JBL Tune"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button Color",
+          "default": "#0068C9"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slider Image 2",
+      "blocks": [
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "promo" },
+        { "type": "promo" }
+      ]
+    }
+  ]
+}
+{% endschema %}
