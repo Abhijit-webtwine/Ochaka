@@ -29,8 +29,8 @@
   {% endif %}
 
   {% if block.settings.header_layout == 'with_button_and_icon' %}
-    <div class="sect-title type-3 type-2 wow fadeInUp">
-      <h2 class="s-title type-semibold text-nowrap">{{ block.settings.heading }}</h2>
+    <div class="sect-title {{ block.settings.header_spacing }} {% unless block.settings.header_spacing == 'type-4' %}type-3 {% endunless %} type-2 wow fadeInUp">
+      <h2 class="s-title fw-{{ block.settings.heading_weight }} text-nowrap">{{ block.settings.heading }}</h2>
       {% if block.settings.button_link != blank %}
         <a href="{{ block.settings.button_link }}" class="tf-btn-icon h6 fw-medium text-nowrap">
           {{ block.settings.button_text }}
