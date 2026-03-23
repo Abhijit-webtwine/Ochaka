@@ -7,23 +7,25 @@
   {% if block.settings.header_layout == 'with_subtitle' %}
     {% if block.settings.heading != blank or block.settings.subheading != blank %}
       <div class="sect-title {{ block.settings.header_alignment }} {{ block.settings.header_spacing }} wow fadeInUp">
-        {% liquid
-          assign subtitle = false
-          if block.settings.subheading != blank
-            assign subtitle = true
-          endif
-        %}
+        <div>
+          {% liquid
+            assign subtitle = false
+            if block.settings.subheading != blank
+              assign subtitle = true
+            endif
+          %}
 
-        {% render 'title', 
-          class: 's-title',
-          title: block.settings.heading,
-          subtitle: subtitle,
-          large_title: block.settings.heading_style,
-          heading_weight: block.settings.heading_weight,
-        %}
-        {% if block.settings.subheading != blank %}
-          <p class="s-subtitle h6">{{ block.settings.subheading }}</p>
-        {% endif %}
+          {% render 'title', 
+            class: 's-title',
+            title: block.settings.heading,
+            subtitle: subtitle,
+            large_title: block.settings.heading_style,
+            heading_weight: block.settings.heading_weight,
+          %}
+          {% if block.settings.subheading != blank %}
+            <p class="s-subtitle h6">{{ block.settings.subheading }}</p>
+          {% endif %}
+        </div>
       </div>
     {% endif %}
   {% endif %}

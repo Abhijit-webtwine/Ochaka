@@ -25,7 +25,7 @@
   {% endif %}
 {% endstyle %}
 
-<div id="shopify-block-{{ block.id }}" class="featured-blog-block">
+<div class="featured-blog-block">
   {% render 'featured-blog-block', block: block %}
 </div>
 
@@ -33,6 +33,24 @@
 {
   "name": "Featured Blog",
   "settings": [
+    {
+      "type": "header",
+      "content": "Blog Configuration"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Select blog"
+    },
+    {
+      "type": "range",
+      "id": "posts_limit",
+      "label": "Number of posts",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
     {
       "type": "select",
       "id": "blog_style",
@@ -44,27 +62,42 @@
       "default": ""
     },
     {
+      "type": "checkbox",
+      "id": "disable_content_spacing",
+      "label": "Disable Content Spacing",
+      "default": false,
+      "visible_if": "{{ block.settings.blog_style == '' }}"
+    },
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "select",
+      "id": "card_layout",
+      "label": "Card Corners",
+      "options": [
+        { "value": "style-radius", "label": "Rounded" },
+        { "value": "", "label": "Sharp" }
+      ],
+      "default": ""
+    },
+    {
       "type": "select",
       "id": "show_date",
-      "label": "Show Date",
+      "label": "Show Date Style",
       "options": [
-        { "value": "tag", "label": "Tag" },
-        { "value": "date", "label": "Date" }
+        { "value": "tag", "label": "Tag (on top)" },
+        { "value": "date", "label": "Date (under title)" }
       ],
       "default": "tag"
     },
     {
       "type": "color",
       "id": "date_color",
-      "label": "Date Color",
+      "label": "Date Tag Background",
       "default": "#000000",
       "visible_if": "{{ block.settings.show_date == 'tag' }}"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_read_more",
-      "label": "Show Read More",
-      "default": true
     },
     {
       "type": "checkbox",
@@ -74,105 +107,20 @@
     },
     {
       "type": "checkbox",
-      "id": "disable_content_spacing",
-      "label": "Disable Content Spacing",
-      "default": false,
-      "visible_if": "{{ block.settings.blog_style == '' }}"
+      "id": "show_read_more",
+      "label": "Show Read More Link",
+      "default": true
     },
     {
-      "type": "select",
-      "id": "card_layout",
-      "label": "Card Layout",
-      "options": [
-        { "value": "style-radius", "label": "Rounded" },
-        { "value": "", "label": "Sharp" }
-      ],
-      "default": ""
+      "type": "text",
+      "id": "read_more_text",
+      "label": "Read More Label",
+      "default": "Read more",
+      "visible_if": "{{ block.settings.show_read_more == true }}"
     },
     {
-      "type": "range",
-      "id": "slides_to_show_desktop",
-      "label": "Slides desktop",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "default": 3
-    },
-    {
-      "type": "range",
-      "id": "slides_to_show_tablet",
-      "label": "Slides tablet",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 3
-    },
-    {
-      "type": "range",
-      "id": "slides_to_show_mobile",
-      "label": "Slides mobile",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "slides_spacing_desktop",
-      "label": "Spacing desktop",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "slides_spacing_tablet",
-      "label": "Spacing tablet",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 24
-    },
-    {
-      "type": "range",
-      "id": "slides_spacing_mobile",
-      "label": "Spacing mobile",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 12
-    },
-    {
-      "type": "select",
-      "id": "header_layout",
-      "label": "Header Layout",
-      "options": [
-        { "value": "with_subtitle", "label": "With Subtitle" },
-        { "value": "with_button_and_icon", "label": "With Button and Icon" }
-      ],
-      "default": "with_subtitle"
-    },
-    {
-      "type": "select",
-      "id": "header_spacing",
-      "label": "Header Spacing",
-      "options": [
-        { "value": "type-4", "label": "Default" },
-        { "value": "", "label": "Extended Space" }
-      ],
-      "default": ""
-    },
-    {
-      "type": "select",
-      "id": "header_alignment",
-      "label": "Heading Alignment",
-      "options": [
-        { "value": "justify-content-between", "label": "Left" },
-        { "value": "justify-content-center", "label": "Center" },
-        { "value": "justify-content-end", "label": "Right" }
-      ],
-      "default": "justify-content-center"
+      "type": "header",
+      "content": "Header Settings"
     },
     {
       "type": "text",
@@ -183,7 +131,7 @@
     {
       "type": "select",
       "id": "heading_style",
-      "label": "Heading Style",
+      "label": "Heading Size",
       "options": [
         { "value": "true", "label": "Large" },
         { "value": "false", "label": "Small" }
@@ -200,6 +148,16 @@
         { "value": "none", "label": "None" }
       ],
       "default": "none"
+    },
+    {
+      "type": "select",
+      "id": "header_layout",
+      "label": "Header Layout",
+      "options": [
+        { "value": "with_subtitle", "label": "With Subtitle" },
+        { "value": "with_button_and_icon", "label": "With Button and Icon" }
+      ],
+      "default": "with_subtitle"
     },
     {
       "type": "text",
@@ -222,28 +180,93 @@
       "visible_if": "{{ block.settings.header_layout == 'with_button_and_icon' }}"
     },
     {
-      "type": "blog",
-      "id": "blog",
-      "label": "Select blog"
+      "type": "select",
+      "id": "header_alignment",
+      "label": "Heading Alignment",
+      "options": [
+        { "value": "justify-content-between", "label": "Left" },
+        { "value": "justify-content-center", "label": "Center" },
+        { "value": "justify-content-end", "label": "Right" }
+      ],
+      "default": "justify-content-center",
+      "visible_if": "{{ block.settings.header_layout == 'with_subtitle' }}"
     },
     {
-      "type": "range",
-      "id": "posts_limit",
-      "label": "Number of posts",
-      "min": 1,
-      "max": 12,
-      "step": 1,
-      "default": 4
-    },
-    {
-      "type": "text",
-      "id": "read_more_text",
-      "label": "Button Label",
-      "default": "Read more"
+      "type": "select",
+      "id": "header_spacing",
+      "label": "Header Spacing",
+      "options": [
+        { "value": "type-4", "label": "Default" },
+        { "value": "", "label": "Extended Space" }
+      ],
+      "default": "type-4",
+      "visible_if": "{{ block.settings.header_layout == 'with_button_and_icon' }}"
     },
     {
       "type": "header",
-      "content": "Desktop padding"
+      "content": "Slider Configuration"
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_desktop",
+      "label": "Slides per Desktop",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_tablet",
+      "label": "Slides per Tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_to_show_mobile",
+      "label": "Slides per Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_spacing_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "slides_spacing_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "slides_spacing_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "header",
+      "content": "Desktop Padding"
     },
     {
       "type": "range",
@@ -267,7 +290,7 @@
     },
     {
       "type": "header",
-      "content": "Tablet padding"
+      "content": "Tablet Padding"
     },
     {
       "type": "range",
@@ -291,7 +314,7 @@
     },
     {
       "type": "header",
-      "content": "Mobile padding"
+      "content": "Mobile Padding"
     },
     {
       "type": "range",
