@@ -54,6 +54,7 @@
       data-tablet="{{ section.settings.slides_tablet }}" 
       data-mobile-sm="{{ section.settings.slides_mobile }}"
       data-mobile="2" 
+      data-space-xxl="{{ section.settings.space_large_screen }}"
       data-space-lg="{{ section.settings.space_desktop }}" 
       data-space-md="{{ section.settings.space_tablet }}" 
       data-space="{{ section.settings.space_mobile }}" 
@@ -331,12 +332,21 @@
     },
     {
       "type": "range",
+      "id": "space_large_screen",
+      "label": "Spacing Large Screen",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 48
+    },
+    {
+      "type": "range",
       "id": "space_desktop",
       "label": "Spacing Desktop",
       "min": 0,
       "max": 60,
       "step": 1,
-      "default": 8
+      "default": 48
     },
     {
       "type": "range",
@@ -345,7 +355,7 @@
       "min": 0,
       "max": 60,
       "step": 1,
-      "default": 8
+      "default": 32
     },
     {
       "type": "range",
@@ -354,7 +364,7 @@
       "min": 0,
       "max": 60,
       "step": 1,
-      "default": 8
+      "default": 12
     },
     {
       "type": "header",
