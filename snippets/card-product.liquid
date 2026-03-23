@@ -51,12 +51,11 @@
     {% if style_4 %}style-2 {% elsif style_5 %}style-3 {% elsif style_6 %}style-4 {% endif %}
     {% if style_9 %}style-5 {% endif %}
     {% if style_10 %}hover-xl-btn_bot {% endif %}
-
   "
   data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
   data-brand="{{ product.vendor }}"
 >
-  <div class="card-product_wrapper d-flex {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
+  <div class="card-product_wrapper d-flex h-100 {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
     {% render 'card-product-media', product: product %}
 
     {% if show_wishlist_remove %}
