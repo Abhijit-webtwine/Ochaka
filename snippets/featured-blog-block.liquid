@@ -42,6 +42,22 @@
     </div>
   {% endif %}
 
+  {% if block.settings.header_layout == 'with_nav' %}
+    <div class="sect-title {{ block.settings.header_spacing }} wow fadeInUp">
+      <div class="flex-sm-1">
+        <h2 class="s-title fw-{{ block.settings.heading_weight }}">{{ block.settings.heading }}</h2>
+      </div>
+      <div class="group-btn-slider" data-wow-delay="0.1s">
+        <div class="tf-sw-nav style-2 type-small nav-prev-swiper">
+          <i class="icon icon-caret-left"></i>
+        </div>
+        <div class="tf-sw-nav style-2 type-small nav-next-swiper">
+          <i class="icon icon-caret-right"></i>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
   <div
     dir="ltr"
     class="swiper tf-swiper"
@@ -56,6 +72,10 @@
     data-pagination-sm="2"
     data-pagination-md="3"
     data-pagination-lg="4"
+    {% if block.settings.header_layout == 'with_nav' %}
+      data-nav-prev=".nav-prev-swiper"
+      data-nav-next=".nav-next-swiper"
+    {% endif %}
   >
     <div class="swiper-wrapper">
 

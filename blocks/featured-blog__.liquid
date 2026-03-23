@@ -155,7 +155,8 @@
       "label": "Header Layout",
       "options": [
         { "value": "with_subtitle", "label": "With Subtitle" },
-        { "value": "with_button_and_icon", "label": "With Button and Icon" }
+        { "value": "with_button_and_icon", "label": "With Button and Icon" },
+        { "value": "with_nav", "label": "With Navigation" }
       ],
       "default": "with_subtitle"
     },
@@ -199,8 +200,7 @@
         { "value": "type-4", "label": "Default" },
         { "value": "", "label": "Extended Space" }
       ],
-      "default": "type-4",
-      "visible_if": "{{ block.settings.header_layout == 'with_button_and_icon' }}"
+      "default": "type-4"
     },
     {
       "type": "header",
