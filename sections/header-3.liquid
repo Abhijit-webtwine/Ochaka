@@ -32,7 +32,8 @@
     background-color: {{ section.settings.cart_count_bg }};
     color: {{ section.settings.cart_count_color }};
   }
-  .tf-header .nav-icon-item-2 {
+  .tf-header .nav-icon-item-2,
+  .header-fixed .btn-mobile-menu {
     color: {{ section.settings.header_top_color }};
   }
   .tf-header .header-inner_wrap .col-right .icon {
@@ -61,7 +62,7 @@
 
 {%- liquid
   if section.settings.menu != blank
-    render 'header-drawer', main_menu: section.settings.menu
+    render 'header-drawer', main_menu: section.settings.menu, menu_item_style: section.settings.menu_item_style
   endif
 -%}
 
@@ -202,7 +203,7 @@
       <div class="header-inner_wrap {% if header_inner_style_2 %}wrap-2 {% endif %}">
         <div class="col-left">
           <div class="nav-category-wrap main-action-active {% if department_menu_open %} active-1600 {% endif %}">
-            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active {% unless rounded_corners %} rounded-0 {% endunless %}">
+            <div class="btn-nav-drop {{ section.settings.header_inner_style }} btn-active {% unless section.settings.rounded_corners %} rounded-0 {% endunless %}">
               <span class="btn-mobile-menu {% if header_inner_style_2 %}style-white {% endif %}type-small"><span></span></span>
               <h6 class="name-category fw-semibold">{{ section.settings.department_menu_title }}</h6>
               <i class="icon icon-caret-down"></i>
@@ -249,18 +250,18 @@
       <div class="{{ section.settings.header_width }}">
         <div class="row align-items-center">
           <div class="col-md-4 col-3 d-xl-none">
-            <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu style-white">
+            <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
               <span></span>
             </a>
           </div>
           <div class="col-xl-2 col-md-4 col-6 text-center text-xl-start">
             <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
-              {%- if section.settings.logo != blank -%}
+              {%- if section.settings.logo_sticky != blank -%}
                 <img
-                  src="{{ section.settings.logo | image_url }}"
+                  src="{{ section.settings.logo_sticky | image_url }}"
                   alt="{{ shop.name }}"
-                  width="{{ section.settings.logo.width }}"
-                  height="{{ section.settings.logo.height }}"
+                  width="{{ section.settings.logo_sticky.width }}"
+                  height="{{ section.settings.logo_sticky.height }}"
                 >
               {%- else -%}
                 <h4 class="text-white">{{ shop.name }}</h4>
@@ -432,6 +433,11 @@
       "type": "image_picker",
       "id": "logo_mobile",
       "label": "Logo Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_sticky",
+      "label": "Logo Sticky"
     },
     {
       "type": "header",
