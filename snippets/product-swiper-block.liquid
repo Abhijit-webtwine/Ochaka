@@ -35,13 +35,13 @@
 
   assign header_class = "s-title"
   if section.settings.header_layout == 'with_button' and show_timer
-    assign header_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
-    assign button_class = "d-flex justify-content-end flex-grow-1 flex-shrink-1 flex-basis-0"
+    assign header_class = "flex-1"
+    assign button_class = "d-flex justify-content-end flex-1"
   endif
 
   if section.settings.header_layout == "with_button_and_icon" and show_timer
-    assign header_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
-    assign button_class = "flex-grow-1 flex-shrink-1 flex-basis-0"
+    assign header_class = "flex-1"
+    assign button_class = "justify-content-end flex-1"
   endif
 %}
 
@@ -100,6 +100,10 @@
 {% assign swiper_classes = "" %}
 {% if section.settings.show_seperator %}
   {% assign swiper_classes = "swiper-medical" %}
+{% endif %}
+
+{% if section.settings.show_coupon %}
+  {% assign swiper_classes = swiper_classes | append: " mb-40" %}
 {% endif %}
 
 {% render 'products-swiper',
