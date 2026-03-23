@@ -1,0 +1,330 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  {%- for block in section.blocks -%}
+    #block-{{ block.id }} .tf-btn-line {
+      color: {{ block.settings.btn_color }};
+      background: linear-gradient(to right, var(--primary) 50%, {{ block.settings.btn_color }} 50%);
+      background-size: 200% 100%;
+      background-position: right;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    #block-{{ block.id }} .tf-btn-line::after {
+      background-color: {{ block.settings.btn_color }};
+    }
+  {%- endfor -%}
+{%- endstyle -%}
+
+<div class="s-collection px-0 section-{{ section.id }}-padding">
+  <div class="container">
+    <div
+      dir="ltr"
+      class="swiper tf-swiper wow fadeInUp"
+      data-preview="{{ section.settings.slides_desktop }}"
+      data-tablet="{{ section.settings.slides_tablet }}"
+      data-mobile-sm="{{ section.settings.slides_mobile }}"
+      data-mobile="1"
+      data-pagination="1"
+      data-space-lg="{{ section.settings.space_desktop }}"
+      data-space-md="{{ section.settings.space_tablet }}"
+      data-space="{{ section.settings.space_mobile }}"
+      data-pagination-sm="1"
+      data-pagination-md="2"
+      data-pagination-lg="3"
+    >
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div id="block-{{ block.id }}" class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="box-image_V06 type-space-2 has-overlay {{ block.settings.overlay_class }} hover-img rounded-0">
+              {%- if block.settings.badge_text != blank -%}
+                <ul class="product-badge_list">
+                  <li
+                    class="product-badge_item fw-normal h6 rounded-0"
+                    style="background-color: {{ block.settings.badge_bg_color }}; color: {{ block.settings.badge_text_color }};"
+                  >
+                    {{ block.settings.badge_text }}
+                  </li>
+                </ul>
+              {%- endif -%}
+              <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
+                {%- if block.settings.image != blank -%}
+                  <img
+                    src="{{ block.settings.image | image_url: width: 1000 }}"
+                    data-src="{{ block.settings.image | image_url: width: 1000 }}"
+                    alt="{{ block.settings.image.alt | default: 'Banner' }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    class="lazyload"
+                  >
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </a>
+              <div class="box-image_content">
+                {%- if block.settings.title != blank -%}
+                  <h4 class="title">
+                    <a
+                      href="{{ block.settings.link | default: '#' }}"
+                      class="link"
+                      style="color: {{ block.settings.title_color }};"
+                    >
+                      {{ block.settings.title | newline_to_br }}
+                    </a>
+                  </h4>
+                {%- endif -%}
+                {%- if block.settings.btn_text != blank -%}
+                  <a
+                    href="{{ block.settings.link | default: '#' }}"
+                    class="tf-btn-line letter-space-0"
+                  >
+                    {{- block.settings.btn_text -}}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Banner Swiper Overlay",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg_color",
+          "label": "Badge Background Color",
+          "default": "#E4AD1E"
+        },
+        {
+          "type": "color",
+          "id": "badge_text_color",
+          "label": "Badge Text Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button Color",
+          "default": "#FFFFFF"
+        },
+        {
+          "type": "select",
+          "id": "overlay_class",
+          "label": "Overlay Style",
+          "options": [
+            { "value": "overlay-2", "label": "Style 1" },
+            { "value": "overlay-3", "label": "Style 2" }
+          ],
+          "default": "overlay-2"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "Banner Title"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner Swiper Overlay",
+      "blocks": [
+        { "type": "banner" },
+        { "type": "banner" },
+        { "type": "banner" }
+      ]
+    }
+  ]
+}
+{% endschema %}
