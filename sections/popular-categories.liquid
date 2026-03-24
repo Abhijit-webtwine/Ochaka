@@ -20,34 +20,62 @@
 </style> 
 <section class="section-{{ section.id }}-padding">
   <div class="container">
-    {% if section.settings.title != blank or section.settings.subtitle != blank %}
-      <div class="sect-title {{ section.settings.header_alignment }} {{ section.settings.header_spacing }} wow fadeInUp">
-        {% liquid
-          assign subtitle = false
-          if section.settings.subtitle != blank
-            assign subtitle = true
-          endif
-        %}
-        <div>
+    {%- liquid
+      assign header_layout = section.settings.header_layout
+      assign title = section.settings.title
+      assign subtitle_text = section.settings.subtitle
+      assign button_text = section.settings.button_text
+      assign button_link = section.settings.button_link
+      assign heading_style = section.settings.section_heading_style
+      assign heading_weight = section.settings.section_heading_weight
+      assign header_spacing = section.settings.header_spacing
+    -%}
+
+    {% if header_layout == 'with_subtitle' %}
+      {% if title != blank or subtitle_text != blank %}
+        <div class="sect-title {% if subtitle_text == blank %}justify-content-center{% endif %} {{ header_spacing }} text-center wow fadeInUp">
+          {% liquid
+            assign subtitle = false
+            if subtitle_text != blank
+              assign subtitle = true
+            endif
+          %}
+
           {% render 'title',
             class: 's-title',
-            title: section.settings.title,
+            title: title,
             subtitle: subtitle,
-            large_title: section.settings.section_heading_style,
-            heading_weight: section.settings.section_heading_weight,
+            large_title: heading_style,
+            heading_weight: heading_weight,
           %}
-          
-          {% if section.settings.subtitle != blank %}
-            <p class="s-subtitle h6">{{ section.settings.subtitle }}</p>
+
+          {% if subtitle_text != blank %}
+            <p class="s-subtitle h6">{{ subtitle_text | escape }}</p>
           {% endif %}
         </div>
-        {% if section.settings.heading_type == 'with_button' %}
-          <a href="{{ section.settings.button_link }}" class="tf-btn-line">
-            {{ section.settings.button_text }}
-          </a>
+      {% endif %}
+    {% endif %}
+
+    {% if header_layout == 'with_button' %}
+      <div class="sect-title type-4 wow fadeInUp">
+        {% render 'title',
+          class: 's-title',
+          title: title,
+          subtitle: false,
+          large_title: heading_style,
+          heading_weight: heading_weight,
+        %}
+
+        {% if button_link != blank %}
+          <span>
+            <a href="{{ button_link }}" class="tf-btn-line">
+              {{ button_text }}
+            </a>
+          </span>
         {% endif %}
       </div>
     {% endif %}
+
     
     <div dir="ltr" class="swiper tf-swiper wow fadeInUp" 
       data-preview="{{ section.settings.slides_desktop }}" 
@@ -66,7 +94,7 @@
         {% for block in section.blocks %}
           {% assign collection = block.settings.collection %}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <a href="{{ collection.url | default: '#' }}" class="widget-collection style-circle hover-img">
+            <a href="{{ collection.url | default: '#' }}" class="widget-collection {% if section.settings.shape == 'circle' %}style-circle {% endif %} hover-img">
               <div class="collection_image img-style {% if section.settings.shape == 'square' %}rounded-0{% endif %}">
                 {% if block.settings.image != blank %}
                   <img
@@ -123,19 +151,19 @@
   "settings": [
     {
       "type": "select",
-      "id": "heading_type",
-      "label": "Heading Type",
+      "id": "header_layout",
+      "label": "Header Layout",
       "options": [
+        {
+          "value": "with_subtitle",
+          "label": "With subtitle"
+        },
         {
           "value": "with_button",
           "label": "With button"
-        },
-        {
-          "value": "without_button",
-          "label": "Without button"
         }
       ],
-      "default": "with_button"
+      "default": "with_subtitle"
     },
     {
       "type": "text",
@@ -155,22 +183,6 @@
         {
           "value": "",
           "label": "Extended Space"
-        }
-      ],
-      "default": ""
-    },
-    {
-      "type": "select",
-      "id": "header_alignment",
-      "label": "Header Alignment",
-      "options": [
-        {
-          "value": "justify-content-center text-center",
-          "label": "Center"
-        },
-        {
-          "value": "",
-          "label": "Left"
         }
       ],
       "default": ""
@@ -267,6 +279,10 @@
         {
           "value": "square",
           "label": "Square"
+        },
+        {
+          "value": "rounded",
+          "label": "Rounded"
         }
       ],
       "default": "circle"
@@ -275,15 +291,13 @@
       "type": "text",
       "id": "button_text",
       "label": "Button Text",
-      "default": "View All Books",
-      "visible_if": "{{ section.settings.heading_type == 'with_button' }}"
+      "default": "View All Books"
     },
     {
       "type": "url",
       "id": "button_link",
       "label": "Button Link",
-      "default": "/collections/all",
-      "visible_if": "{{ section.settings.heading_type == 'with_button' }}"
+      "default": "/collections/all"
     },
     {
       "type": "range",
@@ -376,7 +390,7 @@
       "label": "Padding Top",
       "min": 0,
       "max": 120,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "default": 112
     },
@@ -386,7 +400,7 @@
       "label": "Padding Bottom",
       "min": 0,
       "max": 120,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "default": 112
     },
@@ -400,7 +414,7 @@
       "label": "Padding Top",
       "min": 0,
       "max": 120,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "default": 80
     },
@@ -410,7 +424,7 @@
       "label": "Padding Bottom",
       "min": 0,
       "max": 120,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "default": 80
     },
@@ -424,7 +438,7 @@
       "label": "Padding Top",
       "min": 0,
       "max": 120,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "default": 60
     },
@@ -434,7 +448,7 @@
       "label": "Padding Bottom",
       "min": 0,
       "max": 120,
-      "step": 4,
+      "step": 2,
       "unit": "px",
       "default": 60
     }
