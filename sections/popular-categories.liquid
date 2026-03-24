@@ -120,7 +120,7 @@
               </div>
 
               {% if section.settings.collection_count_format == 'brackets' %}
-                <p class="collection_name {{ section.settings.collection_heading_style }} link">
+                <p class="collection_name {{ section.settings.collection_heading_size }} fw-{{ section.settings.collection_heading_weight | default: 'normal' }} link">
                   {{ block.settings.title | default: collection.title | default: 'Category' }}
                   {% if section.settings.show_count and collection != blank %}
                     <span class="count text-main-2">({{ collection.all_products_count }})</span>
@@ -128,7 +128,7 @@
                 </p>
               {% elsif section.settings.collection_count_format == 'inline' %}
                 <div class="collection_content">
-                  <p class="collection_name {{ section.settings.collection_heading_style }} link">
+                  <p class="collection_name {{ section.settings.collection_heading_size }} fw-{{ section.settings.collection_heading_weight | default: 'normal' }} link">
                     {{ block.settings.title | default: collection.title | default: 'Category' }}
                   </p>
                   {% if section.settings.show_count and collection != blank %}
@@ -225,8 +225,8 @@
     },
     {
       "type": "select",
-      "id": "collection_heading_style",
-      "label": "Collection Heading Style",
+      "id": "collection_heading_size",
+      "label": "Collection Heading Size",
       "options": [
         {
           "value": "h4",
@@ -238,6 +238,26 @@
         }
       ],
       "default": "h5"
+    },
+    {
+      "type": "select",
+      "id": "collection_heading_weight",
+      "label": "Collection Heading Weight",
+      "options": [
+        {
+          "value": "normal",
+          "label": "Normal"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "semibold",
+          "label": "Semibold"
+        }
+      ],
+      "default": "normal"
     },
     {
       "type": "textarea",
