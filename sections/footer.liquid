@@ -37,6 +37,16 @@
   .footer-bottom .inner-bottom, .footer-newsletter form input[type=email] {
     border-color: {{ section.settings.border_color }};
   }
+
+  .footer-newsletter .tf-btn {
+    background-color: {{ section.settings.newsletter_btn_bg_color }};
+    color: {{ section.settings.newsletter_btn_text_color }};
+    border-color: {{ section.settings.newsletter_btn_bg_color }};
+  }
+  .footer-newsletter .tf-btn:hover {
+    background-color: transparent;
+    color: {{ section.settings.newsletter_btn_bg_color }};
+  }
 {% endstyle %}
 
 <footer class="tf-footer {{ section.settings.footer_style }} section-{{ section.id }}-footer">
@@ -164,7 +174,7 @@
               <div class="col-xl-2 col-sm-6 mb_30 {% unless is_last_menu %}mb-xl-0 {% else %}mb-sm-0 {% endunless %}">
                 <div class="footer-col-block footer-wrap-1">
                   <p class="footer-heading footer-heading-mobile">
-                    {{ block.settings.menu_1_heading }}
+                    {{ block.settings.menu_heading }}
                   </p>
                   <div class="tf-collapse-content">
                     <ul class="footer-menu-list">
@@ -208,7 +218,7 @@
                             >
                           </fieldset>
 
-                          <button type="submit" class="tf-btn animate-btn type-small-2 {% if block.settings.button_style == 'white' %}btn-white{% endif %}">
+                          <button type="submit" class="tf-btn animate-btn type-small-2">
                             {{ block.settings.newsletter_button }}
                             <i class="icon icon-arrow-right"></i>
                           </button>
@@ -355,6 +365,22 @@
       "id": "border_color",
       "label": "Border Color",
       "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Newsletter Button Colors"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "newsletter_btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
     },
     {
       "type": "header",
@@ -538,14 +564,14 @@
       "settings": [
         {
           "type": "text",
-          "id": "menu_1_heading",
-          "label": "Menu 1 heading",
+          "id": "menu_heading",
+          "label": "Menu heading",
           "default": "Shopping"
         },
         {
           "type": "link_list",
           "id": "menu_1",
-          "label": "Menu 1 navigation"
+          "label": "Menu navigation"
         }
       ]
     },
@@ -588,22 +614,6 @@
             {
               "value": "small",
               "label": "Small"
-            }
-          ],
-          "default": "default"
-        },
-        {
-          "type": "select",
-          "id": "button_style",
-          "label": "Button style",
-          "options": [
-            {
-              "value": "default",
-              "label": "Default"
-            },
-            {
-              "value": "white",
-              "label": "White"
             }
           ],
           "default": "default"
