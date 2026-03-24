@@ -11,6 +11,12 @@
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
+  .section-{{ section.id }}-padding .tab-product_list-2 .nav-tab-item a.active {
+    color: {{ section.settings.tab_active_color }} !important;
+    background-color: {{ section.settings.tab_active_bg }} !important;
+    border-color: {{ section.settings.tab_active_bg }} !important;
+  }
+
   @media screen and (min-width: 768px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top_tablet }}px;
@@ -121,7 +127,10 @@
               countdown_size: section.settings.countdown_size,
               space_desktop: section.settings.space_desktop,
               space_tablet: section.settings.space_tablet,
-              space_mobile: section.settings.space_mobile
+              space_mobile: section.settings.space_mobile,
+              show_stock: section.settings.show_stock,
+              stock_position: section.settings.stock_position,
+              swiper_classes: ''
             %}
           {% else %}
             <p class="text-center">No collection selected.</p>
@@ -371,6 +380,42 @@
         { "value": "", "label": "Medium" }
       ],
       "default": ""
+    },
+    {
+      "type": "header",
+      "content": "Tab Colors"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Active Tab Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Active Tab Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Product Stock Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stock",
+      "label": "Show Stock Status",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "stock_position",
+      "label": "Stock Status Position",
+      "options": [
+        { "value": "top-left", "label": "Top Left" },
+        { "value": "top-right", "label": "Top Right" }
+      ],
+      "default": "top-left"
     }
   ],
   "blocks": [
