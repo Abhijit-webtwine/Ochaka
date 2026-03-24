@@ -1,8 +1,8 @@
-<ul class="nav-icon-list">
+<ul id="header-icons-{{ section.id }}" class="nav-icon-list">
   {% if show_account %}
     <li class="d-none d-lg-flex">
       <a
-        class="nav-icon-item {% if white_icons %} text-white {% endif %} link"
+        class="nav-icon-item link"
         href="{{ routes.account_login_url }}"
         ><i class="icon icon-user"></i
       ></a>
@@ -11,7 +11,7 @@
   {% if show_search %}
     <li class="d-none d-md-flex">
       <a
-        class="nav-icon-item {% if white_icons %} text-white {% endif %} link"
+        class="nav-icon-item link"
         href="#search"
         data-bs-toggle="modal"
       >
@@ -22,7 +22,7 @@
   {% if settings.wishlist_enabled and show_wishlist %}
     <li class="d-none d-sm-flex">
       <a
-        class="nav-icon-item {% if white_icons %} text-white {% endif %} link"
+        class="nav-icon-item link"
         href="/pages/wishlist"
         style="position: relative;"
       >
@@ -37,31 +37,41 @@
     </li>
   {% endif %}
   {% if show_cart %}
-    <li
-      class="shop-cart"
-    >
+    <li class="shop-cart">
       <cart-drawer-open class="d-flex">
-        <button type="button" class="cart-drawer-open {% if white_icons %} text-white {% endif %}" aria-controls="mini-cart">
-        <span class="cart-icon-bubble">
-          <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-          {%- if cart != empty -%}
-            <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
-              {%- if cart.item_count < 100 -%}
-                <span aria-hidden="true">{{ cart.item_count }}</span>
-              {%- endif -%}
-              <span class="visually-hidden">
-                {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+        <button
+          type="button"
+          class="cart-drawer-open"
+          aria-controls="mini-cart"
+        >
+          <span class="cart-icon-bubble">
+            <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+            {%- if cart != empty -%}
+              <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+                {%- if cart.item_count < 100 -%}
+                  <span aria-hidden="true">{{ cart.item_count }}</span>
+                {%- endif -%}
+                <span class="visually-hidden">
+                  {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+                </span>
               </span>
-            </span>
-          {%- endif -%}
-        </span>
+            {%- endif -%}
+          </span>
 
-        <span class="nav-icon-item link">
-          <i class="icon icon-shopping-cart-simple"></i>
-        </span>
+          <span class="nav-icon-item link">
+            <i class="icon icon-shopping-cart-simple"></i>
+          </span>
         </button>
-      
       </cart-drawer-open>
     </li>
   {% endif %}
 </ul>
+
+{%- if icon_color != blank -%}
+  <style>
+    #header-icons-{{ section.id }} .nav-icon-item,
+    #header-icons-{{ section.id }} .cart-drawer-open {
+      color: {{ icon_color }};
+    }
+  </style>
+{%- endif -%}
