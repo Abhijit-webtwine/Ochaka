@@ -1,4 +1,6 @@
 {% liquid
+  assign style_2 = false
+  assign style_3 = false
   assign style_4 = false
   assign style_5 = false
   assign style_6 = false
@@ -8,6 +10,8 @@
 
   if settings.hover_style == 'style_2'
     assign style_2 = true
+  elsif settings.hover_style == 'style_3'
+    assign style_3 = true
   elsif settings.hover_style == 'style_4'
     assign style_4 = true
   elsif settings.hover_style == 'style_5'
@@ -31,11 +35,11 @@
   assign show_quick_view = show_quick_view
   assign show_add_to_cart = show_add_to_cart
 
-  if style_9 or style_10 
+  if style_9 or style_10 or style_3
     assign show_add_to_cart = false
   endif
 
-  if style_2
+  if style_2 or style_3
     assign show_quick_view = false
   endif
 %}
@@ -92,13 +96,20 @@
     %}
     {% render 'card-product-countdown', product: product, countdown_size: countdown_size %}
 
-
-    <div class="product-action_bot">
-      <quick-view class="tf-btn btn-white animate-btn cursor-pointer animate-dark" data-product-handle="{{ product.handle }}" data-product-url="{{ product.url }}">
-        Quick View
-        <i class="icon icon-view"></i>
-      </quick-view>
-    </div>
+    {% if style_2 or style_3 %}
+      <div class="product-action_bot">
+        <quick-view class="tf-btn btn-white animate-btn cursor-pointer animate-dark" data-product-handle="{{ product.handle }}" data-product-url="{{ product.url }}">
+          Quick View
+          <i class="icon icon-view"></i>
+        </quick-view>
+        {% if style_3 %}
+          <add-to-cart class="tf-btn btn-white animate-btn animate-dark" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+              Quick Add
+              <i class="icon icon-shopping-cart-simple"></i>
+          </add-to-cart>
+        {% endif %}
+      </div>
+    {% endif %}
 
     {% render 'card-product-badge',
       product: product,
