@@ -152,7 +152,6 @@
         <div class="col-xl-4 col-md-4 col-3">
           {% if header_style_default %}
             {% assign show_search = true %}
-            {% assign white_icons = true %}
           {% endif %}
 
           {% if section.settings.header_style == 'style-4' %}
@@ -162,9 +161,9 @@
           {% render 'header-icons',
             show_account: true,
             show_search: show_search,
-            white_icons: white_icons,
             show_wishlist: true,
-            show_cart: true
+            show_cart: true,
+            icon_color: section.settings.icon_color
           %}
         </div>
       </div>
@@ -310,6 +309,12 @@
       "type": "color",
       "id": "header_inner_text_color",
       "label": "Header Inner Text Color"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#111111"
     }
   ],
   "blocks": [

@@ -33,8 +33,9 @@
     color: {{ section.settings.cart_count_color }};
   }
   .tf-header .nav-icon-item-2,
+  .tf-header .nav-icon-item,
   .header-fixed .btn-mobile-menu {
-    color: {{ section.settings.header_top_color }};
+    color: {{ section.settings.icon_color }};
   }
   .tf-header .header-inner_wrap .col-right .icon {
     color: {{ section.settings.promo_icon_color }};
@@ -567,8 +568,9 @@
     },
     {
       "type": "color",
-      "id": "header_top_color",
-      "label": "Header Top Icon Color"
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#111111"
     },
     {
       "type": "header",
