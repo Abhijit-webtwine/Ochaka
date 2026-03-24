@@ -22,6 +22,35 @@
       {% endif %}
     }
   {% endif %}
+
+  .section-{{ section.id }}-banner-lookbook,
+  .section-{{ section.id }}-banner-lookbook .name-product,
+  .section-{{ section.id }}-banner-lookbook .banner-product-set .price-new,
+  .section-{{ section.id }}-banner-lookbook .total-price,
+  .section-{{ section.id }}-banner-lookbook .set_title {
+    color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }}-banner-lookbook .s-subtitle {
+     opacity: {{ section.settings.subtitle_opacity }};
+     color: {{ section.settings.text_color }};
+  }
+
+  .section-{{ section.id }}-banner-lookbook .tag-product {
+     opacity: {{ section.settings.product_type_opacity }};
+     color: {{ section.settings.text_color }};
+  }
+
+
+  .section-{{ section.id }}-banner-lookbook .product-inventory,
+  .section-{{ section.id }}-banner-lookbook .text-third {
+    color: {{ section.settings.stock_status_color }};
+  }
+
+  .section-{{ section.id }}-banner-lookbook .product-badge_item {
+    background-color: {{ section.settings.badge_bg_color }};
+    color: {{ section.settings.badge_text_color }};
+  }
 </style>
 
 <section class="sect-lookbook tf-lookbook-hover section-{{ section.id }}-banner-lookbook">
@@ -45,14 +74,16 @@
               <div class="lookbook-product style-row">
                 {% if product != blank %}
                   <div class="content">
-                    <span class="tag">{{ product.type }}</span>
-                    <h6 class="name-prd">
+                    {% if settings.show_type %}
+                      <span class="tag">{{ product.type }}</span>
+                    {% endif %}
+                    <{{ section.settings.product_title_size }} class="name-prd">
                       <a href="{{ product.url }}" class="link">
                         {{ product.title }}
                       </a>
-                    </h6>
+                    </{{ section.settings.product_title_size }}>
                     <div class="price-wrap">
-                      <span class="price-new h6">{{ product.price | money }}</span>
+                      <span class="price-new h6">{{ product.price | money_without_trailing_zeros }}</span>
                       <span class="text-third h6">
                         {% if product.available %}
                           {{ 'products.product.inventory.in_stock_label' | t }}
@@ -68,9 +99,9 @@
                 {% else %}
                   <div class="content">
                     <span class="tag">Category</span>
-                    <h6 class="name-prd"><a href="#" class="link">Product Title</a></h6>
+                    <{{ section.settings.product_title_size }} class="name-prd"><a href="#" class="link">Product Title</a></{{ section.settings.product_title_size }}>
                     <div class="price-wrap">
-                      <span class="price-new h6">$99.99</span>
+                      <span class="price-new h6">$99</span>
                     </div>
                   </div>
                   <div class="image">
@@ -87,8 +118,8 @@
 
   <div class="banner-product-set">
     <div class="banner_content">
-      {% if section.settings.badge_text != blank %}
-        <p class="product-badge_item h6 sale"> {{ section.settings.badge_text }} <span class="fw-bold"> {{ section.settings.badge_highlight }}</span></p>
+      {% if section.settings.badge_text != blank or section.settings.badge_highlight != blank %}
+        <p class="product-badge_item h6 sale {% if section.settings.badge_rounded %}style-2 {% endif %}"> {{ section.settings.badge_text }} <span class="fw-bold"> {{ section.settings.badge_highlight }}</span></p>
       {% endif %}
       <div class="sect-title">
         {% liquid
@@ -119,7 +150,7 @@
             {% assign product = block.settings.product %}
             <li>
               <div class="card-product product-style_list-mini bundle-hover-item pin{{ forloop.index }}">
-                <div class="card-product_wrapper">
+                <div class="card-product_wrapper {{ settings.card_corners }}">
                   {% if product != blank %}
                     <a href="{{ product.url }}" class="product-img">
                       {{ product.featured_image | image_url: width: 200 | image_tag: class: 'lazyload img-product', alt: product.title }}
@@ -132,13 +163,17 @@
                 </div>
                 <div class="card-product_info">
                   {% if product != blank %}
-                    <p class="tag-product text-small">{{ product.type }}</p>
+                    {% if settings.show_type %}
+                      <p class="tag-product text-small">{{ product.type }}</p>
+                    {% endif %}
                     <h6>
-                      <a href="{{ product.url }}" class="name-product link">{{ product.title }}</a>
+                      <{{ section.settings.product_title_size }}>
+                        <a href="{{ product.url }}" class="name-product link">{{ product.title }}</a>
+                      </{{ section.settings.product_title_size }}>
                     </h6>
                     <div class="price-wrap">
-                      <span class="price-new h6 fw-semibold">{{ product.price | money }}</span>
-                      <span class="h6 text-instock">
+                      <span class="price-new h6 fw-semibold">{{ product.price | money_without_trailing_zeros }}</span>
+                      <span class="h6 product-inventory">
                         {% if product.available %}
                           {{ 'products.product.inventory.in_stock_label' | t }}
                         {% else %}
@@ -150,9 +185,9 @@
                     {% assign set_variant_ids = set_variant_ids | append: product.selected_or_first_available_variant.id | append: "," %}
                   {% else %}
                     <p class="tag-product text-small">Category</p>
-                    <h6><a href="#" class="name-product link">Product Title</a></h6>
+                    <{{ section.settings.product_title_size }}><a href="#" class="name-product link">Product Title</a></{{ section.settings.product_title_size }}>
                     <div class="price-wrap">
-                      <span class="price-new h6 fw-semibold">$0.00</span>
+                      <span class="price-new h6 fw-semibold">$0</span>
                     </div>
                   {% endif %}
                 </div>
@@ -191,7 +226,7 @@
             {% endif %}
           {% endfor %}
           <div class="w-100 text-center">
-            <p class="h4 text-black total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
+            <p class="h4 total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
             <button
               type="submit"
               name="add"
@@ -300,6 +335,64 @@
       "type": "color",
       "id": "set_button_bg_color",
       "label": "Set Button Background"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Global Text Color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Subtitle Opacity",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "product_type_opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "label": "Product Type Opacity",
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "badge_rounded",
+      "label": "Badge Rounded Corners",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "stock_status_color",
+      "label": "Stock Status Color",
+      "default": "#22c55e"
+    },
+    {
+      "type": "color",
+      "id": "badge_bg_color",
+      "label": "Badge Background Color",
+      "default": "#fde68a"
+    },
+    {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Badge Text Color",
+      "default": "#92400e"
+    },
+    {
+      "type": "select",
+      "id": "product_title_size",
+      "label": "Product Title Size",
+      "options": [
+        { "value": "h6", "label": "Small" },
+        { "value": "h5", "label": "Medium" }
+      ],
+      "default": "h6"
     },
     {
       "type": "text",
