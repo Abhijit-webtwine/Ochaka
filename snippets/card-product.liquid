@@ -55,7 +55,7 @@
   data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
   data-brand="{{ product.vendor }}"
 >
-  <div class="card-product_wrapper d-flex h-100 {{ settings.card_height }} {% if settings.show_border %} style-line-radius {% endif %}">
+  <div class="card-product_wrapper d-flex h-100 {{ settings.card_height }} {{ settings.card_corners }} {% if settings.show_border %} style-line-border {% endif %}">
     {% render 'card-product-media', product: product %}
 
     {% if show_wishlist_remove %}

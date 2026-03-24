@@ -666,6 +666,10 @@
         border-radius: 16px;
         border: 1px solid var(--line);
     }
+    
+    &.style-line-border {
+      border: 1px solid var(--line);
+    }
 
     .product-img {
         overflow: hidden;
@@ -1149,8 +1153,8 @@
     }
 
     &.style-2 {
-        background-color: var(--secondary);
-        color: var(--bg-4);
+        // background-color: var(--secondary);
+        // color: var(--bg-4);
         border-radius: 6px;
     }
 
