@@ -3,7 +3,8 @@
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
     background-color: {{ section.settings.background_color }};
-    color: {{ section.settings.text_color }};
+    {%- assign text_opacity = section.settings.text_opacity -%}
+    color: {{ section.settings.text_color | color_modify: 'alpha', text_opacity }};
   }
 
   @media screen and (min-width: 768px) {
@@ -24,10 +25,10 @@
     color: {{ section.settings.heading_color }};
   }
   .footer-menu-list a {
-    color: {{ section.settings.text_color }};
+    color: {{ section.settings.text_color | color_modify: 'alpha', text_opacity }};
   }
   .footer-contact a, .footer-newsletter a, .footer-bottom .list-hor :is(a, button) {
-    color: {{ section.settings.text_color }};
+    color: {{ section.settings.text_color | color_modify: 'alpha', text_opacity }};
   }
   .footer-contact .br-line,
   .footer-bottom .br-line {
@@ -339,6 +340,15 @@
       "id": "text_color",
       "label": "Text Color",
       "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "text_opacity",
+      "label": "Text Opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 1
     },
         {
       "type": "color",
