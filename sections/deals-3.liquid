@@ -1,0 +1,318 @@
+{% comment %}
+  Dynamic Deals Section
+{% endcomment %}
+
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+</style>
+
+<section class="flat-spacing section-{{ section.id }}-padding">
+  <div class="container">
+    <div class="sect-title text-center wow fadeInUp">
+      {%- if section.settings.title != blank -%}
+        <h1 class="title mb-8">{{ section.settings.title | escape }}</h1>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="s-subtitle h6">{{ section.settings.subtitle | escape }}</p>
+      {%- endif -%}
+    </div>
+    
+    <div dir="ltr" class="swiper tf-swiper wow fadeInUp" 
+      data-preview="2" 
+      data-tablet="1" 
+      data-mobile="1" 
+      data-space-lg="48" 
+      data-space-md="24" 
+      data-space="12" 
+      data-pagination="1" 
+      data-pagination-md="2" 
+      data-pagination-lg="2">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- assign product = block.settings.product -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="card-product product-style_list-slide">
+              <div class="card-product_wrapper d-flex {{ settings.card_corners }}">
+                {%- if product != blank -%}
+                  <a href="{{ product.url | default: '#' }}" class="product-img">
+                    {%- liquid
+                      assign main_image = product.featured_image | default: product.images[0]
+                    -%}
+                    {%- if product != blank -%}
+                      <img
+                        class="lazyload img-product"
+                        src="{{ main_image | image_url }}"
+                        data-src="{{ main_image | image_url }}"
+                        alt="{{ main_image.alt | escape }}"
+                        loading="lazy"
+                        width="{{ main_image.width }}"
+                        height="{{ main_image.height }}"
+                        style="height: auto;"
+                      >
+                      <img
+                        class="lazyload img-hover"
+                        src="{{ main_image | image_url }}"
+                        data-src="{{ main_image | image_url }}"
+                        alt="{{ main_image.alt | escape }}"
+                        loading="lazy"
+                        width="{{ main_image.width }}"
+                        height="{{ main_image.height }}"
+                        style="height: auto;"
+                      >
+                    {%- else -%}
+                      {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </a>
+                  
+                  {% render 'icon-action-list',
+                    product: product,
+                    show_tooltips: settings.show_tooltips,
+                    tooltip_direction: settings.tooltip_direction,
+                    show_wishlist: settings.wishlist_enabled,
+                    show_compare: settings.compare_enabled,
+                    show_quick_view: settings.quick_view_enabled,
+                    show_add_to_cart: true
+                  %}
+                {%- else -%}
+                  <div class="product-img">
+                    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg img-product' }}
+                  </div>
+                {%- endif -%}
+              </div>
+
+              <div class="card-product_info">
+                <div>
+                  {%- if settings.show_type and product.type != blank -%}
+                    <p class="tag-product text-small mb-0">{{ product.type }}</p>
+                  {%- elsif settings.show_type -%}
+                    <p class="tag-product text-small mb-0">Organic Food</p>
+                  {%- endif -%}
+                  
+                  <h4 class="name-product">
+                    <a href="{{ product.url | default: '#' }}" class="text-purple link">
+                      {{ product.title | default: 'Product Title' }}
+                    </a>
+                  </h4>
+                  
+                  <div class="box-price-rate">
+                    {% liquid
+                      assign price = product.price | money
+                      assign compare_at_price = product.compare_at_price | money
+                
+                      if settings.price_style == 'without_trailing_zero'
+                        assign price = product.price | money_without_trailing_zeros
+                        assign compare_at_price = product.compare_at_price | money_without_trailing_zeros
+                      endif
+                    %}
+                    <div class="price-wrap mb-0">
+                      <h4 class="price-new">{{ price | default: '$289.99' }}</h4>
+                      {%- if product.compare_at_price > product.price -%}
+                        <span class="price-old h6">{{ compare_at_price }}</span>
+                      {%- elsif product == blank -%}
+                        <span class="price-old h6">$339.99</span>
+                      {%- endif -%}
+                    </div>
+                    
+                    {%- if settings.show_rating -%}
+                      {% render 'rating', product: product %}
+                    {%- endif -%}
+                  </div>
+                </div>
+                
+                <span class="br-line"></span>
+                <p class="product-text_sub">
+                  {{ product.description | strip_html | truncatewords: 15 | default: 'Immune Support & Overall Health for All Dogs! Boost your dogs natural defenses with this nutrient-rich dog...' }}
+                </p>
+                
+                <div class="product-progress_sold">
+                  <div class="box-quantity">
+                    <p class="text-avaiable">
+                      Available: <span class="fw-bold text-black">
+                        {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+                          {{ product.selected_or_first_available_variant.inventory_quantity }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="box-hurry-sale">
+                  <p>
+                    <span class="h5 fw-medium text-black">Hurry up</span><br>
+                    <span>offer ends in:</span>
+                  </p>
+                  {%- liquid
+                    assign end_date = product.metafields.custom.countdown_timer.value
+                    if block.settings.end_date != blank
+                      assign end_date = block.settings.end_date | append: 'T' | append: block.settings.end_time | append: ':00'
+                    endif
+                  -%}
+                  {%- if end_date != blank -%}
+                    <div class="count-down_v02 style-2">
+                      <countdown-timer class="cd-custom-element cd-has-zero" data-date="{{ end_date }}" data-layout="classic" data-labels="Days,Hours,Mins,Secs"></countdown-timer>
+                    </div>
+                  {%- else -%}
+                    <div class="count-down_v02 style-2">
+                      <div class="js-countdown cd-has-zero" data-timer="25472" data-labels="Days,Hours,Mins,Secs"></div>
+                    </div>
+                  {%- endif -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination d-xl-none"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Deals 3",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Deal Of The Day"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Up to 50% off shop our best deals"
+    },
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Layout Settings"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "deal",
+      "name": "Deal Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "end_date",
+          "label": "End date",
+          "info": "Format: YYYY-MM-DD (Example: 2026-03-09)"
+        },
+        {
+          "type": "text",
+          "id": "end_time",
+          "label": "End time (24h)",
+          "info": "Format: HH:MM (Example: 23:59)",
+          "default": "23:59"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Deals 3",
+      "blocks": [
+        { "type": "deal" },
+        { "type": "deal" }
+      ]
+    }
+  ]
+}
+{% endschema %}
