@@ -1,0 +1,213 @@
+{%- style -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'slide' -%}
+      #block-{{ block.id }} .title_sld {
+        color: {{ block.settings.title_color }};
+      }
+      #block-{{ block.id }} .sub-text_sld {
+        color: {{ block.settings.sub_text_color }};
+      }
+      #block-{{ block.id }} .tf-btn {
+        background-color: {{ block.settings.btn_bg_color }};
+        border-color: {{ block.settings.btn_bg_color }};
+        color: {{ block.settings.btn_text_color }};
+      }
+    {%- endif -%}
+  {%- endfor -%}
+{%- endstyle -%}
+
+<div class="tf-slideshow tf-btn-swiper-main">
+  <div dir="ltr" class="swiper tf-swiper sw-slide-show slider_effect_fade" 
+    data-auto="true" 
+    data-loop="true"
+    data-effect="fade" 
+    data-delay="3000">
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'slide' -%}
+          <div class="swiper-slide" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
+            <div class="slider-wrap style-4 has-nav">
+              <div class="sld_image">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 2000 }}" 
+                    data-src="{{ block.settings.image | image_url: width: 2000 }}" 
+                    alt="{{ block.settings.image.alt | default: block.settings.title }}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}"
+                    class="lazyload ani-zoom">
+                {%- else -%}
+                  {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg ani-zoom' }}
+                {%- endif -%}
+              </div>
+              <div class="sld_content">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-xxl-3 col-lg-4 d-xl-block d-none"></div>
+                    <div class="col-xxl-4 col-md-6">
+                      <div class="content-sld_wrap">
+                        {%- if block.settings.title != blank -%}
+                          <h1 class="title_sld text-display fade-item fade-item-2">
+                            {{ block.settings.title | newline_to_br }}
+                          </h1>
+                        {%- endif -%}
+                        {%- if block.settings.sub_text != blank -%}
+                          <p class="sub-text_sld h5 fade-item fade-item-3">
+                            {{ block.settings.sub_text | newline_to_br }}
+                          </p>
+                        {%- endif -%}
+                        {%- if block.settings.btn_text != blank -%}
+                          <div class="fade-item fade-item-4">
+                            <a href="{{ block.settings.btn_url | default: '#' }}" class="tf-btn animate-btn fw-normal">
+                              {{- block.settings.btn_text -}}
+                              <i class="icon icon-arrow-right"></i>
+                            </a>
+                          </div>
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="sw-dot-default style-white tf-sw-pagination"></div>
+  </div>
+
+  <div class="slideshow-wrap d-xl-flex d-none">
+    <div class="container">
+      <div class="row">
+        {% if section.settings.sidebar_menu != blank %}
+          <div class="col-xxl-3 col-lg-4">
+            <ul class="nav-shop-by sidebar-content-wrap">
+              <li class="d-none d-xl-block">
+                <p class="nav-shop_link h6 nav-shop_title">
+                  <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M19.5938 11C19.5938 11.2735 19.4851 11.5358 19.2917 11.7292C19.0983 11.9226 18.836 12.0312 18.5625 12.0312H3.4375C3.164 12.0312 2.90169 11.9226 2.7083 11.7292C2.5149 11.5358 2.40625 11.2735 2.40625 11C2.40625 10.7265 2.5149 10.4642 2.7083 10.2708C2.90169 10.0774 3.164 9.96875 3.4375 9.96875H18.5625C18.836 9.96875 19.0983 10.0774 19.2917 10.2708C19.4851 10.4642 19.5938 10.7265 19.5938 11ZM3.4375 6.53125H18.5625C18.836 6.53125 19.0983 6.4226 19.2917 6.2292C19.4851 6.03581 19.5938 5.7735 19.5938 5.5C19.5938 5.2265 19.4851 4.96419 19.2917 4.7708C19.0983 4.5774 18.836 4.46875 18.5625 4.46875H3.4375C3.164 4.46875 2.90169 4.5774 2.7083 4.7708C2.5149 4.96419 2.40625 5.2265 2.40625 5.5C2.40625 5.7735 2.5149 6.03581 2.7083 6.2292C2.90169 6.4226 3.164 6.53125 3.4375 6.53125ZM18.5625 15.4688H3.4375C3.164 15.4688 2.90169 15.5774 2.7083 15.7708C2.5149 15.9642 2.40625 16.2265 2.40625 16.5C2.40625 16.7735 2.5149 17.0358 2.7083 17.2292C2.90169 17.4226 3.164 17.5312 3.4375 17.5312H18.5625C18.836 17.5312 19.0983 17.4226 19.2917 17.2292C19.4851 17.0358 19.5938 16.7735 19.5938 16.5C19.5938 16.2265 19.4851 15.9642 19.2917 15.7708C19.0983 15.5774 18.836 15.4688 18.5625 15.4688Z"
+                      fill="white" />
+                  </svg>
+                  <span class="fw-semibold text">{{ section.settings.sidebar_title }}</span>
+                </p>
+              </li>
+              {%- for link in section.settings.sidebar_menu.links -%}
+                {%- assign title_parts = link.title | split: '|' -%}
+                {%- assign menu_title = title_parts[0] | strip -%}
+                {%- assign menu_icon = title_parts[1] | strip -%}
+                <li>
+                  <a href="{{ link.url }}" class="nav-shop_link h6 link-purple">
+                    {%- if menu_icon != blank -%}
+                      <i class="icon {{ menu_icon }}"></i>
+                    {%- endif -%}
+                    <span class="text fw-medium">{{ menu_title }}</span>
+                    <i class="icon2 icon-caret-right"></i>
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow 7",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Sidebar Settings"
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "Sidebar Title",
+      "default": "Shop by"
+    },
+    {
+      "type": "link_list",
+      "id": "sidebar_menu",
+      "label": "Sidebar Menu"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "Care & Nutrition"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#7C3AED"
+        },
+        {
+          "type": "textarea",
+          "id": "sub_text",
+          "label": "Subtext",
+          "default": "Cat Treats, For Fussy Eaters, Digestive Support with Natural Ingredients, High Protein Snacks 60g"
+        },
+        {
+          "type": "color",
+          "id": "sub_text_color",
+          "label": "Subtext Color",
+          "default": "#000000"
+        },
+        {
+          "type": "text",
+          "id": "btn_text",
+          "label": "Button Text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "btn_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_color",
+          "label": "Button Background Color",
+          "default": "#7C3AED"
+        },
+        {
+          "type": "color",
+          "id": "btn_text_color",
+          "label": "Button Text Color",
+          "default": "#FFFFFF"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow 7",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": { "title": "Care & Nutrition" }
+        },
+        {
+          "type": "slide",
+          "settings": { "title": "Health & Wellness" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
