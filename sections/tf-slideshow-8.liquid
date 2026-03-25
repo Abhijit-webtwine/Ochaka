@@ -1,0 +1,93 @@
+<div class="tf-slideshow" id="slideshow-{{ section.id }}">
+  <div dir="ltr" class="swiper tf-swiper sw-slide-show slider_effect_scale-md slider_effect_fade-md" data-preview="3"
+    data-tablet="2" data-mobile-sm="1" data-mobile="1" data-pagination="1" data-pagination-sm="1" data-pagination-md="2"
+    data-pagination-lg="3">
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign collection = block.settings.collection
+          assign slider_image = block.settings.image | default: collection.featured_image
+          assign slider_title = collection.title
+          assign slider_link = block.settings.button_link | default: collection.url
+        -%}
+        <div class="swiper-slide" {{ block.shopify_attributes }}>
+          <div class="wg-cls-2 hover-img d-flex">
+            <a href="{{ slider_link | default: '#' }}" class="image img-style">
+              {%- if slider_image != blank -%}
+                {{ slider_image | image_url: width: 1500 | image_tag: class: 'lazyload scale-item', loading: 'lazy', alt: slider_title }}
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg scale-item' }}
+              {%- endif -%}
+            </a>
+            <div class="cls-content_wrap b-xl-32">
+              <div class="cls-content fade-item fade-item-1">
+                {%- if slider_title != blank -%}
+                  <a href="{{ slider_link | default: '#' }}" class="tag_cls h3 link">{{ slider_title }}</a>
+                {%- endif -%}
+                <span class="br-line type-vertical"></span>
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ slider_link | default: '#' }}" class="tf-btn-line text-nowrap">
+                    {{ block.settings.button_label }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="sw-dot-default tf-sw-pagination"></div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Slideshow 8",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "slider_item",
+      "name": "Slider Item",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image (Override)"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link (Override)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Slideshow 8",
+      "blocks": [
+        {
+          "type": "slider_item"
+        },
+        {
+          "type": "slider_item"
+        },
+        {
+          "type": "slider_item"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
