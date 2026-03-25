@@ -2,27 +2,27 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
 <style>
-  .tf-header.style-6 {
+  .tf-header {
     background-color: {{ section.settings.header_bg }};
   }
-  .tf-header.style-6 .box-navigation .item-link,
-  .tf-header.style-6 .nav-icon-list .nav-icon-item,
-  .tf-header.style-6 .btn-mobile-menu {
+  .tf-header .box-navigation .item-link,
+  .tf-header .nav-icon-list .nav-icon-item,
+  .tf-header .btn-mobile-menu {
     color: {{ section.settings.header_text_color }};
   }
 
-  .tf-header.style-6 .form_search input::placeholder {
+  .tf-header .form_search input::placeholder {
     color: {{ section.settings.header_text_color }};
   }
   
-  .tf-header.style-6 .form_search input::placeholder {
+  .tf-header .form_search input::placeholder {
     color: #909490;
   }
 </style>
 
 <header
   class="
-    tf-header header-fix style-6
+    tf-header header-fix {{ section.settings.header_style }}
     {% if section.settings.enable_sticky_header %}
       header--sticky-enabled
     {% endif %}
@@ -30,7 +30,7 @@
 >
   {%- liquid
     if section.settings.menu != blank
-      render 'header-drawer', main_menu: section.settings.menu
+      render 'header-drawer', main_menu: section.settings.menu, menu_item_style: section.settings.menu_item_style
     endif
   -%}
   <div class="container">
@@ -57,7 +57,7 @@
       <div class="col-xl-10 col-md-4 col-3">
         <div class="header-right">
           <nav class="box-navigation style-white d-none d-xl-block">
-            {% render 'header-navs' %}
+            {% render 'header-navs', menu_item_style: section.settings.menu_item_style %}
           </nav>
           <form
             action="{{ routes.search_url }}"
@@ -100,6 +100,42 @@
 {
   "name": "Header 4",
   "settings": [
+    {
+      "type": "select",
+      "id": "menu_item_style",
+      "label": "Menu Item Style",
+      "default": "text-uppercase",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "text-uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "text-lowercase",
+          "label": "Lowercase"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "header_style",
+      "label": "Header Style",
+      "default": "",
+      "options": [
+        {
+          "value": "",
+          "label": "Style 1"
+        },
+        {
+          "value": "style-6",
+          "label": "Style 2"
+        }
+      ]
+    },
     {
       "type": "text",
       "id": "modal_title",

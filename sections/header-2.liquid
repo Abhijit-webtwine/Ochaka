@@ -16,7 +16,7 @@
 <header class="tf-header {{ section.settings.header_style }}">
   {%- liquid
     if section.settings.menu != blank
-      render 'header-drawer', main_menu: section.settings.menu
+      render 'header-drawer', main_menu: section.settings.menu, menu_item_style: section.settings.menu_item_style
     endif
   -%}
   <div class="header-top">
@@ -175,7 +175,7 @@
         <span class="br-line d-block"></span>
       {% endunless %}
       <nav class="box-navigation {% if header_style_default %} style-white {% endif %}">
-        {% render 'header-navs' %}
+        {% render 'header-navs', menu_item_style: section.settings.menu_item_style %}
       </nav>
     </div>
   </div>
@@ -209,7 +209,7 @@
       </div>
       <div class="col-xl-6 d-none d-xl-block">
         <nav class="box-navigation">
-          {% render 'header-navs', mobile_nav_none: true %}
+          {% render 'header-navs', mobile_nav_none: true, menu_item_style: section.settings.menu_item_style %}
         </nav>
       </div>
       <div class="col-xl-3 col-md-4 col-3">
@@ -226,6 +226,26 @@
 {
   "name": "Header 2",
   "settings": [
+    {
+      "type": "select",
+      "id": "menu_item_style",
+      "label": "Menu Item Style",
+      "default": "text-uppercase",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "text-uppercase",
+          "label": "Uppercase"
+        },
+        {
+          "value": "text-lowercase",
+          "label": "Lowercase"
+        }
+      ]
+    },
     {
       "type": "select",
       "id": "header_style",

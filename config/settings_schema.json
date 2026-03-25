@@ -33,6 +33,12 @@
         "id": "show_scrolling_promotion",
         "label": "Show scrolling promotion",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_collection_sidebar",
+        "label": "Show collection sidebar",
+        "default": true
       }
     ]
   },
@@ -55,6 +61,10 @@
           {
             "value": "header_3",
             "label": "Header 3"
+          },
+          {
+            "value": "header_4",
+            "label": "Header 4"
           }
         ],
         "default": "header_1"
@@ -376,6 +386,22 @@
         "default": true,
         "label": "Show Border",
         "info": "Does not work with colored background product"
+      },
+      {
+        "type": "select",
+        "id": "card_corners",
+        "options": [
+          {
+            "value": "radius-16",
+            "label": "Rounded"
+          },
+          {
+            "value": "",
+            "label": "Square"
+          }
+        ],
+        "default": "",
+        "label": "Card Corners"
       },
       {
         "type": "select",
