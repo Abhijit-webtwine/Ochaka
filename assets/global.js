@@ -1850,6 +1850,7 @@ class ProductFormMultiAdd extends ProductForm {
     const items = [];
 
     idInputs.forEach((idInput, index) => {
+
       const val = qtyInputs[index]?.value;
       const quantity = val ? parseInt(val, 10) : 1;
       
@@ -1902,6 +1903,61 @@ class ProductFormMultiAdd extends ProductForm {
 }
 
 customElements.define('product-form-multi-add', ProductFormMultiAdd);
+
+class ProductFormFbt extends ProductFormMultiAdd {
+  constructor() {
+    super();
+
+    this.checkboxes = this.querySelectorAll('input[type="checkbox"].tf-check');
+    this.totalPriceElem = this.querySelector('.total-price');
+
+    if (this.checkboxes.length && this.totalPriceElem) {
+      this.boundUpdateTotalPrice = this.updateTotalPrice.bind(this);
+      this.checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', this.boundUpdateTotalPrice);
+      });
+      // Initial calculate on load
+      this.updateTotalPrice();
+    }
+  }
+
+  updateTotalPrice() {
+    let totalPrice = 0;
+    this.checkboxes.forEach((checkbox) => {
+      if (checkbox.checked) {
+        const price = parseInt(checkbox.dataset.price, 10);
+        if (!isNaN(price)) {
+          totalPrice += price;
+        }
+      }
+    });
+
+    if (window.theme && window.theme.Currency && window.shopSettings) {
+      this.totalPriceElem.innerHTML = `<price-money><bdi>${theme.Currency.formatMoney(totalPrice, window.shopSettings.moneyFormat)}</bdi></price-money>`;
+    }
+  }
+
+  onSubmitHandler(evt) {
+    // Temporarily remove name="id" from unchecked checkboxes
+    // so the base ProductFormMultiAdd component ignores them entirely.
+    this.checkboxes.forEach(checkbox => {
+      if (!checkbox.checked) {
+        checkbox.removeAttribute('name');
+      }
+    });
+
+    super.onSubmitHandler(evt);
+
+    // Restore name immediately so they work if checked later
+    this.checkboxes.forEach(checkbox => {
+      if (!checkbox.checked) {
+        checkbox.setAttribute('name', 'id');
+      }
+    });
+  }
+}
+
+customElements.define('product-form-fbt', ProductFormFbt);
 
 class ProgressBar extends HTMLElement {
   constructor() {
