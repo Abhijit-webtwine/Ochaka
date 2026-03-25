@@ -1583,22 +1583,26 @@ class VariantSelects extends HTMLElement {
   }
 
   updateVolumeDiscount(responseText) {
-    const id = `volume-discount-list-${this.dataset.section}`;
     const html = new DOMParser().parseFromString(responseText, 'text/html');
-    const destination = document.getElementById(id);
-    const source = html.getElementById(id);
-
-    if (source && destination) {
-      // Preserve active index so user selection isn't lost during fast variant swaps
-      const activeIndex = Array.from(destination.children).findIndex(child => child.classList.contains('active'));
-      destination.innerHTML = source.innerHTML;
-      if (activeIndex > -1 && destination.children[activeIndex]) {
-        Array.from(destination.children).forEach(c => c.classList.remove('active'));
-        destination.children[activeIndex].classList.add('active');
-        const qtyInput = destination.closest('product-volume-discount')?.querySelector('.volume-qty-input');
-        if (qtyInput) qtyInput.value = destination.children[activeIndex].dataset.qty;
+    
+    ['volume-discount-list-', 'volume-discount-list-thumb-'].forEach(prefix => {
+      const id = `${prefix}${this.dataset.section}`;
+      const destination = document.getElementById(id);
+      if (!destination) return;
+      
+      const source = html.getElementById(id);
+      if (source && destination) {
+        // Preserve active index so user selection isn't lost during fast variant swaps
+        const activeIndex = Array.from(destination.children).findIndex(child => child.classList.contains('active'));
+        destination.innerHTML = source.innerHTML;
+        if (activeIndex > -1 && destination.children[activeIndex]) {
+          Array.from(destination.children).forEach(c => c.classList.remove('active'));
+          destination.children[activeIndex].classList.add('active');
+          const qtyInput = destination.closest('product-volume-discount')?.querySelector('.volume-qty-input');
+          if (qtyInput) qtyInput.value = destination.children[activeIndex].dataset.qty;
+        }
       }
-    }
+    });
   }
 
   toggleAddButton(disable = true, text, modifyClass = true) {
@@ -1684,6 +1688,7 @@ class VariantSelects extends HTMLElement {
 
   manageOptionState(option, values) {
     const group = this.querySelector('.variant-input-wrapper[data-option-index="'+ option +'"]');
+    if (!group) return;
 
     // Loop through each option value
     values.forEach(obj => {
@@ -1811,8 +1816,8 @@ class ProductForm extends HTMLElement {
     fetch(`${window.routes.cart_add_url}`, config)
       .then((response) => response.json())
       .then((response) => {
-        if (response.status) {
-          this.handleErrorMessage(response.description);
+        if (response.status || response.errors || response.message) {
+          this.handleErrorMessage(response.description || response.message || (response.errors ? (typeof response.errors === 'string' ? response.errors : Object.values(response.errors).join(', ')) : 'Error'));
           return;
         }
         this.dispatchEvent(new CustomEvent('productForm:added'));
@@ -3831,7 +3836,16 @@ class ProductVolumeDiscount extends ProductForm {
       item.classList.add('active');
       
       const qtyInput = this.querySelector('.volume-qty-input');
-      if (qtyInput) qtyInput.value = item.dataset.qty;
+      if (qtyInput && item.dataset.qty) qtyInput.value = item.dataset.qty;
+      
+      const idInputs = this.querySelectorAll('input[name="id"]');
+      if (idInputs.length > 0) {
+        idInputs[0].value = item.dataset.id || idInputs[0].value;
+        // Purge duplicates to avoid Array ID Shopify 422 conflicts
+        for (let i = 1; i < idInputs.length; i++) {
+          idInputs[i].remove();
+        }
+      }
     });
   }
 }

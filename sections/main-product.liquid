@@ -386,6 +386,70 @@
                         </button>
                       {%- endform -%}
                     </product-volume-discount>
+                  {% when 'volume_discount_thumbnail' %}
+                    {% assign discount_products = product.metafields.custom.volume_discount.value %}
+                    {% if discount_products != blank %}
+                    <product-volume-discount class="tf-product-volume-discount d-block overflow-x-auto" data-section="{{ section.id }}">
+                      <div class="product-badge_item flash-sale w-maxcontent heading">
+                        <i class="icon icon-thunder"></i>
+                        {{ block.settings.heading }}
+                      </div>
+                      
+                      {% assign product_form_id = 'product-form-volume-thumb-' | append: section.id %}
+                      {%- form 'product', product, id: product_form_id, class: 'w-100' -%}
+                        {% assign first_bundle = discount_products.first %}
+                        {% assign first_bundle_qty = block.settings.opt1_qty | default: 1 %}
+                        <input type="hidden" name="id" value="{{ first_bundle.selected_or_first_available_variant.id }}">
+                        <input type="hidden" name="quantity" value="{{ first_bundle_qty }}" class="volume-qty-input">
+                        
+                        <div id="volume-discount-list-thumb-{{ section.id }}" class="flat-check-list list-volume-discount-thumbnail">
+                          {% for dist_prod in discount_products %}
+                            {% assign variant = dist_prod.selected_or_first_available_variant %}
+                            {% capture qty_key %}opt{{ forloop.index }}_qty{% endcapture %}
+                            {% capture disc_key %}opt{{ forloop.index }}_discount{% endcapture %}
+                            {% assign qty = block.settings[qty_key] | default: 1 %}
+                            {% assign disc = block.settings[disc_key] | default: 0 %}
+                            
+                            {% assign base_unit = variant.compare_at_price | default: variant.price | times: qty %}
+                            {% assign discounted_unit = variant.price | times: qty %}
+                            
+                            {% if disc > 0 %}
+                              {% assign savings = disc %}
+                            {% elsif base_unit > discounted_unit %}
+                              {% assign diff = base_unit | minus: discounted_unit %}
+                              {% assign savings = diff | times: 100.0 | divided_by: base_unit | round %}
+                            {% else %}
+                              {% assign savings = 0 %}
+                            {% endif %}
+                            
+                            <div class="check-item volume-discount-thumbnail-item volume-discount-item {% if forloop.first %}active{% endif %}" data-id="{{ variant.id }}" data-qty="{{ qty }}">
+                              <div class="image-box">
+                                {% assign img = variant.featured_image | default: dist_prod.featured_image %}
+                                {% if img != blank %}
+                                  <img class="lazyload" data-src="{{ img | image_url: width: 200 }}" src="{{ img | image_url: width: 200 }}" alt="{{ img.alt | escape }}" width="{{ img.width }}" height="{{ img.height }}">
+                                {% endif %}
+                                {% if savings > 0 %}
+                                  <div class="tags-save h6">Save {{ savings }}%</div>
+                                {% endif %}
+                              </div>
+                              <div class="content-discount">
+                                <h5 class="count fw-6">Buy {{ qty }} item{% if qty > 1 %}s{% endif %}</h5>
+                                <div class="price-wrap">
+                                  {% if base_unit > discounted_unit %}
+                                    <span class="price-old h6 fw-normal">{{ base_unit | money }}</span>
+                                  {% endif %}
+                                  <span class="price-new h6 fw-5 text-primary">{{ discounted_unit | money }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          {% endfor %}
+                        </div>
+                        <button type="submit" name="add" class="tf-btn animate-btn btn-add-to-cart" style="margin-top:20px;">
+                          Choose this deal
+                        </button>
+                      {%- endform -%}
+                    </product-volume-discount>
+                    {% endif %}
                   {% when 'fbt' %}
                     {% assign fbt_products = product.metafields.custom.frequently_bought.value %}
                     {% if fbt_products != blank %}
@@ -801,6 +865,67 @@
           "id": "opt3_discount",
           "label": "Discount %",
           "default": 25
+        }
+      ]
+    },
+    {
+      "type": "volume_discount_thumbnail",
+      "name": "Volume Discount (Thumb)",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Best deal for you"
+        },
+        {
+          "type": "header",
+          "content": "Option 1"
+        },
+        {
+          "type": "number",
+          "id": "opt1_qty",
+          "label": "Quantity",
+          "default": 3
+        },
+        {
+          "type": "number",
+          "id": "opt1_discount",
+          "label": "Discount %",
+          "default": 25
+        },
+        {
+          "type": "header",
+          "content": "Option 2"
+        },
+        {
+          "type": "number",
+          "id": "opt2_qty",
+          "label": "Quantity",
+          "default": 1
+        },
+        {
+          "type": "number",
+          "id": "opt2_discount",
+          "label": "Discount %",
+          "default": 10
+        },
+        {
+          "type": "header",
+          "content": "Option 3"
+        },
+        {
+          "type": "number",
+          "id": "opt3_qty",
+          "label": "Quantity",
+          "default": 2
+        },
+        {
+          "type": "number",
+          "id": "opt3_discount",
+          "label": "Discount %",
+          "default": 15
         }
       ]
     },
