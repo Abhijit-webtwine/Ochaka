@@ -13,7 +13,7 @@
 ">
   {%- liquid
     if section.settings.menu != blank
-      render 'header-drawer', main_menu: section.settings.menu
+      render 'header-drawer', main_menu: section.settings.menu, menu_item_style: section.settings.menu_item_style
     endif
   -%}
   <div class="container-full">
@@ -137,6 +137,10 @@
         {
           "value": "text-uppercase",
           "label": "Uppercase"
+        },
+        {
+          "value": "text-lowercase",
+          "label": "Lowercase"
         }
       ]
     },
