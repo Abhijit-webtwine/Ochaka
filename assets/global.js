@@ -1482,7 +1482,7 @@ class VariantSelects extends HTMLElement {
   }
 
   updateVariantInput() {
-    const productForms = document.querySelectorAll(`#product-form-${this.dataset.section}, #product-form-installment, #product-form-${this.dataset.section}--alt`);
+    const productForms = document.querySelectorAll(`#product-form-${this.dataset.section}, #product-form-installment, #product-form-${this.dataset.section}--alt, #product-form-volume-${this.dataset.section}`);
     productForms.forEach((productForm) => {
       const input = productForm.querySelector('input[name="id"]');
       input.value = this.currentVariant.id;
@@ -1519,6 +1519,7 @@ class VariantSelects extends HTMLElement {
         this.updatePriceAlt(responseText);
         this.updateColorName(responseText);
         this.updateInventoryStatus(responseText);
+        this.updateVolumeDiscount(responseText);
         if (this.currentVariant) this.toggleAddButton(!this.currentVariant.available, window.variantStrings.soldOut);
 
         document.dispatchEvent(new CustomEvent('productInfo:loaded'));
@@ -1579,6 +1580,25 @@ class VariantSelects extends HTMLElement {
 
     if (source && destination) destination.innerHTML = source.innerHTML;
     if (destination) destination.classList.remove('visibility-hidden');
+  }
+
+  updateVolumeDiscount(responseText) {
+    const id = `volume-discount-list-${this.dataset.section}`;
+    const html = new DOMParser().parseFromString(responseText, 'text/html');
+    const destination = document.getElementById(id);
+    const source = html.getElementById(id);
+
+    if (source && destination) {
+      // Preserve active index so user selection isn't lost during fast variant swaps
+      const activeIndex = Array.from(destination.children).findIndex(child => child.classList.contains('active'));
+      destination.innerHTML = source.innerHTML;
+      if (activeIndex > -1 && destination.children[activeIndex]) {
+        Array.from(destination.children).forEach(c => c.classList.remove('active'));
+        destination.children[activeIndex].classList.add('active');
+        const qtyInput = destination.closest('product-volume-discount')?.querySelector('.volume-qty-input');
+        if (qtyInput) qtyInput.value = destination.children[activeIndex].dataset.qty;
+      }
+    }
   }
 
   toggleAddButton(disable = true, text, modifyClass = true) {
@@ -3798,3 +3818,21 @@ class CountdownTimer extends HTMLElement {
 }
 
 customElements.define("countdown-timer", CountdownTimer);
+
+class ProductVolumeDiscount extends ProductForm {
+  constructor() {
+    super();
+    this.addEventListener('click', (e) => {
+      const item = e.target.closest('.volume-discount-item');
+      if (!item) return;
+
+      const items = this.querySelectorAll('.volume-discount-item');
+      items.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+      
+      const qtyInput = this.querySelector('.volume-qty-input');
+      if (qtyInput) qtyInput.value = item.dataset.qty;
+    });
+  }
+}
+customElements.define('product-volume-discount', ProductVolumeDiscount);
