@@ -130,15 +130,11 @@
                       </div>
                     </add-to-cart-count>
 
-                    {% comment %} <div class="product-progress-sale">
-                      <div class="title">
-                        <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
-                        <div class="sold text">Sold: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
-                      </div>
-                      <div class="progress-cart">
-                        <div class="value" style="width: 0%;" data-progress="70"></div>
-                      </div>
-                    </div> {% endcomment %}
+                  {% when 'inventory_status' %}
+                    <div class="title mb-12">
+                      <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
+                    </div>
+
                   {% when 'variant_picker' %}
                     {% render 'product-variant-picker', section: section, product: product, product_form_id: product_form_id, block: block %}
 
@@ -155,7 +151,7 @@
                 {% endcase %}
               {% endfor %}
 
-              <product-form class="mt-32">
+              <product-form>
                 {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 position-static' -%}
                   <div class="tf-product-total-quantity">
                     <div class="group-btn">
@@ -743,6 +739,11 @@
           "default": 25
         }
       ]
+    },
+    {
+      "type": "inventory_status",
+      "name": "Inventory Status",
+      "limit": 1
     },
     {
       "type": "option_customizer",
