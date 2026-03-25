@@ -66,41 +66,43 @@
                 </div>
               {% endif %}
 
-              <div class="tf-product-heading">
-                <div id="price-{{ section.id }}" class="product-info-price price-wrap">
-                  <span class="price-new price-on-sale h2 fw-4">{{ product.selected_or_first_available_variant.price | money }}</span>
-                  {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-                    <span class="price-old h6">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
-
-                    <p class="badges-on-sale h6 fw-semibold">
-                      <span class="number-sale" data-person-sale="29">
-                        -{{ product.selected_or_first_available_variant.compare_at_price
-                          | minus: product.selected_or_first_available_variant.price
-                          | times: 100
-                          | divided_by: product.selected_or_first_available_variant.compare_at_price
-                        }} %
-                      </span>
-                    </p>
-                  {% endif %}
-                </div>
-                
-                {% comment %} countdown {% endcomment %}
-                {% if settings.enable_countdown and product.metafields.custom.countdown_timer.value != blank %}
-                  <div class="tf-product-info-countdown">
-                    <div class="countdown-title">
-                      <h5>Hurry up</h5>
-                      <p class="text-main">offer ends in:</p>
-                    </div>
-                    <div class="tf-countdown style-1">
-                      <countdown-timer data-date="{{ product.metafields.custom.countdown_timer.value }}" data-layout="left"></countdown-timer>
-                    </div>
-                  </div>
-                {% endif %}
-              </div>
+              {% comment %} price and countdown moved to blocks {% endcomment %}
 
               {%- assign product_form_id = 'product-form-' | append: section.id -%}
               {% for block in section.blocks %}
                 {% case block.type %}
+                  {% when 'price_countdown' %}
+                    <div class="tf-product-heading">
+                      <div id="price-{{ section.id }}" class="product-info-price price-wrap">
+                        <span class="price-new price-on-sale h2 fw-4">{{ product.selected_or_first_available_variant.price | money }}</span>
+                        {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
+                          <span class="price-old h6">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+
+                          <p class="badges-on-sale h6 fw-semibold">
+                            <span class="number-sale" data-person-sale="29">
+                              -{{ product.selected_or_first_available_variant.compare_at_price
+                                | minus: product.selected_or_first_available_variant.price
+                                | times: 100
+                                | divided_by: product.selected_or_first_available_variant.compare_at_price
+                              }} %
+                            </span>
+                          </p>
+                        {% endif %}
+                      </div>
+                      
+                      {% comment %} countdown {% endcomment %}
+                      {% if settings.enable_countdown and product.metafields.custom.countdown_timer.value != blank %}
+                        <div class="tf-product-info-countdown">
+                          <div class="countdown-title">
+                            <h5>Hurry up</h5>
+                            <p class="text-main">offer ends in:</p>
+                          </div>
+                          <div class="tf-countdown style-1">
+                            <countdown-timer data-date="{{ product.metafields.custom.countdown_timer.value }}" data-layout="left"></countdown-timer>
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
                   {% when 'visitor_count' %}
                     {% comment %} visitor count {% endcomment %}
                       <visitor-count 
@@ -711,6 +713,11 @@
           "default": 25
         }
       ]
+    },
+    {
+      "type": "price_countdown",
+      "name": "Price & Countdown",
+      "limit": 1
     },
     {
       "type": "visitor_count_2",
