@@ -68,7 +68,16 @@
 
               {% comment %} price and countdown moved to blocks {% endcomment %}
 
-              {%- assign product_form_id = 'product-form-' | append: section.id -%}
+              {%- liquid
+                assign product_form_id = 'product-form-' | append: section.id
+                assign has_group_product = false 
+                for block in section.blocks
+                  if block.type == 'group_product' and product.metafields.custom.group_product.value != blank
+                    assign has_group_product = true
+                    break
+                  endif
+                endfor
+              -%}
               {% for block in section.blocks %}
                 {% case block.type %}
                   {% when 'price_countdown' %}
@@ -207,6 +216,7 @@
                 {% endcase %}
               {% endfor %}
 
+              {%- unless has_group_product -%}
               <product-form>
                 {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'w-100 position-static' -%}
                   <div class="tf-product-total-quantity">
@@ -244,6 +254,7 @@
                   </div>
                 {% endform %}
               </product-form>
+              {%- endunless -%}
 
               <div class="tf-product-extra-link">
                 <a href="#sizeChart" data-bs-toggle="modal" class="product-extra-icon link">
@@ -517,6 +528,62 @@
                           {%- endform -%}
                         </product-form-fbt>
                       </div>
+                    {% endif %}
+                  {% when 'group_product' %}
+                    {%- assign products_to_show = product.metafields.custom.group_product.value -%}
+                    {% if products_to_show != blank %}
+                    <product-form class="tf-product-group-product-wrap d-block">
+                      {%- liquid
+                         assign form_group_id = 'product-form-group-' | append: section.id
+                      -%}
+                      <form method="post" action="{{ routes.cart_add_url }}" id="{{ form_group_id }}" accept-charset="UTF-8" class="w-100" enctype="multipart/form-data" data-type="add-to-cart-form">
+                        <input type="hidden" name="form_type" value="product">
+                        <input type="hidden" name="utf8" value="✓">
+                        <div class="tf-product-more-option">
+                          <input type="hidden" name="items[0][id]" value="{{ product.selected_or_first_available_variant.id }}">
+
+                          {%- assign item_idx = 1 -%}
+                          {%- for p in products_to_show -%}
+                            <div class="more-option-item">
+                                <h4 class="fw-4 name">
+                                    <a href="{{ p.url }}" class="link">{{ p.title }}</a>
+                                    <input type="hidden" name="items[{{ item_idx }}][id]" value="{{ p.selected_or_first_available_variant.id }}">
+                                </h4>
+                                <quantity-input class="wg-quantity">
+                                    <button class="btn-quantity" name="minus" type="button"><i class="icon icon-minus"></i></button>
+                                    <input class="quantity-product" type="number" name="items[{{ item_idx }}][quantity]" value="1" min="1">
+                                    <button class="btn-quantity" name="plus" type="button"><i class="icon icon-plus"></i></button>
+                                </quantity-input>
+                                <h4 class="price fw-6">{{ p.price | money }}</h4>
+                            </div>
+                            {%- assign item_idx = item_idx | plus: 1 -%}
+                          {%- endfor -%}
+                        </div>
+
+                        <div class="tf-product-total-quantity">
+                            <div class="group-btn">
+                                <quantity-input class="wg-quantity">
+                                    <button class="btn-quantity" name="minus" type="button"><i class="icon icon-minus"></i></button>
+                                    <input class="quantity-product" type="number" name="items[0][quantity]" value="1" min="1">
+                                    <button class="btn-quantity" name="plus" type="button"><i class="icon icon-plus"></i></button>
+                                </quantity-input>
+
+                                <button type="submit" name="add" class="tf-btn animate-btn btn-add-to-cart">
+                                    {{ 'products.product.add_to_cart' | t }}
+                                    <i class="icon icon-shopping-cart-simple"></i>
+                                </button>
+                                
+                                {%- if settings.wishlist_enabled -%}
+                                  {% render 'icon-wishlist' %}
+                                {%- endif -%}
+                                {%- if settings.compare_enabled -%}
+                                  {% render 'icon-compare' %}
+                                {%- endif -%}
+                            </div>
+                            <button type="submit" name="checkout" class="tf-btn btn-primary w-100">BUY IT NOW</button>
+                        </div>
+                      </form>
+                    </product-form>
                     {% endif %}
                 {% endcase %}
               {% endfor %}
@@ -1208,6 +1275,19 @@
           "label": "Labels",
           "default": "Days,Hours,Mins,Secs",
           "visible_if": "{{ block.settings.show_timer }}"
+        }
+      ]
+    },
+    {
+      "type": "group_product",
+      "name": "Group Product",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Group Product"
         }
       ]
     }

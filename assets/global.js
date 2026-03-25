@@ -1782,7 +1782,8 @@ class ProductForm extends HTMLElement {
 
     this.miniCart = document.querySelector('mini-cart');
     this.form = this.querySelector('form');
-    this.form.querySelector('[name=id]').disabled = false;
+    const mainIdInput = this.form.querySelector('[name=id]');
+    if (mainIdInput) mainIdInput.disabled = false;
     this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
   }
 
