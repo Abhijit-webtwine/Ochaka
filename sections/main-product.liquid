@@ -115,6 +115,19 @@
                           </div>
                       </visitor-count>
 
+                  {% when 'visitor_count_2' %}
+                    {% comment %} visitor count 2 {% endcomment %}
+                    <add-to-cart-count 
+                      min="{{ block.settings.min_visitor_count }}" 
+                      max="{{ block.settings.max_visitor_count }}">
+                      <div class="tf-product-info-liveview">
+                        <div class="liveview-count size-40">
+                          <span class="count fw-6 h6 vc-number"></span>
+                        </div>
+                        <p class="fw-6 h6">People are viewing this right now</p>
+                      </div>
+                    </add-to-cart-count>
+
                     {% comment %} <div class="product-progress-sale">
                       <div class="title">
                         <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
@@ -677,6 +690,31 @@
     {
       "type": "visitor_count",
       "name": "Visitor Count",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "range",
+          "id": "min_visitor_count",
+          "label": "Minimum Visitor Count",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "range",
+          "id": "max_visitor_count",
+          "label": "Maximum Visitor Count",
+          "min": 2,
+          "max": 100,
+          "step": 1,
+          "default": 25
+        }
+      ]
+    },
+    {
+      "type": "visitor_count_2",
+      "name": "Visitor Count 2",
       "limit": 1,
       "settings": [
         {
