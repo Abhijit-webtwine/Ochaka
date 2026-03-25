@@ -19,8 +19,8 @@
                 {% endif %}
               </div>
             </div>
-          {% elsif section.settings.main_product_layout == 'grid-1' or section.settings.main_product_layout == 'grid-2' %}
-            <div class="tf-product-media-wrap sticky-top wrapper-gallery-scroll product-grid-img {% if section.settings.main_product_layout == 'grid-2' %}product-grid-img2{% endif %}">
+          {% elsif section.settings.main_product_layout == 'grid-1' or section.settings.main_product_layout == 'grid-2' or section.settings.main_product_layout == 'stack' %}
+            <div class="tf-product-media-wrap sticky-top wrapper-gallery-scroll product-grid-img {% if section.settings.main_product_layout == 'grid-2' %}product-grid-img2{% elsif section.settings.main_product_layout == 'stack' %}product-grid-stacked{% endif %}">
               <div class="product-thumbs-slider">
                 {% render 'main-product-thumb-swiper', product: product, direction: 'vertical', preview: '4.7', classes: 'd-md-none' %}
                 {% render 'main-product-media-swiper', product: product, wrapper_classes: 'w-100' %}
@@ -31,7 +31,7 @@
         <!-- /Product Images -->
         <!-- Product Info -->
         <div class="col-md-6">
-          <div class="tf-product-info-wrap position-relative {% if section.settings.main_product_layout == 'grid-1' or section.settings.main_product_layout == 'grid-2' %}sticky-top{% endif %}">
+          <div class="tf-product-info-wrap position-relative {% if section.settings.main_product_layout == 'grid-1' or section.settings.main_product_layout == 'grid-2' or section.settings.main_product_layout == 'stack' %}sticky-top{% endif %}">
             <div class="tf-zoom-main sticky-top"></div>
             <div class="tf-product-info-list other-image-zoom">
               {% if section.settings.show_brand %}
