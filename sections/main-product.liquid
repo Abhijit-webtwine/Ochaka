@@ -72,35 +72,51 @@
               {% for block in section.blocks %}
                 {% case block.type %}
                   {% when 'price_countdown' %}
-                    <div class="tf-product-heading">
+                    <div class="tf-product-heading {% if block.settings.layout_type == 'price_visitor' %}justify-content-start align-items-center {% endif %} {% if block.settings.show_border_top %}border-top-0{% endif %} {% if block.settings.show_border_bottom %}border-bottom-0{% endif %}">
                       <div id="price-{{ section.id }}" class="product-info-price price-wrap">
                         <span class="price-new price-on-sale h2 fw-4">{{ product.selected_or_first_available_variant.price | money }}</span>
                         {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
-                          <span class="price-old h6">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+                          {% if block.settings.show_compare_price %}
+                            <span class="price-old h6">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+                          {% endif %}
 
-                          <p class="badges-on-sale h6 fw-semibold">
-                            <span class="number-sale" data-person-sale="29">
-                              -{{ product.selected_or_first_available_variant.compare_at_price
-                                | minus: product.selected_or_first_available_variant.price
-                                | times: 100
-                                | divided_by: product.selected_or_first_available_variant.compare_at_price
-                              }} %
-                            </span>
-                          </p>
+                          {% if block.settings.show_discount %}
+                            <p class="badges-on-sale h6 fw-semibold">
+                              <span class="number-sale" data-person-sale="29">
+                                -{{ product.selected_or_first_available_variant.compare_at_price
+                                  | minus: product.selected_or_first_available_variant.price
+                                  | times: 100
+                                  | divided_by: product.selected_or_first_available_variant.compare_at_price
+                                }} %
+                              </span>
+                            </p>
+                          {% endif %}
                         {% endif %}
                       </div>
-                      
                       {% comment %} countdown {% endcomment %}
-                      {% if settings.enable_countdown and product.metafields.custom.countdown_timer.value != blank %}
-                        <div class="tf-product-info-countdown">
-                          <div class="countdown-title">
-                            <h5>Hurry up</h5>
-                            <p class="text-main">offer ends in:</p>
+                      {% if block.settings.layout_type == 'price_countdown' %}
+                        {% if settings.enable_countdown and product.metafields.custom.countdown_timer.value != blank %}
+                          <div class="tf-product-info-countdown">
+                            <div class="countdown-title">
+                              <h5>Hurry up</h5>
+                              <p class="text-main">offer ends in:</p>
+                            </div>
+                            <div class="tf-countdown style-1">
+                              <countdown-timer data-date="{{ product.metafields.custom.countdown_timer.value }}" data-layout="left"></countdown-timer>
+                            </div>
                           </div>
-                          <div class="tf-countdown style-1">
-                            <countdown-timer data-date="{{ product.metafields.custom.countdown_timer.value }}" data-layout="left"></countdown-timer>
+                        {% endif %}
+                      {% elsif block.settings.layout_type == 'price_visitor' %}
+                        <add-to-cart-count 
+                          min="{{ block.settings.min_visitor_count }}" 
+                          max="{{ block.settings.max_visitor_count }}">
+                          <div class="tf-product-info-liveview mb-0">
+                            <div class="liveview-count size-40">
+                              <span class="count fw-6 h6 vc-number"></span>
+                            </div>
+                            <p class="fw-6 h6">People are viewing this right now</p>
                           </div>
-                        </div>
+                        </add-to-cart-count>
                       {% endif %}
                     </div>
                   {% when 'visitor_count' %}
@@ -713,7 +729,76 @@
     {
       "type": "price_countdown",
       "name": "Price & Countdown",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "layout_type",
+          "label": "Layout Type",
+          "options": [
+            {
+              "value": "price_countdown",
+              "label": "Price with Countdown"
+            },
+            {
+              "value": "price_visitor",
+              "label": "Price with Visitor Count 2"
+            },
+            {
+              "value": "price_only",
+              "label": "Price Alone"
+            }
+          ],
+          "default": "price_countdown"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_compare_price",
+          "label": "Show Compare Price",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_discount",
+          "label": "Show Discount Badge",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_border_top",
+          "label": "Show Border Top",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_border_bottom",
+          "label": "Show Border Bottom",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Visitor Count 2 Settings",
+          "info": "Only used if Layout Type is 'Price with Visitor Count 2'"
+        },
+        {
+          "type": "range",
+          "id": "min_visitor_count",
+          "label": "Minimum Visitor Count",
+          "min": 1,
+          "max": 100,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "max_visitor_count",
+          "label": "Maximum Visitor Count",
+          "min": 2,
+          "max": 100,
+          "step": 1,
+          "default": 10
+        }
+      ]
     },
     {
       "type": "visitor_count_2",
