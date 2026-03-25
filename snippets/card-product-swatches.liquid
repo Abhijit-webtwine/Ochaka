@@ -1,4 +1,4 @@
-{% if product.variants.size > 1 and product.options contains 'Color' %}
+{% if product.variants.size > 0 and product.options contains 'Color' %}
 <ul class="product-color_list color_swatch_Value">
 
   {%- for option in product.options_with_values -%}
