@@ -1,0 +1,227 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  {%- for block in section.blocks -%}
+    #block-{{ block.id }} .tf-btn {
+      background-color: {{ block.settings.btn_bg }};
+      color: {{ block.settings.btn_color }};
+      border-color: {{ block.settings.btn_bg }};
+    }
+    #block-{{ block.id }} .tf-btn i {
+       color: {{ block.settings.btn_color }};
+    }
+  {%- endfor -%}
+</style>
+
+<div class="tf-grid-layout lg-col-2 gap-0 section-{{ section.id }}-padding" id="section-{{ section.id }}">
+  {%- for block in section.blocks -%}
+    {%- liquid
+      assign collection = block.settings.collection
+      assign slider_image = block.settings.image | default: collection.featured_image
+      assign slider_link = block.settings.button_link | default: collection.url
+      assign slider_title = block.settings.title | default: collection.title
+    -%}
+    <div class="box-image_V02 hover-img" id="block-{{ block.id }}" {{ block.shopify_attributes }}>
+      <a href="{{ slider_link | default: '#' }}" class="box-image_image img-style">
+        {%- if slider_image != blank -%}
+          {{ slider_image | image_url: width: 1500 | image_tag: class: 'lazyload', loading: 'lazy', alt: slider_title }}
+        {%- else -%}
+          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </a>
+      <div class="box-image_content wow fadeInUp">
+        {%- if block.settings.subtext != blank -%}
+          <span class="sub-text h4 text-primary">{{ block.settings.subtext }}</span>
+        {%- endif -%}
+        {%- if slider_title != blank -%}
+          <h1 class="fw-normal title">
+            <a href="{{ slider_link | default: '#' }}" class="link">
+              {{ slider_title | newline_to_br }}
+            </a>
+          </h1>
+        {%- endif -%}
+        {%- if block.settings.button_label != blank -%}
+          <a href="{{ slider_link | default: '#' }}" class="tf-btn animate-btn">
+            {{ block.settings.button_label }}
+            <i class="icon icon-arrow-right"></i>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Box Collection 3",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Override"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "SALE OFF 50%"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "info": "Leave blank to use collection title"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link Override"
+        },
+        {
+          "type": "header",
+          "content": "Button Colors"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg",
+          "label": "Button Background",
+          "default": "#333333"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button Text color",
+          "default": "#ffffff"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Box Collection 3",
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "subtext": "SALE OFF 50%",
+            "title": "Calvin Klein <br> Shapewear"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "subtext": "Get Up to 40% OFF!",
+            "title": "Hottest Product Of <br> The Summer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
