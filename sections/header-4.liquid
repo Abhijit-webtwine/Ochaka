@@ -2,7 +2,7 @@
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
 <style>
-  .tf-header {
+  .tf-header, .tf-header.header-sticky {
     background-color: {{ section.settings.header_bg }};
   }
   .tf-header .box-navigation .item-link,
