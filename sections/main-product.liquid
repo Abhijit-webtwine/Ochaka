@@ -4,9 +4,9 @@
       <div class="row">
         <!-- Product Images -->
         <div class="col-md-6">
-          <div class="tf-product-media-wrap sticky-top">
-            <div class="product-thumbs-slider {% if section.settings.thumb_position == 'bottom' %}thumbs-bottom{% endif %}">
-              {% if section.settings.main_product_layout == 'thumb_swiper' %}
+          {% if section.settings.main_product_layout == 'thumb_swiper' %}
+            <div class="tf-product-media-wrap sticky-top">
+              <div class="product-thumbs-slider {% if section.settings.thumb_position == 'bottom' %}thumbs-bottom{% endif %}">
                 {% if section.settings.thumb_position == 'left' %}
                   {% render 'main-product-thumb-swiper', product: product, direction: 'vertical', preview: 'auto' %}
                   {% render 'main-product-media-swiper', product: product %}
@@ -17,14 +17,21 @@
                   {% render 'main-product-thumb-swiper', product: product, direction: 'horizontal', preview: '5', space: '12' %}
                   {% render 'main-product-media-swiper', product: product %}
                 {% endif %}
-              {% endif %}
+              </div>
             </div>
-          </div>
+          {% elsif section.settings.main_product_layout == 'stack' %}
+            <div class="tf-product-media-wrap sticky-top wrapper-gallery-scroll product-grid-img">
+              <div class="product-thumbs-slider">
+                {% render 'main-product-thumb-swiper', product: product, direction: 'vertical', preview: '4.7', classes: 'd-md-none' %}
+                {% render 'main-product-media-swiper', product: product, wrapper_classes: 'w-100' %}
+              </div>
+            </div>
+          {% endif %}
         </div>
         <!-- /Product Images -->
         <!-- Product Info -->
         <div class="col-md-6">
-          <div class="tf-product-info-wrap position-relative">
+          <div class="tf-product-info-wrap position-relative {% if section.settings.main_product_layout == 'stack' %}sticky-top{% endif %}">
             <div class="tf-zoom-main sticky-top"></div>
             <div class="tf-product-info-list other-image-zoom">
               {% if section.settings.show_brand %}
