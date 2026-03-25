@@ -151,6 +151,28 @@
                       <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
                     </div>
 
+                  {% when 'back_in_stock' %}
+                    {% unless product.selected_or_first_available_variant.available %}
+                      {% form 'contact', id: 'back-in-stock-form', class: 'form-out-stock' %}
+                        {% if form.posted_successfully? %}
+                          <p class="h6 bg-green-light p-3 rounded">We'll notify you as soon as this product is back in stock!</p>
+                        {% else %}
+                          <h4 class="box-title-out-stock">
+                            <i class="icon icon-envelope"></i>
+                            Email when stock available
+                          </h4>
+                          <div class="mb-3">
+                            <input class="tf-field-input tf-input" id="bis-name" placeholder="Your name" type="text" name="contact[name]" required>
+                          </div>
+                          <div class="mb-3">
+                            <input class="tf-field-input tf-input" id="bis-email" placeholder="Email address" type="email" name="contact[email]" required>
+                          </div>
+                          <input type="hidden" name="contact[body]" value="Back in stock notification request for {{ product.title }} - {{ product.selected_or_first_available_variant.title }}">
+                          <button type="submit" class="tf-btn animate-btn">Subscribe now</button>
+                        {% endif %}
+                      {% endform %}
+                    {% endunless %}
+
                   {% when 'variant_picker' %}
                     {% render 'product-variant-picker', section: section, product: product, product_form_id: product_form_id, block: block %}
 
@@ -728,7 +750,7 @@
     },
     {
       "type": "price_countdown",
-      "name": "Price & Countdown",
+      "name": "Price",
       "limit": 1,
       "settings": [
         {
@@ -828,6 +850,11 @@
     {
       "type": "inventory_status",
       "name": "Inventory Status",
+      "limit": 1
+    },
+    {
+      "type": "back_in_stock",
+      "name": "Back in Stock",
       "limit": 1
     },
     {
