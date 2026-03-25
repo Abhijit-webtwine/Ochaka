@@ -1,0 +1,311 @@
+<style>
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  {%- for block in section.blocks -%}
+    #block-{{ block.id }} .tf-btn {
+      background-color: {{ block.settings.btn_bg }};
+      color: {{ block.settings.btn_color }};
+      border-color: {{ block.settings.btn_bg }};
+    }
+    #block-{{ block.id }} .tf-btn i {
+       color: {{ block.settings.btn_color }};
+    }
+  {%- endfor -%}
+</style>
+
+<div class="section-{{ section.id }}-padding" id="section-{{ section.id }}">
+  <div class="container">
+    <div
+      dir="ltr"
+      class="swiper tf-swiper"
+      data-preview="{{ section.settings.slides_desktop }}"
+      data-tablet="{{ section.settings.slides_tablet }}"
+      data-mobile-sm="{{ section.settings.slides_mobile }}"
+      data-mobile="1"
+      data-space-lg="{{ section.settings.space_desktop }}"
+      data-space-md="{{ section.settings.space_tablet }}"
+      data-space="{{ section.settings.space_mobile }}"
+      data-pagination="3"
+      data-pagination-sm="2"
+      data-pagination-md="2"
+      data-pagination-lg="3"
+    >
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign collection = block.settings.collection
+            assign slider_image = block.settings.image | default: collection.featured_image
+            assign slider_link = block.settings.button_link | default: collection.url
+            assign slider_title = block.settings.title | default: collection.title
+          -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <div class="box-image_V03 hover-img wow fadeInUp" id="block-{{ block.id }}">
+              <a href="{{ slider_link | default: '#' }}" class="box-image_image img-style">
+                {%- if slider_image != blank -%}
+                  {{
+                    slider_image
+                    | image_url: width: 1000
+                    | image_tag: class: 'lazyload', loading: 'lazy', alt: slider_title
+                  }}
+                {%- else -%}
+                  {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+              </a>
+              <div class="box-image_content align-items-center text-center">
+                {%- if block.settings.subtext != blank -%}
+                  <span class="sub-text h6 text-primary fw-semibold">{{ block.settings.subtext }}</span>
+                {%- endif -%}
+                {%- if slider_title != blank -%}
+                  <h2 class="fw-normal title">
+                    <a href="{{ slider_link | default: '#' }}" class="link">
+                      {{ slider_title | newline_to_br }}
+                    </a>
+                  </h2>
+                {%- endif -%}
+                {%- if block.settings.button_label != blank -%}
+                  <a href="{{ slider_link | default: '#' }}" class="tf-btn animate-btn animate-dark">
+                    {{ block.settings.button_label }}
+                    <i class="icon icon-arrow-right"></i>
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Box Collection 4",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Desktop padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 112
+    },
+    {
+      "type": "header",
+      "content": "Tablet padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Mobile padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Slider Configuration"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "default": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image Override"
+        },
+        {
+          "type": "text",
+          "id": "subtext",
+          "label": "Subtext",
+          "default": "SALE OFF 50%"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "info": "Leave blank to use collection title"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link Override"
+        },
+        {
+          "type": "header",
+          "content": "Button Colors"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg",
+          "label": "Button Background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "btn_color",
+          "label": "Button Text color",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Box Collection 4",
+      "blocks": [
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        },
+        {
+          "type": "banner"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
