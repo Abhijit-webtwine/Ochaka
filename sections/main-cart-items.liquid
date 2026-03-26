@@ -33,11 +33,11 @@
     <cart-items class="{% if cart == empty %} is-empty{% endif %} section--padding">
       <div class="cart__warnings">
         <p class="cart__empty-text h2">{{ 'sections.cart.empty' | t }}</p>
-        <a href="{{ routes.all_products_collection_url }}" class="button tf-btn">
+        <a href="{{ routes.all_products_collection_url }}" class="animate-btn tf-btn">
           {{- 'general.continue_shopping' | t -}}
         </a>
       </div>
-      <div class="row">
+      <div class="row cart__contents">
         <div class="col-xxl-9 col-xl-8">
           <div class="" id="main-cart-items" data-id="{{ section.id }}">
             <div class="js-contents">
