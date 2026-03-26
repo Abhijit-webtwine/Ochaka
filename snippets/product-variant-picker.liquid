@@ -10,13 +10,13 @@
 {%- unless product.has_only_default_variant -%}
   {% assign section_id = section_id | default: section.id %}
   {% assign enable_variant_image_switch = enable_variant_image_switch | default: true %}
-  {% comment %} change to block.settings.picker_type == 'button' when ready {% endcomment %}
    {% if block.settings.picker_type == 'button' %}
     {% assign picker_type = 'button' %}
+   {% elsif block.settings.picker_type == 'dropdown_2' %}
+    {% assign picker_type = 'dropdown_2' %}
     {% else %}
     {% assign picker_type = picker_type %}
    {% endif %}
-
   {%- if picker_type == 'button' -%}
     <variant-radios
       class="no-js-hidden tf-product-variant mb-32"
@@ -157,10 +157,57 @@
         {{ product.variants | json }}
       </script>
     </variant-radios>
+  {%- elsif picker_type == 'dropdown_2' -%}
+    <variant-selects
+      class="no-js-hidden tf-product-variant mb-32 tf-product-info-wrap"
+      data-section="{{ section.id }}"
+      data-url="{{ product.url }}"
+      {% if update_url == false %}
+        data-update-url="false"
+      {% endif %}
+      {% if enable_variant_image_switch != nil %}
+        data-enable-image-switch="{{ enable_variant_image_switch }}"
+      {% endif %}
+      {{ block.shopify_attributes }}
+    >
+      <ul class="list-variant-dropdown tf-product-information">
+        {%- for option in product.options_with_values -%}
+          {%- liquid
+            assign option_idx = forloop.index
+          -%}
+          <li class="variant-picker-item style-2">
+            <h6 class="fw-6 text-black title">{{ option.name }}:</h6>
+            <div class="tf-select style-2" data-option-index="option{{ option_idx }}" data-option-slug="{{ option.name | handleize }}">
+              <select
+                id="Option-{{ section.id }}-{{ product.id }}-{{ forloop.index0 }}"
+                class="font-sora"
+                name="options[{{ option.name | escape }}]"
+                form="{{ product_form_id }}"
+              >
+                {%- for value in option.values -%}
+                  <option
+                    value="{{ value | escape }}"
+                    {% if option.selected_value == value %}
+                      selected="selected"
+                    {% endif %}
+                  >
+                    {{ value }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      <script type="application/json">
+        {{ product.variants | json }}
+      </script>
+    </variant-selects>
   {%- else -%}
   {% assign enable_dropdown_color = block.settings.enable_dropdown_color %}
     <variant-selects
-      class="no-js-hidden tf-product-variant"
+      class="no-js-hidden tf-product-variant mb-32"
       data-section="{{ section.id }}"
       data-url="{{ product.url }}"
       {% if update_url == false %}
