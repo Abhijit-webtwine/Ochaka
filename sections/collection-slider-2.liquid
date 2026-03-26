@@ -20,17 +20,31 @@
 </style>
 
 <div class="s-category section-{{ section.id }}-padding" id="section-{{ section.id }}">
-  <div class="sect-title text-center wow fadeInUp">
-    {%- if section.settings.heading != blank -%}
-      <p class="s-title h1 fw-medium mb-8">{{ section.settings.heading }}</p>
-    {%- endif -%}
-    {%- if section.settings.description != blank -%}
-      <p class="s-subtitle h6">{{ section.settings.description }}</p>
-    {%- endif -%}
-  </div>
-  <div dir="ltr" class="swiper tf-swiper wow fadeInUp" data-preview="5" data-tablet="3" data-mobile-sm="2" data-mobile="2"
-    data-space-lg="24" data-space-md="12" data-space="12" data-pagination="2" data-pagination-sm="2" data-pagination-md="3"
-    data-pagination-lg="5">
+  {% if section.settings.heading != blank or section.settings.description != blank %}
+    <div class="sect-title text-center wow fadeInUp">
+      {%- if section.settings.heading != blank -%}
+        <p class="s-title h1 fw-medium mb-8">{{ section.settings.heading }}</p>
+      {%- endif -%}
+      {%- if section.settings.description != blank -%}
+        <p class="s-subtitle h6">{{ section.settings.description }}</p>
+      {%- endif -%}
+    </div>
+  {% endif %}
+  <div
+    dir="ltr"
+    class="swiper tf-swiper wow fadeInUp"
+    data-preview="{{ section.settings.slides_desktop }}"
+    data-tablet="{{ section.settings.slides_tablet }}"
+    data-mobile-sm="{{ section.settings.slides_mobile }}"
+    data-mobile="2"
+    data-space-lg="{{ section.settings.space_desktop }}"
+    data-space-md="{{ section.settings.space_tablet }}"
+    data-space="{{ section.settings.space_mobile }}"
+    data-pagination="2"
+    data-pagination-sm="2"
+    data-pagination-md="3"
+    data-pagination-lg="5"
+  >
     <div class="swiper-wrapper">
       {%- for block in section.blocks -%}
         {%- liquid
@@ -43,7 +57,11 @@
           <div class="box-image_category hover-img">
             <a href="{{ slider_link }}" class="box-image_image img-style">
               {%- if slider_image != blank -%}
-                {{ slider_image | image_url: width: 800 | image_tag: class: 'lazyload', loading: 'lazy', alt: slider_title }}
+                {{
+                  slider_image
+                  | image_url: width: 800
+                  | image_tag: class: 'lazyload', loading: 'lazy', alt: slider_title
+                }}
               {%- else -%}
                 {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
               {%- endif -%}
@@ -57,7 +75,9 @@
         </div>
       {%- endfor -%}
     </div>
-    <div class="sw-dot-default tf-sw-pagination"></div>
+    {%- if section.settings.show_pagination -%}
+      <div class="sw-dot-default tf-sw-pagination"></div>
+    {%- endif -%}
   </div>
 </div>
 
@@ -136,6 +156,77 @@
       "step": 4,
       "unit": "px",
       "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "range",
+      "id": "slides_desktop",
+      "label": "Slides Desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "slides_tablet",
+      "label": "Slides Tablet",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "slides_mobile",
+      "label": "Slides Mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Slider Spacing"
+    },
+    {
+      "type": "range",
+      "id": "space_desktop",
+      "label": "Spacing Desktop",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "space_tablet",
+      "label": "Spacing Tablet",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "space_mobile",
+      "label": "Spacing Mobile",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show Pagination",
+      "default": true
     },
     {
       "type": "text",
