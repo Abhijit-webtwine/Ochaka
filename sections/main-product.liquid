@@ -41,30 +41,7 @@
                 </div>
               {% endif %}
               
-              {% if product.metafields.judgeme.badge != blank  or settings.show_atc_count %}
-                <h2 class="product-info-name">{{ product.title }}</h2>
-                {% comment %} rating {% endcomment %}
-                <div class="product-info-meta">
-                  {% render 'rating', product: product %}
-
-                  {% comment %} add to cart count {% endcomment %}
-                  <div class="people-add text-primary">
-                    {% if settings.show_atc_count %}
-                      <add-to-cart-count 
-                        min="{{ settings.min_atc_count }}" 
-                        max="{{ settings.max_atc_count }}">
-                          
-                        <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
-                          <i class="icon icon-shopping-cart-simple"></i>
-                          <p id="view-count" class="visitor-count h6">
-                            <span class="vc-number"></span> people just added this product to their cart
-                          </p>
-                        </div>
-                      </add-to-cart-count>
-                    {% endif %}
-                  </div>
-                </div>
-              {% endif %}
+              <h2 class="product-info-name">{{ product.title }}</h2>
 
               {% comment %} price and countdown moved to blocks {% endcomment %}
 
@@ -80,13 +57,40 @@
               -%}
               {% for block in section.blocks %}
                 {% case block.type %}
+                  {% when 'rating_atc_count' %}
+                    <div class="product-info-meta">
+                      {% if block.settings.show_rating %}
+                        {% render 'rating', product: product %}
+                      {% endif %}
+
+                      {% comment %} add to cart count {% endcomment %}
+                      <div class="people-add text-primary">
+                        {% if block.settings.show_atc_count %}
+                          <add-to-cart-count 
+                            min="{{ settings.min_atc_count }}" 
+                            max="{{ settings.max_atc_count }}">
+                            <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
+                              <i class="icon icon-shopping-cart-simple"></i>
+                              <p id="view-count" class="visitor-count h6">
+                                <span class="vc-number"></span> people just added this product to their cart
+                              </p>
+                            </div>
+                          </add-to-cart-count>
+                        {% endif %}
+                      </div>
+                    </div>
                   {% when 'price_countdown' %}
-                    <div class="tf-product-heading {% if block.settings.layout_type == 'price_visitor' %}justify-content-start align-items-center {% endif %} {% if block.settings.show_border_top %}border-top-0{% endif %} {% if block.settings.show_border_bottom %}border-bottom-0{% endif %}">
-                      <div id="price-{{ section.id }}" class="product-info-price price-wrap">
-                        <span class="price-new price-on-sale h2 fw-4">{{ product.selected_or_first_available_variant.price | money }}</span>
+                    {%- liquid
+                      assign layout_type = block.settings.layout_type 
+                      assign price_h = block.settings.price_size | default: 'h2'
+                      assign compare_price_h = block.settings.compare_price_size | default: 'h6'
+                    -%}
+                    <div class="tf-product-heading {% if layout_type == 'price_visitor' or layout_type == 'price_rating' %}gap-32 align-items-center justify-content-start {% endif %} {% if block.settings.show_border_top %}border-top-0{% endif %} {% if block.settings.show_border_bottom %}border-bottom-0{% endif %}">
+                      <div id="price-{{ section.id }}" class="product-info-price price-wrap {% if layout_type == 'price_rating' %}gap-12{% endif %}">
+                        <span class="price-new price-on-sale {{ price_h }} fw-4 {% if layout_type == 'price_rating' %}m-0{% endif %}">{{ product.selected_or_first_available_variant.price | money }}</span>
                         {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
                           {% if block.settings.show_compare_price %}
-                            <span class="price-old h6">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+                            <span class="price-old {% if layout_type == 'price_rating' %}compare-at-price{% endif %} {{ compare_price_h }} fw-4">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
                           {% endif %}
 
                           {% if block.settings.show_discount %}
@@ -103,7 +107,7 @@
                         {% endif %}
                       </div>
                       {% comment %} countdown {% endcomment %}
-                      {% if block.settings.layout_type == 'price_countdown' %}
+                      {% if layout_type == 'price_countdown' %}
                         {% if settings.enable_countdown and product.metafields.custom.countdown_timer.value != blank %}
                           <div class="tf-product-info-countdown">
                             <div class="countdown-title">
@@ -115,7 +119,7 @@
                             </div>
                           </div>
                         {% endif %}
-                      {% elsif block.settings.layout_type == 'price_visitor' %}
+                      {% elsif layout_type == 'price_visitor' %}
                         <add-to-cart-count 
                           min="{{ block.settings.min_visitor_count }}" 
                           max="{{ block.settings.max_visitor_count }}">
@@ -126,8 +130,16 @@
                             <p class="fw-6 h6">People are viewing this right now</p>
                           </div>
                         </add-to-cart-count>
+                      {% elsif layout_type == 'price_rating' %}
+                        {% if block.settings.show_rating %}
+                          {% render 'rating', product: product, layout: 'svg' %}
+                        {% endif %}
                       {% endif %}
                     </div>
+                  {% when 'additional_info' %}
+                    {% if product.metafields.custom.additional_information.value != blank %}
+                      {{ product.metafields.custom.additional_information.value }}
+                    {% endif %}
                   {% when 'visitor_count' %}
                     {% comment %} visitor count {% endcomment %}
                       <visitor-count 
@@ -529,6 +541,133 @@
                         </product-form-fbt>
                       </div>
                     {% endif %}
+
+                  {% when 'assistance' %}
+                    <div class="tf-product-assistance">
+                        <div class="h4 text-black">{{ block.settings.title }}</div>
+                        <ul class="tf-social-icon">
+                            <li>
+                                <a href="{{ block.settings.phone_link }}" class="">
+                                    <span class="icon">
+                                        {% if block.settings.phone_icon != blank %}
+                                            <img src="{{ block.settings.phone_icon | image_url: width: 24 }}" alt="Phone Icon" width="24" height="24">
+                                        {% else %}
+                                            <i class="icon-phone"></i>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mailto:{{ block.settings.email }}" class="">
+                                    <span class="icon">
+                                        {% if block.settings.email_icon != blank %}
+                                            <img src="{{ block.settings.email_icon | image_url: width: 24 }}" alt="Email Icon" width="24" height="24">
+                                        {% else %}
+                                            <i class="icon-envelope"></i>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ block.settings.chat_link }}" class="">
+                                    <span class="icon">
+                                        {% if block.settings.chat_icon != blank %}
+                                            <img src="{{ block.settings.chat_icon | image_url: width: 24 }}" alt="Chat Icon" width="24" height="24">
+                                        {% else %}
+                                            <i class="icon-chat"></i>
+                                        {% endif %}
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                  {% when 'customization_call' %}
+                    <a href="tel:{{ block.settings.phone }}" class="tf-product-call">
+                        <div class="h6">{{ block.settings.text }} - <span class="fw-7 text-black">{{ block.settings.link_text }}</span></div>
+                        <i class="icon icon-phone-ring"></i>
+                    </a>
+
+                  {% when 'video_call' %}
+                    <div class="tf-product-video-call">
+                        <div class="video-wrap image">
+                            {% if block.settings.image != blank %}
+                              <img class="lazyload" data-src="{{ block.settings.image | image_url: width: 300 }}" src="{{ block.settings.image | image_url: width: 50 }}" alt="{{ block.settings.image.alt }}">
+                            {% else %}
+                              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                            {% endif %}
+                            <a href="{{ block.settings.video_url }}" class="style-icon-play popup-youtube">
+                                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_637_9562)">
+                                        <path
+                                            d="M26.5977 19.2162L18.2918 13.1785C18.1426 13.0697 17.9662 13.0043 17.7821 12.9895C17.598 12.9748 17.4135 13.0112 17.2488 13.0949C17.0842 13.1785 16.9459 13.306 16.8492 13.4634C16.7526 13.6207 16.7013 13.8017 16.7012 13.9864V26.0579C16.7006 26.2428 16.7514 26.4243 16.848 26.5821C16.9445 26.7398 17.083 26.8676 17.248 26.9513C17.4129 27.0349 17.5979 27.0711 17.7822 27.0558C17.9665 27.0405 18.1429 26.9743 18.2918 26.8645L26.5977 20.8321C26.726 20.7401 26.8306 20.6188 26.9027 20.4783C26.9748 20.3377 27.0125 20.1821 27.0125 20.0241C27.0125 19.8662 26.9748 19.7105 26.9027 19.57C26.8306 19.4295 26.726 19.3082 26.5977 19.2162Z"
+                                            fill="white" />
+                                        <path
+                                            d="M20.0007 0.00195312C8.95278 0.00195312 0 8.95473 0 20.0026C0 31.0465 8.95278 39.9966 20.0007 39.9966C31.0459 39.9966 40 31.0452 40 20.0026C40.0013 8.95473 31.0459 0.00195312 20.0007 0.00195312ZM20.0007 36.6596C10.8003 36.6596 3.34099 29.2043 3.34099 20.0026C3.34099 10.8049 10.8003 3.34028 20.0007 3.34028C29.1997 3.34028 36.6577 10.8036 36.6577 20.0026C36.659 29.2043 29.1997 36.6596 20.0007 36.6596Z"
+                                            fill="white" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_637_9562">
+                                            <rect width="40" height="40" fill="white" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <h4 class="text-black title">{{ block.settings.title }}</h4>
+                            <div class="h6 text">{{ block.settings.description }}</div>
+                            <a href="{{ block.settings.link_url | default: '#' }}" class="h6 fw-6 link">
+                                {{ block.settings.link_text }}
+                                <i class="icon icon-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                  {% when 'policy_icons' %}
+                    <div class="tf-product-icon-box">
+                        <div class="item">
+                            <div class="icon">
+                                {% if block.settings.icon_1 != blank %}
+                                    <img src="{{ block.settings.icon_1 | image_url: width: 57 }}" alt="Policy Icon 1" width="57" height="56">
+                                {% endif %}
+                            </div>
+                            <div class="text-small text-black">{{ block.settings.text_1 }}</div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                {% if block.settings.icon_2 != blank %}
+                                    <img src="{{ block.settings.icon_2 | image_url: width: 57 }}" alt="Policy Icon 2" width="57" height="56">
+                                {% endif %}
+                            </div>
+                            <div class="text-small text-black">{{ block.settings.text_2 }}</div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                {% if block.settings.icon_3 != blank %}
+                                    <img src="{{ block.settings.icon_3 | image_url: width: 56 }}" alt="Policy Icon 3" width="56" height="56">
+                                {% endif %}
+                            </div>
+                            <div class="text-small text-black">{{ block.settings.text_3 }}</div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                {% if block.settings.icon_4 != blank %}
+                                    <img src="{{ block.settings.icon_4 | image_url: width: 57 }}" alt="Policy Icon 4" width="57" height="56">
+                                {% endif %}
+                            </div>
+                            <div class="text-small text-black">{{ block.settings.text_4 }}</div>
+                        </div>
+                        <div class="item">
+                            <div class="icon">
+                                {% if block.settings.icon_5 != blank %}
+                                    <img src="{{ block.settings.icon_5 | image_url: width: 57 }}" alt="Policy Icon 5" width="57" height="56">
+                                {% endif %}
+                            </div>
+                            <div class="text-small text-black">{{ block.settings.text_5 }}</div>
+                        </div>
+                    </div>
+
                   {% when 'group_product' %}
                     {%- assign products_to_show = product.metafields.custom.group_product.value -%}
                     {% if products_to_show != blank %}
@@ -1041,6 +1180,10 @@
               "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__1.label"
             },
             {
+              "value": "dropdown_2",
+              "label": "Dropdown 2"
+            },
+            {
               "value": "button",
               "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.options__2.label"
             }
@@ -1142,6 +1285,10 @@
               "label": "Price with Visitor Count 2"
             },
             {
+              "value": "price_rating",
+              "label": "Price with Rating"
+            },
+            {
               "value": "price_only",
               "label": "Price Alone"
             }
@@ -1158,6 +1305,37 @@
           "type": "checkbox",
           "id": "show_discount",
           "label": "Show Discount Badge",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Price Styling",
+          "info": "Styling for layouts other than Price with Countdown"
+        },
+        {
+          "type": "select",
+          "id": "price_size",
+          "label": "Price Size",
+          "options": [
+            { "value": "h2", "label": "Medium" },
+            { "value": "h4", "label": "Small" }
+          ],
+          "default": "h2"
+        },
+        {
+          "type": "select",
+          "id": "compare_price_size",
+          "label": "Compare Price Size",
+          "options": [
+            { "value": "h4", "label": "Medium" },
+            { "value": "h6", "label": "Small" }
+          ],
+          "default": "h6"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Show Rating",
           "default": true
         },
         {
@@ -1288,6 +1466,236 @@
           "id": "heading",
           "label": "Heading",
           "default": "Group Product"
+        }
+      ]
+    },
+    {
+      "type": "assistance",
+      "name": "Assistance Icons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Any Assistance?"
+        },
+        {
+          "type": "header",
+          "content": "Phone Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "phone_icon",
+          "label": "Phone Icon"
+        },
+        {
+          "type": "text",
+          "id": "phone_link",
+          "label": "Phone Link",
+          "default": "tel:123456789"
+        },
+        {
+          "type": "header",
+          "content": "Email Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "email_icon",
+          "label": "Email Icon"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email",
+          "default": "info@example.com"
+        },
+        {
+          "type": "header",
+          "content": "Chat Icon"
+        },
+        {
+          "type": "image_picker",
+          "id": "chat_icon",
+          "label": "Chat Icon"
+        },
+        {
+          "type": "text",
+          "id": "chat_link",
+          "label": "Chat Link",
+          "default": "#"
+        }
+      ]
+    },
+    {
+      "type": "customization_call",
+      "name": "Customization Call",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "To customise this product"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "Call us"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Number",
+          "default": "123456789"
+        }
+      ]
+    },
+    {
+      "type": "video_call",
+      "name": "Video Call Expert",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Thumbnail Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Live video call with our expert"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "See your favorite designs up close, anytime, anywhere."
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text",
+          "default": "Call video"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Video URL (YouTube)",
+          "default": "https://www.youtube.com/watch?v=MLpWrANjFbI"
+        }
+      ]
+    },
+    {
+      "type": "rating_atc_count",
+      "name": "Rating and ATC Count",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_rating",
+          "label": "Show Rating",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_atc_count",
+          "label": "Show ATC Count",
+          "default": true
+        }
+      ]
+    },
+    {
+      "type": "additional_info",
+      "name": "Additional Information",
+      "limit": 1
+    },
+    {
+      "type": "policy_icons",
+      "name": "Policy Icon Box",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon 1"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_1",
+          "label": "Icon 1"
+        },
+        {
+          "type": "text",
+          "id": "text_1",
+          "label": "Text 1",
+          "default": "100% Certified product"
+        },
+        {
+          "type": "header",
+          "content": "Icon 2"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_2",
+          "label": "Icon 2"
+        },
+        {
+          "type": "text",
+          "id": "text_2",
+          "label": "Text 2",
+          "default": "30 Day free return"
+        },
+        {
+          "type": "header",
+          "content": "Icon 3"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_3",
+          "label": "Icon 3"
+        },
+        {
+          "type": "text",
+          "id": "text_3",
+          "label": "Text 3",
+          "default": "Free shipping"
+        },
+        {
+          "type": "header",
+          "content": "Icon 4"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_4",
+          "label": "Icon 4"
+        },
+        {
+          "type": "text",
+          "id": "text_4",
+          "label": "Text 4",
+          "default": "Eco-Friendly & Sustainable"
+        },
+        {
+          "type": "header",
+          "content": "Icon 5"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_5",
+          "label": "Icon 5"
+        },
+        {
+          "type": "text",
+          "id": "text_5",
+          "label": "Text 5",
+          "default": "Lifetime exchange"
         }
       ]
     }
