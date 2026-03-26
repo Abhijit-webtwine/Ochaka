@@ -6,7 +6,8 @@
       }
     }
   </style>
-  <form id="FacetFiltersForm" method="get" class="facet-filters-form position-static">
+  {%- assign filter_scope = scope | default: 'Desktop' -%}
+  <form id="{% if filter_scope == 'Mobile' %}FacetFiltersFormMobile{% else %}FacetFiltersForm{% endif %}" method="get" class="facet-filters-form position-static">
     {%- if collection.terms -%}
       <input type="hidden" name="q" value="{{ collection.terms | escape }}">
       <input name="options[prefix]" type="hidden" value="last">
@@ -20,14 +21,13 @@
           </drawer-close-button>
         </div>
 
-        {%- assign filter_scope = scope | default: 'Desktop' -%}
 
         <div class="canvas-body">
           {% for filter in collection.filters %}
-            <div class="widget-facet js-filter" id="Filter-{{ filter.param_name | handle }}">
+            <div class="widget-facet js-filter" id="Filter-{% if filter_scope == 'Mobile' %}Mobile-{% endif %}{{ filter.param_name | handle }}">
               <div
                 class="facet-title"
-                data-bs-target="#filter-{{ filter.param_name | handle }}"
+                data-bs-target="#filter-{% if filter_scope == 'Mobile' %}Mobile-{% endif %}{{ filter.param_name | handle }}"
                 role="button"
                 data-bs-toggle="collapse"
                 aria-expanded="true"
@@ -36,7 +36,7 @@
                 <span class="icon icon-caret-down fs-20"></span>
               </div>
 
-              <div id="filter-{{ filter.param_name | handle }}" class="collapse show">
+              <div id="filter-{% if filter_scope == 'Mobile' %}Mobile-{% endif %}{{ filter.param_name | handle }}" class="collapse show">
                 {% case filter.type %}
                   {% when 'list' %}
                     {%- assign filter_label = filter.label | downcase -%}
