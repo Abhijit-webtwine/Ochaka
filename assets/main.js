@@ -424,14 +424,27 @@
     /* Auto Popup
     -------------------------------------------------------------------------*/
     var autoPopup = function () {
-        if ($(".auto-popup").length > 0) {
+        const $popup = $(".auto-popup");
+        if ($popup.length > 0) {
             let showPopup = sessionStorage.getItem("showPopup");
-            if (!JSON.parse(showPopup)) {
+            let delay = parseInt($popup.data("delay")) || 2000;
+            let formStatus = $popup.data("form-status") === true || $popup.data("form-status") === "true";
+
+            if (formStatus) {
+                if (typeof bootstrap !== "undefined") {
+                    new bootstrap.Modal($popup[0]).show();
+                }
+            } else if (!JSON.parse(showPopup)) {
                 setTimeout(function () {
-                    $(".auto-popup").modal("show");
-                }, 2000);
+                    if (typeof bootstrap !== "undefined") {
+                        new bootstrap.Modal($popup[0]).show();
+                    }
+                }, delay);
             }
         }
+        $(document).on("hide.bs.modal", ".auto-popup", function () {
+            sessionStorage.setItem("showPopup", true);
+        });
         $(".btn-hide-popup").on("click", function () {
             sessionStorage.setItem("showPopup", true);
         });

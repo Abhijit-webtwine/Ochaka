@@ -291,9 +291,21 @@
                       class="nav-icon-item-2 link cart-drawer-open"
                       aria-controls="mini-cart"
                     >
-                      <div class="position-relative d-flex cart-icon-bubble">
+                      <div class="position-relative d-flex nav-icon-item">
                         <i class="icon icon-shopping-cart-simple"></i>
-                        <span class="count">{{ cart.item_count }}</span>
+                        <span class="cart-icon-bubble">
+                          <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
+                          {%- if cart != empty -%}
+                            <span class="count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+                              {%- if cart.item_count < 100 -%}
+                                <span aria-hidden="true">{{ cart.item_count }}</span>
+                              {%- endif -%}
+                              <span class="visually-hidden">
+                                {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+                              </span>
+                            </span>
+                          {%- endif -%}
+                        </span>
                       </div>
                     </button>
                   </cart-drawer-open>
