@@ -11,9 +11,14 @@ class PredictiveSearch extends HTMLElement {
   }
 
   setupEventListeners() {
-    this.querySelector('form.search').addEventListener('submit', this.onFormSubmit.bind(this));
-    this.querySelector('button[type="button"]').addEventListener('click', this.close.bind(this));
-    this.querySelector('button[type="reset"]').addEventListener('click', this.clear.bind(this));
+    const searchForm = this.querySelector('form.search');
+    if (searchForm) searchForm.addEventListener('submit', this.onFormSubmit.bind(this));
+
+    const closeButton = this.querySelector('button[type="button"]');
+    if (closeButton) closeButton.addEventListener('click', this.close.bind(this));
+
+    const resetButton = this.querySelector('button[type="reset"]');
+    if (resetButton) resetButton.addEventListener('click', this.clear.bind(this));
 
     // Add click handlers for quick search links
     this.querySelectorAll('.quick-search-link').forEach(link => {

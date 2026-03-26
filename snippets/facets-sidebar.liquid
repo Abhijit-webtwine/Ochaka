@@ -1,4 +1,11 @@
 <facet-filters-form class="{{ class }}">
+  <style>
+    @media (min-width: 1200px) {
+      #filterShop .canvas-sidebar .canvas-body {
+        overscroll-behavior-y: auto;
+      }
+    }
+  </style>
   <form id="FacetFiltersForm" method="get" class="facet-filters-form position-static">
     {%- if collection.terms -%}
       <input type="hidden" name="q" value="{{ collection.terms | escape }}">
