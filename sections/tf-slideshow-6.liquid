@@ -43,7 +43,9 @@
                       alt="{{ block.settings.image.alt | default: 'Slideshow Image' }}"
                       width="{{ block.settings.image.width }}"
                       height="{{ block.settings.image.height }}"
-                      class="lazyload scale-item sale-item-1"
+                      class="scale-item sale-item-1"
+                      loading="eager"
+                      fetchpriority="high"
                     >
                   {%- else -%}
                     {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg scale-item' }}
