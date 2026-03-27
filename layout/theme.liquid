@@ -50,7 +50,7 @@
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+    <link rel="stylesheet" href="{{ 'sib-styles.css' | asset_url }}">
 
     {%- if settings.predictive_search_enabled -%}
       <link
