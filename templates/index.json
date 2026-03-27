@@ -9,241 +9,618 @@
  */
 {
   "sections": {
-    "tf_slideshow_3gRCzK": {
-      "type": "tf-slideshow",
+    "tf_slideshow_6_Q9WppF": {
+      "type": "tf-slideshow-6",
       "blocks": {
-        "slide_nexrYi": {
+        "slide_VBAbfh": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/slider-1.jpg",
-            "slide_title": "Fall Winter Collection",
-            "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
-            "slide_link": "shopify://blogs/all",
-            "slide_button_text": "Shop now"
+            "image": "shopify://shop_images/slider-52.jpg",
+            "title": "Armstrong BLU-TRAC HP UHP \nTire - 225/55 R16",
+            "title_color": "#ffffff",
+            "price": "$89.99",
+            "price_color": "#e85331",
+            "old_price": "$120.00",
+            "old_price_color": "#7a7a7a",
+            "btn_text": "Shop now",
+            "btn_text_color": "#000000",
+            "btn_bg_color": "#ffffff",
+            "link": ""
           }
         },
-        "slide_arKxYr": {
+        "slide_PyYfk8": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/slider-2.jpg",
-            "slide_title": "Spring Summer Collection",
-            "slide_subtitle": "Discover the elegance of renewal with soft tones and flowing textures.",
-            "slide_link": "",
-            "slide_button_text": "Shop now"
+            "image": "shopify://shop_images/slider-53.jpg",
+            "title": "Pennzoil Ultra Platinum Full \nSynthetic 0W-20",
+            "title_color": "#ffffff",
+            "price": "$89.99",
+            "price_color": "#e85331",
+            "old_price": "$120.00",
+            "old_price_color": "#7a7a7a",
+            "btn_text": "Shop now",
+            "btn_text_color": "#000000",
+            "btn_bg_color": "#ffffff",
+            "link": ""
           }
         },
-        "slide_a34Ubq": {
+        "slide_YfXqhh": {
           "type": "slide",
           "settings": {
-            "slide_image": "shopify://shop_images/slider-3.jpg",
-            "slide_title": "Urban Edge Series",
-            "slide_subtitle": "Bold cuts and minimalist design for the modern city lifestyle.",
-            "slide_link": "",
-            "slide_button_text": "Shop now"
+            "image": "shopify://shop_images/slider-54.jpg",
+            "title": "Themesflat 325 Piece Car\nRepair Tool Kit",
+            "title_color": "#ffffff",
+            "price": "$89.99",
+            "price_color": "#e85331",
+            "old_price": "$120.00",
+            "old_price_color": "#7a7a7a",
+            "btn_text": "Shop now",
+            "btn_text_color": "#000000",
+            "btn_bg_color": "#ffffff",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "slide_nexrYi",
-        "slide_arKxYr",
-        "slide_a34Ubq"
+        "slide_VBAbfh",
+        "slide_PyYfk8",
+        "slide_YfXqhh"
       ],
-      "name": "Slideshow",
+      "name": "Slideshow 6",
       "settings": {}
     },
-    "collection_slider_MeEmw6": {
-      "type": "collection-slider",
+    "banner_swiper_with_overlay_i9G8rx": {
+      "type": "banner-swiper-with-overlay",
       "blocks": {
-        "collection_item_JcTahb": {
-          "type": "collection_item",
+        "banner_EPdz9H": {
+          "type": "banner",
           "settings": {
-            "collection": "clothing",
-            "button_text": "Shop now"
+            "image": "shopify://shop_images/box-image-31.jpg",
+            "badge_text": "Hot",
+            "badge_bg_color": "#ee7f00",
+            "badge_text_color": "#ffffff",
+            "title_color": "#ffffff",
+            "btn_color": "#ffffff",
+            "overlay_class": "overlay-2",
+            "title": "Dual clutch automatic\ntransmission",
+            "btn_text": "Shop now",
+            "link": "shopify://collections"
           }
         },
-        "collection_item_zQftea": {
-          "type": "collection_item",
+        "banner_hfmjfF": {
+          "type": "banner",
           "settings": {
-            "collection": "trending",
-            "button_text": "Shop now"
+            "image": "shopify://shop_images/box-image-32.jpg",
+            "badge_text": "20% OFF",
+            "badge_bg_color": "#c8102e",
+            "badge_text_color": "#ffffff",
+            "title_color": "#ffffff",
+            "btn_color": "#ffffff",
+            "overlay_class": "overlay-3",
+            "title": "Weather Liner® for Jeep\nCompass Floor",
+            "btn_text": "Shop now",
+            "link": "shopify://collections"
           }
         },
-        "collection_item_DLnjHp": {
-          "type": "collection_item",
+        "banner_6b64Pr": {
+          "type": "banner",
           "settings": {
-            "collection": "dresses",
-            "button_text": "Shop now"
+            "image": "shopify://shop_images/box-image-33.jpg",
+            "badge_text": "New arrival",
+            "badge_bg_color": "#499f30",
+            "badge_text_color": "#ffffff",
+            "title_color": "#ffffff",
+            "btn_color": "#ffffff",
+            "overlay_class": "overlay-3",
+            "title": "SINGARO Car Battery Terminal\nConnector",
+            "btn_text": "Shop now",
+            "link": "shopify://collections"
           }
         }
       },
       "block_order": [
-        "collection_item_JcTahb",
-        "collection_item_zQftea",
-        "collection_item_DLnjHp"
+        "banner_EPdz9H",
+        "banner_hfmjfF",
+        "banner_6b64Pr"
       ],
-      "name": "Collection Slider",
+      "name": "Banner Swiper Overlay",
+      "settings": {
+        "slides_desktop": 3,
+        "slides_tablet": 2,
+        "slides_mobile": 1,
+        "space_desktop": 24,
+        "space_tablet": 15,
+        "space_mobile": 10,
+        "padding_top_desktop": 24,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "popular_categories_9Q4dpN": {
+      "type": "popular-categories",
+      "blocks": {
+        "category_8FmpwR": {
+          "type": "category",
+          "settings": {
+            "collection": "brakes",
+            "title": ""
+          }
+        },
+        "category_dmHYfp": {
+          "type": "category",
+          "settings": {
+            "collection": "engine",
+            "title": ""
+          }
+        },
+        "category_pA9jM8": {
+          "type": "category",
+          "settings": {
+            "collection": "transmission",
+            "title": ""
+          }
+        },
+        "category_DPFwW4": {
+          "type": "category",
+          "settings": {
+            "collection": "clutch",
+            "title": ""
+          }
+        },
+        "category_eHzwee": {
+          "type": "category",
+          "settings": {
+            "collection": "wheels",
+            "title": ""
+          }
+        },
+        "category_yPGjGd": {
+          "type": "category",
+          "settings": {
+            "collection": "tires",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "category_8FmpwR",
+        "category_dmHYfp",
+        "category_pA9jM8",
+        "category_DPFwW4",
+        "category_eHzwee",
+        "category_yPGjGd"
+      ],
+      "name": "Popular Categories",
+      "settings": {
+        "heading_type": "without_button",
+        "title": "Shop by category",
+        "header_spacing": "type-4",
+        "header_alignment": "",
+        "section_heading_style": "false",
+        "section_heading_weight": "normal",
+        "collection_heading_style": "h5",
+        "subtitle": "",
+        "show_count": true,
+        "collection_count_format": "brackets",
+        "shape": "circle",
+        "button_text": "View All Books",
+        "button_link": "shopify://collections/all",
+        "slides_desktop": 6,
+        "slides_tablet": "4",
+        "slides_mobile": "3",
+        "space_large_screen": 48,
+        "space_desktop": 48,
+        "space_tablet": 32,
+        "space_mobile": 12,
+        "padding_top_desktop": 112,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "product_swiper_bkXPfW": {
+      "type": "product-swiper",
+      "blocks": {
+        "product-swiper": {
+          "type": "product-swiper__",
+          "static": true,
+          "settings": {
+            "background_color": "#ffffff",
+            "card_background_color": "#ffffff",
+            "text_color": "#000000",
+            "padding_top_desktop": 0,
+            "padding_bottom_desktop": 112,
+            "padding_top_tablet": 0,
+            "padding_bottom_tablet": 80,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 60,
+            "header_layout": "with_button",
+            "title": "Our best seller",
+            "heading_style": "false",
+            "heading_weight": "normal",
+            "header_spacing": "",
+            "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "button_link": "shopify://collections/baby-child-care",
+            "button_text": "View All Product",
+            "collection": "car-best-sell",
+            "products_limit": 8,
+            "grid_rows": "2",
+            "countdown_size": "",
+            "show_timer": false,
+            "end_date": "",
+            "end_time": "23:59",
+            "show_seperator": false,
+            "show_stock": false,
+            "stock_position": "above_price",
+            "slides_desktop": 4,
+            "slides_tablet": 3,
+            "slides_mobile": 2,
+            "space_desktop": 48,
+            "space_tablet": 34,
+            "space_mobile": 12,
+            "show_coupon": false,
+            "coupon_title": "Buy 2 Get 1 Free and Get 35% Off Voucher",
+            "coupon_code": "35%OFFVOUCHER",
+            "coupon_bg_color": "",
+            "coupon_copy_color": "",
+            "coupon_rounded": true,
+            "coupon_button_rounded": true
+          },
+          "blocks": {}
+        }
+      },
+      "name": "Product Swiper",
       "settings": {}
     },
-    "tab_products_gmf7Gy": {
-      "type": "tab-products",
+    "banner_grid_with_timer_kNJa8M": {
+      "type": "banner-grid-with-timer",
       "blocks": {
-        "tab_A66cgE": {
-          "type": "tab",
+        "banner_yPLJQN": {
+          "type": "banner",
           "settings": {
-            "tab_title": "Trending",
-            "collection": "trending",
-            "products_limit": 8
+            "image": "shopify://shop_images/box-image-34.jpg",
+            "title": "OASIS AUTO Custom Fit Seat <br> Covers for Toyota Camry",
+            "link": "",
+            "btn_text": "Shop now",
+            "badge_text": "FLASH SALE",
+            "badge_bg": "#000000",
+            "badge_color": "#ffffff",
+            "overlay_class": "overlay-5"
           }
         },
-        "tab_VRYgic": {
-          "type": "tab",
+        "banner_rKFbLC": {
+          "type": "banner",
           "settings": {
-            "tab_title": "Best Sellers",
-            "collection": "best-seller",
-            "products_limit": 8
+            "image": "shopify://shop_images/box-image-35.jpg",
+            "title": "OASIS AUTO Custom Fit Seat <br> Covers for Toyota Camry",
+            "link": "",
+            "btn_text": "Shop now",
+            "badge_text": "20% OFF",
+            "badge_bg": "#eb423f",
+            "badge_color": "#ffffff",
+            "overlay_class": "overlay-5"
           }
         },
-        "tab_yAiXMF": {
-          "type": "tab",
+        "countdown_VR7nhQ": {
+          "type": "countdown",
           "settings": {
-            "tab_title": "On sale",
-            "collection": "trending-copy",
-            "products_limit": 8
+            "title": "Hurry up offer ends in:",
+            "bg_color": "#c8102e",
+            "text_color": "#e85331",
+            "timer_box_bg": "#e85331",
+            "timer_box_color": "#ffffff",
+            "end_date": "2026-03-28",
+            "end_time": "23:59"
           }
         }
       },
       "block_order": [
-        "tab_A66cgE",
-        "tab_VRYgic",
-        "tab_yAiXMF"
+        "banner_yPLJQN",
+        "banner_rKFbLC",
+        "countdown_VR7nhQ"
       ],
-      "name": "Tab Products",
+      "name": "Banner Grid with Timer",
       "settings": {
-        "spacing": true,
-        "title": "New Arrivals"
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
       }
     },
-    "shop_the_look_xQPQHq": {
-      "type": "shop-the-look",
+    "deal_today_iiBeTK": {
+      "type": "deal-today",
+      "name": "Deal Today",
+      "settings": {
+        "heading": "Deal of the day",
+        "button_label": "View All Product",
+        "button_url": "",
+        "main_product": "maxauto-lawn-mower-tires-2-pieces-15x6-00",
+        "collection": "car-deal",
+        "products_to_show": 6,
+        "slides_desktop": 3,
+        "slides_tablet": 2,
+        "slides_mobile": 2,
+        "space_desktop": 4,
+        "space_tablet": 4,
+        "space_mobile": 4,
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80,
+        "padding_top_tablet": 60,
+        "padding_bottom_tablet": 60,
+        "padding_top_mobile": 40,
+        "padding_bottom_mobile": 40
+      }
+    },
+    "brand_swiper_XWnmFU": {
+      "type": "brand-swiper",
       "blocks": {
-        "product_6eGPtD": {
-          "type": "product",
+        "brand_AFbacC": {
+          "type": "brand",
           "settings": {
-            "product": "cotton-high-waisted-panties"
+            "image": "shopify://shop_images/audi.png",
+            "link": ""
           }
         },
-        "product_Ci3VUQ": {
-          "type": "product",
+        "brand_UJbpbi": {
+          "type": "brand",
           "settings": {
-            "product": "half-sleeve-crop-top"
+            "image": "shopify://shop_images/gac.png",
+            "link": ""
           }
         },
-        "product_mBzkX3": {
-          "type": "product",
+        "brand_367j7F": {
+          "type": "brand",
           "settings": {
-            "product": "sexy-lace-panties"
+            "image": "shopify://shop_images/volvo.png",
+            "link": ""
+          }
+        },
+        "brand_WDh9EK": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/kia.png",
+            "link": ""
+          }
+        },
+        "brand_UHAJNk": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/renault.png",
+            "link": ""
+          }
+        },
+        "brand_k97Lpr": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/byton.png",
+            "link": ""
+          }
+        },
+        "brand_mLfa33": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/skoda.png",
+            "link": ""
+          }
+        },
+        "brand_FDxk8g": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/nissan.png",
+            "link": ""
+          }
+        },
+        "brand_BWMYEP": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/mini.png",
+            "link": ""
+          }
+        },
+        "brand_xCg6Eb": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/bmw.png",
+            "link": ""
+          }
+        },
+        "brand_CBF8WD": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/xpeng.png",
+            "link": ""
+          }
+        },
+        "brand_iDRKxc": {
+          "type": "brand",
+          "settings": {
+            "image": "shopify://shop_images/nio.png",
+            "link": ""
           }
         }
       },
       "block_order": [
-        "product_6eGPtD",
-        "product_Ci3VUQ",
-        "product_mBzkX3"
+        "brand_AFbacC",
+        "brand_UJbpbi",
+        "brand_367j7F",
+        "brand_WDh9EK",
+        "brand_UHAJNk",
+        "brand_k97Lpr",
+        "brand_mLfa33",
+        "brand_FDxk8g",
+        "brand_BWMYEP",
+        "brand_xCg6Eb",
+        "brand_CBF8WD",
+        "brand_iDRKxc"
       ],
-      "name": "Shop This Look",
+      "name": "Brand Swiper",
       "settings": {
-        "spacing": true,
-        "collection_image": "shopify://shop_images/box-image-1.jpg",
-        "heading": "Shop This Look",
-        "collection": "trending",
-        "collection_button_text": "EXPLORE NOW"
+        "heading": "Shop by brand",
+        "button_text": "View All Brand",
+        "button_link": "",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 60,
+        "slides_desktop": 5,
+        "slides_tablet": 4,
+        "slides_mobile": 2,
+        "grid_rows": "2",
+        "space_desktop": 48,
+        "space_tablet": 12,
+        "space_mobile": 12
       }
     },
-    "featured_blog_3cC7JF": {
+    "coupon_PPrPm7": {
+      "type": "coupon",
+      "name": "Coupon",
+      "settings": {
+        "title": "Buy 2 Get 1 Free and Get 35% Off Voucher",
+        "coupon_code": "35%OFFVOUCHER",
+        "bg_color": "#e85331",
+        "copy_color": "#e85331",
+        "rounded": false,
+        "button_rounded": false
+      }
+    },
+    "review_sneaker_acc6jH": {
+      "type": "review-sneaker",
+      "blocks": {
+        "review_JTd73T": {
+          "type": "review",
+          "settings": {
+            "author_image": "shopify://shop_images/avatar-1.jpg",
+            "title": "Dedicated service",
+            "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands.",
+            "author": "Brooklyn Simmons",
+            "rating": 5,
+            "product": "6dct250-transmission-clutch"
+          }
+        },
+        "review_gzeJBA": {
+          "type": "review",
+          "settings": {
+            "author_image": "shopify://shop_images/avatar-2.jpg",
+            "title": "Best Product Quality",
+            "text": "The support from ACIS has been outstanding. Anytime we had a question or needed help, their team responded quickly and professionally.",
+            "author": "Mas Shin",
+            "rating": 5,
+            "product": "carbon-fiber-steering-wheel"
+          }
+        },
+        "review_zeUzxB": {
+          "type": "review",
+          "settings": {
+            "author_image": "shopify://shop_images/avatar-3.jpg",
+            "title": "Exceptional Reliability",
+            "text": "No surprises, just consistent and dependable performance every single time without fail.",
+            "author": "Sil Vox",
+            "rating": 5,
+            "product": "front-brake-kit"
+          }
+        },
+        "review_XFgTTe": {
+          "type": "review",
+          "settings": {
+            "author_image": "shopify://shop_images/avatar-1.jpg",
+            "title": "Dedicated service",
+            "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands.",
+            "author": "Brooklyn Simmons",
+            "rating": 5,
+            "product": "6dct250-transmission-clutch"
+          }
+        }
+      },
+      "block_order": [
+        "review_JTd73T",
+        "review_gzeJBA",
+        "review_zeUzxB",
+        "review_XFgTTe"
+      ],
+      "name": "Review Sneaker",
+      "settings": {
+        "header_layout": "with_subtitle",
+        "heading": "Customer Reviews",
+        "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "slides_desktop": 3,
+        "slides_tablet": 2,
+        "slides_mobile": 1,
+        "space_desktop": 48,
+        "space_tablet": 30,
+        "space_mobile": 12,
+        "padding_top_desktop": 112,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60
+      }
+    },
+    "featured_blog_aXqqXG": {
       "type": "featured-blog",
-      "name": "Featured Blog",
-      "settings": {
-        "spacing": true,
-        "heading": "Read Our Blog",
-        "blog": "all",
-        "posts_limit": 4,
-        "read_more_text": "Read more"
-      }
-    },
-    "instagram_slider_7xBiQT": {
-      "type": "instagram-slider",
       "blocks": {
-        "image_g7abax": {
-          "type": "image",
+        "featured-blog": {
+          "type": "featured-blog__",
+          "static": true,
           "settings": {
-            "image": "shopify://shop_images/gallery-1_a25d4efd-4333-477e-9cf0-201c0241f35f.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_tCXVYq": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-2_05ca70ad-4a7a-43a1-a492-bee2a4119a61.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_YGfYPR": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-3_7597afa5-4f54-4577-9a54-a20e86bc3958.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_EarP6h": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-4_6bc1ff7a-0156-4c3e-9fd0-0b4d3409692d.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_t49TDL": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-5_4b403f5f-3ca5-4566-8da2-f9afd211d485.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_KMApKn": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-6_89e5ee59-16e2-4518-8d9d-2b72ba884769.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
+            "blog": "car",
+            "posts_limit": 4,
+            "blog_style": "type-space-2",
+            "disable_content_spacing": false,
+            "card_layout": "",
+            "show_date": "tag",
+            "date_color": "#e85331",
+            "show_excerpt": true,
+            "show_read_more": true,
+            "read_more_text": "Read more",
+            "heading": "Read our blog",
+            "heading_style": "false",
+            "heading_weight": "normal",
+            "header_layout": "with_nav",
+            "subheading": "",
+            "button_link": "shopify://blogs/gym",
+            "button_text": "View All",
+            "header_alignment": "justify-content-between",
+            "header_spacing": "type-4",
+            "slides_to_show_desktop": 4,
+            "slides_to_show_tablet": 3,
+            "slides_to_show_mobile": 2,
+            "slides_spacing_desktop": 48,
+            "slides_spacing_tablet": 24,
+            "slides_spacing_mobile": 12,
+            "padding_top_desktop": 0,
+            "padding_bottom_desktop": 112,
+            "padding_top_tablet": 0,
+            "padding_bottom_tablet": 80,
+            "padding_top_mobile": 0,
+            "padding_bottom_mobile": 60
+          },
+          "blocks": {}
         }
       },
-      "block_order": [
-        "image_g7abax",
-        "image_tCXVYq",
-        "image_YGfYPR",
-        "image_EarP6h",
-        "image_t49TDL",
-        "image_KMApKn"
-      ],
-      "name": "Instagram Slider",
-      "settings": {
-        "spacing": true,
-        "heading": "Follow Us On Instagram",
-        "subheading": "<p>@ochaka:Follow us and get20% off coupon</p>"
-      }
+      "name": "Featured Blog",
+      "settings": {}
     }
   },
   "order": [
-    "tf_slideshow_3gRCzK",
-    "collection_slider_MeEmw6",
-    "tab_products_gmf7Gy",
-    "shop_the_look_xQPQHq",
-    "featured_blog_3cC7JF",
-    "instagram_slider_7xBiQT"
+    "tf_slideshow_6_Q9WppF",
+    "banner_swiper_with_overlay_i9G8rx",
+    "popular_categories_9Q4dpN",
+    "product_swiper_bkXPfW",
+    "banner_grid_with_timer_kNJa8M",
+    "deal_today_iiBeTK",
+    "brand_swiper_XWnmFU",
+    "coupon_PPrPm7",
+    "review_sneaker_acc6jH",
+    "featured_blog_aXqqXG"
   ]
 }

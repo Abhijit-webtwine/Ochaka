@@ -81,11 +81,14 @@
     {%- endif -%}
 
     {% comment %} google fonts import {% endcomment %}
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Sora:wght@100..800&family=Ballet:opsz@16..72&display=swap" rel="stylesheet">
+    {% comment %} <style>
       @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap');
-    </style>
+    </style> {% endcomment %}
     {% comment %} google fonts import ends{% endcomment %}
 
     <style>
@@ -124,9 +127,9 @@
     <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
     <link rel="stylesheet" href="{{'animate.css' |  asset_url}}">
-    <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
-    <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}">
-    <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}">
+    {% comment %} <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
+    <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}"> {% endcomment %}
+    {% comment %} <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}"> {% endcomment %}
 
     <script src="{{ 'bootstrap.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'jquery.min.js' | asset_url }}" defer></script>
@@ -146,10 +149,10 @@
     <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
-    {%- liquid
+    {% comment %} {%- liquid
       render 'vite-tag' with 'main.scss'
       render 'vite-tag' with 'main.js'
-    -%}
+    -%} {% endcomment %}
     {%- liquid
       render 'vite-tag' with 'main.scss'
       render 'vite-tag' with 'main.js'

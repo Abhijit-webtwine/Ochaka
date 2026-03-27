@@ -14,7 +14,7 @@
           <div class="wg-cls-2 hover-img d-flex">
             <a href="{{ slider_link | default: '#' }}" class="image img-style">
               {%- if slider_image != blank -%}
-                {{ slider_image | image_url: width: 1500 | image_tag: class: 'lazyload scale-item', loading: 'lazy', alt: slider_title }}
+                {{ slider_image | image_url: width: 1500 | image_tag: class: 'scale-item', loading: 'eager', alt: slider_title, fetchpriority: 'high' }}
               {%- else -%}
                 {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg scale-item' }}
               {%- endif -%}
