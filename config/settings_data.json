@@ -18,9 +18,9 @@
     "button_bg_color": "#e85331",
     "hover_icon_bg_color": "#1a1b18",
     "page_width": 1488,
-    "page_transition_enabled": true,
+    "page_transition_enabled": false,
     "image_zoom_effect_enabled": false,
-    "image_loading_bar_enabled": true,
+    "image_loading_bar_enabled": false,
     "show_atc_count": true,
     "card_spacing": "",
     "card_style": "",
@@ -355,14 +355,14 @@
           "menu_VyLp6w": {
             "type": "menu",
             "settings": {
-              "menu_1_heading": "Shopping",
+              "menu_heading": "Shopping",
               "menu_1": "footer"
             }
           },
           "menu_KUkY69": {
             "type": "menu",
             "settings": {
-              "menu_1_heading": "Shopping",
+              "menu_heading": "Shopping",
               "menu_1": "footer-menu-1"
             }
           },
@@ -373,8 +373,7 @@
               "newsletter_text": "Enter your email below to be the first to know about new collections and product launches.",
               "newsletter_button": "Subscribe",
               "newsletter_terms": "<p>By clicking subcribe, you agree to the <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Terms of Service</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a></p>",
-              "newsletter_terms_text_size": "default",
-              "button_style": "default"
+              "newsletter_terms_text_size": "default"
             }
           }
         },
@@ -390,7 +389,10 @@
           "background_color": "#1a1b18",
           "heading_color": "#ffffff",
           "text_color": "#9f9f9f",
+          "text_opacity": 1,
           "border_color": "#9f9f9f",
+          "newsletter_btn_bg_color": "#000000",
+          "newsletter_btn_text_color": "#ffffff",
           "bottom_text_1": "Help & FAQs",
           "bottom_link_1": "",
           "bottom_text_2": "Factory",
@@ -423,22 +425,6 @@
           "colors_background": "#fff8f6",
           "gradient_background": "",
           "colors_shadow": "#cbb2b6"
-        }
-      },
-      "cookie-banner": {
-        "type": "cookie-banner",
-        "settings": {
-          "mode": "disabled",
-          "delay": 5,
-          "text_alignment": "left",
-          "text_box_position": "bottom",
-          "colors_button_label": "#ffffff",
-          "colors_button_background": "#1a1b18",
-          "colors_text": "#1a1b18",
-          "colors_border": "#d2d5d9",
-          "colors_background": "#ffffff",
-          "gradient_background": "",
-          "colors_shadow": "#a8e8e2"
         }
       },
       "main-password-header": {
@@ -542,7 +528,7 @@
           "promo_highlight_color": "#e85331",
           "btn_style": "btn-submit-2",
           "header_top_bg": "#ffffff",
-          "header_top_color": "#30360d",
+          "icon_color": "#111111",
           "header_inner_style": "style-2",
           "rounded_corners": false,
           "header_inner_bg": "#ffffff",
@@ -553,6 +539,15 @@
           "wishlist_count_color": "#ffffff",
           "cart_count_bg": "#e85331",
           "cart_count_color": "#ffffff"
+        }
+      },
+      "popup-form": {
+        "type": "popup-form",
+        "settings": {
+          "newsletter_popup_enabled": true,
+          "newsletter_popup_delay": 10,
+          "newsletter_popup_sub_title": "Subscribe to our newsletter!",
+          "newsletter_popup_title": "Receive 20% off your next order, along with exclusive offers and more!"
         }
       }
     },

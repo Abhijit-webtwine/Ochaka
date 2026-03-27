@@ -195,13 +195,10 @@
       ],
       "name": "Popular Categories",
       "settings": {
-        "heading_type": "without_button",
         "title": "Shop by category",
         "header_spacing": "type-4",
-        "header_alignment": "",
         "section_heading_style": "false",
         "section_heading_weight": "normal",
-        "collection_heading_style": "h5",
         "subtitle": "",
         "show_count": true,
         "collection_count_format": "brackets",
