@@ -555,6 +555,15 @@
           "header_text_color": "#ffffff",
           "icon_color": "#ffffff"
         }
+      },
+      "popup-form": {
+        "type": "popup-form",
+        "settings": {
+          "newsletter_popup_enabled": false,
+          "newsletter_popup_delay": 10,
+          "newsletter_popup_sub_title": "Subscribe to our newsletter!",
+          "newsletter_popup_title": "Receive 20% off your next order, along with exclusive offers and more!"
+        }
       }
     },
     "content_for_index": [],
