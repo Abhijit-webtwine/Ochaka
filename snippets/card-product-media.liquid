@@ -2,23 +2,19 @@
   {%- assign main_image = product.featured_image | default: product.images[0] -%}
   {%- assign hover_image = product.images[1] | default: main_image -%}
 
-  <img
-    class="lazyload img-product"
-    src="{{ main_image | image_url }}"
-    data-src="{{ main_image | image_url }}"
-    alt="{{ main_image.alt | escape }}"
-    loading="lazy"
-    width=""
-    height=""
-  >
+  {{ main_image | image_url: width: 600 | image_tag:
+    class: 'img-product',
+    loading: 'lazy',
+    widths: '300,400,500,600,800',
+    sizes: '(max-width: 768px) 100vw, 25vw',
+    alt: main_image.alt
+  }}
 
-  <img
-    class="lazyload img-hover"
-    src="{{ hover_image | image_url }}"
-    data-src="{{ hover_image | image_url }}"
-    alt="{{ hover_image.alt | escape }}"
-    loading="lazy"
-    width=""
-    height=""
-  >
+  {{ hover_image | image_url: width: 600 | image_tag:
+    class: 'img-hover',
+    loading: 'lazy',
+    widths: '300,400,500,600,800',
+    sizes: '(max-width: 768px) 100vw, 25vw',
+    alt: hover_image.alt
+  }}
 </a>

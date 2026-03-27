@@ -67,11 +67,13 @@
               <div class="tes_content">
                 <div class="author-image">
                   {% if block.settings.author_image != blank %}
-                    <img class="lazyload" 
-                      src="{{ block.settings.author_image | image_url }}" 
-                      data-src="{{ block.settings.author_image | image_url }}" 
-                      alt="{{ block.settings.author_image.alt | escape }}"
-                    >
+                    {{ block.settings.author_image | image_url: width: 150 | image_tag:
+                      loading: 'lazy',
+                      widths: '75,100,150,200',
+                      sizes: '150px',
+                      alt: block.settings.author_image.alt,
+                      class: 'author-img'
+                    }}
                   {% else %}
                     {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                   {% endif %}
