@@ -39,23 +39,26 @@
           <div class="card-product {{ settings.card_spacing }} {{ settings.card_style }} style-pading-4 style-2 tf-cart-item wow fadeInUp">
             <div class="card-product_wrapper aspect-ratio-0 d-flex {% if settings.show_border %} style-line-radius {% endif %}">
               <a href="{{ main_product.url }}" class="product-img">
-                <img
-                  class="img-product lazyload"
-                  src="{{ main_product.featured_image | image_url }}"
-                  data-src="{{ main_product.featured_image | image_url }}"
-                  alt="{{ main_product.featured_image.alt | default: main_product.title }}"
-                  width="{{ main_product.featured_image.width }}"
-                  height="{{ main_product.featured_image.height }}"
-                >
+
+                {{ main_product.featured_image | image_url: width: 600 | image_tag:
+                  class: 'img-product',
+                  loading: 'lazy',
+                  decoding: 'async',
+                  widths: '320, 480, 600, 800',
+                  sizes: '(max-width: 768px) 100vw, 300px',
+                  alt: main_product.featured_image.alt | default: main_product.title
+                }}
+
+                <!-- HOVER IMAGE -->
                 {%- if main_product.images[1] != blank -%}
-                  <img
-                    class="img-hover lazyload"
-                    src="{{ main_product.images[1] | image_url }}"
-                    data-src="{{ main_product.images[1] | image_url }}"
-                    alt="{{ main_product.images[1].alt | default: main_product.title }}"
-                    width="{{ main_product.images[1].width }}"
-                    height="{{ main_product.images[1].height }}"
-                  >
+                  {{ main_product.images[1] | image_url: width: 600 | image_tag:
+                    class: 'img-hover',
+                    loading: 'lazy',
+                    decoding: 'async',
+                    widths: '320, 480, 600, 800',
+                    sizes: '(max-width: 768px) 100vw, 300px',
+                    alt: main_product.images[1].alt | default: main_product.title
+                  }}
                 {%- endif -%}
               </a>
               {% render 'icon-action-list',
