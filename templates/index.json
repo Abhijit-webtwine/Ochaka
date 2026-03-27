@@ -133,9 +133,9 @@
         "space_mobile": 10,
         "padding_top_desktop": 24,
         "padding_bottom_desktop": 0,
-        "padding_top_tablet": 0,
+        "padding_top_tablet": 16,
         "padding_bottom_tablet": 0,
-        "padding_top_mobile": 0,
+        "padding_top_mobile": 16,
         "padding_bottom_mobile": 0
       }
     },
@@ -195,10 +195,13 @@
       ],
       "name": "Popular Categories",
       "settings": {
+        "header_layout": "with_subtitle",
         "title": "Shop by category",
         "header_spacing": "type-4",
         "section_heading_style": "false",
         "section_heading_weight": "normal",
+        "collection_heading_size": "h5",
+        "collection_heading_weight": "normal",
         "subtitle": "",
         "show_count": true,
         "collection_count_format": "brackets",

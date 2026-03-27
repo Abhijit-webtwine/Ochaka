@@ -39,14 +39,14 @@
                   </li>
                 </ul>
               {%- endif -%}
-              <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style" aria-label="Banner {{ forloop.index }} URL">
+              <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
                 {%- if block.settings.image != blank -%}
                   {{ block.settings.image | image_url: width: 1000 | image_tag:
                     loading: 'lazy',
                     decoding: 'async',
                     widths: '320, 480, 720, 1000, 1500',
                     sizes: '(max-width: 768px) 100vw, 1000px',
-                    alt: block.settings.image.alt |  default: 'Banner-{{ forloop.index }}'
+                    alt: block.settings.image.alt
                   }}
                 {%- else -%}
                   {{ 'image' | placeholder_svg_tag: 'w-100 h-100' }}
