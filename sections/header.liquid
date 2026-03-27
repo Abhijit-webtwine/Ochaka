@@ -21,7 +21,7 @@
   <div class="container-full">
     <div class="row align-items-center">
       <div class="col-md-4 col-3 d-xl-none">
-        <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
+        <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu" aria-label="Hamburger Icon">
           <span></span>
         </a>
       </div>
@@ -43,13 +43,13 @@
       <div class="{{ logo_col }}">
         <div class="d-flex {{ logo_justify }}">
           <a href="{{ routes.root_url }}" class="logo-site">
-            <img
-              src="{{ section.settings.logo | image_url }}"
-              alt="Logo"
-              width="{{ section.settings.logo.width }}"
-              height="{{ section.settings.logo.height }}"
-            >
-          </a>
+              <img
+                src="{{ section.settings.logo | image_url }}"
+                alt="Logo"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+              >
+            </a>
         </div>
       </div>
 
