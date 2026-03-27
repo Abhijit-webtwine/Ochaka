@@ -15,7 +15,7 @@
         "slide_VBAbfh": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-52.jpg",
+            "image": "shopify://shop_images/slider-52.webp",
             "title": "Armstrong BLU-TRAC HP UHP \nTire - 225/55 R16",
             "title_color": "#ffffff",
             "price": "$89.99",
@@ -31,7 +31,7 @@
         "slide_PyYfk8": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-53.jpg",
+            "image": "shopify://shop_images/slider-53.webp",
             "title": "Pennzoil Ultra Platinum Full \nSynthetic 0W-20",
             "title_color": "#ffffff",
             "price": "$89.99",
@@ -47,7 +47,7 @@
         "slide_YfXqhh": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-54.jpg",
+            "image": "shopify://shop_images/slider-54.webp",
             "title": "Themesflat 325 Piece Car\nRepair Tool Kit",
             "title_color": "#ffffff",
             "price": "$89.99",
@@ -75,7 +75,7 @@
         "banner_EPdz9H": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/box-image-31.jpg",
+            "image": "shopify://shop_images/box-image-31.webp",
             "badge_text": "Hot",
             "badge_bg_color": "#ee7f00",
             "badge_text_color": "#ffffff",
@@ -90,7 +90,7 @@
         "banner_hfmjfF": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/box-image-32.jpg",
+            "image": "shopify://shop_images/box-image-32.webp",
             "badge_text": "20% OFF",
             "badge_bg_color": "#c8102e",
             "badge_text_color": "#ffffff",
@@ -105,7 +105,7 @@
         "banner_6b64Pr": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/box-image-33.jpg",
+            "image": "shopify://shop_images/box-image-33.webp",
             "badge_text": "New arrival",
             "badge_bg_color": "#499f30",
             "badge_text_color": "#ffffff",
