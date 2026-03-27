@@ -9,221 +9,96 @@
  */
 {
   "sections": {
-    "tf_slideshow_6_Q9WppF": {
-      "type": "tf-slideshow-6",
+    "tf_slideshow_8_tc8qQC": {
+      "type": "tf-slideshow-8",
       "blocks": {
-        "slide_VBAbfh": {
-          "type": "slide",
+        "slider_item_mDFHHG": {
+          "type": "slider_item",
           "settings": {
-            "image": "shopify://shop_images/slider-52.webp",
-            "title": "Armstrong BLU-TRAC HP UHP \nTire - 225/55 R16",
-            "title_color": "#ffffff",
-            "price": "$89.99",
-            "price_color": "#e85331",
-            "old_price": "$120.00",
-            "old_price_color": "#7a7a7a",
-            "btn_text": "Shop now",
-            "btn_text_color": "#000000",
-            "btn_bg_color": "#ffffff",
-            "link": ""
+            "collection": "summer-collection",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
-        "slide_PyYfk8": {
-          "type": "slide",
+        "slider_item_qKTgd4": {
+          "type": "slider_item",
           "settings": {
-            "image": "shopify://shop_images/slider-53.webp",
-            "title": "Pennzoil Ultra Platinum Full \nSynthetic 0W-20",
-            "title_color": "#ffffff",
-            "price": "$89.99",
-            "price_color": "#e85331",
-            "old_price": "$120.00",
-            "old_price_color": "#7a7a7a",
-            "btn_text": "Shop now",
-            "btn_text_color": "#000000",
-            "btn_bg_color": "#ffffff",
-            "link": ""
+            "collection": "boxy-beachwear",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         },
-        "slide_YfXqhh": {
-          "type": "slide",
+        "slider_item_4m4n9E": {
+          "type": "slider_item",
           "settings": {
-            "image": "shopify://shop_images/slider-54.webp",
-            "title": "Themesflat 325 Piece Car\nRepair Tool Kit",
-            "title_color": "#ffffff",
-            "price": "$89.99",
-            "price_color": "#e85331",
-            "old_price": "$120.00",
-            "old_price_color": "#7a7a7a",
-            "btn_text": "Shop now",
-            "btn_text_color": "#000000",
-            "btn_bg_color": "#ffffff",
-            "link": ""
+            "collection": "blue-bikini-collection",
+            "button_label": "Shop now",
+            "button_link": ""
           }
         }
       },
       "block_order": [
-        "slide_VBAbfh",
-        "slide_PyYfk8",
-        "slide_YfXqhh"
+        "slider_item_mDFHHG",
+        "slider_item_qKTgd4",
+        "slider_item_4m4n9E"
       ],
-      "name": "Slideshow 6",
+      "name": "Slideshow 8",
       "settings": {}
     },
-    "banner_swiper_with_overlay_i9G8rx": {
-      "type": "banner-swiper-with-overlay",
+    "collection_slider_2_tyk44d": {
+      "type": "collection-slider-2",
       "blocks": {
-        "banner_EPdz9H": {
-          "type": "banner",
+        "collection_item_fNhbNw": {
+          "type": "collection_item",
           "settings": {
-            "image": "shopify://shop_images/box-image-31.webp",
-            "badge_text": "Hot",
-            "badge_bg_color": "#ee7f00",
-            "badge_text_color": "#ffffff",
-            "title_color": "#ffffff",
-            "btn_color": "#ffffff",
-            "overlay_class": "overlay-2",
-            "title": "Dual clutch automatic\ntransmission",
-            "btn_text": "Shop now",
-            "link": "shopify://collections"
+            "collection": "bras"
           }
         },
-        "banner_hfmjfF": {
-          "type": "banner",
+        "collection_item_3Apyi6": {
+          "type": "collection_item",
           "settings": {
-            "image": "shopify://shop_images/box-image-32.webp",
-            "badge_text": "20% OFF",
-            "badge_bg_color": "#c8102e",
-            "badge_text_color": "#ffffff",
-            "title_color": "#ffffff",
-            "btn_color": "#ffffff",
-            "overlay_class": "overlay-3",
-            "title": "Weather Liner® for Jeep\nCompass Floor",
-            "btn_text": "Shop now",
-            "link": "shopify://collections"
+            "collection": "panties"
           }
         },
-        "banner_6b64Pr": {
-          "type": "banner",
+        "collection_item_TJeDyE": {
+          "type": "collection_item",
           "settings": {
-            "image": "shopify://shop_images/box-image-33.webp",
-            "badge_text": "New arrival",
-            "badge_bg_color": "#499f30",
-            "badge_text_color": "#ffffff",
-            "title_color": "#ffffff",
-            "btn_color": "#ffffff",
-            "overlay_class": "overlay-3",
-            "title": "SINGARO Car Battery Terminal\nConnector",
-            "btn_text": "Shop now",
-            "link": "shopify://collections"
+            "collection": "bodysuits"
+          }
+        },
+        "collection_item_detc3T": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "sleepwear"
+          }
+        },
+        "collection_item_f9gMqN": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "lingerie-sets"
           }
         }
       },
       "block_order": [
-        "banner_EPdz9H",
-        "banner_hfmjfF",
-        "banner_6b64Pr"
+        "collection_item_fNhbNw",
+        "collection_item_3Apyi6",
+        "collection_item_TJeDyE",
+        "collection_item_detc3T",
+        "collection_item_f9gMqN"
       ],
-      "name": "Banner Swiper Overlay",
+      "name": "Collection Slider 2",
       "settings": {
-        "slides_desktop": 3,
-        "slides_tablet": 2,
-        "slides_mobile": 1,
-        "space_desktop": 24,
-        "space_tablet": 15,
-        "space_mobile": 10,
-        "padding_top_desktop": 24,
-        "padding_bottom_desktop": 0,
-        "padding_top_tablet": 16,
-        "padding_bottom_tablet": 0,
-        "padding_top_mobile": 16,
-        "padding_bottom_mobile": 0
-      }
-    },
-    "popular_categories_9Q4dpN": {
-      "type": "popular-categories",
-      "blocks": {
-        "category_8FmpwR": {
-          "type": "category",
-          "settings": {
-            "collection": "brakes",
-            "title": ""
-          }
-        },
-        "category_dmHYfp": {
-          "type": "category",
-          "settings": {
-            "collection": "engine",
-            "title": ""
-          }
-        },
-        "category_pA9jM8": {
-          "type": "category",
-          "settings": {
-            "collection": "transmission",
-            "title": ""
-          }
-        },
-        "category_DPFwW4": {
-          "type": "category",
-          "settings": {
-            "collection": "clutch",
-            "title": ""
-          }
-        },
-        "category_eHzwee": {
-          "type": "category",
-          "settings": {
-            "collection": "wheels",
-            "title": ""
-          }
-        },
-        "category_yPGjGd": {
-          "type": "category",
-          "settings": {
-            "collection": "tires",
-            "title": ""
-          }
-        }
-      },
-      "block_order": [
-        "category_8FmpwR",
-        "category_dmHYfp",
-        "category_pA9jM8",
-        "category_DPFwW4",
-        "category_eHzwee",
-        "category_yPGjGd"
-      ],
-      "name": "Popular Categories",
-      "settings": {
-        "header_layout": "with_subtitle",
-        "title": "Shop by category",
-        "header_spacing": "type-4",
-        "section_heading_style": "false",
-        "section_heading_weight": "normal",
-        "collection_heading_size": "h5",
-        "collection_heading_weight": "normal",
-        "subtitle": "",
-        "show_count": true,
-        "collection_count_format": "brackets",
-        "shape": "circle",
-        "button_text": "View All Books",
-        "button_link": "shopify://collections/all",
-        "slides_desktop": 6,
-        "slides_tablet": "4",
-        "slides_mobile": "3",
-        "space_large_screen": 48,
-        "space_desktop": 48,
-        "space_tablet": 32,
-        "space_mobile": 12,
         "padding_top_desktop": 112,
         "padding_bottom_desktop": 112,
         "padding_top_tablet": 80,
         "padding_bottom_tablet": 80,
         "padding_top_mobile": 60,
-        "padding_bottom_mobile": 0
+        "padding_bottom_mobile": 60,
+        "heading": "Explore Category",
+        "description": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
       }
     },
-    "product_swiper_bkXPfW": {
+    "product_swiper_CCYgBj": {
       "type": "product-swiper",
       "blocks": {
         "product-swiper": {
@@ -239,15 +114,15 @@
             "padding_bottom_tablet": 80,
             "padding_top_mobile": 0,
             "padding_bottom_mobile": 60,
-            "header_layout": "with_button",
-            "title": "Our best seller",
-            "heading_style": "false",
-            "heading_weight": "normal",
+            "header_layout": "with_subtitle",
+            "title": "Best Seller",
+            "heading_style": "true",
+            "heading_weight": "medium",
             "header_spacing": "",
             "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-            "button_link": "shopify://collections/baby-child-care",
-            "button_text": "View All Product",
-            "collection": "car-best-sell",
+            "button_link": "",
+            "button_text": "Shop Now",
+            "collection": "f3-bestsell",
             "products_limit": 8,
             "grid_rows": "2",
             "countdown_size": "",
@@ -277,54 +152,41 @@
       "name": "Product Swiper",
       "settings": {}
     },
-    "banner_grid_with_timer_kNJa8M": {
-      "type": "banner-grid-with-timer",
+    "box_collection_3_mX4ekU": {
+      "type": "box-collection-3",
       "blocks": {
-        "banner_yPLJQN": {
+        "banner_cdD9tQ": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/box-image-34.jpg",
-            "title": "OASIS AUTO Custom Fit Seat <br> Covers for Toyota Camry",
-            "link": "",
-            "btn_text": "Shop now",
-            "badge_text": "FLASH SALE",
-            "badge_bg": "#000000",
-            "badge_color": "#ffffff",
-            "overlay_class": "overlay-5"
+            "collection": "blue-bikini-collection",
+            "image": "shopify://shop_images/box-image-4.jpg",
+            "subtext": "SALE OFF 50%",
+            "title": "Calvin Klein \nShapewear",
+            "button_label": "Shop now",
+            "button_link": "",
+            "btn_bg": "#333333",
+            "btn_color": "#ffffff"
           }
         },
-        "banner_rKFbLC": {
+        "banner_BFCAb9": {
           "type": "banner",
           "settings": {
-            "image": "shopify://shop_images/box-image-35.jpg",
-            "title": "OASIS AUTO Custom Fit Seat <br> Covers for Toyota Camry",
-            "link": "",
-            "btn_text": "Shop now",
-            "badge_text": "20% OFF",
-            "badge_bg": "#eb423f",
-            "badge_color": "#ffffff",
-            "overlay_class": "overlay-5"
-          }
-        },
-        "countdown_VR7nhQ": {
-          "type": "countdown",
-          "settings": {
-            "title": "Hurry up offer ends in:",
-            "bg_color": "#c8102e",
-            "text_color": "#e85331",
-            "timer_box_bg": "#e85331",
-            "timer_box_color": "#ffffff",
-            "end_date": "2026-03-28",
-            "end_time": "23:59"
+            "collection": "blue-bikini-collection",
+            "image": "shopify://shop_images/box-image-5.jpg",
+            "subtext": "Get Up to 40% OFF!",
+            "title": "Hottest Product Of \nThe Summer",
+            "button_label": "Shop now",
+            "button_link": "",
+            "btn_bg": "#333333",
+            "btn_color": "#ffffff"
           }
         }
       },
       "block_order": [
-        "banner_yPLJQN",
-        "banner_rKFbLC",
-        "countdown_VR7nhQ"
+        "banner_cdD9tQ",
+        "banner_BFCAb9"
       ],
-      "name": "Banner Grid with Timer",
+      "name": "Box Collection 3",
       "settings": {
         "padding_top_desktop": 0,
         "padding_bottom_desktop": 0,
@@ -334,230 +196,61 @@
         "padding_bottom_mobile": 0
       }
     },
-    "deal_today_iiBeTK": {
-      "type": "deal-today",
-      "name": "Deal Today",
-      "settings": {
-        "heading": "Deal of the day",
-        "button_label": "View All Product",
-        "button_url": "",
-        "main_product": "maxauto-lawn-mower-tires-2-pieces-15x6-00",
-        "collection": "car-deal",
-        "products_to_show": 6,
-        "slides_desktop": 3,
-        "slides_tablet": 2,
-        "slides_mobile": 2,
-        "space_desktop": 4,
-        "space_tablet": 4,
-        "space_mobile": 4,
-        "padding_top_desktop": 80,
-        "padding_bottom_desktop": 80,
-        "padding_top_tablet": 60,
-        "padding_bottom_tablet": 60,
-        "padding_top_mobile": 40,
-        "padding_bottom_mobile": 40
-      }
-    },
-    "brand_swiper_XWnmFU": {
-      "type": "brand-swiper",
+    "review_fashion3_fqBrix": {
+      "type": "review-fashion3",
       "blocks": {
-        "brand_AFbacC": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/audi.png",
-            "link": ""
-          }
-        },
-        "brand_UJbpbi": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/gac.png",
-            "link": ""
-          }
-        },
-        "brand_367j7F": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/volvo.png",
-            "link": ""
-          }
-        },
-        "brand_WDh9EK": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/kia.png",
-            "link": ""
-          }
-        },
-        "brand_UHAJNk": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/renault.png",
-            "link": ""
-          }
-        },
-        "brand_k97Lpr": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/byton.png",
-            "link": ""
-          }
-        },
-        "brand_mLfa33": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/skoda.png",
-            "link": ""
-          }
-        },
-        "brand_FDxk8g": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/nissan.png",
-            "link": ""
-          }
-        },
-        "brand_BWMYEP": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/mini.png",
-            "link": ""
-          }
-        },
-        "brand_xCg6Eb": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/bmw.png",
-            "link": ""
-          }
-        },
-        "brand_CBF8WD": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/xpeng.png",
-            "link": ""
-          }
-        },
-        "brand_iDRKxc": {
-          "type": "brand",
-          "settings": {
-            "image": "shopify://shop_images/nio.png",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "brand_AFbacC",
-        "brand_UJbpbi",
-        "brand_367j7F",
-        "brand_WDh9EK",
-        "brand_UHAJNk",
-        "brand_k97Lpr",
-        "brand_mLfa33",
-        "brand_FDxk8g",
-        "brand_BWMYEP",
-        "brand_xCg6Eb",
-        "brand_CBF8WD",
-        "brand_iDRKxc"
-      ],
-      "name": "Brand Swiper",
-      "settings": {
-        "heading": "Shop by brand",
-        "button_text": "View All Brand",
-        "button_link": "",
-        "padding_top_desktop": 0,
-        "padding_bottom_desktop": 112,
-        "padding_top_tablet": 0,
-        "padding_bottom_tablet": 80,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 60,
-        "slides_desktop": 5,
-        "slides_tablet": 4,
-        "slides_mobile": 2,
-        "grid_rows": "2",
-        "space_desktop": 48,
-        "space_tablet": 12,
-        "space_mobile": 12
-      }
-    },
-    "coupon_PPrPm7": {
-      "type": "coupon",
-      "name": "Coupon",
-      "settings": {
-        "title": "Buy 2 Get 1 Free and Get 35% Off Voucher",
-        "coupon_code": "35%OFFVOUCHER",
-        "bg_color": "#e85331",
-        "copy_color": "#e85331",
-        "rounded": false,
-        "button_rounded": false
-      }
-    },
-    "review_sneaker_acc6jH": {
-      "type": "review-sneaker",
-      "blocks": {
-        "review_JTd73T": {
+        "review_am4iWy": {
           "type": "review",
           "settings": {
-            "author_image": "shopify://shop_images/avatar-1.jpg",
             "title": "Dedicated service",
-            "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands.",
-            "author": "Brooklyn Simmons",
-            "rating": 5,
-            "product": "6dct250-transmission-clutch"
-          }
-        },
-        "review_gzeJBA": {
-          "type": "review",
-          "settings": {
-            "author_image": "shopify://shop_images/avatar-2.jpg",
-            "title": "Best Product Quality",
             "text": "The support from ACIS has been outstanding. Anytime we had a question or needed help, their team responded quickly and professionally.",
-            "author": "Mas Shin",
+            "author": "Brooklyn Simmons",
+            "verified": true,
             "rating": 5,
-            "product": "carbon-fiber-steering-wheel"
+            "product": "sexy-lace-panties-3"
           }
         },
-        "review_zeUzxB": {
+        "review_KAz4mf": {
           "type": "review",
           "settings": {
-            "author_image": "shopify://shop_images/avatar-3.jpg",
             "title": "Exceptional Reliability",
             "text": "No surprises, just consistent and dependable performance every single time without fail.",
-            "author": "Sil Vox",
+            "author": "Mas Shin",
+            "verified": true,
             "rating": 5,
-            "product": "front-brake-kit"
+            "product": "workmode-lite"
           }
         },
-        "review_XFgTTe": {
+        "review_Q4GK8L": {
           "type": "review",
           "settings": {
-            "author_image": "shopify://shop_images/avatar-1.jpg",
             "title": "Dedicated service",
-            "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands.",
+            "text": "The support from ACIS has been outstanding. Anytime we had a question or needed help, their team responded quickly and professionally.",
             "author": "Brooklyn Simmons",
+            "verified": true,
             "rating": 5,
-            "product": "6dct250-transmission-clutch"
+            "product": "sexy-lace-panties-3"
           }
         }
       },
       "block_order": [
-        "review_JTd73T",
-        "review_gzeJBA",
-        "review_zeUzxB",
-        "review_XFgTTe"
+        "review_am4iWy",
+        "review_KAz4mf",
+        "review_Q4GK8L"
       ],
-      "name": "Review Sneaker",
+      "name": "Review Fashion 3",
       "settings": {
-        "header_layout": "with_subtitle",
         "heading": "Customer Reviews",
         "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "slides_desktop": 3,
+        "heading_style": "true",
+        "heading_weight": "medium",
+        "slides_desktop": 2,
         "slides_tablet": 2,
         "slides_mobile": 1,
         "space_desktop": 48,
-        "space_tablet": 30,
+        "space_tablet": 32,
         "space_mobile": 12,
-        "padding_top_desktop": 112,
+        "padding_top_desktop": 12,
         "padding_bottom_desktop": 112,
         "padding_top_tablet": 80,
         "padding_bottom_tablet": 80,
@@ -565,62 +258,202 @@
         "padding_bottom_mobile": 60
       }
     },
-    "featured_blog_aXqqXG": {
-      "type": "featured-blog",
+    "box_icons_8EdWVp": {
+      "type": "box-icons",
       "blocks": {
-        "featured-blog": {
-          "type": "featured-blog__",
-          "static": true,
+        "icon_item_txzPj8": {
+          "type": "icon_item",
           "settings": {
-            "blog": "car",
-            "posts_limit": 4,
-            "blog_style": "type-space-2",
-            "disable_content_spacing": false,
-            "card_layout": "",
-            "show_date": "tag",
-            "date_color": "#e85331",
-            "show_excerpt": true,
-            "show_read_more": true,
-            "read_more_text": "Read more",
-            "heading": "Read our blog",
-            "heading_style": "false",
-            "heading_weight": "normal",
-            "header_layout": "with_nav",
-            "subheading": "",
-            "button_link": "shopify://blogs/gym",
-            "button_text": "View All",
-            "header_alignment": "justify-content-between",
-            "header_spacing": "type-4",
-            "slides_to_show_desktop": 4,
-            "slides_to_show_tablet": 3,
-            "slides_to_show_mobile": 2,
-            "slides_spacing_desktop": 48,
-            "slides_spacing_tablet": 24,
-            "slides_spacing_mobile": 12,
-            "padding_top_desktop": 0,
-            "padding_bottom_desktop": 112,
-            "padding_top_tablet": 0,
-            "padding_bottom_tablet": 80,
-            "padding_top_mobile": 0,
-            "padding_bottom_mobile": 60
-          },
-          "blocks": {}
+            "title": "30 days return",
+            "text": "30 day money back guarantee",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-package"
+          }
+        },
+        "icon_item_FgWqJN": {
+          "type": "icon_item",
+          "settings": {
+            "title": "3 year warranty",
+            "text": "Manufacturer's defect",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-calender"
+          }
+        },
+        "icon_item_4q7Qf7": {
+          "type": "icon_item",
+          "settings": {
+            "title": "Free shipping",
+            "text": "Free Shipping for orders over $150",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-boat"
+          }
+        },
+        "icon_item_7gfDD6": {
+          "type": "icon_item",
+          "settings": {
+            "title": "Online support",
+            "text": "24 hours a day, 7 days a week",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-headset"
+          }
         }
       },
-      "name": "Featured Blog",
-      "settings": {}
+      "block_order": [
+        "icon_item_txzPj8",
+        "icon_item_FgWqJN",
+        "icon_item_4q7Qf7",
+        "icon_item_7gfDD6"
+      ],
+      "name": "Box Icons",
+      "settings": {
+        "show_title": false,
+        "title": "The Fresh Clothes",
+        "enable_border_top": true,
+        "hide_seperator": false,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
+    "box_collection_4_8FU7EA": {
+      "type": "box-collection-4",
+      "blocks": {
+        "banner_jRyxLh": {
+          "type": "banner",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/cls-6.jpg",
+            "subtext": "SALE OFF 50%",
+            "title": "Seductive Lingerie",
+            "button_label": "Shop now",
+            "button_link": "",
+            "btn_bg": "#ffffff",
+            "btn_color": "#000000"
+          }
+        },
+        "banner_CWQBbY": {
+          "type": "banner",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/cls-7.jpg",
+            "subtext": "SALE OFF 50%",
+            "title": "Lace Underwear",
+            "button_label": "Shop now",
+            "button_link": "",
+            "btn_bg": "#ffffff",
+            "btn_color": "#000000"
+          }
+        },
+        "banner_ten8dQ": {
+          "type": "banner",
+          "settings": {
+            "collection": "",
+            "image": "shopify://shop_images/cls-8.jpg",
+            "subtext": "SALE OFF 50%",
+            "title": "Ultra Thin Underwear",
+            "button_label": "Shop now",
+            "button_link": "",
+            "btn_bg": "#ffffff",
+            "btn_color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "banner_jRyxLh",
+        "banner_CWQBbY",
+        "banner_ten8dQ"
+      ],
+      "name": "Box Collection 4",
+      "settings": {
+        "padding_top_desktop": 112,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "slides_desktop": 3,
+        "slides_tablet": 2,
+        "slides_mobile": 2,
+        "space_desktop": 24,
+        "space_tablet": 16,
+        "space_mobile": 12
+      }
+    },
+    "instagram_slider_WxywKn": {
+      "type": "instagram-slider",
+      "blocks": {
+        "image_wnPnnz": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-7.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_Q3eAJL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-8.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_Y9B8fX": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-9.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_T8YFE9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-10.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "image_wnPnnz",
+        "image_Q3eAJL",
+        "image_Y9B8fX",
+        "image_T8YFE9"
+      ],
+      "name": "Instagram Slider",
+      "settings": {
+        "container_type": "full-width",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "slides_desktop": 4,
+        "slides_tablet": "3",
+        "slides_mobile": "2",
+        "space": 0,
+        "heading": "Follow Us On Instagram",
+        "subheading": ""
+      }
     }
   },
   "order": [
-    "tf_slideshow_6_Q9WppF",
-    "banner_swiper_with_overlay_i9G8rx",
-    "popular_categories_9Q4dpN",
-    "product_swiper_bkXPfW",
-    "banner_grid_with_timer_kNJa8M",
-    "deal_today_iiBeTK",
-    "brand_swiper_XWnmFU",
-    "coupon_PPrPm7",
-    "review_sneaker_acc6jH",
-    "featured_blog_aXqqXG"
+    "tf_slideshow_8_tc8qQC",
+    "collection_slider_2_tyk44d",
+    "product_swiper_CCYgBj",
+    "box_collection_3_mX4ekU",
+    "review_fashion3_fqBrix",
+    "box_icons_8EdWVp",
+    "box_collection_4_8FU7EA",
+    "instagram_slider_WxywKn"
   ]
 }

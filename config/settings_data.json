@@ -9,18 +9,19 @@
  */
 {
   "current": {
-    "show_announcement_bar": true,
+    "show_announcement_bar": false,
     "show_announcement_slider": false,
     "show_announcement_bar2": false,
     "show_scrolling_promotion": false,
-    "header_layout": "header_3",
+    "show_collection_sidebar": false,
+    "header_layout": "header_4",
     "show_footer": true,
     "button_bg_color": "#e85331",
     "hover_icon_bg_color": "#1a1b18",
     "page_width": 1488,
     "page_transition_enabled": true,
     "image_zoom_effect_enabled": false,
-    "image_loading_bar_enabled": false,
+    "image_loading_bar_enabled": true,
     "show_atc_count": true,
     "card_spacing": "",
     "card_style": "",
@@ -33,7 +34,7 @@
     "show_sale_badge": false,
     "badge_style": "",
     "show_type": false,
-    "show_rating": true,
+    "show_rating": false,
     "show_border": false,
     "rating_position": "above_title",
     "card_product_mini_title_size": "h5",
@@ -391,8 +392,8 @@
           "text_color": "#9f9f9f",
           "text_opacity": 1,
           "border_color": "#9f9f9f",
-          "newsletter_btn_bg_color": "#000000",
-          "newsletter_btn_text_color": "#ffffff",
+          "newsletter_btn_bg_color": "#ffffff",
+          "newsletter_btn_text_color": "#1a1b18",
           "bottom_text_1": "Help & FAQs",
           "bottom_link_1": "",
           "bottom_text_2": "Factory",
@@ -541,13 +542,18 @@
           "cart_count_color": "#ffffff"
         }
       },
-      "popup-form": {
-        "type": "popup-form",
+      "header-4": {
+        "type": "header-4",
         "settings": {
-          "newsletter_popup_enabled": false,
-          "newsletter_popup_delay": 10,
-          "newsletter_popup_sub_title": "Subscribe to our newsletter!",
-          "newsletter_popup_title": "Receive 20% off your next order, along with exclusive offers and more!"
+          "menu_item_style": "text-uppercase",
+          "header_style": "",
+          "modal_title": "Ultimate HTML Theme",
+          "logo": "shopify://shop_images/logo-white.svg",
+          "menu": "main-menu",
+          "enable_sticky_header": true,
+          "header_bg": "#111111",
+          "header_text_color": "#ffffff",
+          "icon_color": "#ffffff"
         }
       }
     },
