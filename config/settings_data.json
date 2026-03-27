@@ -18,7 +18,7 @@
     "button_bg_color": "#e85331",
     "hover_icon_bg_color": "#1a1b18",
     "page_width": 1488,
-    "page_transition_enabled": false,
+    "page_transition_enabled": true,
     "image_zoom_effect_enabled": false,
     "image_loading_bar_enabled": false,
     "show_atc_count": true,
