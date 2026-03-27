@@ -9,136 +9,297 @@
  */
 {
   "sections": {
-    "tf_slideshow_7_PFbB4B": {
-      "type": "tf-slideshow-7",
+    "tf_slideshow_4_Gjaq4K": {
+      "type": "tf-slideshow-4",
       "blocks": {
-        "slide_6xbPTH": {
+        "slide_epdWQm": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-30.jpg",
-            "title": "Care & Nutrition",
-            "title_color": "#7c3aed",
-            "sub_text": "Cat Treats, For Fussy Eaters, Digestive Support with Natural Ingredients, High Protein Snacks 60g",
-            "sub_text_color": "#000000",
-            "btn_text": "Shop now",
-            "btn_url": "",
-            "btn_bg_color": "#7c3aed",
-            "btn_text_color": "#ffffff"
+            "image": "shopify://shop_images/slider-22.jpg",
+            "content_style": "left",
+            "subtitle": "Classic",
+            "title": "Diamond Ring",
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "button_text": "Shop now",
+            "button_link": "shopify://collections"
           }
         },
-        "slide_M3LGi4": {
+        "slide_kgCpHL": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-29.jpg",
-            "title": "Health & Wellness",
-            "title_color": "#7c3aed",
-            "sub_text": "Cat Treats, For Fussy Eaters, Digestive Support with Natural Ingredients, High Protein Snacks 60g",
-            "sub_text_color": "#000000",
-            "btn_text": "Shop now",
-            "btn_url": "",
-            "btn_bg_color": "#7c3aed",
-            "btn_text_color": "#ffffff"
+            "image": "shopify://shop_images/slider-23.jpg",
+            "content_style": "centered",
+            "subtitle": "Timeless",
+            "title": "Diamond Necklace",
+            "description": "A refined piece that adds a touch of sophistication to any outfit.",
+            "button_text": "Shop now",
+            "button_link": "shopify://collections"
           }
         },
-        "slide_tjBHNA": {
+        "slide_zX7YhQ": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/slider-28.jpg",
-            "title": "Vitamins & Supplements",
-            "title_color": "#7c3aed",
-            "sub_text": "Dog Food, For Picky Eaters, Nutritional Supplement For Optimal Health, High Protein Treats 50g",
-            "sub_text_color": "#000000",
-            "btn_text": "Shop now",
-            "btn_url": "",
-            "btn_bg_color": "#7c3aed",
-            "btn_text_color": "#ffffff"
+            "image": "shopify://shop_images/slider-24.jpg",
+            "content_style": "left",
+            "subtitle": "Modern",
+            "title": "Silver Earrings",
+            "description": "Sleek and minimalistic, ideal for a contemporary look.",
+            "button_text": "Shop now",
+            "button_link": "shopify://collections"
           }
         }
       },
       "block_order": [
-        "slide_6xbPTH",
-        "slide_M3LGi4",
-        "slide_tjBHNA"
+        "slide_epdWQm",
+        "slide_kgCpHL",
+        "slide_zX7YhQ"
       ],
-      "name": "Slideshow 7",
-      "settings": {
-        "sidebar_title": "Shop by",
-        "sidebar_menu": "pet-shop"
-      }
+      "name": "Slideshow 4",
+      "settings": {}
     },
-    "popular_categories_p7Pdpz": {
+    "popular_categories_Prixmb": {
       "type": "popular-categories",
       "blocks": {
-        "category_tdmJmx": {
+        "category_PPEtad": {
           "type": "category",
           "settings": {
-            "collection": "snack",
+            "collection": "rings",
             "title": ""
           }
         },
-        "category_Jf6hcw": {
+        "category_9qpMmK": {
           "type": "category",
           "settings": {
-            "collection": "dried-food",
+            "collection": "earrings",
             "title": ""
           }
         },
-        "category_QYifqK": {
+        "category_AEwVnA": {
           "type": "category",
           "settings": {
-            "collection": "cat-food",
+            "collection": "bracelets",
             "title": ""
           }
         },
-        "category_pcPd78": {
+        "category_LMYGKj": {
           "type": "category",
           "settings": {
-            "collection": "wet-food",
+            "collection": "necklaces",
             "title": ""
           }
         },
-        "category_JxYJCX": {
+        "category_BTGw7q": {
           "type": "category",
           "settings": {
-            "collection": "organic-food",
-            "title": ""
-          }
-        },
-        "category_PLzc6j": {
-          "type": "category",
-          "settings": {
-            "collection": "supplemental-food",
+            "collection": "pendants",
             "title": ""
           }
         }
       },
       "block_order": [
-        "category_tdmJmx",
-        "category_Jf6hcw",
-        "category_QYifqK",
-        "category_pcPd78",
-        "category_JxYJCX",
-        "category_PLzc6j"
+        "category_PPEtad",
+        "category_9qpMmK",
+        "category_AEwVnA",
+        "category_LMYGKj",
+        "category_BTGw7q"
       ],
       "name": "Popular Categories",
       "settings": {
-        "header_layout": "with_subtitle",
-        "title": "Popular Categories",
-        "header_spacing": "",
+        "title": "Shop By Categories",
         "section_heading_style": "true",
         "section_heading_weight": "medium",
-        "collection_heading_size": "h4",
-        "collection_heading_weight": "medium",
         "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "show_count": true,
-        "collection_count_format": "inline",
-        "shape": "rounded",
+        "collection_count_format": "brackets",
+        "shape": "circle",
         "button_text": "View All Books",
         "button_link": "shopify://collections/all",
-        "slides_desktop": 6,
+        "slides_desktop": 5,
         "slides_tablet": "4",
         "slides_mobile": "3",
-        "space_large_screen": 48,
+        "space_desktop": 8,
+        "space_tablet": 8,
+        "space_mobile": 8,
+        "padding_top_desktop": 112,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60
+      }
+    },
+    "box_collection_2_zwzziy": {
+      "type": "box-collection-2",
+      "blocks": {
+        "box_item_PkpNdV": {
+          "type": "box_item",
+          "settings": {
+            "image": "shopify://shop_images/box-image-8.jpg",
+            "title": "Diamond Jewelry",
+            "subtitle": "Sale OFF 2%",
+            "link": "",
+            "button_text": "Shop now",
+            "button_link": ""
+          }
+        },
+        "box_item_Aqayyg": {
+          "type": "box_item",
+          "settings": {
+            "image": "shopify://shop_images/box-image-9.jpg",
+            "title": "Birthstone Jewelry",
+            "subtitle": "Get our 5% OFF coupon",
+            "link": "",
+            "button_text": "Shop now",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "box_item_PkpNdV",
+        "box_item_Aqayyg"
+      ],
+      "name": "Box Collection 2",
+      "settings": {}
+    },
+    "tab_products_WVHTwh": {
+      "type": "tab-products",
+      "blocks": {
+        "tab_LJ3Rmg": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "NEW ARRIVALS",
+            "collection": "jew-best",
+            "products_limit": 8
+          }
+        },
+        "tab_CXHTeG": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "Best seller",
+            "collection": "jew-new-copy",
+            "products_limit": 8
+          }
+        },
+        "tab_tVnX4P": {
+          "type": "tab",
+          "settings": {
+            "tab_title": "On sale",
+            "collection": "jew-best-copy-1",
+            "products_limit": 8
+          }
+        }
+      },
+      "block_order": [
+        "tab_LJ3Rmg",
+        "tab_CXHTeG",
+        "tab_tVnX4P"
+      ],
+      "name": "Tab Products",
+      "settings": {
+        "title": "Best Seller",
+        "heading_style": "true",
+        "heading_weight": "none",
+        "subheading": "Shop the latest styles",
+        "tab_style": "1",
+        "large_tab_style": false,
+        "tab_title_thin": false,
+        "grid_rows": "1",
+        "padding_top_desktop": 112,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "slides_desktop": 4,
+        "slides_tablet": 3,
+        "slides_mobile": 2,
+        "space_desktop": 48,
+        "space_tablet": 30,
+        "space_mobile": 12,
+        "countdown_size": ""
+      }
+    },
+    "banner_countdown_2_tkCKYN": {
+      "type": "banner-countdown-2",
+      "name": "Banner Countdown 2",
+      "settings": {
+        "banner_style": "1",
+        "bg_color": "#fafafa",
+        "banner_image": "shopify://shop_images/banner-cd-V01.jpg",
+        "banner_image_alignment": "right",
+        "title": "On sale!",
+        "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "end_date": "2026-03-29",
+        "end_time": "23:59",
+        "countdown_labels": "Days,Hours,Mins,Secs",
+        "button_text": "Get voucher 25%",
+        "button_link": "shopify://collections/bracelets"
+      }
+    },
+    "product_swiper_7rBNUt": {
+      "type": "product-swiper",
+      "name": "Product Swiper",
+      "settings": {}
+    },
+    "featured_product_PAVGiG": {
+      "type": "featured-product",
+      "name": "Featured Product",
+      "settings": {
+        "featured_product": "gold-jewelry-stacking-rings",
+        "background_color": "#fff5f5"
+      }
+    },
+    "review_fashion3_hzA3Tb": {
+      "type": "review-fashion3",
+      "blocks": {
+        "review_3N8q4K": {
+          "type": "review",
+          "settings": {
+            "title": "Dedicated service",
+            "text": "The support from ACIS has been outstanding. Anytime we had a question or needed help, their team responded quickly and professionally.",
+            "author": "Brooklyn Simmons",
+            "verified": true,
+            "rating": 5,
+            "product": "silver-diamond-ring"
+          }
+        },
+        "review_imR3ik": {
+          "type": "review",
+          "settings": {
+            "title": "Exceptional Reliability",
+            "text": "No surprises, just consistent and dependable performance every single time without fail.",
+            "author": "Mas Shin",
+            "verified": true,
+            "rating": 5,
+            "product": "eternity-engagement-ring"
+          }
+        },
+        "review_Kp6TeN": {
+          "type": "review",
+          "settings": {
+            "title": "Best Product Quality",
+            "text": "The build quality is excellent and everything works smoothly. I can feel the difference compared to other brands",
+            "author": "Sil Vox",
+            "verified": true,
+            "rating": 5,
+            "product": "silver-diamond-ring"
+          }
+        }
+      },
+      "block_order": [
+        "review_3N8q4K",
+        "review_imR3ik",
+        "review_Kp6TeN"
+      ],
+      "name": "Review Fashion 3",
+      "settings": {
+        "heading": "Customer Reviews",
+        "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+        "heading_style": "true",
+        "heading_weight": "medium",
+        "slides_desktop": 2,
+        "slides_tablet": 2,
+        "slides_mobile": 1,
         "space_desktop": 48,
         "space_tablet": 32,
         "space_mobile": 12,
@@ -150,237 +311,15 @@
         "padding_bottom_mobile": 60
       }
     },
-    "tab_products_mLVXUx": {
-      "type": "tab-products",
-      "blocks": {
-        "tab_ibtGCL": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "All Product",
-            "collection": "best-selling",
-            "products_limit": 8
-          }
-        },
-        "tab_NgYLhJ": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "New Available",
-            "collection": "pet-best-selling-copy",
-            "products_limit": 8
-          }
-        },
-        "tab_P63kmY": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "Supplemental Food",
-            "collection": "pet-new-copy",
-            "products_limit": 8
-          }
-        },
-        "tab_pdzYfU": {
-          "type": "tab",
-          "settings": {
-            "tab_title": "Organic Food",
-            "collection": "pet-supplement-copy",
-            "products_limit": 8
-          }
-        }
-      },
-      "block_order": [
-        "tab_ibtGCL",
-        "tab_NgYLhJ",
-        "tab_P63kmY",
-        "tab_pdzYfU"
-      ],
-      "name": "Tab Products",
-      "settings": {
-        "title": "Best Selling Products Of The Week",
-        "heading_style": "true",
-        "heading_weight": "medium",
-        "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "tab_style": "2",
-        "large_tab_style": false,
-        "tab_title_thin": false,
-        "grid_rows": "2",
-        "padding_top_desktop": 0,
-        "padding_bottom_desktop": 112,
-        "padding_top_tablet": 0,
-        "padding_bottom_tablet": 80,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 60,
-        "slides_desktop": 4,
-        "slides_tablet": 3,
-        "slides_mobile": 2,
-        "space_desktop": 48,
-        "space_tablet": 24,
-        "space_mobile": 12,
-        "countdown_size": "",
-        "tab_active_color": "#d7eb3a",
-        "tab_active_bg": "#534696",
-        "show_stock": false,
-        "stock_position": "top-left"
-      }
+    "featured_blog_xNQ8VG": {
+      "type": "featured-blog",
+      "name": "Featured Blog",
+      "settings": {}
     },
-    "banner_lookbook_Dk39AD": {
-      "type": "banner-lookbook",
-      "blocks": {
-        "lookbook_item_hw6EyD": {
-          "type": "lookbook_item",
-          "settings": {
-            "product": "airtight-dog-food-container-up-to-30-lbs-with-attachable-wheels",
-            "top": 23,
-            "left": 80
-          }
-        },
-        "lookbook_item_zn3hMB": {
-          "type": "lookbook_item",
-          "settings": {
-            "product": "dry-food-for-adult-dogs-from-1-6-years-old",
-            "top": 67,
-            "left": 66
-          }
-        }
-      },
-      "block_order": [
-        "lookbook_item_hw6EyD",
-        "lookbook_item_zn3hMB"
-      ],
-      "name": "Banner Lookbook",
-      "settings": {
-        "image": "shopify://shop_images/banner-lookbook-3.jpg",
-        "badge_text": "",
-        "badge_highlight": "Set Dress SALE OFF 15%",
-        "heading": "Sale Off 50%",
-        "heading_style": "true",
-        "heading_weight": "medium",
-        "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "product_set_bg_color": "#534696",
-        "individual_button_text_color": "#1a1b18",
-        "set_button_text_color": "#1a1b18",
-        "individual_button_bg_color": "#ffffff",
-        "set_button_bg_color": "#d7eb3a",
-        "text_color": "#ffffff",
-        "subtitle_opacity": 0.5,
-        "product_type_opacity": 0.7,
-        "badge_rounded": true,
-        "stock_status_color": "#d7eb3a",
-        "badge_bg_color": "#d7eb3a",
-        "badge_text_color": "#534696",
-        "product_title_size": "h5",
-        "button_text": "ADD SET TO CART"
-      }
-    },
-    "deals_3_ntmCCH": {
-      "type": "deals-3",
-      "blocks": {
-        "deal_MA7Md9": {
-          "type": "deal",
-          "settings": {
-            "product": "petsmont-buddy-guard-mushroom-powder-for-immune-support",
-            "end_date": "2026-03-26",
-            "end_time": "23:59"
-          }
-        },
-        "deal_DNXdBf": {
-          "type": "deal",
-          "settings": {
-            "product": "purina-one-chicken-rice-formula-dry-dog-food-40-lb-bag",
-            "end_date": "2026-03-27",
-            "end_time": "23:59"
-          }
-        }
-      },
-      "block_order": [
-        "deal_MA7Md9",
-        "deal_DNXdBf"
-      ],
-      "name": "Deals 3",
-      "settings": {
-        "title": "Deal Of The Day",
-        "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "padding_top_desktop": 112,
-        "padding_bottom_desktop": 112,
-        "padding_top_tablet": 80,
-        "padding_bottom_tablet": 80,
-        "padding_top_mobile": 60,
-        "padding_bottom_mobile": 60
-      }
-    },
-    "banner_promotion_cJTTFf": {
-      "type": "banner-promotion",
-      "name": "Banner Promotion",
-      "settings": {
-        "banner_image": "shopify://shop_images/bannerV03.jpg",
-        "subtitle_color": "#d7eb3a",
-        "text_color": "#ffffff",
-        "btn_bg_color": "#d7eb3a",
-        "btn_text_color": "#000000",
-        "subtitle": "SALE upto 50%",
-        "title": "The Best Way Pet Food Conner",
-        "text": "Immune Support & Overall Health for All Dogs! Boost your dog's natural defenses with this nutrient-rich dog",
-        "button_label": "Shop now",
-        "button_url": "",
-        "padding_top_desktop": 0,
-        "padding_bottom_desktop": 0,
-        "padding_top_tablet": 0,
-        "padding_bottom_tablet": 0,
-        "padding_top_mobile": 0,
-        "padding_bottom_mobile": 0
-      }
-    },
-    "product_for_categorized_fqF6cX": {
-      "type": "product-for-categorized",
-      "blocks": {
-        "column_zG4V9D": {
-          "type": "column",
-          "settings": {
-            "heading": "",
-            "collection": "for-dog",
-            "product_limit": 3,
-            "btn_text": "View All Product",
-            "link": ""
-          }
-        },
-        "column_WCe9Vq": {
-          "type": "column",
-          "settings": {
-            "heading": "",
-            "collection": "for-cat",
-            "product_limit": 3,
-            "btn_text": "View All Product",
-            "link": ""
-          }
-        },
-        "column_QL7bMq": {
-          "type": "column",
-          "settings": {
-            "heading": "",
-            "collection": "for-bird",
-            "product_limit": 3,
-            "btn_text": "View All Product",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "column_zG4V9D",
-        "column_WCe9Vq",
-        "column_QL7bMq"
-      ],
-      "name": "Product for Categorized",
-      "settings": {
-        "padding_top_desktop": 112,
-        "padding_bottom_desktop": 112,
-        "padding_top_tablet": 80,
-        "padding_bottom_tablet": 80,
-        "padding_top_mobile": 60,
-        "padding_bottom_mobile": 60
-      }
-    },
-    "box_icons_VVNhh4": {
+    "box_icons_YHQgcc": {
       "type": "box-icons",
       "blocks": {
-        "icon_item_kibDwX": {
+        "icon_item_Y4BRUP": {
           "type": "icon_item",
           "settings": {
             "title": "30 days return",
@@ -390,7 +329,7 @@
             "icon_class": "icon-package"
           }
         },
-        "icon_item_ntB3zR": {
+        "icon_item_MJ6WqU": {
           "type": "icon_item",
           "settings": {
             "title": "3 year warranty",
@@ -400,7 +339,7 @@
             "icon_class": "icon-calender"
           }
         },
-        "icon_item_bzpHFU": {
+        "icon_item_tjbmR9": {
           "type": "icon_item",
           "settings": {
             "title": "Free shipping",
@@ -410,7 +349,7 @@
             "icon_class": "icon-boat"
           }
         },
-        "icon_item_Wb4r9m": {
+        "icon_item_dyyUdq": {
           "type": "icon_item",
           "settings": {
             "title": "Online support",
@@ -422,10 +361,10 @@
         }
       },
       "block_order": [
-        "icon_item_kibDwX",
-        "icon_item_ntB3zR",
-        "icon_item_bzpHFU",
-        "icon_item_Wb4r9m"
+        "icon_item_Y4BRUP",
+        "icon_item_MJ6WqU",
+        "icon_item_tjbmR9",
+        "icon_item_dyyUdq"
       ],
       "name": "Box Icons",
       "settings": {
@@ -441,39 +380,77 @@
         "padding_bottom_mobile": 0
       }
     },
-    "featured_blog_2_hFCyPY": {
-      "type": "featured-blog-2",
-      "name": "Featured Blog 2",
+    "instagram_slider_bJfDHi": {
+      "type": "instagram-slider",
+      "blocks": {
+        "image_xxppJw": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-24.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_UQb7LU": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-25.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_KPFyKT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-26.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_j3B8pF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-27.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "image_xxppJw",
+        "image_UQb7LU",
+        "image_KPFyKT",
+        "image_j3B8pF"
+      ],
+      "name": "Instagram Slider",
       "settings": {
-        "heading": "Our Blog",
-        "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-        "blog": "pet",
-        "articles_count": 4,
-        "show_date": true,
-        "show_excerpt": true,
+        "container_type": "full-width",
         "padding_top_desktop": 112,
-        "padding_bottom_desktop": 112,
+        "padding_bottom_desktop": 0,
         "padding_top_tablet": 80,
-        "padding_bottom_tablet": 80,
+        "padding_bottom_tablet": 0,
         "padding_top_mobile": 60,
-        "padding_bottom_mobile": 60,
-        "date_bg_color": "#1a1b18",
-        "date_text_color": "#ffffff",
-        "btn_label": "Read more",
-        "columns_desktop": 2,
-        "columns_tablet": "2"
+        "padding_bottom_mobile": 0,
+        "slides_desktop": 4,
+        "slides_tablet": "3",
+        "slides_mobile": "2",
+        "space": 0,
+        "heading": "Follow Us On Instagram",
+        "subheading": ""
       }
     }
   },
   "order": [
-    "tf_slideshow_7_PFbB4B",
-    "popular_categories_p7Pdpz",
-    "tab_products_mLVXUx",
-    "banner_lookbook_Dk39AD",
-    "deals_3_ntmCCH",
-    "banner_promotion_cJTTFf",
-    "product_for_categorized_fqF6cX",
-    "box_icons_VVNhh4",
-    "featured_blog_2_hFCyPY"
+    "tf_slideshow_4_Gjaq4K",
+    "popular_categories_Prixmb",
+    "box_collection_2_zwzziy",
+    "tab_products_WVHTwh",
+    "banner_countdown_2_tkCKYN",
+    "product_swiper_7rBNUt",
+    "featured_product_PAVGiG",
+    "review_fashion3_hzA3Tb",
+    "featured_blog_xNQ8VG",
+    "box_icons_YHQgcc",
+    "instagram_slider_bJfDHi"
   ]
 }
