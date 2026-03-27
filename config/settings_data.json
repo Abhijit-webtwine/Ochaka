@@ -13,26 +13,39 @@
     "show_announcement_slider": false,
     "show_announcement_bar2": false,
     "show_scrolling_promotion": false,
-    "header_layout": "header_2",
-    "page_width": 1600,
+    "header_layout": "header_4",
+    "show_footer": true,
+    "button_bg_color": "#d7eb3a",
+    "hover_icon_bg_color": "#1a1b18",
+    "page_width": 1488,
     "page_transition_enabled": true,
     "image_zoom_effect_enabled": false,
     "image_loading_bar_enabled": true,
     "show_atc_count": true,
+    "card_spacing": "style-5",
     "card_style": "",
     "quick_view_enabled": true,
     "color_swatches_enabled": true,
-    "card_height": "",
-    "title_weight": "normal",
-    "price_position": "price_last",
-    "price_style": "without_trailing_zero",
-    "show_custom_badge": false,
+    "card_height": "aspect-ratio-0",
+    "product_title_size": "h6",
+    "title_weight": "medium",
+    "price_position": "price_first",
+    "price_style": "trailing_zero",
+    "show_custom_badge": true,
     "show_sale_badge": false,
-    "show_type": false,
-    "show_rating": false,
+    "badge_style": "",
+    "show_type": true,
+    "show_rating": true,
     "show_border": false,
+    "card_corners": "radius-16",
     "rating_position": "below_title",
+    "card_product_mini_title_size": "h6",
+    "card_product_mini_title_weight": "medium",
+    "card_product_mini_price_position": "price_first",
+    "card_product_mini_price_title_size": "h4",
+    "show_rating_mini": false,
     "collection_layout": "left_sidebar",
+    "hover_style": "style_4",
     "tooltip_direction": "top",
     "show_cart_note": true,
     "show_shipping_calculator": true,
@@ -73,16 +86,17 @@
     "type_button_size": 12,
     "type_price_font": "heading",
     "price_superscript": false,
+    "button_border_thickness": 1,
+    "button_corner_radius": 0,
+    "button_shadow_horizontal_offset": 0,
+    "button_shadow_vertical_offset": 0,
+    "add_to_cart_bg_color": "#436be4",
     "spacing_top_desktop": 112,
     "spacing_bottom_desktop": 112,
     "spacing_top_tablet": 80,
     "spacing_bottom_tablet": 80,
     "spacing_top_mobile": 60,
     "spacing_bottom_mobile": 60,
-    "button_border_thickness": 1,
-    "button_corner_radius": 0,
-    "button_shadow_horizontal_offset": 0,
-    "button_shadow_vertical_offset": 0,
     "announcement_bar_type": "slider",
     "card_image_padding": 0,
     "card_text_alignment": "start",
@@ -101,11 +115,14 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
+          "section_width": "container",
           "topbar_layout": "style_2",
+          "switcher_layout": "",
           "spacing": "type-space-2",
-          "bg_color": "#021a62",
-          "text_color": "#ffffff",
+          "bg_color": "#ffffff",
+          "text_color": "#000000",
           "show_seperator": true,
+          "seperator_type": "line-bt",
           "announcement_type": "text",
           "topbar_text": "Free Shipping for orders over $150",
           "collection_1": "men",
@@ -114,7 +131,7 @@
           "email_address": "support@ochaka.com",
           "phone_text": "Call us for free:",
           "phone_number": "+1(800) 123 4567",
-          "show_right_seperator": true,
+          "show_right_seperator": false,
           "link_1_label": "Help & FAQs",
           "link_1_url": "",
           "link_2_label": "Factory",
@@ -328,21 +345,15 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "contact_with_logo_PbnDj8": {
+          "contact_with_logo_PBpm8f": {
             "type": "contact_with_logo",
             "settings": {
               "logo": "shopify://shop_images/logo-white.svg",
-              "address": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+              "address": "8500 Lorem Street Chicago, IL 55030 \nDolor sit amet",
               "map_url": "",
               "phone": "+8(800) 123 4567",
               "email": "themesflat@support.com",
               "white_social_icons": true
-            }
-          },
-          "menu_KUkY69": {
-            "type": "menu",
-            "settings": {
-              "menu_1": "footer-menu-1"
             }
           },
           "menu_VyLp6w": {
@@ -351,35 +362,44 @@
               "menu_1": "footer"
             }
           },
+          "menu_KUkY69": {
+            "type": "menu",
+            "settings": {
+              "menu_1": "footer-menu-1"
+            }
+          },
           "newsletter_BmjYRt": {
             "type": "newsletter",
             "settings": {
-              "newsletter_heading": "Let's keep in touch",
-              "newsletter_text": "Enter your email below to be the first to know about new collections and product launches.",
+              "newsletter_heading": "Newsletter",
+              "newsletter_text": "Become the first to know about offers, new collections and interior trends.",
               "newsletter_button": "Subscribe",
               "newsletter_terms": "<p>By clicking subcribe, you agree to the <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Terms of Service</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a></p>",
-              "newsletter_terms_text_size": "default"
+              "newsletter_terms_text_size": "small"
             }
           }
         },
         "block_order": [
-          "contact_with_logo_PbnDj8",
-          "menu_KUkY69",
+          "contact_with_logo_PBpm8f",
           "menu_VyLp6w",
+          "menu_KUkY69",
           "newsletter_BmjYRt"
         ],
         "settings": {
           "footer_style": "footer-2",
           "show_border_top": false,
-          "background_color": "#000000",
+          "background_color": "#534696",
           "heading_color": "#ffffff",
-          "text_color": "#acacac",
-          "border_color": "#acacac",
+          "text_color": "#ffffff",
+          "text_opacity": 0.5,
+          "border_color": "#9f9f9f",
+          "newsletter_btn_bg_color": "#ffffff",
+          "newsletter_btn_text_color": "#1a1b18",
           "bottom_text_1": "Help & FAQs",
           "bottom_link_1": "",
           "bottom_text_2": "Factory",
           "bottom_link_2": "",
-          "padding_top_desktop": 44,
+          "padding_top_desktop": 42,
           "padding_bottom_desktop": 0,
           "padding_top_tablet": 0,
           "padding_bottom_tablet": 0,
@@ -489,31 +509,51 @@
       "header-3": {
         "type": "header-3",
         "settings": {
+          "header_width": "container",
           "menu_item_style": "text-uppercase",
           "modal_title": "Ultimate HTML Theme",
           "enable_sticky_header": true,
           "header_bottom_spacing": 0,
-          "logo": "shopify://shop_images/logo-white-2.svg",
+          "logo": "shopify://shop_images/logo-5.svg",
           "logo_width": 240,
-          "logo_mobile": "shopify://shop_images/logo-white-2.svg",
+          "logo_mobile": "shopify://shop_images/logo.svg",
+          "logo_sticky": "shopify://shop_images/logo.svg",
           "menu": "main-menu",
           "department_menu": "departments-menu",
+          "department_menu_open": true,
+          "department_menu_bg": "#e85331",
           "department_menu_title": "All Departments",
           "promo_icon": "icon-truck",
-          "promo_icon_color": "#c8102e",
+          "promo_icon_color": "#e85331",
           "promo_text": "Free Shipping for orders over $150",
           "promo_highlight_text": "$150",
-          "promo_highlight_color": "#c8102e",
-          "btn_style": "btn-submit",
-          "header_top_bg": "#021a62",
+          "promo_highlight_color": "#e85331",
+          "btn_style": "btn-submit-2",
+          "header_top_bg": "#ffffff",
+          "icon_color": "#111111",
+          "header_inner_style": "style-2",
+          "rounded_corners": false,
           "header_inner_bg": "#ffffff",
           "show_header_inner_border": true,
-          "search_btn_bg": "#c8102e",
-          "search_border_color": "rgba(0,0,0,0)",
-          "wishlist_count_bg": "#c8102e",
+          "search_btn_bg": "#e85331",
+          "search_border_color": "#e85331",
+          "wishlist_count_bg": "#e85331",
           "wishlist_count_color": "#ffffff",
-          "cart_count_bg": "#c8102e",
+          "cart_count_bg": "#e85331",
           "cart_count_color": "#ffffff"
+        }
+      },
+      "header-4": {
+        "type": "header-4",
+        "settings": {
+          "modal_title": "Ultimate HTML Theme",
+          "logo": "shopify://shop_images/logo-white.svg",
+          "logo_mobile": "shopify://shop_images/logo-white.svg",
+          "menu": "main-menu",
+          "enable_sticky_header": true,
+          "header_bg": "#534696",
+          "header_text_color": "#ffffff",
+          "icon_color": "#ffffff"
         }
       },
       "header-2": {
@@ -521,16 +561,14 @@
         "settings": {
           "header_style": "header-abs-3",
           "modal_title": "Ultimate HTML Theme",
-          "logo": "shopify://shop_images/logo-white.svg",
-          "logo_mobile": "shopify://shop_images/logo-white.svg",
-          "sticky_logo": "shopify://shop_images/logo.svg",
-          "logo_bottom_text": "JEWELRY BOUTIQUE",
+          "logo_bottom_text": "Shop Smart, Live Better",
           "menu": "main-menu",
           "support_text": "Online support",
           "phone_number": "(405) 555-0128",
           "show_seperator": true,
           "header_inner_bg_color": "",
-          "header_inner_text_color": ""
+          "header_inner_text_color": "",
+          "icon_color": "#111111"
         }
       }
     },
