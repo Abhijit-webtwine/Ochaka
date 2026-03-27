@@ -66,14 +66,14 @@
               {%- endif -%}
               <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
                 {%- if block.settings.image != blank -%}
-                  <img
-                    src="{{ block.settings.image | image_url: width: 1000 }}"
-                    data-src="{{ block.settings.image | image_url: width: 1000 }}"
-                    alt="{{ block.settings.image.alt | default: 'Banner' }}"
-                    width="{{ block.settings.image.width }}"
-                    height="{{ block.settings.image.height }}"
-                    class="lazyload"
-                  >
+                  {{ block.settings.image | image_url: width: 1000 | image_tag:
+                    class: 'banner-img',
+                    loading: 'lazy',
+                    decoding: 'async',
+                    widths: '320, 480, 720, 1000, 1500',
+                    sizes: '(max-width: 768px) 100vw, 1000px',
+                    alt: block.settings.image.alt | default: 'Banner'
+                  }}
                 {%- else -%}
                   {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 {%- endif -%}

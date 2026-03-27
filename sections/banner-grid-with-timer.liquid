@@ -46,7 +46,7 @@
                     decoding: 'async',
                     widths: '320, 480, 720, 1000, 1500',
                     sizes: '(max-width: 768px) 100vw, 1000px',
-                    alt: block.settings.image.alt |  default: 'Banner-{{ forloop.index }}'
+                    alt: block.settings.image.alt | default: 'Banner-' | append: forloop.index
                   }}
                 {%- else -%}
                   {{ 'image' | placeholder_svg_tag: 'w-100 h-100' }}

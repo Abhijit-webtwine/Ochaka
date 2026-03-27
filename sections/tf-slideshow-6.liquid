@@ -37,16 +37,15 @@
               <div class="slider-wrap has-overlay style-5">
                 <div class="sld_image">
                   {%- if block.settings.image != blank -%}
-                    <img
-                      src="{{ block.settings.image | image_url: width: 2000 }}"
-                      data-src="{{ block.settings.image | image_url: width: 2000 }}"
-                      alt="{{ block.settings.image.alt | default: 'Slideshow Image' }}"
-                      width="{{ block.settings.image.width }}"
-                      height="{{ block.settings.image.height }}"
-                      class="scale-item sale-item-1"
-                      loading="eager"
-                      fetchpriority="high"
-                    >
+                    {{ block.settings.image | image_url: width: 2000 | image_tag:
+                      class: 'scale-item sale-item-1',
+                      loading: 'eager',
+                      fetchpriority: 'high',
+                      decoding: 'async',
+                      widths: '480, 720, 1000, 1500, 2000',
+                      sizes: '100vw',
+                      alt: block.settings.image.alt | default: 'Slideshow Image'
+                    }}
                   {%- else -%}
                     {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg scale-item' }}
                   {%- endif -%}
