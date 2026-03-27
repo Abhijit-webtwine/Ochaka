@@ -39,7 +39,7 @@
                   </li>
                 </ul>
               {%- endif -%}
-              <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style" aria-label="Banner {{ forloop.index }} URL">
+              <a href="{{ block.settings.link | default: '#' }}" class="box-image_image img-style">
                 {%- if block.settings.image != blank -%}
                   {{ block.settings.image | image_url: width: 1000 | image_tag:
                     loading: 'lazy',
