@@ -122,7 +122,7 @@
     </style>
 
     {%- liquid
-      assign assets_to_load = 'bootstrap.min.css,swiper-bundle.min.css,icon-style.css,animate.css,theme.css' | split: ','
+      assign assets_to_load = 'bootstrap.min.css,swiper-bundle.min.css,icon-style.css,animate.css' | split: ','
     -%}
 
     {%- for asset in assets_to_load -%}
