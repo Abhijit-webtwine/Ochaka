@@ -12,6 +12,33 @@
     "show_announcement_slider": false,
     "show_announcement_bar2": false,
     "show_scrolling_promotion": false,
+    "show_collection_sidebar": false,
+    "page_width": 1600,
+    "page_transition_enabled": true,
+    "image_zoom_effect_enabled": false,
+    "image_loading_bar_enabled": true,
+    "card_spacing": "",
+    "quick_view_enabled": true,
+    "color_swatches_enabled": true,
+    "price_position": "price_last",
+    "show_sale_badge": false,
+    "show_type": false,
+    "show_rating": false,
+    "collection_layout": "left_sidebar",
+    "tooltip_direction": "top",
+    "show_cart_note": true,
+    "show_shipping_calculator": true,
+    "disable_view_cart": false,
+    "show_free_shipping_message": true,
+    "free_shipping_minimum_amount": "75",
+    "cart_recommendations_enabled": true,
+    "cart_recommendations_heading": "You may also like",
+    "predictive_search_show_vendor": false,
+    "social_facebook_link": "https://www.facebook.com/beautystat/",
+    "social_instagram_link": "https://www.instagram.com/BeautyStat/",
+    "social_tiktok_link": "https://www.tiktok.com/@beautystat",
+    "favicon": "shopify://shop_images/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
+    "gift_card_logo_height": 70,
     "colors_solid_button_labels": "#30360d",
     "colors_accent": "#bec5ce",
     "colors_background": "#ffffff",
@@ -38,44 +65,16 @@
     "type_button_size": 12,
     "type_price_font": "heading",
     "price_superscript": false,
-    "page_width": 1600,
     "spacing_top_desktop": 112,
     "spacing_bottom_desktop": 112,
     "spacing_top_tablet": 80,
     "spacing_bottom_tablet": 80,
     "spacing_top_mobile": 60,
     "spacing_bottom_mobile": 60,
-    "page_transition_enabled": true,
-    "image_zoom_effect_enabled": false,
-    "image_loading_bar_enabled": true,
     "button_border_thickness": 1,
     "button_corner_radius": 0,
     "button_shadow_horizontal_offset": 0,
     "button_shadow_vertical_offset": 0,
-    "card_style": "",
-    "quick_view_enabled": true,
-    "color_swatches_enabled": true,
-    "price_position": "price_last",
-    "price_style": "without_trailing_zero",
-    "show_sale_badge": false,
-    "show_type": false,
-    "show_rating": false,
-    "show_border": false,
-    "collection_layout": "left_sidebar",
-    "tooltip_direction": "top",
-    "show_cart_note": true,
-    "show_shipping_calculator": true,
-    "disable_view_cart": false,
-    "show_free_shipping_message": true,
-    "free_shipping_minimum_amount": "75",
-    "cart_recommendations_enabled": true,
-    "cart_recommendations_heading": "You may also like",
-    "predictive_search_show_vendor": false,
-    "social_facebook_link": "https://www.facebook.com/beautystat/",
-    "social_instagram_link": "https://www.instagram.com/BeautyStat/",
-    "social_tiktok_link": "https://www.tiktok.com/@beautystat",
-    "favicon": "shopify://shop_images/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
-    "gift_card_logo_height": 70,
     "card_image_padding": 0,
     "card_text_alignment": "start",
     "card_border_thickness": 0,
@@ -95,12 +94,15 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
+          "section_width": "container",
           "topbar_layout": "style_1",
+          "switcher_layout": "",
           "spacing": "",
-          "bg_color": "#212326",
+          "bg_color": "#000000",
           "text_color": "#ffffff",
-          "show_right_seperator": true,
-          "announcement_type": "email",
+          "show_seperator": false,
+          "seperator_type": "line-bt-3",
+          "announcement_type": "text",
           "topbar_text": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
           "collection_1": "men",
           "collection_2": "men-copy",
@@ -108,7 +110,7 @@
           "email_address": "support@ochaka.com",
           "phone_text": "Call us for free:",
           "phone_number": "+1(800) 123 4567",
-          "show_seperator": true,
+          "show_right_seperator": true,
           "link_1_label": "Help & FAQs",
           "link_1_url": "",
           "link_2_label": "Factory",
@@ -118,6 +120,120 @@
       "header": {
         "type": "header",
         "blocks": {
+          "mega_menu_KE7rjX": {
+            "type": "mega_menu",
+            "settings": {
+              "menu-handle": "blog",
+              "menu-type": "dropdown",
+              "demo_1_url": "",
+              "demo_1_name": "",
+              "demo_2_url": "",
+              "demo_2_name": "",
+              "demo_3_url": "",
+              "demo_3_name": "",
+              "demo_4_url": "",
+              "demo_4_name": "",
+              "demo_5_url": "",
+              "demo_5_name": "",
+              "demo_6_url": "",
+              "demo_6_name": "",
+              "demo_7_url": "",
+              "demo_7_name": "",
+              "demo_8_url": "",
+              "demo_8_name": "",
+              "demo_9_url": "",
+              "demo_9_name": "",
+              "demo_10_url": "",
+              "demo_10_name": "",
+              "demo_11_url": "",
+              "demo_11_name": "",
+              "demo_12_url": "",
+              "demo_12_name": "",
+              "demo_13_url": "",
+              "demo_13_name": "",
+              "demo_14_url": "",
+              "demo_14_name": "",
+              "demo_15_url": "",
+              "demo_15_name": "",
+              "demo_16_url": "",
+              "demo_16_name": "",
+              "demo_17_url": "",
+              "demo_17_name": "",
+              "demo_18_url": "",
+              "demo_18_name": "",
+              "demo_19_url": "",
+              "demo_19_name": "",
+              "demo_20_url": "",
+              "demo_20_name": "",
+              "btn_text": "",
+              "mega_link_list": "",
+              "mega_collection_1": "",
+              "mega_collection_2": "",
+              "mega_col_btn_text": "Shop Now",
+              "mega_prod_title": "",
+              "mega_prod_link_list": "",
+              "mega_product_1": "",
+              "mega_product_2": "",
+              "dropdown_link_list": "blog-mega-menu"
+            }
+          },
+          "mega_menu_Ck94Ry": {
+            "type": "mega_menu",
+            "settings": {
+              "menu-handle": "page",
+              "menu-type": "dropdown",
+              "demo_1_url": "",
+              "demo_1_name": "",
+              "demo_2_url": "",
+              "demo_2_name": "",
+              "demo_3_url": "",
+              "demo_3_name": "",
+              "demo_4_url": "",
+              "demo_4_name": "",
+              "demo_5_url": "",
+              "demo_5_name": "",
+              "demo_6_url": "",
+              "demo_6_name": "",
+              "demo_7_url": "",
+              "demo_7_name": "",
+              "demo_8_url": "",
+              "demo_8_name": "",
+              "demo_9_url": "",
+              "demo_9_name": "",
+              "demo_10_url": "",
+              "demo_10_name": "",
+              "demo_11_url": "",
+              "demo_11_name": "",
+              "demo_12_url": "",
+              "demo_12_name": "",
+              "demo_13_url": "",
+              "demo_13_name": "",
+              "demo_14_url": "",
+              "demo_14_name": "",
+              "demo_15_url": "",
+              "demo_15_name": "",
+              "demo_16_url": "",
+              "demo_16_name": "",
+              "demo_17_url": "",
+              "demo_17_name": "",
+              "demo_18_url": "",
+              "demo_18_name": "",
+              "demo_19_url": "",
+              "demo_19_name": "",
+              "demo_20_url": "",
+              "demo_20_name": "",
+              "btn_text": "",
+              "mega_link_list": "",
+              "mega_collection_1": "",
+              "mega_collection_2": "",
+              "mega_col_btn_text": "Shop Now",
+              "mega_prod_title": "",
+              "mega_prod_link_list": "",
+              "mega_product_1": "",
+              "mega_product_2": "",
+              "dropdown_link_list": "page-mega-menu"
+            }
+          },
           "mega_menu_gEFpEf": {
             "type": "mega_menu",
             "settings": {
@@ -303,6 +419,8 @@
           }
         },
         "block_order": [
+          "mega_menu_KE7rjX",
+          "mega_menu_Ck94Ry",
           "mega_menu_gEFpEf",
           "mega_menu_wjCKdA",
           "mega_menu_WEr9KC"
@@ -322,66 +440,81 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "contact_NKqmVd": {
+          "contact_WmgR8X": {
             "type": "contact",
             "settings": {
               "contact_heading": "Contact us",
-              "address": "8500 Lorem Street Chicago, IL 55030\nDolor sit amet",
+              "address": "8500 Lorem Street Chicago, IL 55030 \nDolor sit amet",
               "map_url": "",
               "phone": "+8(800) 123 4567",
               "email": "themesflat@support.com",
               "white_social_icons": false
             }
           },
-          "menu_V6qygD": {
+          "menu_LP4qTi": {
             "type": "menu",
             "settings": {
-              "menu_1_heading": "Shopping",
-              "menu_1": "footer"
-            }
-          },
-          "menu_tGTNqx": {
-            "type": "menu",
-            "settings": {
-              "menu_1_heading": "Information",
+              "menu_heading": "Shopping",
               "menu_1": "footer-menu-1"
             }
           },
-          "newsletter_PCwncP": {
+          "menu_C7bjrA": {
+            "type": "menu",
+            "settings": {
+              "menu_heading": "Shopping",
+              "menu_1": "footer"
+            }
+          },
+          "newsletter_GeRyVG": {
             "type": "newsletter",
             "settings": {
               "newsletter_heading": "Let's keep in touch",
               "newsletter_text": "Enter your email below to be the first to know about new collections and product launches.",
               "newsletter_button": "Subscribe",
-              "newsletter_terms": "<p>By clicking subcribe, you agree to the  <a href=\"https://ochaka.vercel.app/faq.html\">Terms of Service </a>and <a href=\"https://ochaka.vercel.app/faq.html\">Privacy Policy</a>.</p>",
-              "newsletter_terms_text_size": "default",
-              "button_style": "default"
+              "newsletter_terms": "<p>By clicking subcribe, you agree to the <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Terms of Service</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a></p>",
+              "newsletter_terms_text_size": "default"
+            }
+          },
+          "contact_with_logo_CEMTz7": {
+            "type": "contact_with_logo",
+            "disabled": true,
+            "settings": {
+              "logo": "shopify://shop_images/logo.svg",
+              "address": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+              "map_url": "",
+              "phone": "+8(800) 123 4567",
+              "email": "themesflat@support.com",
+              "white_social_icons": false
             }
           }
         },
         "block_order": [
-          "contact_NKqmVd",
-          "menu_V6qygD",
-          "menu_tGTNqx",
-          "newsletter_PCwncP"
+          "contact_WmgR8X",
+          "menu_LP4qTi",
+          "menu_C7bjrA",
+          "newsletter_GeRyVG",
+          "contact_with_logo_CEMTz7"
         ],
         "settings": {
-          "footer_style": "footer-2",
+          "footer_style": "style-4",
           "show_border_top": false,
           "background_color": "#ffffff",
           "heading_color": "#000000",
           "text_color": "#000000",
-          "border_color": "#ededed",
+          "text_opacity": 1,
+          "border_color": "#000000",
+          "newsletter_btn_bg_color": "#000000",
+          "newsletter_btn_text_color": "#ffffff",
           "bottom_text_1": "Help & FAQs",
           "bottom_link_1": "",
           "bottom_text_2": "Factory",
           "bottom_link_2": "",
-          "padding_top_desktop": 44,
-          "padding_bottom_desktop": 0,
-          "padding_top_tablet": 0,
-          "padding_bottom_tablet": 0,
-          "padding_top_mobile": 0,
-          "padding_bottom_mobile": 0
+          "padding_top_desktop": 40,
+          "padding_bottom_desktop": 40,
+          "padding_top_tablet": 32,
+          "padding_bottom_tablet": 32,
+          "padding_top_mobile": 24,
+          "padding_bottom_mobile": 24
         }
       },
       "popup": {
@@ -406,22 +539,6 @@
           "colors_shadow": "#cbb2b6"
         }
       },
-      "cookie-banner": {
-        "type": "cookie-banner",
-        "settings": {
-          "mode": "disabled",
-          "delay": 5,
-          "text_alignment": "left",
-          "text_box_position": "bottom",
-          "colors_button_label": "#ffffff",
-          "colors_button_background": "#1a1b18",
-          "colors_text": "#1a1b18",
-          "colors_border": "#d2d5d9",
-          "colors_background": "#ffffff",
-          "gradient_background": "",
-          "colors_shadow": "#a8e8e2"
-        }
-      },
       "main-password-header": {
         "type": "main-password-header",
         "settings": {
@@ -438,17 +555,6 @@
       "bottom-toolbar": {
         "type": "bottom-toolbar",
         "settings": {}
-      },
-      "scrolling-promotion": {
-        "type": "scrolling-promotion",
-        "settings": {
-          "bg_color": "#000000",
-          "text_color": "#ffffff",
-          "padding_vertical": 16,
-          "clone_count": 5,
-          "speed": 50,
-          "direction": "left"
-        }
       },
       "announcementbar-slider": {
         "type": "announcementbar-slider",
@@ -472,6 +578,27 @@
           "link_2_url": "",
           "link_3_label": "FAQs",
           "link_3_url": ""
+        }
+      },
+      "scrolling-promotion": {
+        "type": "scrolling-promotion",
+        "settings": {
+          "bg_color": "#000000",
+          "text_color": "#ffffff",
+          "padding_vertical": 16,
+          "clone_count": 5,
+          "speed": 50,
+          "direction": "left"
+        }
+      },
+      "popup-form": {
+        "type": "popup-form",
+        "settings": {
+          "newsletter_popup_enabled": true,
+          "newsletter_popup_delay": 10,
+          "newsletter_popup_image": "shopify://shop_images/newletter.jpg",
+          "newsletter_popup_sub_title": "Subscribe to our newsletter!",
+          "newsletter_popup_title": "Receive 20% off your next order, along with exclusive offers and more!"
         }
       }
     },
