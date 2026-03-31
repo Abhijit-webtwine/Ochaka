@@ -318,6 +318,34 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "contact_with_logo_CEMTz7": {
+            "type": "contact_with_logo",
+            "disabled": true,
+            "settings": {
+              "logo": "shopify://shop_images/logo.svg",
+              "address": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+              "map_url": "",
+              "phone": "+8(800) 123 4567",
+              "email": "themesflat@support.com"
+            }
+          },
+          "contact_WmgR8X": {
+            "type": "contact",
+            "settings": {
+              "contact_heading": "Contact us",
+              "address": "8500 Lorem Street Chicago, IL 55030 \nDolor sit amet",
+              "map_url": "",
+              "phone": "+8(800) 123 4567",
+              "email": "themesflat@support.com",
+              "white_social_icons": false
+            }
+          }
+        },
+        "block_order": [
+          "contact_with_logo_CEMTz7",
+          "contact_WmgR8X"
+        ],
         "settings": {
           "footer_style": "style-4",
           "show_border_top": false,
