@@ -156,7 +156,40 @@
             </div>
           </div>
         {%- else -%}
-          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          <div class="card-product {{ settings.card_spacing }} {{ settings.card_style }} style-pading-4 style-2 tf-cart-item wow fadeInUp">
+            <div class="card-product_wrapper aspect-ratio-0 d-flex {% if settings.show_border %} style-line-radius {% endif %}">
+              <div class="product-img">
+                {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+              </div>
+            </div>
+            <div class="card-product_info d-grid gap-24">
+              <div>
+                <p class="tag-product text-small">Category</p>
+                <h3>
+                  <span class="name-product mb-8">Product Title Placeholder</span>
+                </h3>
+              </div>
+              <div class="price-wrap mb-0">
+                <span class="price-new h4">$99.00</span>
+              </div>
+
+              <div class="product-progress_sold">
+                <div class="box-quantity">
+                  <p class="text-avaiable">
+                    Available: <span class="fw-bold text-black">10</span>
+                  </p>
+                </div>
+              </div>
+              <div class="action_quantity-product">
+                <div class="action_quantity-product d-flex gap-12">
+                  <button type="button" class="tf-btn animate-btn w-100 rounded-0 btn-add-to-cart">
+                    ADD TO CART
+                    <i class="icon icon-shopping-cart-simple"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         {%- endif -%}
       </div>
       <div class="item-grid-2">
@@ -177,37 +210,40 @@
           data-pagination-lg="3"
         >
           <div class="swiper-wrapper">
-            {%- assign slide_count = section.settings.products_to_show | divided_by: 2 -%}
-            {%- for i in (1..slide_count) -%}
-              {%- assign index1 = i | minus: 1 | times: 2 -%}
-              {%- assign index2 = index1 | plus: 1 -%}
-              {%- assign prod1 = collection.products[index1] -%}
-              {%- assign prod2 = collection.products[index2] -%}
-              
-              {%- if prod1 != blank -%}
-                <div class="swiper-slide">
-                  <div class="list-ver gap-4">
-                    {% render 'card-product', 
-                      product: prod1, 
-                      card_class: 'style-5 style-padding-3 bg-min-white',
-                      show_add_to_cart: true,
-                      show_wishlist: settings.wishlist_enabled,
-                      show_compare: settings.compare_enabled,
-                      show_quick_view: settings.quick_view_enabled
-                    %}
-                    {%- if prod2 != blank -%}
+            {%- assign collection = collections[section.settings.collection] -%}
+            {%- if collection != blank -%}
+              {%- assign slide_count = section.settings.products_to_show | divided_by: 2 -%}
+              {%- for i in (1..slide_count) -%}
+                {%- assign index1 = i | minus: 1 | times: 2 -%}
+                {%- assign index2 = index1 | plus: 1 -%}
+                {%- assign prod1 = collection.products[index1] -%}
+                {%- assign prod2 = collection.products[index2] -%}
+                
+                {%- if prod1 != blank -%}
+                  <div class="swiper-slide">
+                    <div class="list-ver gap-4">
                       {% render 'card-product', 
-                        product: prod2, 
+                        product: prod1, 
                         card_class: 'style-5 style-padding-3 bg-min-white',
                         show_add_to_cart: true,
                         show_wishlist: settings.wishlist_enabled,
                         show_compare: settings.compare_enabled,
                         show_quick_view: settings.quick_view_enabled
                       %}
-                    {%- endif -%}
+                      {%- if prod2 != blank -%}
+                        {% render 'card-product', 
+                          product: prod2, 
+                          card_class: 'style-5 style-padding-3 bg-min-white',
+                          show_add_to_cart: true,
+                          show_wishlist: settings.wishlist_enabled,
+                          show_compare: settings.compare_enabled,
+                          show_quick_view: settings.quick_view_enabled
+                        %}
+                      {%- endif -%}
+                    </div>
                   </div>
-                </div>
-              {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
             {%- else -%}
               {%- for i in (1..3) -%}
                 <div class="swiper-slide">
@@ -215,7 +251,8 @@
                     {%- for j in (1..2) -%}
                       <div class="card-product style-5 style-padding-3 bg-min-white">
                         <div class="card-product_wrapper aspect-ratio-0">
-                          {{ 'product-' | append: j | placeholder_svg_tag: 'placeholder-svg' }}
+                          {%- capture current -%}{% cycle 1, 2, 3, 4 %}{%- endcapture -%}
+                          {{ 'product-apparel-' | append: current | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
                         </div>
                         <div class="card-product_info">
                           <h4 class="name-product">Product Example</h4>
@@ -226,7 +263,7 @@
                   </div>
                 </div>
               {%- endfor -%}
-            {%- endfor -%}
+            {%- endif -%}
           </div>
           <div class="sw-dot-default d-xl-none tf-sw-pagination"></div>
         </div>
