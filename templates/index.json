@@ -265,7 +265,7 @@
             "read_more_text": "Read more",
             "heading": "Read Our Blog",
             "heading_style": "true",
-            "heading_weight": "none",
+            "heading_weight": "medium",
             "header_layout": "with_subtitle",
             "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
             "button_link": "",
