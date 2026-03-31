@@ -9,6 +9,9 @@
  */
 {
   "current": {
+    "show_announcement_slider": false,
+    "show_announcement_bar2": false,
+    "show_scrolling_promotion": false,
     "colors_solid_button_labels": "#30360d",
     "colors_accent": "#bec5ce",
     "colors_background": "#ffffff",
@@ -49,8 +52,15 @@
     "button_corner_radius": 0,
     "button_shadow_horizontal_offset": 0,
     "button_shadow_vertical_offset": 0,
+    "card_style": "",
     "quick_view_enabled": true,
     "color_swatches_enabled": true,
+    "price_position": "price_last",
+    "price_style": "without_trailing_zero",
+    "show_sale_badge": false,
+    "show_type": false,
+    "show_rating": false,
+    "show_border": false,
     "collection_layout": "left_sidebar",
     "tooltip_direction": "top",
     "show_cart_note": true,
@@ -85,9 +95,20 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
+          "topbar_layout": "style_1",
+          "spacing": "",
+          "bg_color": "#212326",
+          "text_color": "#ffffff",
+          "show_right_seperator": true,
+          "announcement_type": "email",
           "topbar_text": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
           "collection_1": "men",
           "collection_2": "men-copy",
+          "email_label": "Email us:",
+          "email_address": "support@ochaka.com",
+          "phone_text": "Call us for free:",
+          "phone_number": "+1(800) 123 4567",
+          "show_seperator": true,
           "link_1_label": "Help & FAQs",
           "link_1_url": "",
           "link_2_label": "Factory",
@@ -287,6 +308,11 @@
           "mega_menu_WEr9KC"
         ],
         "settings": {
+          "remove_transparent_header": false,
+          "logo_position": "style_1",
+          "header_height": "style_1",
+          "header_abs_style": "header-abs-1",
+          "menu_item_style": "text-uppercase",
           "modal_title": "Ultimate HTML Theme",
           "logo": "shopify://shop_images/logo.svg",
           "menu": "main-menu",
@@ -295,24 +321,67 @@
       },
       "footer": {
         "type": "footer",
+        "blocks": {
+          "contact_NKqmVd": {
+            "type": "contact",
+            "settings": {
+              "contact_heading": "Contact us",
+              "address": "8500 Lorem Street Chicago, IL 55030\nDolor sit amet",
+              "map_url": "",
+              "phone": "+8(800) 123 4567",
+              "email": "themesflat@support.com",
+              "white_social_icons": false
+            }
+          },
+          "menu_V6qygD": {
+            "type": "menu",
+            "settings": {
+              "menu_1_heading": "Shopping",
+              "menu_1": "footer"
+            }
+          },
+          "menu_tGTNqx": {
+            "type": "menu",
+            "settings": {
+              "menu_1_heading": "Information",
+              "menu_1": "footer-menu-1"
+            }
+          },
+          "newsletter_PCwncP": {
+            "type": "newsletter",
+            "settings": {
+              "newsletter_heading": "Let's keep in touch",
+              "newsletter_text": "Enter your email below to be the first to know about new collections and product launches.",
+              "newsletter_button": "Subscribe",
+              "newsletter_terms": "<p>By clicking subcribe, you agree to the  <a href=\"https://ochaka.vercel.app/faq.html\">Terms of Service </a>and <a href=\"https://ochaka.vercel.app/faq.html\">Privacy Policy</a>.</p>",
+              "newsletter_terms_text_size": "default",
+              "button_style": "default"
+            }
+          }
+        },
+        "block_order": [
+          "contact_NKqmVd",
+          "menu_V6qygD",
+          "menu_tGTNqx",
+          "newsletter_PCwncP"
+        ],
         "settings": {
-          "contact_heading": "Contact us",
-          "address": "8500 Lorem Street Chicago, IL 55030\nDolor sit amet",
-          "map_url": "",
-          "phone": "+8(800) 123 4567",
-          "email": "themesflat@support.com",
-          "menu_1_heading": "Shopping",
-          "menu_1": "footer",
-          "menu_2_heading": "Information",
-          "menu_2": "footer-menu-1",
-          "newsletter_heading": "Let's keep in touch",
-          "newsletter_text": "Enter your email below to be the first to know about new collections and product launches.",
-          "newsletter_button": "Subscribe",
-          "newsletter_terms": "<p>By clicking subcribe, you agree to the  <a href=\"https://ochaka.vercel.app/faq.html\">Terms of Service</a>and<a href=\"https://ochaka.vercel.app/faq.html\">Privacy Policy</a>.</p>",
+          "footer_style": "footer-2",
+          "show_border_top": false,
+          "background_color": "#ffffff",
+          "heading_color": "#000000",
+          "text_color": "#000000",
+          "border_color": "#ededed",
           "bottom_text_1": "Help & FAQs",
           "bottom_link_1": "",
           "bottom_text_2": "Factory",
-          "bottom_link_2": ""
+          "bottom_link_2": "",
+          "padding_top_desktop": 44,
+          "padding_bottom_desktop": 0,
+          "padding_top_tablet": 0,
+          "padding_bottom_tablet": 0,
+          "padding_top_mobile": 0,
+          "padding_bottom_mobile": 0
         }
       },
       "popup": {
@@ -369,6 +438,41 @@
       "bottom-toolbar": {
         "type": "bottom-toolbar",
         "settings": {}
+      },
+      "scrolling-promotion": {
+        "type": "scrolling-promotion",
+        "settings": {
+          "bg_color": "#000000",
+          "text_color": "#ffffff",
+          "padding_vertical": 16,
+          "clone_count": 5,
+          "speed": 50,
+          "direction": "left"
+        }
+      },
+      "announcementbar-slider": {
+        "type": "announcementbar-slider",
+        "settings": {
+          "bg_color": "#000000",
+          "show_nav": true,
+          "auto": true,
+          "loop": true,
+          "delay": 3000
+        }
+      },
+      "announcement-bar-2": {
+        "type": "announcement-bar-2",
+        "settings": {
+          "center_text": "Ochaka treasure trove of human knowledge",
+          "button_label": "View All Books",
+          "button_url": "",
+          "link_1_label": "Help & FAQs",
+          "link_1_url": "",
+          "link_2_label": "About us",
+          "link_2_url": "",
+          "link_3_label": "FAQs",
+          "link_3_url": ""
+        }
       }
     },
     "content_for_index": [],
