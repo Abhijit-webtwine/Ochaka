@@ -319,17 +319,6 @@
       "footer": {
         "type": "footer",
         "blocks": {
-          "contact_with_logo_CEMTz7": {
-            "type": "contact_with_logo",
-            "disabled": true,
-            "settings": {
-              "logo": "shopify://shop_images/logo.svg",
-              "address": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
-              "map_url": "",
-              "phone": "+8(800) 123 4567",
-              "email": "themesflat@support.com"
-            }
-          },
           "contact_WmgR8X": {
             "type": "contact",
             "settings": {
@@ -340,11 +329,50 @@
               "email": "themesflat@support.com",
               "white_social_icons": false
             }
+          },
+          "menu_LP4qTi": {
+            "type": "menu",
+            "settings": {
+              "menu_heading": "Shopping",
+              "menu_1": "footer-menu-1"
+            }
+          },
+          "menu_C7bjrA": {
+            "type": "menu",
+            "settings": {
+              "menu_heading": "Shopping",
+              "menu_1": "footer"
+            }
+          },
+          "newsletter_GeRyVG": {
+            "type": "newsletter",
+            "settings": {
+              "newsletter_heading": "Let's keep in touch",
+              "newsletter_text": "Enter your email below to be the first to know about new collections and product launches.",
+              "newsletter_button": "Subscribe",
+              "newsletter_terms": "<p>By clicking subcribe, you agree to the <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Terms of Service</a> and <a href=\"/policies/privacy-policy\" title=\"Privacy Policy\">Privacy Policy</a></p>",
+              "newsletter_terms_text_size": "default"
+            }
+          },
+          "contact_with_logo_CEMTz7": {
+            "type": "contact_with_logo",
+            "disabled": true,
+            "settings": {
+              "logo": "shopify://shop_images/logo.svg",
+              "address": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+              "map_url": "",
+              "phone": "+8(800) 123 4567",
+              "email": "themesflat@support.com",
+              "white_social_icons": false
+            }
           }
         },
         "block_order": [
-          "contact_with_logo_CEMTz7",
-          "contact_WmgR8X"
+          "contact_WmgR8X",
+          "menu_LP4qTi",
+          "menu_C7bjrA",
+          "newsletter_GeRyVG",
+          "contact_with_logo_CEMTz7"
         ],
         "settings": {
           "footer_style": "style-4",
