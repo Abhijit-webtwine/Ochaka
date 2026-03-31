@@ -662,39 +662,6 @@
     "name": "t:settings_schema.search-behavior.name",
     "settings": [
       {
-        "type": "select",
-        "id": "search_results",
-        "options": [
-          {
-            "value": "product",
-            "label": "t:settings_schema.search-behavior.settings.search_results.options__1.label"
-          },
-          {
-            "value": "product,page",
-            "label": "t:settings_schema.search-behavior.settings.search_results.options__2.label"
-          },
-          {
-            "value": "product,article",
-            "label": "t:settings_schema.search-behavior.settings.search_results.options__3.label"
-          },
-          {
-            "value": "product,article,page",
-            "label": "t:settings_schema.search-behavior.settings.search_results.options__4.label"
-          },
-          {
-            "value": "product,article,page,collection",
-            "label": "t:settings_schema.search-behavior.settings.search_results.options__5.label"
-          }
-        ],
-        "default": "product,article,page,collection",
-        "label": "t:settings_schema.search-behavior.settings.search_results.label"
-      },
-      {
-        "type": "link_list",
-        "id": "search_recommendation",
-        "label": "t:settings_schema.search-behavior.settings.search_recommendation.label"
-      },
-      {
         "type": "collection",
         "id": "search_trending_collection",
         "label": "t:settings_schema.search-behavior.settings.predictive_search_collection.label"
