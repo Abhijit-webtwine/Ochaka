@@ -77,16 +77,20 @@
 
       {%- comment -%} Fallback placeholders when no collection is selected {%- endcomment -%}
       <div class="swiper-slide d-none d-sm-block">
-        <div class="card-product style-6 style-padding-3 radius-16">
-          <div class="card-product_wrapper aspect-ratio-0 d-flex h-100">
-            {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product bg-light w-100' }}
+        <div class="card-product radius-16 style-padding-3 hover-img bg-white">
+          <div class="card-product_wrapper">
+            <div class="product-img img-style w-100 h-100">
+              {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product bg-light w-100 h-100' }}
+            </div>
           </div>
           <div class="card-product_info d-grid">
             <div>
-              <a href="#" class="link name-product h4">Assign a Collection in Settings</a>
+              <p class="tag-product text-small">Category</p>
+              <a href="#" class="name-product h4 fw-medium text-line-clamp-2 link">Example Featured Product</a>
             </div>
             <div class="price-wrap">
-              <span class="price-new h6">$0.00</span>
+              <span class="price-new h4">{{ 4999 | money }}</span>
+              <span class="price-old h6 fw-normal text-decoration-line-through">{{ 6999 | money }}</span>
             </div>
           </div>
         </div>
@@ -97,8 +101,19 @@
           <div class="list-ver gap-24">
             {%- for j in (1..3) -%}
               <div class="card-product product-style_list-mini type-2 style-border hover-img bg-white">
-                <div class="card-product_wrapper aspect-ratio-0 d-flex">
-                  {{ 'product-apparel-' | append: j | placeholder_svg_tag: 'img-style img-product bg-light w-100' }}
+                <div class="card-product_wrapper">
+                  <div class="product-img img-style w-100 h-100">
+                    {{ 'product-apparel-' | append: j | placeholder_svg_tag: 'img-style img-product bg-light w-100 h-100' }}
+                  </div>
+                </div>
+                <div class="card-product_info">
+                  <span class="tag-product text-small">Category</span>
+                  <a href="#" class="name-product h6 fw-medium text-line-clamp-2 link">Example Product {{ i }}{{ j }}</a>
+                  <div class="group-action">
+                    <div class="price-wrap mb-0">
+                      <span class="price-new h6">{{ 1999 | money }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             {%- endfor -%}

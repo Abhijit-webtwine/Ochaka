@@ -227,15 +227,45 @@
         </div>
       {%- else -%}
         <!-- fallback static product content if main_product not selected -->
-        <a href="#" class="product-image">
-          {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product bg-light w-100 h-100' }}
-        </a>
-        <div class="product-content tf-product-info-list product-detail_info_mini">
+        <div class="flat-wrap-media-product">
+          <div class="swiper tf-product-media-main">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="item product-image w-100 d-block">
+                  {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product bg-light w-100 h-100' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="product-content tf-product-info-wrap tf-product-info-list product-detail_info_mini">
           <div class="product_info">
-            <span class="info-cate text-small">Placeholder</span>
+            <span class="info-cate text-small">Example Category</span>
             <h3 class="info-name">
-              <a href="#" class="link">Assign a Product in Settings</a>
+              <a href="#" class="link">Example Product Title</a>
             </h3>
+          </div>
+
+          <div class="product_price price-wrap style-end">
+            <span class="price-new h4">{{ 1999 | money }}</span>
+            <span class="price-old h6 fw-normal text-decoration-line-through">{{ 2999 | money }}</span>
+          </div>
+
+          <div class="product-progress_sold">
+            <div class="box-quantity">
+              <p class="text-avaiable">Available: <span class="fw-bold text-black">10</span></p>
+            </div>
+          </div>
+
+          <div class="tf-product-total-quantity mb-0 w-100">
+            <div class="product-form w-100">
+              <div class="product_action w-100">
+                <button type="button" class="tf-btn animate-btn w-100 btn-add-to-cart" disabled>
+                  ADD TO CART
+                  <i class="icon icon-shopping-cart-simple"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       {%- endif -%}
@@ -270,8 +300,19 @@
           {%- for i in (1..3) -%}
             <div class="swiper-slide">
               <div class="card-product product-style_list-mini type-2 style-border hover-img bg-white">
-                <div class="card-product_wrapper aspect-ratio-0 d-flex">
-                  {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'img-style img-product bg-light w-100' }}
+                <div class="card-product_wrapper">
+                  <div class="product-img img-style w-100 h-100">
+                    {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'img-product bg-light w-100 h-100' }}
+                  </div>
+                </div>
+                <div class="card-product_info">
+                  <span class="tag-product text-small">Category</span>
+                  <a href="#" class="name-product h6 fw-medium text-line-clamp-2 link">Example Product {{ i }}</a>
+                  <div class="group-action">
+                    <div class="price-wrap mb-0">
+                      <span class="price-new h6">{{ 1999 | money }}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
