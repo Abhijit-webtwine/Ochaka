@@ -35,11 +35,12 @@
           {%- endfor -%}
         {%- else -%}
           {%- for i in (1..6) -%}
+            {%- capture current -%}{%- cycle 1, 2, 3, 4 -%}{%- endcapture -%}
             <div class="swiper-slide">
               <div class="card-product product-style_list-mini type-2 hover-img">
                 <div class="card-product_wrapper">
                   <div class="product-img img-style">
-                    {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'w-100 placeholder-svg' }}
+                    {{ 'product-apparel-' | append: current | placeholder_svg_tag: 'w-100 placeholder-svg h-100' }}
                   </div>
                 </div>
                 <div class="card-product_info">

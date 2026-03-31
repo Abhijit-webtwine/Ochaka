@@ -47,11 +47,12 @@
               {%- endfor -%}
             {%- else -%}
               {%- for i in (1..6) -%}
+                {%- capture current -%}{%- cycle 1, 2, 3, 4 -%}{%- endcapture -%}
                 <div class="swiper-slide">
                   <div class="card-product style-5 style-padding">
                     <div class="card-product_wrapper aspect-ratio-0 d-flex">
                       <div class="product-img">
-                        {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'w-100 placeholder-svg' }}
+                        {{ 'product-apparel-' | append: current | placeholder_svg_tag: 'w-100 placeholder-svg' }}
                       </div>
                     </div>
                     <div class="card-product_info d-grid">
