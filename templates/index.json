@@ -203,7 +203,11 @@
         "space_desktop": 48,
         "space_tablet": 24,
         "space_mobile": 12,
-        "countdown_size": ""
+        "countdown_size": "",
+        "tab_active_color": "#ffffff",
+        "tab_active_bg": "#000000",
+        "show_stock": false,
+        "stock_position": "top-left"
       }
     },
     "shop_the_look_xQPQHq": {
@@ -244,32 +248,48 @@
     },
     "featured_blog_3cC7JF": {
       "type": "featured-blog",
+      "blocks": {
+        "featured-blog": {
+          "type": "featured-blog__",
+          "static": true,
+          "settings": {
+            "blog": "fashion-1",
+            "posts_limit": 4,
+            "blog_style": "",
+            "disable_content_spacing": false,
+            "card_layout": "",
+            "show_date": "tag",
+            "date_color": "#000000",
+            "show_excerpt": true,
+            "show_read_more": true,
+            "read_more_text": "Read more",
+            "heading": "Read Our Blog",
+            "heading_style": "true",
+            "heading_weight": "none",
+            "header_layout": "with_subtitle",
+            "subheading": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+            "button_link": "",
+            "button_text": "View All",
+            "header_alignment": "justify-content-center text-center",
+            "header_spacing": "type-4",
+            "slides_to_show_desktop": 3,
+            "slides_to_show_tablet": 3,
+            "slides_to_show_mobile": 2,
+            "slides_spacing_desktop": 48,
+            "slides_spacing_tablet": 24,
+            "slides_spacing_mobile": 12,
+            "padding_top_desktop": 112,
+            "padding_bottom_desktop": 112,
+            "padding_top_tablet": 80,
+            "padding_bottom_tablet": 80,
+            "padding_top_mobile": 60,
+            "padding_bottom_mobile": 60
+          },
+          "blocks": {}
+        }
+      },
       "name": "Featured Blog",
-      "settings": {
-        "spacing": true,
-        "header_layout": "with_subtitle",
-        "header_spacing": "",
-        "blog_style": "type-space-2",
-        "show_date": "tag",
-        "show_read_more": true,
-        "show_excerpt": true,
-        "disable_content_spacing": false,
-        "slides_to_show_desktop": 4,
-        "slides_to_show_tablet": 3,
-        "slides_to_show_mobile": 2,
-        "slides_spacing_desktop": 48,
-        "slides_spacing_tablet": 24,
-        "slides_spacing_mobile": 12,
-        "heading": "Read Our Blog",
-        "heading_style": "true",
-        "heading_weight": "medium",
-        "subheading": "",
-        "button_link": "",
-        "button_text": "View All",
-        "blog": "fashion-1",
-        "posts_limit": 4,
-        "read_more_text": "Read more"
-      }
+      "settings": {}
     },
     "instagram_slider_7xBiQT": {
       "type": "instagram-slider",
