@@ -198,7 +198,7 @@
         },
         "search_recommendation": { "label": "Search recommendation" },
         "header": { "content": "Product suggestions" },
-        "predictive_search_enabled": { "label": "Enable product suggestions" },
+        "predictive_search_enabled": { "label": "Enable Predictive search" },
         "predictive_search_per_page": { "label": "Maximum products to show" },
         "predictive_search_show_vendor": {
           "label": "Show vendor",

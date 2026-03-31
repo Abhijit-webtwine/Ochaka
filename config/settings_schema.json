@@ -672,37 +672,10 @@
         "label": "Quick Search Terms"
       },
       {
-        "type": "header",
-        "content": "t:settings_schema.search-behavior.settings.header.content"
-      },
-      {
         "type": "checkbox",
         "id": "predictive_search_enabled",
         "default": true,
         "label": "t:settings_schema.search-behavior.settings.predictive_search_enabled.label"
-      },
-      {
-        "type": "range",
-        "id": "predictive_search_per_page",
-        "min": 4,
-        "max": 20,
-        "step": 1,
-        "label": "t:settings_schema.search-behavior.settings.predictive_search_per_page.label",
-        "default": 8
-      },
-      {
-        "type": "checkbox",
-        "id": "predictive_search_show_vendor",
-        "default": false,
-        "label": "t:settings_schema.search-behavior.settings.predictive_search_show_vendor.label",
-        "info": "t:settings_schema.search-behavior.settings.predictive_search_show_vendor.info"
-      },
-      {
-        "type": "checkbox",
-        "id": "predictive_search_show_price",
-        "default": true,
-        "label": "t:settings_schema.search-behavior.settings.predictive_search_show_price.label",
-        "info": "t:settings_schema.search-behavior.settings.predictive_search_show_price.info"
       }
     ]
   },
