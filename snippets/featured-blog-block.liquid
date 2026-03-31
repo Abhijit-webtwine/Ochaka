@@ -137,6 +137,45 @@
             </div>
           </div>
         {% endfor %}
+      {% else %}
+        {% for i in (1..3) %}
+          <div class="swiper-slide">
+            <div class="article-blog {{ block.settings.card_layout }} {{ block.settings.blog_style }} hover-img4 wow fadeInLeft">
+                <div class="entry_image img-style4">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                </div>
+                
+                {% if block.settings.show_date == "tag"%}
+                  <div class="entry_tag {% if block.settings.card_layout == 'style-radius' %}pst-2{% endif %}">
+                    <span class="name-tag h6">{{ 'now' | date: "%B %d, %Y" }}</span>
+                  </div>
+                {% endif %}
+
+                <div class="blog-content {% if block.settings.disable_content_spacing %}p-0{% endif %}">
+                  <div class="entry_name link h4">
+                    Blog Post Title Placeholder
+                  </div>
+
+                  {% if block.settings.show_excerpt %}
+                      <p class="text h6">
+                        This is a placeholder for your blog post excerpt. It will give you an idea of how the text will look in this section.
+                      </p>
+                  {% endif %}
+
+                  {% if block.settings.show_date == "date" %}
+                    <p class="entry_date">
+                      {{ 'now' | date: "%B %d, %Y" }}
+                    </p>
+                  {% endif %}
+                  {% if block.settings.show_read_more %}
+                    <div class="tf-btn-line">
+                      {{ block.settings.read_more_text }}
+                    </div>
+                  {% endif %}
+                </div>
+            </div>
+          </div>
+        {% endfor %}
       {% endif %}
 
     </div>

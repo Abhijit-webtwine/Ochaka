@@ -52,35 +52,47 @@
         data-pagination-lg="6"
       >
         <div class="swiper-wrapper">
+          {% if section.blocks.size > 0 %}
+            {% for block in section.blocks %}
+              <div class="swiper-slide" {{ block.shopify_attributes }}>
+                <div class="gallery-item hover-img hover-overlay">
+                  <div class="image img-style">
+                    {% if block.settings.image %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 600
+                        | image_tag:
+                          class: 'lazyload',
+                          loading: 'lazy',
+                          alt: block.settings.image.alt | default: 'Instagram image'
+                      }}
+                    {% else %}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                    {% endif %}
+                  </div>
 
-          {% for block in section.blocks %}
-            <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="gallery-item hover-img hover-overlay">
-                <div class="image img-style">
-                  {% if block.settings.image %}
-                    {{
-                      block.settings.image
-                      | image_url: width: 600
-                      | image_tag:
-                        class: 'lazyload',
-                        loading: 'lazy',
-                        alt: block.settings.image.alt | default: 'Instagram image'
-                    }}
+                  {% if block.settings.link != blank %}
+                    <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
+                      <span class="icon icon-instagram-logo"></span>
+                      <span class="tooltip">
+                        {{ block.settings.tooltip_text }}
+                      </span>
+                    </a>
                   {% endif %}
                 </div>
-
-                {% if block.settings.link != blank %}
-                  <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
-                    <span class="icon icon-instagram-logo"></span>
-                    <span class="tooltip">
-                      {{ block.settings.tooltip_text }}
-                    </span>
-                  </a>
-                {% endif %}
               </div>
-            </div>
-          {% endfor %}
-
+            {% endfor %}
+          {% else %}
+            {% for i in (1..6) %}
+              <div class="swiper-slide">
+                <div class="gallery-item hover-img hover-overlay">
+                  <div class="image img-style">
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
         </div>
 
         <div class="sw-dot-default tf-sw-pagination"></div>
@@ -103,35 +115,47 @@
       data-pagination-lg="6"
     >
       <div class="swiper-wrapper">
+        {% if section.blocks.size > 0 %}
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="gallery-item hover-img hover-overlay">
+                <div class="image img-style">
+                  {% if block.settings.image %}
+                    {{
+                      block.settings.image
+                      | image_url: width: 600
+                      | image_tag:
+                        class: 'lazyload',
+                        loading: 'lazy',
+                        alt: block.settings.image.alt | default: 'Instagram image'
+                    }}
+                  {% else %}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                  {% endif %}
+                </div>
 
-        {% for block in section.blocks %}
-          <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <div class="gallery-item hover-img hover-overlay">
-              <div class="image img-style">
-                {% if block.settings.image %}
-                  {{
-                    block.settings.image
-                    | image_url: width: 600
-                    | image_tag:
-                      class: 'lazyload',
-                      loading: 'lazy',
-                      alt: block.settings.image.alt | default: 'Instagram image'
-                  }}
+                {% if block.settings.link != blank %}
+                  <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
+                    <span class="icon icon-instagram-logo"></span>
+                    <span class="tooltip">
+                      {{ block.settings.tooltip_text }}
+                    </span>
+                  </a>
                 {% endif %}
               </div>
-
-              {% if block.settings.link != blank %}
-                <a href="{{ block.settings.link }}" class="box-icon hover-tooltip">
-                  <span class="icon icon-instagram-logo"></span>
-                  <span class="tooltip">
-                    {{ block.settings.tooltip_text }}
-                  </span>
-                </a>
-              {% endif %}
             </div>
-          </div>
-        {% endfor %}
-
+          {% endfor %}
+        {% else %}
+          {% for i in (1..6) %}
+            <div class="swiper-slide">
+              <div class="gallery-item hover-img hover-overlay">
+                <div class="image img-style">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
 
       <div class="sw-dot-default tf-sw-pagination"></div>

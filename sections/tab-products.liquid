@@ -116,25 +116,21 @@
           role="tabpanel"
           {{ block.shopify_attributes }}
         >
-          {% if block.settings.collection != blank %}
-            {% render 'products-swiper',
-              collection_ref: block.settings.collection,
-              products_limit: block.settings.products_limit,
-              grid_rows: section.settings.grid_rows,
-              slides_desktop: section.settings.slides_desktop,
-              slides_tablet: section.settings.slides_tablet,
-              slides_mobile: section.settings.slides_mobile,
-              countdown_size: section.settings.countdown_size,
-              space_desktop: section.settings.space_desktop,
-              space_tablet: section.settings.space_tablet,
-              space_mobile: section.settings.space_mobile,
-              show_stock: section.settings.show_stock,
-              stock_position: section.settings.stock_position,
-              swiper_classes: ''
-            %}
-          {% else %}
-            <p class="text-center">No collection selected.</p>
-          {% endif %}
+          {% render 'products-swiper',
+            collection_ref: block.settings.collection,
+            products_limit: block.settings.products_limit,
+            grid_rows: section.settings.grid_rows,
+            slides_desktop: section.settings.slides_desktop,
+            slides_tablet: section.settings.slides_tablet,
+            slides_mobile: section.settings.slides_mobile,
+            countdown_size: section.settings.countdown_size,
+            space_desktop: section.settings.space_desktop,
+            space_tablet: section.settings.space_tablet,
+            space_mobile: section.settings.space_mobile,
+            show_stock: section.settings.show_stock,
+            stock_position: section.settings.stock_position,
+            swiper_classes: ''
+          %}
         </div>
       {% endfor %}
     </div>

@@ -33,9 +33,14 @@
   data-grid="{{ grid_rows }}"
 >
   <div class="swiper-wrapper">
-    {% if collection_ref != blank %}
-      {% assign collection_products = collections[collection_ref].products %}
-      {% for product in collection_products limit: products_limit %}
+    {%- liquid
+      assign main_collection = collections[collection_ref]
+      if main_collection == blank
+        assign main_collection = collection_ref
+      endif
+    -%}
+    {% if main_collection != blank %}
+      {% for product in main_collection.products limit: products_limit %}
         <div class="swiper-slide">
           {% render 'card-product', 
             product: product, 
@@ -53,7 +58,7 @@
       {% for i in (1..4) %}
         <div class="swiper-slide">
           <div class="card-product">
-            <div class="card-product_wrapper">
+            <div class="card-product_wrapper {{ settings.card_height }} {{ settings.card_corners }} style-line-border">
               <div class="product-img placeholder">
                 {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'placeholder-svg w-100' }}
               </div>

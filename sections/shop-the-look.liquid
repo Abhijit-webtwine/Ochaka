@@ -45,6 +45,23 @@
               </a>
             </div>
           </div>
+        {% else %}
+          <div class="box-image_V01 h-100 hover-img mb-xl-0 wow fadeInUp">
+            <div class="box-image_image h-100 img-style">
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+            </div>
+            <div class="box-image_content">
+              <span class="title text-display fw-semibold text-white link">
+                Collection
+              </span>
+              <span class="sub-title h5 text-white">
+                0 products
+              </span>
+              <span class="tf-btn-line style-white">
+                {{ section.settings.collection_button_text }}
+              </span>
+            </div>
+          </div>
         {% endif %}
       </div>
 
@@ -77,6 +94,22 @@
                     show_quick_view: true,
                     show_add_to_cart: true,
                   %}
+                </div>
+              {% else %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <div class="card-product">
+                    <div class="card-product_wrapper {{ settings.card_height }} {{ settings.card_corners }} style-line-border">
+                      <div class="product-img placeholder">
+                        {{ 'product-apparel-' | append: forloop.index | placeholder_svg_tag: 'placeholder-svg w-100' }}
+                      </div>
+                    </div>
+                    <div class="card-product_info">
+                      <div class="name-product {{ settings.product_title_size }} link">{{ 'onboarding.product_title' | t }}</div>
+                      <div class="price-wrap">
+                        <span class="price-new {{ settings.product_title_size }}">{{ 1999 | money }}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               {% endif %}
             {% endfor %}
