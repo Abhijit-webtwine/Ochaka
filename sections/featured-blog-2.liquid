@@ -51,7 +51,7 @@
     >
       <div class="swiper-wrapper">
         {%- assign selected_blog = blogs[section.settings.blog] -%}
-        {%- if selected_blog -%}
+        {%- if selected_blog != blank -%}
           {%- for article in selected_blog.articles limit: section.settings.articles_count -%}
             <div class="swiper-slide">
               <div class="article-blog style-row hover-img4 wow fadeInLeft">
@@ -84,6 +84,34 @@
                   <a href="{{ article.url }}" class="tf-btn-line">
                     {{ section.settings.btn_label }}
                   </a>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..section.settings.articles_count) -%}
+            <div class="swiper-slide">
+              <div class="article-blog style-row hover-img4 wow fadeInLeft">
+                <div class="entry_image img-style4 flex-xl-1">
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-100 h-100' }}
+                </div>
+                <div class="blog-content flex-1">
+                  {%- if section.settings.show_date -%}
+                    <span class="entry_date name-tag h6">
+                      {{ 'now' | date: "%B %d, %Y" }}
+                    </span>
+                  {%- endif -%}
+                  <div class="entry_name h4">
+                    Blog Post Title Placeholder {{ i }}
+                  </div>
+                  {%- if section.settings.show_excerpt -%}
+                    <p class="text h6">
+                      This is a placeholder for your blog post excerpt. It will give you an idea of how the text will look in this section.
+                    </p>
+                  {%- endif -%}
+                  <div class="tf-btn-line">
+                    {{ section.settings.btn_label }}
+                  </div>
                 </div>
               </div>
             </div>
