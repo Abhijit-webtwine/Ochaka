@@ -72,9 +72,18 @@
 
 {%- if icon_color != blank -%}
   <style>
-    #header-icons-{{ section.id }} .nav-icon-item,
-    #header-icons-{{ section.id }} .cart-drawer-open {
+    .tf-header #header-icons-{{ section.id }} .nav-icon-item,
+    .tf-header #header-icons-{{ section.id }} .cart-drawer-open {
       color: {{ icon_color }};
+    }
+  </style>
+{%- endif -%}
+
+{%- if sticky_icon_color != blank -%}
+  <style>
+    .tf-header.is-fixed #header-icons-{{ section.id }} .nav-icon-item,
+    .tf-header.is-fixed #header-icons-{{ section.id }} .cart-drawer-open {
+      color: {{ sticky_icon_color }};
     }
   </style>
 {%- endif -%}

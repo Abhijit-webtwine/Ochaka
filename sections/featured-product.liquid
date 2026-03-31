@@ -2,9 +2,13 @@
 #featured-product-{{ section.id }} {
   background-color: {{ section.settings.background_color }};
 }
+.featured-product .placeholder-svg {
+  background-color: #f2f2f2;
+}
 </style>
 
 {% assign product_form_id = 'product-form-' | append: section.id %}
+{%- assign featured_product = section.settings.featured_product -%}
 <section id="featured-product-{{ section.id }}" class="featured-product flat-spacing s-banner-shop">
   <div class="container">
     <div class="row section-image-zoom">
@@ -18,42 +22,60 @@
               data-preview="4.7"
             >
               <div class="swiper-wrapper stagger-wrap">
-                {% for image in section.settings.featured_product.images limit: 4 %}
-                  <div class="swiper-slide stagger-item">
-                    <div class="item">
-                      {{ image | image_url: width: 100 | image_tag: 
-                        class: 'lazyload', 
-                        loading: 'lazy', 
-                        alt: image.alt 
-                      }}
+                {% if featured_product != blank %}
+                  {% for image in featured_product.images limit: 4 %}
+                    <div class="swiper-slide stagger-item">
+                      <div class="item">
+                        {{ image | image_url: width: 100 | image_tag: 
+                          class: 'lazyload', 
+                          loading: 'lazy', 
+                          alt: image.alt 
+                        }}
+                      </div>
                     </div>
-                  </div>
-                {% endfor %}
+                  {% endfor %}
+                {% else %}
+                  {% for i in (1..4) %}
+                    <div class="swiper-slide stagger-item">
+                      <div class="item">
+                        {{ 'product-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% endif %}
               </div>
             </div>
             <div class="flat-wrap-media-product">
               <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
                 <div class="swiper-wrapper">
-                  {% for image in section.settings.featured_product.images %}
-                    <div class="swiper-slide">
-                      <a
-                        href="{{ image | image_url }}"
-                        target="_blank"
-                        class="item"
-                        data-pswp-width="{{ image.width }}px"
-                        data-pswp-height="{{ image.height }}px"
-                      >
-                        <img
-                          class="tf-image-zoom lazyload"
-                          data-zoom="{{ image | image_url }}"
-                          src="{{ image | image_url: width: 696 }}"
-                          alt="{{ image.alt }}"
-                          width="{{ image.width }}"
-                          height="{{ image.height }}"
+                  {% if featured_product != blank %}
+                    {% for image in featured_product.images %}
+                      <div class="swiper-slide">
+                        <a
+                          href="{{ image | image_url }}"
+                          target="_blank"
+                          class="item"
+                          data-pswp-width="{{ image.width }}px"
+                          data-pswp-height="{{ image.height }}px"
                         >
-                      </a>
+                          <img
+                            class="tf-image-zoom lazyload"
+                            data-zoom="{{ image | image_url }}"
+                            src="{{ image | image_url: width: 696 }}"
+                            alt="{{ image.alt }}"
+                            width="{{ image.width }}"
+                            height="{{ image.height }}"
+                          >
+                        </a>
+                      </div>
+                    {% endfor %}
+                  {% else %}
+                    <div class="swiper-slide">
+                      <div class="item">
+                        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
                     </div>
-                  {% endfor %}
+                  {% endif %}
                 </div>
                 <!-- <div class="swiper-button-next button-style-arrow thumbs-next"></div> -->
                 <!-- <div class="swiper-button-prev button-style-arrow thumbs-prev"></div> -->
@@ -67,49 +89,61 @@
           <div class="tf-zoom-main sticky-top"></div>
           <div class="tf-product-info-list other-image-zoom">
             <h2 class="product-info-name fw-medium h1">
-              <a href="{{ section.settings.featured_product.url }}" class="link">{{ section.settings.featured_product.title }}</a>
+              <a href="{{ featured_product.url | default: '#' }}" class="link">
+                {{- featured_product.title | default: 'Example product title' -}}
+              </a>
             </h2>
-            {% if section.settings.featured_product.metafields.judgeme.badge != blank %}
+            {% if featured_product.metafields.judgeme.badge != blank %}
               <div class="product-info-meta">
-                {% render 'rating', product: section.settings.featured_product %}
+                {% render 'rating', product: featured_product %}
               </div>
             {% endif %}
             <div class="tf-product-heading p-0 border-0">
             <div class="product-info-price">
               <div class="price-wrap" id="price-{{ section.id }}">
                 <span class="price-new price-on-sale h2 fw-4">
-                  {{- section.settings.featured_product.selected_or_first_available_variant.price | money -}}
+                  {% if featured_product != blank %}
+                    {{- featured_product.selected_or_first_available_variant.price | money -}}
+                  {% else %}
+                    {{ 1999 | money }}
+                  {% endif %}
                 </span>
-                {% if section.settings.featured_product.selected_or_first_available_variant.compare_at_price > section.settings.featured_product.selected_or_first_available_variant.price %}
+                {% if featured_product != blank and featured_product.selected_or_first_available_variant.compare_at_price > featured_product.selected_or_first_available_variant.price %}
                   <span class="price-old compare-at-price h6">
-                    {{- section.settings.featured_product.selected_or_first_available_variant.compare_at_price | money -}}
+                    {{- featured_product.selected_or_first_available_variant.compare_at_price | money -}}
                   </span>
                 {% endif %}
               </div>
             </div>
             </div>
-            {% if section.settings.featured_product.description != blank %}
-            <div class="tf-prduct-desc">
-              <p class="h6">{{ section.settings.featured_product.description | strip_html | truncate: 200 }}</p>
-            </div>
+            {% if featured_product.description != blank %}
+              <div class="tf-prduct-desc">
+                <p class="h6">{{ featured_product.description | strip_html | truncate: 200 }}</p>
+              </div>
+            {% elsif featured_product == blank %}
+              <div class="tf-prduct-desc">
+                <p class="h6">Example product description. This will be replaced once you select a product in the section settings.</p>
+              </div>
             {% endif %}
-            {% render 'product-variant-picker',
-              product: section.settings.featured_product,
-              product_form_id: product_form_id,
-              picker_type: 'button',
-              enable_color_swatches: true,
-              enable_image: true,
-              image_type: 'circle',
-              show_variant_labels: true,
-              update_url: false,
-              swatch_image_size_small: true,
-              section_id: section.id,
-            %}
+            {% if featured_product != blank %}
+              {% render 'product-variant-picker',
+                product: featured_product,
+                product_form_id: product_form_id,
+                picker_type: 'button',
+                enable_color_swatches: true,
+                enable_image: true,
+                image_type: 'circle',
+                show_variant_labels: true,
+                update_url: false,
+                swatch_image_size_small: true,
+                section_id: section.id,
+              %}
+            {% endif %}
           <div class="tf-product-total-quantity mb-0">
-            {% if section.settings.featured_product != blank %}
+            {% if featured_product != blank %}
               <product-form>
                 {%- form 'product',
-                  section.settings.featured_product,
+                  featured_product,
                   id: product_form_id,
                   data-type: 'add-to-cart-form',
                   class: 'w-100 position-static'
@@ -117,15 +151,15 @@
                   <input
                     type="hidden"
                     name="id"
-                    value="{{ section.settings.featured_product.selected_or_first_available_variant.id }}"
+                    value="{{ featured_product.selected_or_first_available_variant.id }}"
                     disabled="disabled"
                   >
                   <div class="group-btn">
-                    {% render 'quantity-input', product: section.settings.featured_product, product_form_id: product_form_id %}
+                    {% render 'quantity-input', product: featured_product, product_form_id: product_form_id %}
 
-                    {% if section.settings.featured_product.available %}
+                    {% if featured_product.available %}
                       <span id="inventory-{{ section.id }}" class="h6 d-none d-sm-block">
-                        {{ section.settings.featured_product.selected_or_first_available_variant.inventory_quantity }} products available
+                        {{ featured_product.selected_or_first_available_variant.inventory_quantity }} products available
                       </span>
                     {% endif %}
                   </div>
@@ -135,7 +169,7 @@
                       type="submit"
                       name="add"
                       class="tf-btn animate-btn btn-add-to-cart"
-                      {%- if section.settings.featured_product.selected_or_first_available_variant.available == false %}
+                      {%- if featured_product.selected_or_first_available_variant.available == false %}
                         disabled="disabled"
                       {% endif -%}
                     >
@@ -143,7 +177,7 @@
                       <i class="icon icon-shopping-cart-simple"></i>
                     </button>
                     {% if settings.wishlist_enabled %}
-                      {% render 'icon-wishlist', product: section.settings.featured_product %}
+                      {% render 'icon-wishlist', product: featured_product %}
                     {% endif %}
 
                     {% if settings.compare_enabled %}
@@ -166,6 +200,11 @@
     </div>
   </div>
 </section>
+
+<script src="{{ 'zoom.js' |  asset_url}}" defer></script>
+<script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
+<script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
+<script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
 
 {% schema %}
 {

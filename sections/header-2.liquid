@@ -213,7 +213,7 @@
         </nav>
       </div>
       <div class="col-xl-3 col-md-4 col-3">
-        {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true %}
+        {% render 'header-icons', show_account: true, show_search: true, show_wishlist: true, show_cart: true, sticky_icon_color: section.settings.sticky_icon_color %}
       </div>
     </div>
   </div>
@@ -334,6 +334,12 @@
       "type": "color",
       "id": "icon_color",
       "label": "Icon Color",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "sticky_icon_color",
+      "label": "Sticky Header Icon Color",
       "default": "#111111"
     }
   ],
