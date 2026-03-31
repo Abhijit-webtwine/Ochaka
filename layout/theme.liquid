@@ -124,9 +124,9 @@
     <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
     <link rel="stylesheet" href="{{'animate.css' |  asset_url}}">
-    <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
+    {% comment %} <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
     <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}">
-    <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}">
+    <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}"> {% endcomment %}
 
     <script src="{{ 'bootstrap.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'jquery.min.js' | asset_url }}" defer></script>
@@ -139,11 +139,11 @@
     <script src="{{ 'parallaxie.js' | asset_url}}" defer></script>
     <script src="{{ 'infinityslide.js' | asset_url}}" defer></script>
     <script src="{{ 'main.js' | asset_url}}" defer></script>
-    <script src="{{ 'facets.js' |  asset_url }}" defer></script>
-    <script src="{{ 'zoom.js' |  asset_url}}" defer></script>
+    {% comment %} <script src="{{ 'facets.js' |  asset_url }}" defer></script> {% endcomment %}
+    {% comment %} <script src="{{ 'zoom.js' |  asset_url}}" defer></script>
     <script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
-    <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
+    <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script> {% endcomment %}
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
     {%- liquid

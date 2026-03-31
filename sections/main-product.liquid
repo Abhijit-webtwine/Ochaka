@@ -1,3 +1,7 @@
+{{ 'drift-basic.min.css' | asset_url | stylesheet_tag }}
+{{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+{{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
+
 <section class="flat-single-product flat-spacing-3">
   <div class="tf-main-product section-image-zoom">
     <div class="container">
@@ -878,7 +882,10 @@
   {%  render 'share-modal' %}
   {% render 'size-chart-modal' %}
 </section>
-
+<script src="{{ 'zoom.js' |  asset_url}}" defer></script>
+<script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
+<script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
+<script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
 <script>
   // Sticky ATC variant selector logic
   document.addEventListener('DOMContentLoaded', function() {

@@ -3,6 +3,7 @@
     <li class="d-none d-lg-flex">
       <a
         class="nav-icon-item link"
+        aria-label="Icon User"
         href="{{ routes.account_login_url }}"
         ><i class="icon icon-user"></i
       ></a>
@@ -14,6 +15,7 @@
         class="nav-icon-item link"
         href="#search"
         data-bs-toggle="modal"
+        aria-label="Icon Search"
       >
         <i class="icon icon-magnifying-glass"></i>
       </a>
@@ -25,6 +27,7 @@
         class="nav-icon-item link"
         href="/pages/wishlist"
         style="position: relative;"
+        aria-label="Icon Wishlist"
       >
         <span id="wishlist-icon-bubble">
           <wishlist-count class="count d-none">
@@ -74,4 +77,4 @@
       color: {{ icon_color }};
     }
   </style>
-{%- endif -%}
+{%- endif -%}

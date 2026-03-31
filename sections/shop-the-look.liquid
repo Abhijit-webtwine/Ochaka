@@ -70,7 +70,13 @@
               {% assign product = block.settings.product %}
               {% if product != blank %}
                 <div class="swiper-slide" {{ block.shopify_attributes }}>
-                  {% render 'card-product', product: product %}
+                  {% render 'card-product', 
+                    product: product, 
+                    show_wishlist: true, 
+                    show_compare: true, 
+                    show_quick_view: true,
+                    show_add_to_cart: true,
+                  %}
                 </div>
               {% endif %}
             {% endfor %}
