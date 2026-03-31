@@ -54,7 +54,7 @@
           assign slider_link = collection.url | default: '#'
         -%}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
-          <div class="box-image_category hover-img">
+          <div class="box-image_category {{ section.settings.pill_size }} hover-img">
             <a href="{{ slider_link }}" class="box-image_image img-style">
               {%- if slider_image != blank -%}
                 {{
@@ -85,6 +85,22 @@
 {
   "name": "Collection Slider 2",
   "settings": [
+    {
+      "type": "select",
+      "id": "pill_size",
+      "label": "Pill size",
+      "options": [
+        {
+          "value": "style-2",
+          "label": "Small"
+        },
+        {
+          "value": "",
+          "label": "Large"
+        }
+      ],
+      "default": ""
+    },
     {
       "type": "header",
       "content": "Desktop padding"
