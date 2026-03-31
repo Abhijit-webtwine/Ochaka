@@ -564,6 +564,10 @@
           {
             "value": "style_10",
             "label": "Style 10"
+          },
+          {
+            "value": "style_11",
+            "label": "Style 11"
           }
         ],
         "default": "style_4",

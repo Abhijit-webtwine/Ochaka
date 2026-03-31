@@ -7,6 +7,8 @@
   assign style_7 = false
   assign style_8 = false
   assign style_9 = false
+  assign style_10 = false
+  assign style_11 = false
 
   if settings.hover_style == 'style_2'
     assign style_2 = true
@@ -28,6 +30,8 @@
   elsif settings.hover_style == 'style_10'
     assign style_6 = true
     assign style_10 = true
+  elsif settings.hover_style == 'style_11'
+    assign style_11 = true
   endif
 
   assign show_wishlist = show_wishlist
@@ -35,7 +39,7 @@
   assign show_quick_view = show_quick_view
   assign show_add_to_cart = show_add_to_cart
 
-  if style_9 or style_10 or style_3
+  if style_9 or style_10 or style_11 or style_3
     assign show_add_to_cart = false
   endif
 
@@ -108,6 +112,15 @@
             <i class="icon icon-shopping-cart-simple"></i>
           </add-to-cart>
         {% endif %}
+      </div>
+    {% endif %}
+
+    {% if style_11 %}
+      <div class="product-action_bot">
+        <add-to-cart class="tf-btn animate-btn" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+          Add to cart
+          <i class="icon icon-arrow-right"></i>
+        </add-to-cart>
       </div>
     {% endif %}
 
