@@ -20,6 +20,7 @@
     "card_spacing": "",
     "quick_view_enabled": true,
     "color_swatches_enabled": true,
+    "price_position": "price_last",
     "show_sale_badge": false,
     "show_type": false,
     "show_rating": false,
