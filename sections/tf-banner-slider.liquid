@@ -24,7 +24,7 @@
                       height="{{ block.settings.image.height }}"
                     >
                   {%- else -%}
-                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'lazyload scale-item sale-item-1 placeholder-svg' }}
+                    {{ 'hero-apparel-1' | placeholder_svg_tag: 'lazyload scale-item sale-item-1 placeholder-svg w-100 h-100' }}
                   {%- endif -%}
                 </div>
                 {%- if block.settings.alignment == 'left' -%}
@@ -57,7 +57,7 @@
                 height="{{ section.settings.banner_img.height }}"
               >
             {%- else -%}
-              {{ 'collection-1' | placeholder_svg_tag: 'h-100 lazyload placeholder-svg' }}
+              {{ 'collection-1' | placeholder_svg_tag: 'w-100 h-100 lazyload placeholder-svg' }}
             {%- endif -%}
           </a>
           <div class="box-image_content align-items-center text-center">

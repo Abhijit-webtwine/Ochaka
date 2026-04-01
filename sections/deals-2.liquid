@@ -23,7 +23,7 @@
                    width="{{ section.settings.banner_image.width }}" 
                    height="{{ section.settings.banner_image.height }}">
             {%- else -%}
-              {{ 'collection-1' | placeholder_svg_tag: 'img-style lazyload placeholder-svg' }}
+              {{ 'hero-apparel-1' | placeholder_svg_tag: 'img-style lazyload placeholder-svg w-100 h-100' }}
             {%- endif -%}
           </a>
           <div class="box-image_content wow fadeInUp">
@@ -73,7 +73,8 @@
                      <div class="card-product product-style_list-mini type-2 style-border hover-img">
                          <div class="card-product_wrapper">
                              <a href="#" class="product-img img-style">
-                                 {{ 'product-apparel-' | append: i | placeholder_svg_tag: 'img-product lazyload placeholder-svg' }}
+                                {%- capture placeholder_index -%}{%- cycle '1', '2', '3', '4' -%}{%- endcapture -%}
+                                {{ 'product-apparel-' | append: placeholder_index | placeholder_svg_tag: 'img-product lazyload placeholder-svg w-100 h-100' }}
                              </a>
                          </div>
                          <div class="card-product_info">
