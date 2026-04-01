@@ -135,7 +135,13 @@
                     {% endif %}
                   </div>
                   {% if block.settings.button_text != blank %}
-                    <a href="{{ block.settings.link | default: '#' }}" class="{{ button_class }}">
+                    <a
+                      href="{{ block.settings.link | default: '#' }}"
+                      class="{{ button_class }}"
+                      {% if section.settings.button_type == 'pill' %}
+                        style="background-color: {{ section.settings.button_color }}; color: {{ section.settings.button_text_color }}; border-color: {{ section.settings.button_color }};"
+                      {% endif %}
+                    >
                       {{ block.settings.button_text }}
                       {% if section.settings.button_type == 'pill' %}
                         <i class="icon icon-arrow-right"></i>
