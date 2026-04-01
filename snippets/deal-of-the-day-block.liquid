@@ -84,13 +84,15 @@
             </div>
           </div>
           <div class="card-product_info d-grid">
-            <div>
-              <p class="tag-product text-small">Category</p>
-              <a href="#" class="name-product h4 fw-medium text-line-clamp-2 link">Example Featured Product</a>
-            </div>
+            <h3 class="name-product h4 fw-medium text-line-clamp-2 link">Example Featured Product</h3>
             <div class="price-wrap">
               <span class="price-new h4">{{ 4999 | money }}</span>
               <span class="price-old h6 fw-normal text-decoration-line-through">{{ 6999 | money }}</span>
+            </div>
+            <div class="w-100 mt-3">
+              <button type="button" class="tf-btn type-small-4 w-100 button--soldout" disabled="disabled">
+                Add to cart
+              </button>
             </div>
           </div>
         </div>
@@ -107,12 +109,14 @@
                   </div>
                 </div>
                 <div class="card-product_info">
-                  <span class="tag-product text-small">Category</span>
                   <a href="#" class="name-product h6 fw-medium text-line-clamp-2 link">Example Product {{ i }}{{ j }}</a>
-                  <div class="group-action">
-                    <div class="price-wrap mb-0">
-                      <span class="price-new h6">{{ 1999 | money }}</span>
-                    </div>
+                  <div class="price-wrap mb-0">
+                    <span class="price-new h6">{{ 1999 | money }}</span>
+                  </div>
+                  <div class="w-100 mt-2">
+                    <button type="button" class="tf-btn type-small-4 w-100 button--soldout" disabled="disabled">
+                      Add to cart
+                    </button>
                   </div>
                 </div>
               </div>

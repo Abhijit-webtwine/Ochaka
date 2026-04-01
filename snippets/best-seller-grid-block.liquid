@@ -240,32 +240,19 @@
         </div>
         <div class="product-content tf-product-info-wrap tf-product-info-list product-detail_info_mini">
           <div class="product_info">
-            <span class="info-cate text-small">Example Category</span>
             <h3 class="info-name">
               <a href="#" class="link">Example Product Title</a>
             </h3>
           </div>
 
-          <div class="product_price price-wrap style-end">
+          <div class="product_price price-wrap style-end mb-0">
             <span class="price-new h4">{{ 1999 | money }}</span>
             <span class="price-old h6 fw-normal text-decoration-line-through">{{ 2999 | money }}</span>
           </div>
-
-          <div class="product-progress_sold">
-            <div class="box-quantity">
-              <p class="text-avaiable">Available: <span class="fw-bold text-black">10</span></p>
-            </div>
-          </div>
-
-          <div class="tf-product-total-quantity mb-0 w-100">
-            <div class="product-form w-100">
-              <div class="product_action w-100">
-                <button type="button" class="tf-btn animate-btn w-100 btn-add-to-cart" disabled>
-                  ADD TO CART
-                  <i class="icon icon-shopping-cart-simple"></i>
-                </button>
-              </div>
-            </div>
+          <div class="w-100 mt-2">
+            <button type="button" class="tf-btn type-small-4 w-100 button--soldout" disabled="disabled">
+              Add to cart
+            </button>
           </div>
         </div>
       {%- endif -%}
@@ -306,12 +293,14 @@
                   </div>
                 </div>
                 <div class="card-product_info">
-                  <span class="tag-product text-small">Category</span>
                   <a href="#" class="name-product h6 fw-medium text-line-clamp-2 link">Example Product {{ i }}</a>
-                  <div class="group-action">
-                    <div class="price-wrap mb-0">
-                      <span class="price-new h6">{{ 1999 | money }}</span>
-                    </div>
+                  <div class="price-wrap mb-0">
+                    <span class="price-new h6">{{ 1999 | money }}</span>
+                  </div>
+                  <div class="w-100 mt-2">
+                    <button type="button" class="tf-btn type-small-4 w-100 button--soldout" disabled="disabled">
+                      Add to cart
+                    </button>
                   </div>
                 </div>
               </div>
