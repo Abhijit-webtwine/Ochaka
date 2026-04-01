@@ -42,7 +42,7 @@
         if section.settings.subheading != blank and section.settings.tab_style == '2'
           assign subtitle = true
           assign class = 'title'
-        else
+        elsif section.settings.title != blank
           assign class = 'title mb-24'
         endif
       %}
