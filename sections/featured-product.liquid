@@ -100,7 +100,7 @@
               <div class="price-wrap" id="price-{{ section.id }}">
                 <span class="price-new price-on-sale h2 fw-4">
                   {% if featured_product != blank %}
-                    {{- featured_product.selected_or_first_available_variant.price | money -}}
+                    {{- featured_product.selected_or_first_available_variant.price | money_without_trailing_zeros -}}
                   {% else %}
                     {{ 1999 | money }}
                   {% endif %}
