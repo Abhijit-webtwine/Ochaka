@@ -137,7 +137,7 @@
                   {% endif %}
                   <div class="tes_author">
                     {% if block.settings.author != blank %}
-                      <p class="author-name h5">{{ block.settings.author }}</p>
+                      <p class="author-name {{ section.settings.author_size | default: 'h5' }}">{{ block.settings.author }}</p>
                     {% endif %}
                     {% if block.settings.verified %}
                       <i class="author-verified icon-check-circle{% unless is_layout_1 %} fs-24{% endunless %}"></i>
@@ -336,6 +336,22 @@
       "type": "color",
       "id": "pagination_color",
       "label": "Pagination Color"
+    },
+    {
+      "type": "select",
+      "id": "author_size",
+      "label": "Author Name Size",
+      "options": [
+        {
+          "value": "h5",
+          "label": "Small"
+        },
+        {
+          "value": "h4",
+          "label": "Medium"
+        }
+      ],
+      "default": "h5"
     },
     {
       "type": "header",
