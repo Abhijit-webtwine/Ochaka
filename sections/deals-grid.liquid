@@ -44,18 +44,19 @@
                 {%- if block.settings.product_1 != blank -%}
                   {% render 'card-product-mini', product: block.settings.product_1, card_class: 'style-border' %}
                 {%- else -%}
-                  <div class="card-product product-style_list-mini type-2 style-border hover-img">
+                  <div class="card-product product-style_list-mini type-2 style-border hover-img bg-white">
                     <div class="card-product_wrapper">
-                      <a href="#" class="product-img img-style">
-                        {{ 'product-1' | placeholder_svg_tag: 'img-product lazyload' }}
-                      </a>
+                      <div class="product-img img-style w-100 h-100">
+                        {{ 'product-apparel-1' | placeholder_svg_tag: 'img-product lazyload bg-light w-100 h-100' }}
+                      </div>
                     </div>
                     <div class="card-product_info">
-                      <a href="#" class="name-product h5 link">Sample Product 1</a>
+                      <p class="tag-product text-small">Category</p>
+                      <a href="#" class="name-product h6 fw-medium text-line-clamp-2 link">Example Product 1</a>
                       <div class="group-action">
                         <div class="price-wrap mb-0">
-                          <span class="price-old h6">$14.00</span>
-                          <span class="price-new h6">$22.00</span>
+                          <span class="price-new h6">{{ 1999 | money }}</span>
+                          <span class="price-old h6 fw-normal text-decoration-line-through">{{ 2999 | money }}</span>
                         </div>
                       </div>
                     </div>
@@ -65,18 +66,19 @@
                 {%- if block.settings.product_2 != blank -%}
                   {% render 'card-product-mini', product: block.settings.product_2, card_class: 'style-border' %}
                 {%- else -%}
-                  <div class="card-product product-style_list-mini type-2 style-border hover-img">
+                  <div class="card-product product-style_list-mini type-2 style-border hover-img bg-white">
                     <div class="card-product_wrapper">
-                      <a href="#" class="product-img img-style">
-                        {{ 'product-2' | placeholder_svg_tag: 'img-product lazyload' }}
-                      </a>
+                      <div class="product-img img-style w-100 h-100">
+                        {{ 'product-apparel-2' | placeholder_svg_tag: 'img-product lazyload bg-light w-100 h-100' }}
+                      </div>
                     </div>
                     <div class="card-product_info">
-                      <a href="#" class="name-product h5 link">Sample Product 2</a>
+                      <p class="tag-product text-small">Category</p>
+                      <a href="#" class="name-product h6 fw-medium text-line-clamp-2 link">Example Product 2</a>
                       <div class="group-action">
                         <div class="price-wrap mb-0">
-                          <span class="price-old h6">$95.00</span>
-                          <span class="price-new h6">$78.00</span>
+                          <span class="price-new h6">{{ 7800 | money }}</span>
+                          <span class="price-old h6 fw-normal text-decoration-line-through">{{ 9500 | money }}</span>
                         </div>
                       </div>
                     </div>
@@ -86,26 +88,27 @@
             </div>
           {%- elsif block.type == 'deal' -%}
             <div class="swiper-slide" {{ block.shopify_attributes }}>
-              <div class="card-product product-style_list-mini type-3 style-border hover-img">
+              <div class="card-product product-style_list-mini type-3 style-border hover-img bg-white">
                 <div class="card-product_wrapper d-flex aspect-ratio-0">
-                  <a href="{{ block.settings.product.url | default: '#' }}" class="product-img img-style">
+                  <div class="product-img img-style w-100 h-100">
                     {%- if block.settings.product != blank and block.settings.product.featured_media -%}
                       <img class="img-product lazyload" src="{{ block.settings.product.featured_media | image_url: width: 600 }}"
                         data-src="{{ block.settings.product.featured_media | image_url: width: 600 }}" alt="{{ block.settings.product.title }}" width="{{ block.settings.product.featured_media.width }}" height="{{ block.settings.product.featured_media.height }}">
                     {%- else -%}
-                      {{ 'product-1' | placeholder_svg_tag: 'img-product lazyload' }}
+                      {{ 'product-apparel-3' | placeholder_svg_tag: 'img-product lazyload bg-light w-100 h-100' }}
                     {%- endif -%}
-                  </a>
+                  </div>
                 </div>
                 <div class="card-product_info">
                   <div>
-                    <a href="{{ block.settings.product.url | default: '#' }}" class="name-product h4 fw-medium link">
-                      {%- if block.settings.product != blank -%}
+                    {%- if block.settings.product != blank -%}
+                      <a href="{{ block.settings.product.url }}" class="name-product h4 fw-medium link">
                         {{ block.settings.product.title }}
-                      {%- else -%}
-                        Anti Cellulite Massage Oil with Ginger Oil
-                      {%- endif -%}
-                    </a>
+                      </a>
+                    {%- else -%}
+                      <p class="tag-product text-small">Featured Deal</p>
+                      <a href="#" class="name-product h4 fw-medium text-line-clamp-2 link">Example Main Deal Product Title</a>
+                    {%- endif -%}
                     <div class="rate_wrap">
                       <i class="icon-star text-star"></i>
                       <i class="icon-star text-star"></i>
@@ -118,16 +121,15 @@
                     {%- liquid
                        if block.settings.product != blank
                          assign available = block.settings.product.selected_or_first_available_variant.inventory_quantity
-                         if available < 0
-                           assign available = 0
-                         endif
-                       else
-                         assign available = 57
                        endif
                     -%}
                     <div class="box-quantity">
                       <p class="text-avaiable">
-                        Available: <span class="fw-bold text-black">{{ available }}</span>
+                        {%- if available > 0 -%}
+                          Available: <span class="fw-bold text-black">{{ available }}</span>
+                        {%- else -%}
+                          <span class="fw-bold text-black">{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
+                        {%- endif -%}
                       </p>
                     </div>
                   </div>
@@ -135,15 +137,22 @@
                     {%- if block.settings.product != blank -%}
                       <h4 class="price-new">{{ block.settings.product.price | money }}</h4>
                       {%- if block.settings.product.compare_at_price > block.settings.product.price -%}
-                        <span class="price-old h6">{{ block.settings.product.compare_at_price | money }}</span>
+                        <span class="price-old h6 fw-normal text-decoration-line-through">{{ block.settings.product.compare_at_price | money }}</span>
                       {%- endif -%}
                     {%- else -%}
-                      <h4 class="price-new">$144.00</h4>
-                      <span class="price-old h6">$158.00</span>
+                      <h4 class="price-new">{{ 14400 | money }}</h4>
+                      <span class="price-old h6 fw-normal text-decoration-line-through">{{ 15800 | money }}</span>
                     {%- endif -%}
                   </div>
                   <div class="w-100">
-                    {% render 'icon-add-to-cart', type: 'button', product: block.settings.product %}
+                    {% if block.settings.product != blank %}
+                      {% render 'icon-add-to-cart', type: 'button', product: block.settings.product %}
+                    {% else %}
+                      <button class="tf-btn animate-btn w-100 btn-add-to-cart" disabled>
+                        ADD TO CART
+                        <i class="icon icon-shopping-cart-simple"></i>
+                      </button>
+                    {% endif %}
                   </div>
                 </div>
               </div>

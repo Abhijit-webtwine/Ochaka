@@ -172,8 +172,12 @@
                     </add-to-cart-count>
 
                   {% when 'inventory_status' %}
-                    <div class="title mb-12">
-                      <div class="available text">Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span></div>
+                    <div class="available text mb-12">
+                      {%- if product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+                        Available: <span class="number text-black fw-7">{{ product.selected_or_first_available_variant.inventory_quantity }}</span>
+                      {%- else -%}
+                        <span class="number text-black fw-7">{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
+                      {%- endif -%}
                     </div>
 
                   {% when 'back_in_stock' %}

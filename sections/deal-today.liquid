@@ -123,13 +123,11 @@
               <div class="product-progress_sold">
                 <div class="box-quantity">
                   <p class="text-avaiable">
-                    Available: <span class="fw-bold text-black">
-                      {%- if main_product.selected_or_first_available_variant.inventory_quantity > 0 -%}
-                        {{ main_product.selected_or_first_available_variant.inventory_quantity }}
-                      {%- else -%}
-                        {{ 'products.product.sold_out' | t }}
-                      {%- endif -%}
-                    </span>
+                    {%- if main_product.selected_or_first_available_variant.inventory_quantity > 0 -%}
+                      Available: <span class="fw-bold text-black">{{ main_product.selected_or_first_available_variant.inventory_quantity }}</span>
+                    {%- else -%}
+                      <span class="fw-bold text-black">{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
+                    {%- endif -%}
                   </p>
                 </div>
               </div>
