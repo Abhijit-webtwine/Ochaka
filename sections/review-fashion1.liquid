@@ -137,7 +137,7 @@
                   {% endif %}
                   <div class="tes_author">
                     {% if block.settings.author != blank %}
-                      <p class="author-name {{ section.settings.author_size | default: 'h5' }}">{{ block.settings.author }}</p>
+                      <p class="author-name {{ section.settings.author_size }}">{{ block.settings.author }}</p>
                     {% endif %}
                     {% if block.settings.verified %}
                       <i class="author-verified icon-check-circle{% unless is_layout_1 %} fs-24{% endunless %}"></i>

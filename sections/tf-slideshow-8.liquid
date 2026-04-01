@@ -7,8 +7,8 @@
         {%- liquid
           assign collection = block.settings.collection
           assign slider_image = block.settings.image | default: collection.featured_image
-          assign slider_title = collection.title | default: 'Example Collection'
-          assign slider_link = block.settings.button_link | default: collection.url | default: '#'
+          assign slider_title = collection.title
+          assign slider_link = block.settings.button_link | default: collection.url
         -%}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
           <div class="wg-cls-2 hover-img d-flex">
