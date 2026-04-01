@@ -7,8 +7,8 @@
         {%- liquid
           assign collection = block.settings.collection
           assign slider_image = block.settings.image | default: collection.featured_image
-          assign slider_title = collection.title
-          assign slider_link = block.settings.button_link | default: collection.url
+          assign slider_title = collection.title | default: 'Example Collection'
+          assign slider_link = block.settings.button_link | default: collection.url | default: '#'
         -%}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
           <div class="wg-cls-2 hover-img d-flex">
@@ -16,7 +16,7 @@
               {%- if slider_image != blank -%}
                 {{ slider_image | image_url: width: 1500 | image_tag: class: 'lazyload scale-item', loading: 'lazy', alt: slider_title }}
               {%- else -%}
-                {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg scale-item' }}
+                {{ 'collection-apparel-1' | placeholder_svg_tag: 'placeholder-svg scale-item' }}
               {%- endif -%}
             </a>
             <div class="cls-content_wrap b-xl-32">
