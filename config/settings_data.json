@@ -434,7 +434,7 @@
           "mega_menu_WEr9KC"
         ],
         "settings": {
-          "container_width": "container-full",
+          "container_width": "container",
           "margin_bottom": 0,
           "remove_transparent_header": false,
           "logo_position": "style_1",
