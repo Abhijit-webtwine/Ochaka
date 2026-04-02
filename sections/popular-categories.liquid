@@ -94,8 +94,8 @@
         {% for block in section.blocks %}
           {% assign collection = block.settings.collection %}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
-            <a href="{{ collection.url | default: '#' }}" class="widget-collection {% if section.settings.shape == 'circle' %}style-circle {% endif %} hover-img">
-              <div class="collection_image img-style {% if section.settings.shape == 'square' %}rounded-0{% endif %}">
+            <a href="{{ collection.url | default: '#' }}" class="widget-collection {{ section.settings.collection_spacing }} {% if section.settings.shape == 'circle' %}style-circle {% endif %} hover-img">
+              <div class="collection_image img-style {{ section.settings.aspect_ratio }} {% if section.settings.shape == 'square' %}rounded-0{% endif %}">
                 {% if block.settings.image != blank %}
                   <img
                     class="lazyload"
@@ -270,6 +270,38 @@
       "id": "show_count",
       "label": "Show Product Count",
       "default": true
+    },
+    {
+      "type": "select",
+      "id": "collection_spacing",
+      "label": "Collection Spacing",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "type-space-2",
+          "label": "Tight"
+        }
+      ],
+      "default": ""
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Aspect Ratio",
+      "options": [
+        {
+          "value": "",
+          "label": "Default"
+        },
+        {
+          "value": "aspect-1",
+          "label": "Square"
+        }
+      ],
+      "default": ""
     },
     {
       "type": "select",

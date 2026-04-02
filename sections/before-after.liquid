@@ -1,4 +1,6 @@
-<section class="section-before-after flat-spacing">
+{{ 'image-compare-viewer.min.css' | asset_url | stylesheet_tag }}
+
+<section class="section-before-after">
   <div class="container">
     {% if section.settings.title != blank or section.settings.subtitle != blank %}
       <div class="sect-title text-center wow fadeInUp">
@@ -21,7 +23,7 @@
           height="{{ section.settings.image_before.height }}"
         >
       {% else %}
-        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg placeholder-before' }}
+        {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg placeholder-before w-100 h-100' }}
       {% endif %}
 
       {% if section.settings.image_after != blank %}
@@ -33,7 +35,7 @@
           height="{{ section.settings.image_after.height }}"
         >
       {% else %}
-        {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg placeholder-after' }}
+        {{ 'hero-apparel-2' | placeholder_svg_tag: 'placeholder-svg placeholder-after w-100 h-100' }}
       {% endif %}
     </div>
   </div>

@@ -2149,7 +2149,7 @@
 
     .collection_image {
         border-radius: 32px;
-        aspect-ratio: 1;
+        // aspect-ratio: 1;
     }
 
     .collection_name {
@@ -2438,29 +2438,29 @@
     }
 
     &.style-2 {
-        margin: 0;
-        padding: 24px 0px;
-        color: var(--black);
+        // margin: 0;
+        // padding: 24px 0px;
+        // color: var(--black);
 
         .icon {
             font-size: 24px;
         }
     }
 
-    &.style-3 {
-        margin: 0;
-        // padding: 12px 0px;
-    }
+    // &.style-3 {
+    //     margin: 0;
+    //     // padding: 12px 0px;
+    // }
 
-    &.style-4 {
-        margin: 0;
-        padding: 8px 0px;
-    }
+    // &.style-4 {
+    //     margin: 0;
+    //     padding: 8px 0px;
+    // }
 
-    &.style-5 {
-        margin: 0;
-        padding: 16px 0px;
-    }
+    // &.style-5 {
+    //     margin: 0;
+    //     padding: 16px 0px;
+    // }
 
     @include res(xl) {
         .text-display {
