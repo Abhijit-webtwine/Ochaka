@@ -7,6 +7,9 @@
   .tf-header .header-inner .item-link {
     color: {{ section.settings.header_inner_text_color }};
   }
+  .tf-header .header-inner .item-link .icon {
+    color: {{ section.settings.header_inner_text_color }};
+  }
 </style>
 {% liquid
   if section.settings.header_style == 'header-abs-3'
@@ -20,7 +23,7 @@
     endif
   -%}
   <div class="header-top">
-    <div class="container">
+    <div class="{{ section.settings.container }}">
       <div class="row align-items-center">
         <div class="col-md-4 col-3 d-xl-none">
           <a
@@ -226,6 +229,22 @@
 {
   "name": "Header 2",
   "settings": [
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Container Type",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "container-full-2",
+          "label": "Full Width"
+        }
+      ]
+    },
     {
       "type": "select",
       "id": "menu_item_style",

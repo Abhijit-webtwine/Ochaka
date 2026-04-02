@@ -31,9 +31,10 @@
   if layout_style == 'style_2'
     assign left_col_class = 'col-xl-6 col-lg-8'
     assign right_col_class = 'col-xl-6 col-lg-4'
-    if section.settings.show_seperator
-      assign seperator_type = section.settings.seperator_type
-    endif
+  endif
+
+  if section.settings.show_seperator
+    assign seperator_type = section.settings.seperator_type
   endif
 
   assign show_right_seperator = false

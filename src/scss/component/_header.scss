@@ -313,7 +313,7 @@ header {
     .icon {
         font-size: 14px;
         @include transition3;
-        color: var(--black);
+        // color: var(--black);
     }
 
     &::after {
