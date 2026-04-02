@@ -133,6 +133,7 @@
           
           {%- assign total_price = 0 -%}
           {%- assign set_variant_ids = '' -%}
+          {%- assign is_all_available = true -%}
           
           <ul class="list-ver w-100 bundle-hover-wrap">
             {% for block in section.blocks %}
@@ -171,6 +172,9 @@
                             {% endif %}
                           </span>
                         </div>
+                        {% if product.available == false %}
+                          {%- assign is_all_available = false -%}
+                        {% endif %}
                         {%- assign total_price = total_price | plus: product.price -%}
                         {%- assign set_variant_ids = set_variant_ids | append: product.selected_or_first_available_variant.id | append: ',' -%}
                       {% else %}
@@ -205,29 +209,32 @@
               {% endif %}
             {% endfor %}
           </ul>
-          
-          <product-form-multi-add class="w-100 text-center">
-            {%- assign product_form_id = 'product-form' | append: section.id -%}
-            {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
-              {% assign variant_ids = set_variant_ids | split: "," %}
-              {% for v_id in variant_ids %}
-                {% if v_id != blank %}
-                  <input type="hidden" name="id" value="{{ v_id }}">
-                {% endif %}
-              {% endfor %}
-              <div class="w-100 text-center">
-                <p class="h4 text-black total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
-                <button
-                  type="submit"
-                  name="add"
-                  class="tf-btn w-100 banner-lookbook-set-btn"
-                >
-                  ADD SET TO CART
-                  <i class="icon icon-shopping-cart-simple"></i>
-                </button>
-              </div>
-            {%- endform -%}
-          </product-form-multi-add>
+
+          {% if product != blank %}
+            <product-form-multi-add class="w-100 text-center">
+              {%- assign product_form_id = 'product-form' | append: section.id -%}
+              {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+                {% assign variant_ids = set_variant_ids | split: "," %}
+                {% for v_id in variant_ids %}
+                  {% if v_id != blank %}
+                    <input type="hidden" name="id" value="{{ v_id }}">
+                  {% endif %}
+                {% endfor %}
+                <div class="w-100 text-center">
+                  <p class="h4 text-black total-price">Total price: <span class="fw-bold">{{ total_price | money }}</span></p>
+                  <button
+                    type="submit"
+                    name="add"
+                    class="tf-btn w-100 banner-lookbook-set-btn"
+                    disabled
+                  >
+                    ADD SET TO CART
+                    <i class="icon icon-shopping-cart-simple"></i>
+                  </button>
+                </div>
+              {%- endform -%}
+            </product-form-multi-add>
+          {% endif %}
 
         </div>
       </div>

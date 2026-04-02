@@ -1,5 +1,10 @@
 {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+{%- style -%}
+  .tf-header {
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+{%- endstyle -%}
 
 {% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list,faq' | split: ',' %}
 
@@ -16,7 +21,7 @@
       render 'header-drawer', main_menu: section.settings.menu, menu_item_style: section.settings.menu_item_style
     endif
   -%}
-  <div class="container-full">
+  <div class="{{ section.settings.container_width }}">
     <div class="row align-items-center">
       <div class="col-md-4 col-3 d-xl-none">
         <a href="#mobileMenu" data-bs-toggle="offcanvas" class="btn-mobile-menu">
@@ -80,6 +85,32 @@
 {
   "name": "t:sections.header.name",
   "settings": [
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Container Type",
+      "default": "container-full",
+      "options": [
+        {
+          "value": "container",
+          "label": "Container"
+        },
+        {
+          "value": "container-full",
+          "label": "Full Width"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Bottom Spacing",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
     {
       "type": "checkbox",
       "id": "remove_transparent_header",
