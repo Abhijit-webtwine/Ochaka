@@ -1,10 +1,12 @@
 {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
-{%- style -%}
-  .tf-header {
-    margin-bottom: {{ section.settings.margin_bottom }}px;
-  }
-{%- endstyle -%}
+{% if section.settings.remove_transparent_header %}
+  {%- style -%}
+    .tf-header {
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  {%- endstyle -%}
+{% endif %}
 
 {% assign excluded_suffixes = 'contact,contactus,contact-2,contact-us,contact-us-2,our-store,ourstore,store-list,faq' | split: ',' %}
 
