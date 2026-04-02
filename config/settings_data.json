@@ -33,12 +33,12 @@
     "free_shipping_minimum_amount": "75",
     "cart_recommendations_enabled": true,
     "cart_recommendations_heading": "You may also like",
-    "predictive_search_show_vendor": false,
     "social_facebook_link": "https://www.facebook.com/beautystat/",
     "social_instagram_link": "https://www.instagram.com/BeautyStat/",
     "social_tiktok_link": "https://www.tiktok.com/@beautystat",
     "favicon": "shopify://shop_images/favicon_32x32_52d0a381-a516-46fc-99ac-1e103ec32a0d.jpg",
     "gift_card_logo_height": 70,
+    "predictive_search_show_vendor": false,
     "colors_solid_button_labels": "#30360d",
     "colors_accent": "#bec5ce",
     "colors_background": "#ffffff",
@@ -94,7 +94,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "section_width": "container",
+          "section_width": "container-full-2",
           "topbar_layout": "style_1",
           "switcher_layout": "",
           "spacing": "",
@@ -434,6 +434,8 @@
           "mega_menu_WEr9KC"
         ],
         "settings": {
+          "container_width": "container",
+          "margin_bottom": 0,
           "remove_transparent_header": false,
           "logo_position": "style_1",
           "header_height": "style_1",
@@ -593,7 +595,6 @@
         "settings": {
           "bg_color": "#000000",
           "text_color": "#ffffff",
-          "padding_vertical": 16,
           "clone_count": 5,
           "speed": 50,
           "direction": "left"
