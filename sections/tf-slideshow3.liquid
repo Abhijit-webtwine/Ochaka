@@ -6,7 +6,11 @@
           <div class="swiper-slide">
             <div class="slider-wrap_2">
               <div class="sld_image type-radius">
-                {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'scale-item sale-item-1' }}
+                {% if block.settings.image != blank %}
+                  {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'scale-item sale-item-1' }}
+                {% else %}
+                  {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg scale-item sale-item-1' }}
+                {% endif %}
               </div>
               <div class="sld_content type-normal type-radius" style="background-color: {{ block.settings.bg_color }}">
                 <div class="container">
@@ -121,7 +125,18 @@
   "presets": [
     {
       "name": "Slideshow 3",
-      "category": "Image"
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        },
+        {
+          "type": "slide"
+        }
+      ]
     }
   ]
 }
