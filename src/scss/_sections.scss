@@ -4572,6 +4572,14 @@
     gap: 8px;
 }
 
+.s-map {
+    height: 700px;
+
+    @include res(xl) {
+        height: 450px;
+    }
+}
+
 .s-contact-information {
     .image {
         width: 100%;
@@ -4623,14 +4631,6 @@
                 padding-bottom: 0px;
             }
         }
-    }
-}
-
-.s-map {
-    height: 700px;
-
-    @include res(xl) {
-        height: 450px;
     }
 }
 
