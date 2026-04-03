@@ -1,0 +1,244 @@
+{% style %}
+  .section-{{ section.id }}-review-about {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .section-{{ section.id }}-review-about {
+      padding-top: {{ section.settings.padding_top_tablet }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
+    }
+  }
+
+  @media screen and (min-width: 1025px) {
+    .section-{{ section.id }}-review-about {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<section class="flat-spacing section-{{ section.id }}-review-about">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        {% if section.settings.show_top_separator %}
+          <div class="flat-spacing pt-0">
+            <span class="br-line d-flex"></span>
+          </div>
+        {% endif %}
+
+        <div class="sect-title text-center">
+          {% if section.settings.heading != blank %}
+            <h1 class="s-title mb-8">{{ section.settings.heading }}</h1>
+          {% endif %}
+          {% if section.settings.subheading != blank %}
+            <p class="s-subtitle h6">{{ section.settings.subheading }}</p>
+          {% endif %}
+        </div>
+
+        <div class="slider-thumb-wrap">
+          <div dir="ltr" class="swiper tf-swiper slider-content-thumb">
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+                <div class="swiper-slide" {{ block.shopify_attributes }}>
+                  <div class="testimonial-V05">
+                    <div class="tes_icon">
+                      <i class="icon icon-block-quote"></i>
+                    </div>
+                    <div class="tes_author">
+                      {% if block.settings.author_name != blank %}
+                        <p class="author-name h4">{{ block.settings.author_name }}</p>
+                      {% endif %}
+                      {% if block.settings.is_verified %}
+                        <i class="author-verified icon-check-circle"></i>
+                      {% endif %}
+                    </div>
+                    {% render 'testimonial-review', rating: block.settings.rating %}
+                    {% if block.settings.review_text != blank %}
+                      <p class="tes_text h4">“ {{ block.settings.review_text }} “</p>
+                    {% endif %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="slider-btn-thumbs">
+            {% for block in section.blocks %}
+              <div class="btn-thumbs {% if forloop.first %}active{% endif %}">
+                {% if block.settings.author_avatar != blank %}
+                  <img
+                    src="{{ block.settings.author_avatar | image_url: width: 100 }}"
+                    alt="{{ block.settings.author_name | escape }}"
+                  >
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Review About",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_top_separator",
+      "label": "Show Top Separator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top Desktop",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom Desktop",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_top_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top Tablet",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_tablet",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom Tablet",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top Mobile",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom Mobile",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Customer Review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name",
+          "default": "Brooklyn Simmons"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_avatar",
+          "label": "Author Avatar"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_verified",
+          "label": "Is Verified",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Rating",
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review Text",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce malesuada nulla a diam tempus mattis ut at odio. Nam pharetra et sapien posuere placerat. Sed vitae rhoncus nibh. Phasellus suscipit vitae lorem vel pretium"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Review About",
+      "blocks": [
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Brooklyn Simmons",
+            "review_text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce malesuada nulla a diam tempus mattis ut at odio. Nam pharetra et sapien posuere placerat. Sed vitae rhoncus nibh. Phasellus suscipit vitae lorem vel pretium"
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Mas Shin",
+            "review_text": "Our experience with ACIS has been excellent. Their support team is always quick to respond and very professional. They handle all questions and issues with great care and efficiency, making them a reliable partner we truly appreciate."
+          }
+        },
+        {
+          "type": "review",
+          "settings": {
+            "author_name": "Sil Vox",
+            "review_text": "ACIS consistently provides fast, professional support whenever we need it. Their team is knowledgeable and always ready to help with any issue, big or small. We really appreciate their reliable partnership."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
