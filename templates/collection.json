@@ -57,7 +57,7 @@
       ],
       "name": "Collection Slider 2",
       "settings": {
-        "pill_size": "",
+        "pill_size": "style-2",
         "padding_top_desktop": 112,
         "padding_bottom_desktop": 112,
         "padding_top_tablet": 80,
