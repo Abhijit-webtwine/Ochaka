@@ -82,6 +82,8 @@
       "name": "Brand Story",
       "settings": {
         "title": "Brand Story",
+        "heading_style": "true",
+        "heading_weight": "none",
         "subtitle": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit",
         "slogan": "WE PRIORITIZE SUSTAINABLE AND ENVIRONMENTALLY FRIENDLY DEVELOPMENT.",
         "intro_text": "<p>Morbi finibus erat ullamcorper malesuada placerat. Integer malesuada orci sed nulla scelerisque fermentum. Suspendisse lacinia elit at bibendum tincidunt.</p>",
@@ -132,9 +134,17 @@
       ],
       "name": "Instagram Slider",
       "settings": {
+        "container_type": "full-width",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
         "slides_desktop": 4,
         "slides_tablet": "3",
         "slides_mobile": "2",
+        "space": 0,
         "heading": "Shop Instagram",
         "subheading": "<p>Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>"
       }
