@@ -88,10 +88,22 @@
                     -%}
                     <div class="tf-product-heading {% if layout_type == 'price_visitor' or layout_type == 'price_rating' %}gap-32 align-items-center justify-content-start {% endif %} {% if block.settings.hide_border_top %}border-top-0{% endif %} {% if block.settings.hide_border_bottom %}border-bottom-0{% endif %}">
                       <div id="price-{{ section.id }}" class="product-info-price price-wrap {% if layout_type == 'price_rating' %}gap-12{% endif %}">
-                        <span class="price-new price-on-sale {{ price_h }} fw-4 {% if layout_type == 'price_rating' %}m-0{% endif %}">{{ product.selected_or_first_available_variant.price | money }}</span>
+                        <span class="price-new price-on-sale {{ price_h }} fw-4 {% if layout_type == 'price_rating' %}m-0{% endif %}">
+                          {%- if block.settings.show_trailing_zeros -%}
+                            {{ product.selected_or_first_available_variant.price | money }}
+                          {%- else -%}
+                            {{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}
+                          {%- endif -%}
+                        </span>
                         {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
                           {% if block.settings.show_compare_price %}
-                            <span class="price-old {% if layout_type == 'price_rating' %}compare-at-price{% endif %} {{ compare_price_h }} fw-4">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+                            <span class="price-old {% if layout_type == 'price_rating' %}compare-at-price{% endif %} {{ compare_price_h }} fw-4">
+                              {%- if block.settings.show_trailing_zeros -%}
+                                {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                              {%- else -%}
+                                {{ product.selected_or_first_available_variant.compare_at_price | money_without_trailing_zeros }}
+                              {%- endif -%}
+                            </span>
                           {% endif %}
 
                           {% if block.settings.show_discount %}
@@ -1426,6 +1438,12 @@
             { "value": "h6", "label": "Small" }
           ],
           "default": "h6"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_trailing_zeros",
+          "label": "Show Trailing Zeros",
+          "default": true
         },
         {
           "type": "checkbox",
