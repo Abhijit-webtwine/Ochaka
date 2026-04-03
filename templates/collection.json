@@ -59,20 +59,20 @@
       "settings": {
         "pill_size": "style-2",
         "padding_top_desktop": 112,
-        "padding_bottom_desktop": 112,
+        "padding_bottom_desktop": 0,
         "padding_top_tablet": 80,
-        "padding_bottom_tablet": 80,
+        "padding_bottom_tablet": 0,
         "padding_top_mobile": 60,
-        "padding_bottom_mobile": 60,
+        "padding_bottom_mobile": 0,
         "slides_desktop": 5,
-        "slides_tablet": 3,
-        "slides_mobile": 2,
-        "space_desktop": 24,
-        "space_tablet": 12,
+        "slides_tablet": 4,
+        "slides_mobile": 3,
+        "space_desktop": 40,
+        "space_tablet": 24,
         "space_mobile": 12,
-        "show_pagination": true,
-        "heading": "Explore Category",
-        "description": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+        "show_pagination": false,
+        "heading": "",
+        "description": ""
       }
     },
     "product-grid": {
