@@ -9,6 +9,76 @@
  */
 {
   "sections": {
+    "contact_information_yDY7nj": {
+      "type": "contact-information",
+      "blocks": {
+        "store_address_AzeeKt": {
+          "type": "store-address",
+          "settings": {
+            "title": "Address",
+            "address": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+            "map_url": "",
+            "button_label": "Get Direction"
+          },
+          "blocks": {}
+        },
+        "store_contact_GJfU7t": {
+          "type": "store-contact",
+          "settings": {
+            "title": "Contact Us",
+            "phone": "+8(800) 123 4567",
+            "email": "jthemesonline@gmail.com"
+          },
+          "blocks": {}
+        },
+        "store_social_JnqF4g": {
+          "type": "store-social",
+          "settings": {
+            "heading": "Social Media"
+          },
+          "blocks": {}
+        },
+        "store-address": {
+          "type": "store-address",
+          "static": true,
+          "settings": {
+            "title": "Address",
+            "address": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
+            "map_url": "shopify://collections/furniture-copy",
+            "button_label": "Get Direction"
+          },
+          "blocks": {}
+        },
+        "store-contact": {
+          "type": "store-contact",
+          "static": true,
+          "settings": {
+            "title": "Contact Us",
+            "phone": "+8(800) 123 4567",
+            "email": "jthemesonline@gmail.com"
+          },
+          "blocks": {}
+        },
+        "store-social": {
+          "type": "store-social",
+          "static": true,
+          "settings": {
+            "heading": "Social Media"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "store_address_AzeeKt",
+        "store_contact_GJfU7t",
+        "store_social_JnqF4g"
+      ],
+      "name": "Contact Information",
+      "settings": {
+        "image": "shopify://shop_images/contact-information.jpg",
+        "heading": "Contact Information"
+      }
+    },
     "main": {
       "type": "contact-us",
       "blocks": {
@@ -56,11 +126,73 @@
         "right_description": "Our one-to-one support is a big part of our company. Contact us by phone or email to get help from our qualified team.",
         "name_placeholder": "Name *",
         "email_placeholder": "Email *",
-        "message_placeholder": "Message"
+        "message_placeholder": "Message",
+        "btn_label": "SEND"
+      }
+    },
+    "instagram_slider_KBUbjL": {
+      "type": "instagram-slider",
+      "blocks": {
+        "image_f3EyY9": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-11.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_ddLk6P": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-12.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_VbMaBj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-13.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        },
+        "image_FHfk33": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/gallery-14.jpg",
+            "link": "shopify://collections",
+            "tooltip_text": "View product"
+          }
+        }
+      },
+      "block_order": [
+        "image_f3EyY9",
+        "image_ddLk6P",
+        "image_VbMaBj",
+        "image_FHfk33"
+      ],
+      "name": "Instagram Slider",
+      "settings": {
+        "container_type": "full-width",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0,
+        "slides_desktop": 4,
+        "slides_tablet": "3",
+        "slides_mobile": "2",
+        "space": 0,
+        "heading": "Shop Instagram",
+        "subheading": "<p>Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>"
       }
     }
   },
   "order": [
-    "main"
+    "contact_information_yDY7nj",
+    "main",
+    "instagram_slider_KBUbjL"
   ]
 }
