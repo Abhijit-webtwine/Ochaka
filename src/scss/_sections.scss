@@ -4627,6 +4627,10 @@
 }
 
 .s-map {
-  height: 100%;
+    height: 700px;
+
+    @include res(xl) {
+        height: 450px;
+    }
 }
 
