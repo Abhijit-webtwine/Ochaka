@@ -300,14 +300,16 @@
                                     height="{{ current_variant_image.height }}">
 
                                   {% assign savings = 'savings-' | append: forloop.index %}
-                                  <div class="tags-save h6">
-                                    {% unless forloop.first %}
-                                      {% if block.settings.show_gift_icon %}
-                                        {% render '_icon-gift' %}
-                                      {% endif %}
-                                    {% endunless %}
-                                    {{ block.settings[savings] }}
-                                  </div>
+                                  {% if block.settings[savings] != blank %}
+                                    <div class="tags-save h6">
+                                      {% unless forloop.first %}
+                                        {% if block.settings.show_gift_icon %}
+                                          {% render '_icon-gift' %}
+                                        {% endif %}
+                                      {% endunless %}
+                                      {{ block.settings[savings] }}
+                                    </div>
+                                  {% endif %}
 
                                 </div>
                                 <div class="content-discount text-start">
@@ -432,7 +434,7 @@
                       </div>
                       
                       {% assign product_form_id = 'product-form-volume-thumb-' | append: section.id %}
-                      {%- form 'product', product, id: product_form_id, class: 'w-100' -%}
+                      {%- form 'product', product, id: product_form_id, class: 'w-100 position-static' -%}
                         {% assign first_bundle = discount_products.first %}
                         {% assign first_bundle_qty = block.settings.opt1_qty | default: 1 %}
                         <input type="hidden" name="id" value="{{ first_bundle.selected_or_first_available_variant.id }}">
