@@ -275,6 +275,37 @@
                       {% endform %}
                     </product-form>
                     {%- endunless -%}
+                  {% when 'product_info_tags' %}
+                    <style>
+                      .block-{{ block.id }} .tags {
+                        background-color: {{ block.settings.tag_bg_color }};
+                        color: {{ block.settings.tag_text_color }};
+                        border-color: {{ block.settings.tag_border_color }};
+                      }
+                      .block-{{ block.id }} .accent-color {
+                        color: {{ block.settings.accent_color }};
+                      }
+                      .block-{{ block.id }} svg path {
+                        fill: {{ block.settings.accent_color }};
+                      }
+                    </style>
+                    <div class="tf-product-info-tags block-{{ block.id }}">
+                      <div class="tf-product-tags">
+                        <div class="tags text-small fw-7">{{ block.settings.status_text }}</div>
+                      </div>
+                      <div class="tf-product-tags">
+                        <div class="tags text-small fw-7">{{ block.settings.badge_text }}</div>
+                        <div class="h6 fw-6 text-black d-flex align-items-center gap-4">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.60231 21.9271L11.0868 14.672C11.1168 14.5253 11.0829 14.387 10.9882 14.2709C10.8936 14.1551 10.7648 14.0939 10.6151 14.0939H6.85253C6.70212 14.0939 6.57252 14.032 6.47792 13.9149C6.38348 13.798 6.35009 13.6583 6.38171 13.5111L8.87904 1.8864C8.92829 1.65671 9.13052 1.49859 9.36526 1.50612L17.1706 1.7568C17.3425 1.76221 17.4877 1.84954 17.5731 1.9989C17.6586 2.14825 17.6602 2.31771 17.5779 2.46874L13.4343 10.0623C13.3495 10.218 13.354 10.3937 13.4466 10.5448C13.5393 10.6959 13.694 10.7795 13.8713 10.7743L17.0437 10.6811C17.2279 10.6757 17.3886 10.767 17.4785 10.9279C17.5683 11.0889 17.5614 11.2737 17.4599 11.4276L14.6566 15.6774C14.6547 15.6801 14.6534 15.6824 14.6515 15.6853L10.4812 22.2811C10.3557 22.4794 10.1117 22.5581 9.89399 22.4703C9.67643 22.3826 9.55536 22.1569 9.60231 21.9271Z" fill="#C8102E"></path>
+                          </svg>
+                          <add-to-cart-count min="{{ block.settings.min_count }}" max="{{ block.settings.max_count }}">
+                            <span class="accent-color">{{ block.settings.selling_fast_text }}</span> <span class="vc-number">72</span> {{ block.settings.cart_count_template }}
+                          </add-to-cart-count>
+                        </div>
+                      </div>
+                    </div>
+
                 {% endcase %}
               {% endfor %}
 
@@ -1678,6 +1709,78 @@
           "id": "show_atc_count",
           "label": "Show ATC Count",
           "default": true
+        }
+      ]
+    },
+    {
+      "type": "product_info_tags",
+      "name": "Product Info Tags",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "status_text",
+          "label": "Status Text",
+          "default": "INSTOCK"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "default": "BEST SELLER"
+        },
+        {
+          "type": "text",
+          "id": "selling_fast_text",
+          "label": "Selling Fast Text",
+          "default": "Selling fast!"
+        },
+        {
+          "type": "text",
+          "id": "cart_count_template",
+          "label": "Cart Count Template",
+          "default": "people have this in their carts.",
+          "info": "The number will be inserted before this text."
+        },
+        {
+          "type": "number",
+          "id": "min_count",
+          "label": "Minimum Counter",
+          "default": 10
+        },
+        {
+          "type": "number",
+          "id": "max_count",
+          "label": "Maximum Counter",
+          "default": 100
+        },
+        {
+          "type": "header",
+          "content": "Color Settings"
+        },
+        {
+          "type": "color",
+          "id": "tag_bg_color",
+          "label": "Tag Background Color",
+          "default": "transparent"
+        },
+        {
+          "type": "color",
+          "id": "tag_text_color",
+          "label": "Tag Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "tag_border_color",
+          "label": "Tag Border Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent Color (SVG & Text)",
+          "default": "#EB3333"
         }
       ]
     },
