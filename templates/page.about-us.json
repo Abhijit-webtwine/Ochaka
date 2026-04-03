@@ -9,15 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "main-page",
-      "disabled": true,
-      "settings": {
-        "narrow": true,
-        "padding_top": 60,
-        "padding_bottom": 72
-      }
-    },
     "about_us_banner_fmhDDB": {
       "type": "about-us-banner",
       "name": "About Us Banner",
@@ -141,7 +132,6 @@
       ],
       "name": "Instagram Slider",
       "settings": {
-        "spacing": true,
         "slides_desktop": 4,
         "slides_tablet": "3",
         "slides_mobile": "2",
@@ -151,7 +141,6 @@
     }
   },
   "order": [
-    "main",
     "about_us_banner_fmhDDB",
     "store_intro_JVwYtj",
     "about_img_grid_ciEFXp",
