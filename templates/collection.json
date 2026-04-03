@@ -1,36 +1,89 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "collection_slider_2_rMxwfz": {
+      "type": "collection-slider-2",
+      "blocks": {
+        "collection_item_aTNDHM": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "men-copy",
+            "image": "shopify://shop_images/cate-shop-1.jpg"
+          }
+        },
+        "collection_item_XVDpti": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "men",
+            "image": "shopify://shop_images/cate-shop-2.jpg"
+          }
+        },
+        "collection_item_qaXL9G": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "furniture-copy",
+            "image": "shopify://shop_images/cate-shop-3.jpg"
+          }
+        },
+        "collection_item_CEUUWt": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "dresses",
+            "image": "shopify://shop_images/cate-shop-4.jpg"
+          }
+        },
+        "collection_item_n48jjj": {
+          "type": "collection_item",
+          "settings": {
+            "collection": "bras",
+            "image": "shopify://shop_images/cate-shop-5.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "collection_item_aTNDHM",
+        "collection_item_XVDpti",
+        "collection_item_qaXL9G",
+        "collection_item_CEUUWt",
+        "collection_item_n48jjj"
+      ],
+      "name": "Collection Slider 2",
+      "settings": {
+        "pill_size": "",
+        "padding_top_desktop": 112,
+        "padding_bottom_desktop": 112,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60,
+        "slides_desktop": 5,
+        "slides_tablet": 3,
+        "slides_mobile": 2,
+        "space_desktop": 24,
+        "space_tablet": 12,
+        "space_mobile": 12,
+        "show_pagination": true,
+        "heading": "Explore Category",
+        "description": "Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+      }
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
-        "products_per_row": 3,
-        "rows_per_page": 3,
-        "columns_mobile": "2",
-        "pagination": "paginated",
-        "enable_sticky_facet": true,
-        "enable_sorting": false,
-        "enable_viewing": false,
-        "enable_filtering": false,
-        "filter_type": "vertical",
-        "enable_filtering_color_swatches": false,
-        "filtering_color_swatches_add_label": false,
-        "filtering_max_items": 6,
-        "image_ratio": "square",
-        "image_position": "center center",
-        "enable_image_fill": false,
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": true,
-        "show_quick_buy": true,
-        "enable_quick_view": false,
-        "enable_color_swatches": false,
-        "enable_countdown": false,
-        "padding_top": 0,
-        "padding_bottom": 72
+        "remove_gap": false
       }
     }
   },
   "order": [
-    "product-grid",
+    "collection_slider_2_rMxwfz",
+    "product-grid"
   ]
 }
