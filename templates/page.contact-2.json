@@ -10,123 +10,57 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
-      "disabled": true,
-      "settings": {
-        "narrow": true,
-        "padding_top": 60,
-        "padding_bottom": 72
-      }
-    },
-    "contact_information_ciGdtF": {
-      "type": "contact-information",
+      "type": "contact-us",
       "blocks": {
-        "address_MpGHJP": {
+        "address_Wh7AFC": {
           "type": "address",
           "settings": {
-            "title": "Address",
-            "address": "2972 Westheimer Rd. Santa Ana, Illinois 85486",
-            "map_url": "shopify://blogs/news",
-            "button_label": "Get Direction"
+            "address": "Address:",
+            "text": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+            "map_url": ""
           }
         },
-        "contact_XqcthA": {
-          "type": "contact",
+        "email_7WDReh": {
+          "type": "email",
           "settings": {
-            "title": "Contact Us",
-            "phone": "+8(800) 123 4567",
+            "label": "Email:",
             "email": "jthemesonline@gmail.com"
           }
         },
-        "social_m9yqAY": {
-          "type": "social",
+        "phone_gatYVw": {
+          "type": "phone",
           "settings": {
-            "title": "Social Media"
+            "label": "Phone:",
+            "phone": "+8(800) 123 4567"
+          }
+        },
+        "hours_VNL3Cx": {
+          "type": "hours",
+          "settings": {
+            "label": "Opening Hour:",
+            "hours": "Mon - Fri: 8am to 4.30pm GST\nSat: 9am to 3pm GST\nSun: Close"
           }
         }
       },
       "block_order": [
-        "address_MpGHJP",
-        "contact_XqcthA",
-        "social_m9yqAY"
+        "address_Wh7AFC",
+        "email_7WDReh",
+        "phone_gatYVw",
+        "hours_VNL3Cx"
       ],
-      "name": "Contact Information",
+      "name": "Contact Us",
       "settings": {
-        "image": "shopify://shop_images/contact-information.jpg",
-        "heading": "Contact Information"
-      }
-    },
-    "contact_us_2_ULAREx": {
-      "type": "contact-us-2",
-      "name": "Contact Us 2",
-      "settings": {
-        "map_iframe": "",
-        "form_title": "Contact Form",
-        "form_subtitle": "Contact us using the form below, we will contact you as soon as possible",
-        "name_placeholder": "Your name",
-        "phone_placeholder": "Your phone number",
-        "email_placeholder": "Your email",
-        "message_placeholder": "Your message",
-        "submit_button_text": "Send message"
-      }
-    },
-    "instagram_slider_LjzBxH": {
-      "type": "instagram-slider",
-      "blocks": {
-        "image_gtMjUj": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-11.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_p4c7PF": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-12.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_xiJXYb": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-13.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        },
-        "image_9CgKVN": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/gallery-14.jpg",
-            "link": "shopify://collections",
-            "tooltip_text": "View product"
-          }
-        }
-      },
-      "block_order": [
-        "image_gtMjUj",
-        "image_p4c7PF",
-        "image_xiJXYb",
-        "image_9CgKVN"
-      ],
-      "name": "Instagram Slider",
-      "settings": {
-        "spacing": true,
-        "slides_desktop": 4,
-        "slides_tablet": "3",
-        "slides_mobile": "2",
-        "heading": "Shop Instagram",
-        "subheading": "<p>Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>"
+        "map_iframe": "<iframe\n                    src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7880.148272329334!2d151.20657421407668!3d-33.858885268389294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae682c546039%3A0x16da940d587922a1!2sCircular%20Quay!5e0!3m2!1sen!2s!4v1745205798630!5m2!1sen!2s\"\n                    width=\"100%\" height=\"461\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"\n                    referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+        "left_title": "Visit Our Store",
+        "right_title": "Get In Touch",
+        "right_description": "Our one-to-one support is a big part of our company. Contact us by phone or email to get help from our qualified team.",
+        "name_placeholder": "Name *",
+        "email_placeholder": "Email *",
+        "message_placeholder": "Message"
       }
     }
   },
   "order": [
-    "main",
-    "contact_information_ciGdtF",
-    "contact_us_2_ULAREx",
-    "instagram_slider_LjzBxH"
+    "main"
   ]
 }
