@@ -373,10 +373,11 @@
                             {% endfor %}
                           </div>
 
-                          <button class="tf-btn bg-green w-100 animate-btn btn-add-to-cart effect-flash"
+                          <button class="tf-btn w-100 animate-btn btn-add-to-cart effect-flash"
                             type="submit"
                             {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
                             form="{{ product_form_id }}"
+                            style="background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};"
                           >
                             Choose this deal
                           </button>
@@ -419,7 +420,7 @@
                             {% endif %}
                           {% endfor %}
                         </div>
-                        <button type="submit" name="add" class="tf-btn animate-btn btn-add-to-cart" style="margin-top:20px;">
+                        <button type="submit" name="add" class="tf-btn animate-btn btn-add-to-cart" style="margin-top:20px; background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};">
                           Choose this deal
                         </button>
                       {%- endform -%}
@@ -482,7 +483,7 @@
                             </div>
                           {% endfor %}
                         </div>
-                        <button type="submit" name="add" class="tf-btn animate-btn btn-add-to-cart" style="margin-top:20px;">
+                        <button type="submit" name="add" class="tf-btn animate-btn btn-add-to-cart w-100" style="margin-top:20px; background-color: {{ block.settings.button_bg_color }}; color: {{ block.settings.button_text_color }};">
                           Choose this deal
                         </button>
                       {%- endform -%}
@@ -1048,6 +1049,22 @@
           "id": "show_gift_icon",
           "label": "Show Gift Icon",
           "default": true
+        },
+        {
+          "type": "header",
+          "content": "Button Colors"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background Color",
+          "default": "#40c057"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
         }
       ]
     },
@@ -1109,6 +1126,22 @@
           "id": "opt3_discount",
           "label": "Discount %",
           "default": 25
+        },
+        {
+          "type": "header",
+          "content": "Button Colors"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
         }
       ]
     },
@@ -1170,6 +1203,22 @@
           "id": "opt3_discount",
           "label": "Discount %",
           "default": 15
+        },
+        {
+          "type": "header",
+          "content": "Button Colors"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button Text Color",
+          "default": "#ffffff"
         }
       ]
     },
