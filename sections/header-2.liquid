@@ -10,6 +10,20 @@
   .tf-header .header-inner .item-link .icon {
     color: {{ section.settings.header_inner_text_color }};
   }
+  {% if section.settings.remove_transparent_header or template != 'index' %}
+    .tf-header[class*="header-abs"] {
+      margin-bottom: 0;
+      background-color: {{ section.settings.removed_header_bg }};
+    }
+    .tf-header[class*="header-abs"] .item-link,
+    .tf-header[class*="header-abs"] .icon,
+    .tf-header[class*="header-abs"] .logo-bottom span,
+    .tf-header[class*="header-abs"] .btn-mobile-menu span,
+    .tf-header[class*="header-abs"] .btn-mobile-menu::before,
+    .tf-header[class*="header-abs"] .btn-mobile-menu::after {
+      color: {{ section.settings.removed_header_color }};
+    }
+  {% endif %}
 </style>
 {% liquid
   if section.settings.header_style == 'header-abs-3'
@@ -338,6 +352,24 @@
       "id": "show_seperator",
       "label": "Show Seperator",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "remove_transparent_header",
+      "label": "Remove Transparent Header",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "removed_header_bg",
+      "label": "Solid Header Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "removed_header_color",
+      "label": "Solid Header Text/Icon Color",
+      "default": "#111111"
     },
     {
       "type": "color",
