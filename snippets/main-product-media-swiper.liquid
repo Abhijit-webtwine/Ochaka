@@ -21,6 +21,11 @@
                   width="{{ media.width }}"
                   height="{{ media.height }}"
                 >
+                {% if product.available == false %}
+                  <div class="sold-out-wrap">
+                    <h4 class="text fw-6 text-primary">SOLD <br> OUT</h4>
+                  </div>
+                {% endif %}
               </a>
             {% when 'video' %}
               <div class="item">
