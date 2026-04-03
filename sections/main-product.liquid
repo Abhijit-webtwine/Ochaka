@@ -86,7 +86,7 @@
                       assign price_h = block.settings.price_size | default: 'h2'
                       assign compare_price_h = block.settings.compare_price_size | default: 'h6'
                     -%}
-                    <div class="tf-product-heading {% if layout_type == 'price_visitor' or layout_type == 'price_rating' %}gap-32 align-items-center justify-content-start {% endif %} {% if block.settings.show_border_top %}border-top-0{% endif %} {% if block.settings.show_border_bottom %}border-bottom-0{% endif %}">
+                    <div class="tf-product-heading {% if layout_type == 'price_visitor' or layout_type == 'price_rating' %}gap-32 align-items-center justify-content-start {% endif %} {% if block.settings.hide_border_top %}border-top-0{% endif %} {% if block.settings.hide_border_bottom %}border-bottom-0{% endif %}">
                       <div id="price-{{ section.id }}" class="product-info-price price-wrap {% if layout_type == 'price_rating' %}gap-12{% endif %}">
                         <span class="price-new price-on-sale {{ price_h }} fw-4 {% if layout_type == 'price_rating' %}m-0{% endif %}">{{ product.selected_or_first_available_variant.price | money }}</span>
                         {% if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price %}
@@ -1409,14 +1409,14 @@
         },
         {
           "type": "checkbox",
-          "id": "show_border_top",
-          "label": "Show Border Top",
+          "id": "hide_border_top",
+          "label": "Hide Border Top",
           "default": false
         },
         {
           "type": "checkbox",
-          "id": "show_border_bottom",
-          "label": "Show Border Bottom",
+          "id": "hide_border_bottom",
+          "label": "Hide Border Bottom",
           "default": false
         },
         {
