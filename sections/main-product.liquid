@@ -534,7 +534,7 @@
                         <h4 class="title text-xl fw-medium">{{ block.settings.heading | default: 'Frequently Bought Together' }}</h4>
                         {% assign product_form_id = 'product-form-fbt-' | append: section.id %}
                         <product-form-fbt>
-                          {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'tf-product-form-bundle' -%}
+                          {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form', class: 'tf-product-form-bundle position-static' -%}
                             <div class="tf-bundle-products">
                               {% assign total_price = 0 %}
 
