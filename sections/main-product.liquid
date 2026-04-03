@@ -277,11 +277,6 @@
                     {%- endunless -%}
                   {% when 'product_info_tags' %}
                     <style>
-                      .block-{{ block.id }} .tags {
-                        background-color: {{ block.settings.tag_bg_color }};
-                        color: {{ block.settings.tag_text_color }};
-                        border-color: {{ block.settings.tag_border_color }};
-                      }
                       .block-{{ block.id }} .accent-color {
                         color: {{ block.settings.accent_color }};
                       }
@@ -1753,28 +1748,6 @@
           "id": "max_count",
           "label": "Maximum Counter",
           "default": 100
-        },
-        {
-          "type": "header",
-          "content": "Color Settings"
-        },
-        {
-          "type": "color",
-          "id": "tag_bg_color",
-          "label": "Tag Background Color",
-          "default": "transparent"
-        },
-        {
-          "type": "color",
-          "id": "tag_text_color",
-          "label": "Tag Text Color",
-          "default": "#000000"
-        },
-        {
-          "type": "color",
-          "id": "tag_border_color",
-          "label": "Tag Border Color",
-          "default": "#000000"
         },
         {
           "type": "color",
