@@ -127,7 +127,13 @@
         "name_placeholder": "Name *",
         "email_placeholder": "Email *",
         "message_placeholder": "Message",
-        "btn_label": "SEND"
+        "btn_label": "SEND",
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
       }
     },
     "instagram_slider_KBUbjL": {
