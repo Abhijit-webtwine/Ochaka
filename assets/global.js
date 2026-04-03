@@ -1613,11 +1613,18 @@ class VariantSelects extends HTMLElement {
 
       if (disable) {
         addButton.setAttribute('disabled', true);
-        if (text) addButton.textContent = text;
+        if (text) {
+          const btnText = addButton.querySelector('.btn-text');
+          if (btnText) btnText.textContent = text;
+          else addButton.textContent = text;
+        }
       }
       else {
         addButton.removeAttribute('disabled');
-        addButton.textContent = addButton.dataset.preOrder === 'true' ? window.variantStrings.preOrder : window.variantStrings.addToCart;
+        const textToSet = addButton.dataset.preOrder === 'true' ? window.variantStrings.preOrder : window.variantStrings.addToCart;
+        const btnText = addButton.querySelector('.btn-text');
+        if (btnText) btnText.textContent = textToSet;
+        else addButton.textContent = textToSet;
       }
 
       if (!modifyClass) return;
@@ -1629,7 +1636,9 @@ class VariantSelects extends HTMLElement {
     productForms.forEach((productForm) => {
       const addButton = productForm.querySelector('[name="add"]');
       if (!addButton) return;
-      addButton.textContent = window.variantStrings.unavailable;
+      const btnText = addButton.querySelector('.btn-text');
+      if (btnText) btnText.textContent = window.variantStrings.unavailable;
+      else addButton.textContent = window.variantStrings.unavailable;
 
       const price = document.getElementById(`price-${this.dataset.section}`);
       if (price) price.classList.add('visibility-hidden');

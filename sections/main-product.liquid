@@ -257,15 +257,15 @@
 
                             {% comment %} Add to Cart Button {% endcomment %}
                                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled="disabled"/>
-                                <button
-                                  type="submit"
-                                  name="add"
-                                  class="tf-btn animate-btn btn-add-to-cart"          
-                                  {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
-                                >
-                                  <i class="icon icon-shopping-cart-simple"></i>
-                                  {{ 'products.product.add_to_cart' | t }}
-                                </button>
+                                  <button
+                                    type="submit"
+                                    name="add"
+                                    class="tf-btn animate-btn btn-add-to-cart"          
+                                    {%- if product.selected_or_first_available_variant.available == false %} disabled="disabled"{% endif -%}
+                                  >
+                                    <i class="icon icon-shopping-cart-simple"></i>
+                                    <span class="btn-text">{{ 'products.product.add_to_cart' | t }}</span>
+                                  </button>
 
 
                             {% if settings.wishlist_enabled %}
