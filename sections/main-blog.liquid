@@ -16,9 +16,7 @@
               >
             </a>
             <div class="entry_tag">
-              {%- for tag in article.tags -%}
-                <span class="name-tag h6">{{ tag }}</span>
-              {%- endfor -%}
+              <span class="name-tag h6">{{ article.tags[0] }}</span>
             </div>
           </div>
           <div class="blog-content">
