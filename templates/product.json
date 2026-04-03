@@ -406,6 +406,70 @@
         "padding_bottom": 80
       }
     },
+    "box_icons_iKk9AX": {
+      "type": "box-icons",
+      "blocks": {
+        "icon_item_AmYFp9": {
+          "type": "icon_item",
+          "settings": {
+            "title": "30 days return",
+            "text": "30 day money back guarantee",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-package"
+          }
+        },
+        "icon_item_UzUE3b": {
+          "type": "icon_item",
+          "settings": {
+            "title": "3 year warranty",
+            "text": "Manufacturer's defect",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-calender"
+          }
+        },
+        "icon_item_wKqQn7": {
+          "type": "icon_item",
+          "settings": {
+            "title": "Free shipping",
+            "text": "Free Shipping for orders over $150",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-boat"
+          }
+        },
+        "icon_item_pNkQkq": {
+          "type": "icon_item",
+          "settings": {
+            "title": "Online support",
+            "text": "24 hours a day, 7 days a week",
+            "box_bg_color": "",
+            "box_padding": 0,
+            "icon_class": "icon-headset"
+          }
+        }
+      },
+      "block_order": [
+        "icon_item_AmYFp9",
+        "icon_item_UzUE3b",
+        "icon_item_wKqQn7",
+        "icon_item_pNkQkq"
+      ],
+      "name": "Box Icons",
+      "settings": {
+        "show_title": true,
+        "title": "The Fresh Clothes",
+        "enable_border_top": false,
+        "hide_seperator": false,
+        "padding_top_desktop": 0,
+        "padding_bottom_desktop": 0,
+        "padding_top_tablet": 0,
+        "padding_bottom_tablet": 0,
+        "padding_top_mobile": 0,
+        "padding_bottom_mobile": 0
+      }
+    },
     "related_products_rMKznr": {
       "type": "related-products",
       "name": "Related products",
@@ -435,6 +499,7 @@
     "main",
     "customer_image_gallery_RzBVMp",
     "pdp_tabs_HBbzBP",
+    "box_icons_iKk9AX",
     "related_products_rMKznr",
     "related_products_hHWfNK"
   ]
