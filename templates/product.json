@@ -27,6 +27,7 @@
             "show_discount": true,
             "price_size": "h2",
             "compare_price_size": "h6",
+            "show_trailing_zeros": false,
             "show_rating": true,
             "hide_border_top": false,
             "hide_border_bottom": false,
