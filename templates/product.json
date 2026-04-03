@@ -100,12 +100,12 @@
       "settings": {
         "main_product_layout": "thumb_swiper",
         "thumb_position": "left",
-        "delivery_return_title": "",
-        "delivery_return_page": "",
+        "delivery_return_title": "Shipping & Delivery",
+        "delivery_return_page": "delivery-return",
         "show_help": true,
-        "store_address": "",
-        "store_phone": "",
-        "store_email": ""
+        "store_address": "8500 Lorem Street Chicago, IL 55030 Dolor sit amet",
+        "store_phone": "+8(800) 123 4567",
+        "store_email": "themesflat@support.com"
       }
     },
     "customer_image_gallery_RzBVMp": {
