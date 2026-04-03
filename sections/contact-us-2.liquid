@@ -28,7 +28,7 @@
       {%- endif -%}
     </div>
     
-    {% form 'contact', class: 'form-contact-2' %}
+    {% form 'contact', class: 'form-contact-2 position-static' %}
       {%- if form.posted_successfully? -%}
         <div class="form-message text-success text-center mb-20">
           {{ 'templates.contact.form.post_success' | t }}
