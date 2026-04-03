@@ -12,35 +12,93 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "buy_x_get_y_V8eM9P": {
-          "type": "buyX-getY",
+        "rating_atc_count_fBRx3t": {
+          "type": "rating_atc_count",
           "settings": {
-            "savings-1": "",
-            "savings-2": "",
-            "show_gift_icon": true
+            "show_rating": true,
+            "show_atc_count": true
           }
         },
-        "variant_picker": {
+        "price_countdown_jKqjfA": {
+          "type": "price_countdown",
+          "settings": {
+            "layout_type": "price_countdown",
+            "show_compare_price": true,
+            "show_discount": true,
+            "price_size": "h2",
+            "compare_price_size": "h6",
+            "show_rating": true,
+            "hide_border_top": false,
+            "hide_border_bottom": false,
+            "min_visitor_count": 3,
+            "max_visitor_count": 10
+          }
+        },
+        "visitor_count_WxR3pj": {
+          "type": "visitor_count",
+          "settings": {
+            "min_visitor_count": 5,
+            "max_visitor_count": 25
+          }
+        },
+        "variant_picker_KTG3yV": {
           "type": "variant_picker",
           "settings": {
             "picker_type": "button",
             "show_variant_labels": true,
             "enable_dropdown_color": true,
             "enable_color_swatches": true,
-            "enable_swatch_image": true,
+            "enable_swatch_image": false,
             "image_type": "square"
+          }
+        },
+        "buy_buttons_8BCFmD": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_quantity_selector": true,
+            "show_dynamic_checkout": true
+          }
+        },
+        "extra_links_MBtJ3C": {
+          "type": "extra_links",
+          "settings": {
+            "show_size_guide": true,
+            "size_guide_text": "Size Guide",
+            "show_ask_question": true,
+            "ask_question_text": "Ask a question",
+            "show_delivery_return": true,
+            "delivery_return_text": "Delivery & Return",
+            "show_share": true,
+            "share_text": "Share"
+          }
+        },
+        "delivery_return_wGyBF7": {
+          "type": "delivery_return",
+          "settings": {
+            "delivery_time": "<p>Estimate delivery times: 12-26 days (International), 3-5 days (United States).</p>",
+            "return_time": "<p>Return within 30 days of purchase. Duties & taxes are non-refundable.</p>"
+          }
+        },
+        "trust_seal_A7YWhV": {
+          "type": "trust_seal",
+          "settings": {
+            "heading": "Guarantee Safe Checkout:"
           }
         }
       },
       "block_order": [
-        "buy_x_get_y_V8eM9P",
-        "variant_picker"
+        "rating_atc_count_fBRx3t",
+        "price_countdown_jKqjfA",
+        "visitor_count_WxR3pj",
+        "variant_picker_KTG3yV",
+        "buy_buttons_8BCFmD",
+        "extra_links_MBtJ3C",
+        "delivery_return_wGyBF7",
+        "trust_seal_A7YWhV"
       ],
       "settings": {
         "main_product_layout": "thumb_swiper",
         "thumb_position": "left",
-        "delivery_time": "",
-        "return_time": "",
         "delivery_return_title": "",
         "delivery_return_page": "",
         "show_help": true,
@@ -90,9 +148,13 @@
       ],
       "name": "Customer Image Gallery",
       "settings": {
-        "padding_top": 80,
-        "padding_bottom": 80,
-        "title": "Real photos from our customers"
+        "title": "Real photos from our customers",
+        "padding_top_desktop": 80,
+        "padding_bottom_desktop": 80,
+        "padding_top_tablet": 80,
+        "padding_bottom_tablet": 80,
+        "padding_top_mobile": 60,
+        "padding_bottom_mobile": 60
       }
     },
     "pdp_tabs_HBbzBP": {
@@ -125,11 +187,173 @@
             "answer_10": "Yes, same is available in the price break-up section."
           }
         },
+        "faq_category_AKEQyE": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Certification & Hallmarking",
+            "category_id": "product-2",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
         "faq_category_mybKb8": {
           "type": "faq_category",
           "settings": {
-            "category_title": "Product details",
-            "category_id": "product-2",
+            "category_title": "Durability & Safety",
+            "category_id": "product-3",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
+        "faq_category_ggnE3P": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Shipping & Insurance",
+            "category_id": "product-4",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
+        "faq_category_Qp3BkU": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Payment methods",
+            "category_id": "product-5",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
+        "faq_category_jKT6Gr": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Product styling",
+            "category_id": "product-6",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
+        "faq_category_aTrAg6": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Customization & Repair",
+            "category_id": "product-7",
+            "question_1": "Type of diamond used?",
+            "answer_1": "Natural diamonds with the highest purity",
+            "question_2": "Is the product unisex?",
+            "answer_2": "No",
+            "question_3": "What ring sizes are available?",
+            "answer_3": "Sizes 5-26; Any size not available online can be customized.",
+            "question_4": "Product Finish",
+            "answer_4": "High Polish",
+            "question_5": "Does the product cost include GST?",
+            "answer_5": "Yes",
+            "question_6": "What % of GST is applicable on the product?",
+            "answer_6": "2%",
+            "question_7": "Does the product cost include shipping?",
+            "answer_7": "Yes",
+            "question_8": "Does the product cost include product discounts?",
+            "answer_8": "Yes. However, any applicable coupon can be applied at the time of payment.",
+            "question_9": "Are there any other hidden costs?",
+            "answer_9": "No there are no hidden costs or additional charges.",
+            "question_10": "Is there a price breakup available for the product price?",
+            "answer_10": "Yes, same is available in the price break-up section."
+          }
+        },
+        "faq_category_LheciD": {
+          "type": "faq_category",
+          "settings": {
+            "category_title": "Jewellery care",
+            "category_id": "product-8",
             "question_1": "Type of diamond used?",
             "answer_1": "Natural diamonds with the highest purity",
             "question_2": "Is the product unisex?",
@@ -155,7 +379,13 @@
       },
       "block_order": [
         "faq_category_YMhxUc",
-        "faq_category_mybKb8"
+        "faq_category_AKEQyE",
+        "faq_category_mybKb8",
+        "faq_category_ggnE3P",
+        "faq_category_Qp3BkU",
+        "faq_category_jKT6Gr",
+        "faq_category_aTrAg6",
+        "faq_category_LheciD"
       ],
       "name": "PDP Tabs",
       "settings": {
@@ -195,6 +425,6 @@
     "customer_image_gallery_RzBVMp",
     "pdp_tabs_HBbzBP",
     "related_products_rMKznr",
-    "related_products_hHWfNK",
+    "related_products_hHWfNK"
   ]
 }
