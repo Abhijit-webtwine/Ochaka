@@ -621,13 +621,13 @@
         "type": "checkbox",
         "id": "show_free_shipping_message",
         "default": false,
+        "label": "t:settings_schema.cart-drawer.settings.show_free_shipping_message.label"
       },
       {
         "type": "text",
         "id": "free_shipping_minimum_amount",
-        "default": "100",
+        "default": "7500",
         "label": "t:settings_schema.cart-drawer.settings.free_shipping_minimum_amount.label",
-        "info": "t:settings_schema.cart-drawer.settings.free_shipping_minimum_amount.info"
       },
       {
         "type": "header",
