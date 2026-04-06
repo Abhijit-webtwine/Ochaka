@@ -150,18 +150,6 @@
         "id": "page_transition_enabled",
         "default": false,
         "label": "t:settings_schema.animation.settings.page_transition_enabled.label"
-      },
-      {
-        "type": "checkbox",
-        "id": "image_zoom_effect_enabled",
-        "default": false,
-        "label": "t:settings_schema.animation.settings.image_zoom_effect_enabled.label"
-      },
-      {
-        "type": "checkbox",
-        "id": "image_loading_bar_enabled",
-        "default": false,
-        "label": "t:settings_schema.animation.settings.image_loading_bar_enabled.label"
       }
     ]
   },

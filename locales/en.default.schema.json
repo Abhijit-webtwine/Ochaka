@@ -98,9 +98,7 @@
     "animation": {
       "name": "Animation",
       "settings": {
-        "page_transition_enabled": { "label": "Enable page transition" },
-        "image_zoom_effect_enabled": { "label": "Enable image zoom effect" },
-        "image_loading_bar_enabled": { "label": "Enable image loading bar" }
+        "page_transition_enabled": { "label": "Enable page transition" }
       }
     },
     "buttons": { "name": "Buttons" },

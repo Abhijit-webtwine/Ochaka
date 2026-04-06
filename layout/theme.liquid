@@ -24,10 +24,6 @@
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
 
-    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
-      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
-    {%- endunless -%}
-
     <title>
       {{ page_title }}
       {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
@@ -160,24 +156,6 @@
 
   <body
     class="template-{{ request.page_type }}{% if request.design_mode %} shopify-design-mode{% endif %}"
-    {%- if settings.image_zoom_effect_enabled %}
-      data-animate-image
-    {% endif -%}
-    {%- if settings.image_loading_bar_enabled %}
-      data-lazy-image
-    {% endif -%}
-    {%- if settings.heading_capitalize %}
-      data-heading-capitalize
-    {% endif -%}
-    {%- if settings.heading_center %}
-      data-heading-center
-    {% endif -%}
-    {%- if settings.price_superscript %}
-      data-price-superscript
-    {% endif -%}
-    {%- if settings.button_corner_radius > 0 %}
-      data-button-round
-    {% endif -%}
   >
     <a class="skip-to-content-link button button--small visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
@@ -322,9 +300,6 @@
       })();
     </script>
 
-    {%- if settings.image_loading_bar_enabled %}
-      <script src="{{ 'lazyimage.js' | asset_url }}" async></script>
-    {% endif -%}
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
