@@ -621,7 +621,6 @@
         "type": "checkbox",
         "id": "show_free_shipping_message",
         "default": false,
-        "label": "t:settings_schema.cart-drawer.settings.show_free_shipping_message.label"
       },
       {
         "type": "text",
