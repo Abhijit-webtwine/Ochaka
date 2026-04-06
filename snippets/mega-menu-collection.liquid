@@ -5,8 +5,8 @@
       data-src="{{ collection.featured_image |  image_url  }}"
       alt="Collection"
       class="lazyload"
-      width=""
-      height=""
+      width="{{ collection.featured_image.width }}"
+      height="{{ collection.featured_image.height }}"
     >
   </a>
   <div class="cls-content">

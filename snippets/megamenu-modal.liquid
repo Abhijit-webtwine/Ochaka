@@ -19,8 +19,8 @@
                     src="{{ block.settings[demo_image] | image_url: width: 600 }}"
                     alt="Demo {{ i }}"
                     loading="lazy"
-                    width=""
-                    height=""
+                    width="{{ block.settings[demo_image].width }}"
+                    height="{{ block.settings[demo_image].height }}"
                   >
                 </a>
                 <a href="{{ block.settings[demo_url] }}" class="demo-name">
