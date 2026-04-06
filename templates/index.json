@@ -255,7 +255,7 @@
           "settings": {
             "blog": "fashion-1",
             "posts_limit": 4,
-            "blog_style": "",
+            "blog_style": "type-space-2",
             "disable_content_spacing": false,
             "card_layout": "",
             "show_date": "tag",
