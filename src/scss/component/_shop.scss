@@ -494,6 +494,13 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 
 .widget-facet {
+  .collapse-body {
+    max-height: 500px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--white);
+    padding-inline: 10px;
+  }
     &:not(:last-child) {
 
         .collapse-body {
