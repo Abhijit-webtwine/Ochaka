@@ -166,7 +166,7 @@ html {
 }
 
 body {
-  color: rgb(var(--color-foreground));
+  color: var(--black);
   background-color: rgb(var(--color-background));
   overflow-x: hidden;
 }
@@ -3161,4 +3161,11 @@ use-animate {
 
 section#shopify-section-template--17449469051093__beauty_banner_ixynMg + section#shopify-section-template--17449469051093__beauty_banner_tXrxfg {
     display: none;
+}
+
+/* PDP share button */
+.share-button {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
 }

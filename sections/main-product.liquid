@@ -628,7 +628,7 @@
                     <div class="tf-product-video-call">
                         <div class="video-wrap image">
                             {% if block.settings.image != blank %}
-                              <img class="lazyload" data-src="{{ block.settings.image | image_url: width: 300 }}" src="{{ block.settings.image | image_url: width: 50 }}" alt="{{ block.settings.image.alt }}">
+                              <img class="lazyload" data-src="{{ block.settings.image | image_url: width: 300 }}" src="{{ block.settings.image | image_url: width: 50 }}" alt="{{ block.settings.image.alt }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}">
                             {% else %}
                               {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
                             {% endif %}
@@ -778,9 +778,13 @@
                         </a>
                       {% endif %}
                       {% if block.settings.show_share %}
-                        <a href="#shareWith" data-bs-toggle="modal" class="product-extra-icon link">
-                          <i class="icon icon-share"></i>{{ block.settings.share_text }}
-                        </a>
+                        {% assign share_url = shop.url | append: product.url %}
+                        {% render 'share-button',
+                          block: block,
+                          share_link: share_url,
+                          share_title: product.title,
+                          share_image: product.featured_image
+                        %}
                       {% endif %}
                     </div>
                   {% when 'delivery_return' %}
@@ -941,7 +945,6 @@
   {% comment %} modals {% endcomment %}
   {%  render 'ask-question-form' %}
   {% render 'delivery-return-modal', title: section.settings.delivery_return_title, delivery_return_page: section.settings.delivery_return_page, store_address: section.settings.store_address, store_phone: section.settings.store_phone, store_email: section.settings.store_email, show_help: section.settings.show_help %}
-  {%  render 'share-modal' %}
   {% render 'size-chart-modal' %}
 </section>
 <script src="{{ 'zoom.js' |  asset_url}}" defer></script>
