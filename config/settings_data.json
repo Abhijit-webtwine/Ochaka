@@ -14,7 +14,7 @@
     "show_scrolling_promotion": false,
     "show_collection_sidebar": false,
     "page_width": 1600,
-    "page_transition_enabled": true,
+    "page_transition_enabled": false,
     "card_spacing": "",
     "quick_view_enabled": true,
     "color_swatches_enabled": true,
