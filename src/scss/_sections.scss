@@ -2404,13 +2404,13 @@
     }
 
     @include res(xl) {
-        &::after {
+        &:not(.hide-seperator)::after {
             right: -16px;
         }
     }
 
     @include res(md) {
-        &::after {
+        &:not(.hide-seperator)::after {
             right: -6px;
         }
     }
