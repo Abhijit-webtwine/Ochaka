@@ -472,6 +472,7 @@
         padding: 32px 32px 24px;
         display: flex;
         justify-content: space-between;
+        color: var(--black);
 
         .icon-close-popup {
             padding: 0;
@@ -1064,13 +1065,15 @@
     gap: 24px;
 
     .tf-mini-cart-image {
-        width: 122px;
-        height: 122px;
+        // width: 122px;
+        // height: 122px;
 
         img {
-            width: 100%;
-            height: 100%;
+            width: 100px;
+            height: auto;
             object-fit: cover;
+            max-width: 100px;
+            max-height: 122px;
         }
     }
 
@@ -1791,7 +1794,7 @@
     display: none;
     padding: 21px 0px 12px;
     position: fixed;
-    z-index: 28;
+    z-index: 30;
     bottom: 0;
     right: 0;
     left: 0;
