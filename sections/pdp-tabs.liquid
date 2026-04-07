@@ -87,12 +87,6 @@
         {% endfor %}
     {% endcapture %}
 
-    {% capture faqs_block %}
-        <div class="tab-faqs">
-            {% render 'pdp-faq-tab', sections: section %}
-        </div>
-    {% endcapture %}
-
     <!-- MOBILE VIEW: Always Accordion -->
     <div class="pdp-tabs-mobile">
       <div class="faq-descriptions" id="accordionMobile">
@@ -139,7 +133,11 @@
               <span class="icon"></span>
             </div>
             <div id="faqsMobile" class="collapse {% if active_tab == 'faqs' %}show{% endif %}" data-bs-parent="#accordionMobile">
-              <div class="accordion-content">{{ faqs_block }}</div>
+              <div class="accordion-content">
+                <div class="tab-faqs">
+                   {% render 'pdp-faq-tab', sections: section, id_suffix: '-mob' %}
+                </div>
+              </div>
             </div>
           </div>
         {% endif %}
@@ -160,7 +158,7 @@
               {% if show_description %}<div class="tab-pane active show" id="descriptionsD" role="tabpanel">{{ description_block }}</div>{% endif %}
               {% if show_policy %}<div class="tab-pane {% if active_tab == 'policy' %}active show{% endif %}" id="policyD" role="tabpanel">{{ policy_block }}</div>{% endif %}
               {% if show_reviews %}<div class="tab-pane {% if active_tab == 'reviews' %}active show{% endif %}" id="reviewsD" role="tabpanel">{{ reviews_block }}</div>{% endif %}
-              {% if show_faqs %}<div class="tab-pane {% if active_tab == 'faqs' %}active show{% endif %}" id="faqsD" role="tabpanel">{{ faqs_block }}</div>{% endif %}
+              {% if show_faqs %}<div class="tab-pane {% if active_tab == 'faqs' %}active show{% endif %}" id="faqsD" role="tabpanel"><div class="tab-faqs">{% render 'pdp-faq-tab', sections: section, id_suffix: '-desk' %}</div></div>{% endif %}
             </div>
           </div>
 
@@ -187,7 +185,7 @@
             {% if show_faqs %}
               <div class="widget-accordion">
                 <div class="accordion-title {% unless active_tab == 'faqs' %}collapsed{% endunless %}" data-bs-target="#faqsDesk" data-bs-toggle="collapse" role="button"><span>FAQs</span><span class="icon"></span></div>
-                <div id="faqsDesk" class="collapse {% if active_tab == 'faqs' %}show{% endif %}" data-bs-parent="#accordionDesktop"><div class="accordion-content">{{ faqs_block }}</div></div>
+                <div id="faqsDesk" class="collapse {% if active_tab == 'faqs' %}show{% endif %}" data-bs-parent="#accordionDesktop"><div class="accordion-content"><div class="tab-faqs">{% render 'pdp-faq-tab', sections: section, id_suffix: '-desk' %}</div></div></div>
               </div>
             {% endif %}
           </div>
@@ -204,7 +202,7 @@
                 {% if show_description %}<div class="tab-pane active show" id="v_desc" role="tabpanel">{{ description_block }}</div>{% endif %}
                 {% if show_policy %}<div class="tab-pane {% if active_tab == 'policy' %}active show{% endif %}" id="v_policy" role="tabpanel">{{ policy_block }}</div>{% endif %}
                 {% if show_reviews %}<div class="tab-pane {% if active_tab == 'reviews' %}active show{% endif %}" id="v_reviews" role="tabpanel">{{ reviews_block }}</div>{% endif %}
-                {% if show_faqs %}<div class="tab-pane {% if active_tab == 'faqs' %}active show{% endif %}" id="v_faqs" role="tabpanel">{{ faqs_block }}</div>{% endif %}
+                {% if show_faqs %}<div class="tab-pane {% if active_tab == 'faqs' %}active show{% endif %}" id="v_faqs" role="tabpanel"><div class="tab-faqs">{% render 'pdp-faq-tab', sections: section, id_suffix: '-desk' %}</div></div>{% endif %}
              </div>
            </div>
 
@@ -213,7 +211,7 @@
             {% if show_description %}<div class="mb-4">{{ description_block }}</div>{% endif %}
             {% if show_policy %}<div class="mb-4">{{ policy_block }}</div>{% endif %}
             {% if show_reviews %}<div class="mb-4">{{ reviews_block }}</div>{% endif %}
-            {% if show_faqs %}<div class="mb-4">{{ faqs_block }}</div>{% endif %}
+            {% if show_faqs %}<div class="mb-4"><div class="tab-faqs">{% render 'pdp-faq-tab', sections: section, id_suffix: '-desk' %}</div></div>{% endif %}
           </div>
         {% endif %}
     </div>
