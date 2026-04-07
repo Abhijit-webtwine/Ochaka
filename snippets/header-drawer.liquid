@@ -14,7 +14,7 @@
           height="{{ section.settings.logo_mobile.height }}"
         >
       </a>
-    {% else %}
+    {% elsif section.settings.logo != blank %}
       <a href="{{ routes.root_url }}" class="logo-site">
         <img
           src="{{ section.settings.logo | image_url }}"
@@ -23,6 +23,8 @@
           height="{{ section.settings.logo.height }}"
         >
       </a>
+    {% else %}
+      {{ shop.name }}
     {% endif %}
 
     {% if shop.customer_accounts_enabled %}

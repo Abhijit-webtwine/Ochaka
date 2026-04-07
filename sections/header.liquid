@@ -48,12 +48,16 @@
       <div class="{{ logo_col }}">
         <div class="d-flex {{ logo_justify }}">
           <a href="{{ routes.root_url }}" class="logo-site">
-            <img
-              src="{{ section.settings.logo | image_url }}"
-              alt="Logo"
-              width="{{ section.settings.logo.width }}"
-              height="{{ section.settings.logo.height }}"
-            >
+            {% if section.settings.logo != blank %}
+              <img
+                src="{{ section.settings.logo | image_url }}"
+                alt="Logo"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+              >
+            {% else %}
+              {{ shop.name }}
+            {% endif %}
           </a>
         </div>
       </div>

@@ -131,12 +131,16 @@
         </div>
         <div class="col-xl-4 col-md-4 col-6">
           <a href="{{ routes.root_url }}" class="logo-site justify-content-center">
-            <img
-              src="{{ section.settings.logo | image_url }}"
-              alt="LOGO"
-              width="{{ section.settings.logo.width }}"
-              height="{{ section.settings.logo.height }}"
-            >
+            {% if section.settings.logo != blank %}
+              <img
+                src="{{ section.settings.logo | image_url }}"
+                alt="LOGO"
+                width="{{ section.settings.logo.width }}"
+                height="{{ section.settings.logo.height }}"
+              >
+            {% else %}
+              {{ shop.name }}
+            {% endif %}
             {% if section.settings.logo_bottom_text != blank and header_style_default %}
               <div class="logo-bottom">
                 <svg
@@ -216,12 +220,16 @@
       </div>
       <div class="col-xl-3 col-md-4 col-6 text-center text-xl-start">
         <a href="{{ routes.root_url }}" class="logo-site justify-content-center justify-content-xl-start">
-          <img
-            src="{{ section.settings.sticky_logo | image_url }}"
-            alt="{{ section.settings.sticky_logo.alt }}"
-            width="{{ section.settings.sticky_logo.width }}"
-            height="{{ section.settings.sticky_logo.height }}"
-          >
+          {% if section.settings.sticky_logo != blank %}
+            <img
+              src="{{ section.settings.sticky_logo | image_url }}"
+              alt="{{ section.settings.sticky_logo.alt }}"
+              width="{{ section.settings.sticky_logo.width }}"
+              height="{{ section.settings.sticky_logo.height }}"
+            >
+          {% else %}
+            {{ shop.name }}
+          {% endif %}
         </a>
       </div>
       <div class="col-xl-6 d-none d-xl-block">
