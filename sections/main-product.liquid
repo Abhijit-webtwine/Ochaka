@@ -884,11 +884,13 @@
                   >{{ product.title }}</a
                 >
               </h6>
-              <div class="size" id="sticky-variant-info-{{ section.id }}">
-                {%- for option in product.selected_or_first_available_variant.options -%}
-                  <div class="text-small text-main-2 sub">{{ product.options[forloop.index0] }}: {{ option }}</div>
-                {%- endfor -%}
-              </div>
+              {%- unless product.has_only_default_variant -%}
+                <div class="size pdp-variant-info-wrapper" id="sticky-variant-info-{{ section.id }}">
+                  {%- for option in product.selected_or_first_available_variant.options -%}
+                    <div class="text-small text-main-2 sub">{{ product.options[forloop.index0] }}: {{ option }}</div>
+                  {%- endfor -%}
+                </div>
+              {%- endunless -%}
               <div class="h6 fw-semibold">{{ product.selected_or_first_available_variant.price | money }}</div>
             </div>
           </div>
@@ -901,23 +903,25 @@
             {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
               <input type="hidden" name="id" id="sticky-variant-id-{{ section.id }}" value="{{ product.selected_or_first_available_variant.id }}">
               
-              {%- for option in product.options_with_values -%}
-                <div class="tf-sticky-atc-variant-price">
-                  <h6 class="title">{{ option.name }}:</h6>
-                  <div class="tf-select style-1">
-                    <select class="font-sora sticky-variant-select" data-option-index="{{ forloop.index }}" form="{{ product_form_id }}">
-                      {%- for value in option.values -%}
-                        <option
-                          value="{{ value | escape }}"
-                          {%- if option.selected_value == value -%} selected="selected"{%- endif -%}
-                        >
-                          {{ value }}
-                        </option>
-                      {%- endfor -%}
-                    </select>
+              {%- unless product.has_only_default_variant -%}
+                {%- for option in product.options_with_values -%}
+                  <div class="tf-sticky-atc-variant-price">
+                    <h6 class="title">{{ option.name }}:</h6>
+                    <div class="tf-select style-1">
+                      <select class="font-sora sticky-variant-select" data-option-index="{{ forloop.index }}" form="{{ product_form_id }}">
+                        {%- for value in option.values -%}
+                          <option
+                            value="{{ value | escape }}"
+                            {%- if option.selected_value == value -%} selected="selected"{%- endif -%}
+                          >
+                            {{ value }}
+                          </option>
+                        {%- endfor -%}
+                      </select>
+                    </div>
                   </div>
-                </div>
-              {% endfor %}
+                {% endfor %}
+              {%- endunless -%}
 
               <div class="tf-product-info-quantity">
                 <h6 class="title">Quantity:</h6>
