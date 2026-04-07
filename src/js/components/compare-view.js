@@ -24,12 +24,8 @@ class CompareView extends BaseStorageElement {
     const handles = this.getStorageItems(this.STORAGE_KEY);
     const view = this.dataset.view || 'compare';
 
-    if (handles.length === 0) {
-      if (view === 'compare') {
-        this.renderEmpty('<div class="tf-compare-empty text-center"><p class="text-notice">NO ITEMS IN COMPARE LIST</p><a href="/collections/all" class="tf-btn animate-btn btn-fill btn-back-shop">BACK TO SHOPPING</a></div>');
-      } else {
-          this.renderEmpty('<p class="box-text_empty h6 text-main">Your Compare is currently empty</p>');
-      }
+    if (handles.length === 0 && view !== 'compare') {
+      this.renderEmpty('<p class="box-text_empty h6 text-main">Your Compare is currently empty</p>');
       return;
     }
 

@@ -1,7 +1,18 @@
 {%- layout none -%}
 
 {%- assign handles_string = collection.sort_by | default: '' -%}
-{%- assign handles = handles_string | split: ',' -%}
+{%- assign raw_handles = handles_string | split: ',' -%}
+{%- assign handles = "" | split: "" -%}
+{%- for h in raw_handles -%}
+  {%- assign h_clean = h | strip -%}
+  {%- if h_clean != "" -%}
+    {%- assign h_single_arr = h_clean | split: "|||" -%}
+    {%- assign handles = handles | concat: h_single_arr -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign handles_count = handles.size -%}
+{%- assign min_cols = 3 -%}
 
 <table>
   <thead>
@@ -41,6 +52,15 @@
           </div>
         </th>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <th class="compare-col compare-head">
+            <div class="compare-item empty-item">
+            </div>
+          </th>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
   </thead>
   <tbody>
@@ -67,6 +87,12 @@
           </div>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Type</td>
@@ -79,6 +105,14 @@
           </span>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value">
+            <span>-</span>
+          </td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Price</td>
@@ -89,6 +123,12 @@
           <span>{{ product.price | money }}</span>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Color</td>
@@ -112,6 +152,12 @@
           </div>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Brand</td>
@@ -122,6 +168,12 @@
           <span>{{ product.vendor }}</span>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Material</td>
@@ -140,6 +192,12 @@
           </span>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Size</td>
@@ -150,6 +208,12 @@
           <span>{{ product.options_by_name.Size.values | join: ', ' | default: '-' }}</span>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Intended Use</td>
@@ -160,6 +224,12 @@
           <span>{{ product.metafields.custom.intended_use | default: '-' }}</span>
         </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
     <tr class="compare-row">
       <td class="compare-col compare-title">Buy</td>
@@ -194,6 +264,12 @@
           {% endif %}
           </td>
       {%- endfor -%}
+      {%- if handles_count < min_cols -%}
+        {%- assign empty_count = min_cols | minus: handles_count -%}
+        {%- for i in (1..empty_count) -%}
+          <td class="compare-col compare-value p-0 empty-col"></td>
+        {%- endfor -%}
+      {%- endif -%}
     </tr>
   </tbody>
 </table>
