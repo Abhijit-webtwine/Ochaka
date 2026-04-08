@@ -3,9 +3,45 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
+  
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: {{ section.settings.spacing_mobile }}px;
+  }
+  .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 575px) {
+    .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - {{ section.settings.spacing_mobile }}px) / 2);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.spacing_tablet }}px;
+    }
+    .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.columns_tablet }} - 1) * {{ section.settings.spacing_tablet }}px) / {{ section.settings.columns_tablet }});
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.spacing_desktop }}px;
+    }
+    .section-{{ section.id }}-collection-slider .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.columns_desktop }} - 1) * {{ section.settings.spacing_desktop }}px) / {{ section.settings.columns_desktop }});
+    }
+  }
 {% endstyle %}
 
-<div class="s-collection {% if section.settings.spacing_style == 'style-2' %}type-2{% endif %}{% if section.settings.container_type == 'full-width' %}px-0{% endif %} section-{{ section.id }}-collection-slider">
+<div class="s-collection wow fadeInUp {% if section.settings.spacing_style == 'style-2' %}type-2{% endif %}{% if section.settings.container_type == 'full-width' %}px-0{% endif %} section-{{ section.id }}-collection-slider">
   <div
     dir="ltr"
     class="swiper tf-swiper"

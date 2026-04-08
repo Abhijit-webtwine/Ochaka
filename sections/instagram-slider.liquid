@@ -17,6 +17,36 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: {{ section.settings.space }}px;
+  }
+  .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: calc((100% - (2 - 1) * {{ section.settings.space }}px) / 2);
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 575px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_mobile }} - 1) * {{ section.settings.space }}px) / {{ section.settings.slides_mobile }});
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_tablet }} - 1) * {{ section.settings.space }}px) / {{ section.settings.slides_tablet }});
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_desktop }} - 1) * {{ section.settings.space }}px) / {{ section.settings.slides_desktop }});
+    }
+  }
 </style>
 
 <section class="section-{{ section.id }}-padding">

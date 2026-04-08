@@ -30,6 +30,54 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: grid;
+    overflow: hidden;
+    gap: {{ section.settings.space_mobile }}px;
+  }
+  .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+  }
+
+  @media (max-width: 574px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ 2 | times: section.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 575px) and (max-width: 767px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      grid-template-columns: repeat({{ section.settings.slides_mobile }}, 1fr);
+    }
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ section.settings.slides_mobile | times: section.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.space_tablet }}px;
+      grid-template-columns: repeat({{ section.settings.slides_tablet }}, 1fr);
+    }
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ section.settings.slides_tablet | times: section.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.space_desktop }}px;
+      grid-template-columns: repeat({{ section.settings.slides_desktop }}, 1fr);
+    }
+    .section-{{ section.id }}-padding .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ section.settings.slides_desktop | times: section.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
 </style>
 
 <div
