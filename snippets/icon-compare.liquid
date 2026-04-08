@@ -8,8 +8,9 @@
 {% endcomment %}
 
 {% liquid 
+  assign hover_style = hover_style | default: settings.hover_style
   assign style_5 = false
-  if settings.hover_style == 'style_5'
+  if hover_style == 'style_5'
     assign style_5 = true
   endif
 %}

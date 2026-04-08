@@ -8,16 +8,16 @@
 {% endcomment %}
 
 {% liquid 
+  assign hover_style = hover_style | default: settings.hover_style
   assign style_5 = false
   assign style_7 = false
   assign style_8 = false
 
-
-  if settings.hover_style == 'style_5'
+  if hover_style == 'style_5'
     assign style_5 = true
-  elsif settings.hover_style == 'style_7'
+  elsif hover_style == 'style_7'
     assign style_7 = true
-  elsif settings.hover_style == 'style_8'
+  elsif hover_style == 'style_8'
     assign style_8 = true
   endif
 %}
@@ -25,7 +25,7 @@
 <ul class="product-action_list">
   {% unless style_7 or style_8 %}
     {% if show_add_to_cart %}
-      {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+      {% render 'icon-add-to-cart', type: 'icon', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction, hover_style: hover_style %}
     {% endif %}
   {% endunless %}
   {% if style_5 %}
@@ -33,20 +33,20 @@
   {% endif %}
 
   {% if show_wishlist and settings.wishlist_enabled %}
-    {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% render 'icon-wishlist', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction, hover_style: hover_style %}
   {% endif %}
   {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
 
   {% if show_compare and settings.compare_enabled %}
-    {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% render 'icon-compare', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction, hover_style: hover_style %}
   {% endif %}
   {% if style_5 %}
     <li class="br-line type-vertical h-24 d-none d-sm-flex"></li>
   {% endif %}
 
   {% if settings.quick_view_enabled and show_quick_view %}
-    {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction %}
+    {% render 'icon-quick-view', product: product, show_tooltip: show_tooltips, tooltip_direction: tooltip_direction, hover_style: hover_style %}
   {% endif %}
 </ul>

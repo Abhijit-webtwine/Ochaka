@@ -8,14 +8,15 @@
   - tooltip_direction: Direction for tooltips (top, bottom, left, right) (default: left)
 {% endcomment %}
 {% liquid 
+  assign hover_style = hover_style | default: settings.hover_style
   assign style_5 = false
   assign style_7 = false
   assign style_8 = false
-  if settings.hover_style == 'style_5'
+  if hover_style == 'style_5'
     assign style_5 = true
-  elsif settings.hover_style == 'style_7'
+  elsif hover_style == 'style_7'
     assign style_7 = true
-  elsif settings.hover_style == 'style_8'
+  elsif hover_style == 'style_8'
     assign style_8 = true
   endif
 %}

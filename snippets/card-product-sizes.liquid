@@ -1,21 +1,21 @@
 {%  liquid 
+  assign hover_style = hover_style | default: settings.hover_style
   assign size_option = nil
   assign style_2 = false
   assign style_4 = false
   assign style_6 = false
   assign style_8 = false
 
-  if settings.hover_style == 'style_2'  
+  if hover_style == 'style_2'  
     assign style_2 = true
-  elsif settings.hover_style == 'style_4'  
+  elsif hover_style == 'style_4'  
     assign style_4 = true
   
-  elsif settings.hover_style == 'style_6'  
+  elsif hover_style == 'style_6'  
     assign style_6 = true
   
-  elsif settings.hover_style == 'style_8'  
+  elsif hover_style == 'style_8'  
     assign style_8 = true
-
   endif
 %}
 
