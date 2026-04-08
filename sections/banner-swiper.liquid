@@ -1,25 +1,55 @@
 <style>
-  .section-{{ section.id }}-banner-swiper {
+  .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
   @media screen and (min-width: 768px) {
-    .section-{{ section.id }}-banner-swiper {
+    .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top_tablet }}px;
       padding-bottom: {{ section.settings.padding_bottom_tablet }}px;
     }
   }
 
   @media screen and (min-width: 1025px) {
-    .section-{{ section.id }}-banner-swiper {
+    .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top_desktop }}px;
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: {{ section.settings.space_mobile }}px;
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: calc((100% - ({{ section.settings.slides_mobile }} - 1) * {{ section.settings.space_mobile }}px) / {{ section.settings.slides_mobile }});
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.space_tablet }}px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_tablet }} - 1) * {{ section.settings.space_tablet }}px) / {{ section.settings.slides_tablet }});
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.space_desktop }}px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_desktop }} - 1) * {{ section.settings.space_desktop }}px) / {{ section.settings.slides_desktop }});
+    }
+  }
 </style>
 
-<div class="themesFlat section-{{ section.id }}-banner-swiper">
+<div class="themesFlat section-{{ section.id }}-padding section-{{ section.id }}-swiper">
   <div class="container">
     <div
       dir="ltr"
@@ -389,7 +419,7 @@
         {
           "type": "richtext",
           "id": "title",
-          "label": "Title",
+          "label": "Title"
         },
         {
           "type": "richtext",
