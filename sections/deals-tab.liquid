@@ -1,4 +1,42 @@
-<section class="flat-spacing flat-animate-tab" id="section-{{ section.id }}">
+<style>
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 12px;
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 575px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_mobile }} - 1) * 12px) / {{ section.settings.slides_mobile }});
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 24px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_tablet }} - 1) * 24px) / {{ section.settings.slides_tablet }});
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 48px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_desktop }} - 1) * 48px) / {{ section.settings.slides_desktop }});
+    }
+  }
+</style>
+
+<section class="flat-spacing flat-animate-tab section-{{ section.id }}-swiper" id="section-{{ section.id }}">
   <div class="container">
     <div class="sect-title type-3 type-2 flex-wrap wow fadeInUp">
       <h2 class="s-title text-nowrap">{{ section.settings.heading }}</h2>
