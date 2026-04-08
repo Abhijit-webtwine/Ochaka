@@ -1,3 +1,9 @@
+{% comment %}
+  Box Icons Section
+  - Implements swiper pre-initialization to prevent CLS
+  - Uses explicit classes for styling
+{% endcomment %}
+
 <style>
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top_mobile }}px;
@@ -17,8 +23,68 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    {% if section.settings.hide_seperator %}
+      gap: 12px;
+    {% else %}
+      gap: 13px;
+    {% endif %}
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 575px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+       {% if section.settings.hide_seperator %}
+        width: calc((100% - 12px) / 2);
+      {% else %}
+        width: calc((100% - 13px) / 2);
+      {% endif %}
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      {% if section.settings.hide_seperator %}
+        gap: 24px;
+      {% else %}
+        gap: 33px;
+      {% endif %}
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      {% if section.settings.hide_seperator %}
+        width: calc((100% - (3 - 1) * 24px) / 3);
+      {% else %}
+        width: calc((100% - (3 - 1) * 33px) / 3);
+      {% endif %}
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      {% if section.settings.hide_seperator %}
+        gap: 48px;
+      {% else %}
+        gap: 97px;
+      {% endif %}
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      {% if section.settings.hide_seperator %}
+        width: calc((100% - (4 - 1) * 48px) / 4);
+      {% else %}
+        width: calc((100% - (4 - 1) * 97px) / 4);
+      {% endif %}
+    }
+  }
 </style>
-<section class="section-{{ section.id }}-padding">
+<section class="section-{{ section.id }}-padding section-{{ section.id }}-swiper">
   <div class="container">
     {% if section.settings.enable_border_top %}
       <div class="flat-spacing pt-0">

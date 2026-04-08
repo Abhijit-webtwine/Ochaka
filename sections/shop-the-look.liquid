@@ -1,36 +1,36 @@
 <style>
   /* Pre-initialization Swiper styles to prevent layout shift */
-  .section-{{ section.id }}-shop-the-look .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
     gap: 12px;
   }
-  .section-{{ section.id }}-shop-the-look .tf-swiper:not(.swiper-initialized) .swiper-slide {
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
     width: calc((100% - (2 - 1) * 12px) / 2);
     flex: 0 0 auto;
   }
   
   @media (min-width: 768px) {
-    .section-{{ section.id }}-shop-the-look .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
       gap: 30px;
     }
-    .section-{{ section.id }}-shop-the-look .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
       width: calc((100% - (3 - 1) * 30px) / 3);
     }
   }
   
   @media (min-width: 1200px) {
-    .section-{{ section.id }}-shop-the-look .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
       gap: 48px;
     }
-    .section-{{ section.id }}-shop-the-look .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
       width: calc((100% - (3 - 1) * 48px) / 3);
     }
   }
 </style>
 
-<div class="themesFlat section-{{ section.id }}-shop-the-look {% if section.settings.spacing %}flat-spacing{% endif %}">
+<div class="themesFlat section-{{ section.id }}-shop-the-look {% if section.settings.spacing %}flat-spacing{% endif %} section-{{ section.id }}-swiper">
   <div class="container-full">
     {% if section.settings.heading != blank %}
       <div class="h1 sect-title text-black fw-medium text-center wow fadeInUp">

@@ -1,6 +1,60 @@
+{% comment %}
+  Product Swiper Block
+  - Implements swiper pre-initialization to prevent CLS
+  - Uses explicit classes for styling
+{% endcomment %}
+
 <style>
-  #shopify-block-{{ block.id }} {
+  .block-{{ block.id }}-swiper {
     background-color: {{ block.settings.background_color }};
+  }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: grid;
+    overflow: hidden;
+    gap: {{ block.settings.space_mobile }}px;
+  }
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+  }
+
+  @media (max-width: 574px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ 2 | times: block.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 575px) and (max-width: 767px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      grid-template-columns: repeat({{ block.settings.slides_mobile }}, 1fr);
+    }
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ block.settings.slides_mobile | times: block.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ block.settings.space_tablet }}px;
+      grid-template-columns: repeat({{ block.settings.slides_tablet }}, 1fr);
+    }
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ block.settings.slides_tablet | times: block.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ block.settings.space_desktop }}px;
+      grid-template-columns: repeat({{ block.settings.slides_desktop }}, 1fr);
+    }
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide:nth-child(n+{{ block.settings.slides_desktop | times: block.settings.grid_rows | plus: 1 }}) {
+      display: none;
+    }
   }
 </style>
 

@@ -1,61 +1,67 @@
+{% comment %}
+  Featured Blog Block
+  - Implements swiper pre-initialization to prevent CLS
+  - Uses explicit classes for styling
+{% endcomment %}
+
 {% style %}
-  #shopify-block-{{ block.id }} {
+  .block-{{ block.id }}-padding {
     padding-top: {{ block.settings.padding_top_mobile }}px;
     padding-bottom: {{ block.settings.padding_bottom_mobile }}px;
   }
 
   @media screen and (min-width: 768px) {
-    #shopify-block-{{ block.id }} {
+    .block-{{ block.id }}-padding {
       padding-top: {{ block.settings.padding_top_tablet }}px;
       padding-bottom: {{ block.settings.padding_bottom_tablet }}px;
     }
   }
 
   @media screen and (min-width: 1025px) {
-    #shopify-block-{{ block.id }} {
+    .block-{{ block.id }}-padding {
       padding-top: {{ block.settings.padding_top_desktop }}px;
       padding-bottom: {{ block.settings.padding_bottom_desktop }}px;
     }
   }
 
   {% if block.settings.show_date == 'tag' %}
-    #shopify-block-{{ block.id }} .entry_tag .name-tag {
+    .block-{{ block.id }}-padding .entry_tag .name-tag {
       background-color: {{ block.settings.date_color }};
     }
   {% endif %}
 
   /* Pre-initialization Swiper styles to prevent layout shift */
-  #shopify-block-{{ block.id }} .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
     display: flex;
     flex-wrap: nowrap;
     overflow: hidden;
     gap: {{ block.settings.slides_spacing_mobile }}px;
   }
-  #shopify-block-{{ block.id }} .tf-swiper:not(.swiper-initialized) .swiper-slide {
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
     width: calc((100% - ({{ block.settings.slides_to_show_mobile }} - 1) * {{ block.settings.slides_spacing_mobile }}px) / {{ block.settings.slides_to_show_mobile }});
     flex: 0 0 auto;
   }
   
   @media (min-width: 768px) {
-    #shopify-block-{{ block.id }} .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
       gap: {{ block.settings.slides_spacing_tablet }}px;
     }
-    #shopify-block-{{ block.id }} .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
       width: calc((100% - ({{ block.settings.slides_to_show_tablet }} - 1) * {{ block.settings.slides_spacing_tablet }}px) / {{ block.settings.slides_to_show_tablet }});
     }
   }
   
   @media (min-width: 1200px) {
-    #shopify-block-{{ block.id }} .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
       gap: {{ block.settings.slides_spacing_desktop }}px;
     }
-    #shopify-block-{{ block.id }} .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
       width: calc((100% - ({{ block.settings.slides_to_show_desktop }} - 1) * {{ block.settings.slides_spacing_desktop }}px) / {{ block.settings.slides_to_show_desktop }});
     }
   }
 {% endstyle %}
 
-<div class="featured-blog-block">
+<div class="featured-blog-block block-{{ block.id }}-padding block-{{ block.id }}-swiper">
   {% render 'featured-blog-block', block: block %}
 </div>
 
