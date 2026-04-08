@@ -2,6 +2,36 @@
   #shopify-block-{{ block.id }} {
     background-color: {{ block.settings.background_color }};
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 24px;
+  }
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  /* Product slider in item-grid-2 */
+  @media (min-width: 768px) {
+    .block-{{ block.id }}-swiper .item-grid-2 .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - (2 - 1) * 24px) / 2);
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .block-{{ block.id }}-swiper .item-grid-2 .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - (3 - 1) * 24px) / 3);
+    }
+  }
+
+  /* Media slider for main product */
+  .block-{{ block.id }}-swiper .flat-wrap-media-product .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+  }
 </style>
 
 {% capture grid_content %}

@@ -2,6 +2,36 @@
   #shopify-block-{{ block.id }} {
     background-color: {{ block.settings.background_color }};
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 24px;
+  }
+  .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 576px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ block.settings.slides_mobile | default: 1 }} - 1) * 24px) / {{ block.settings.slides_mobile | default: 1 }});
+    }
+  }
+
+  @media (min-width: 768px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ block.settings.slides_tablet | default: 2 }} - 1) * 24px) / {{ block.settings.slides_tablet | default: 2 }});
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .block-{{ block.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ block.settings.slides_desktop | default: 3 }} - 1) * 24px) / {{ block.settings.slides_desktop | default: 3 }});
+    }
+  }
 </style>
 
 {% capture deal_content %}
