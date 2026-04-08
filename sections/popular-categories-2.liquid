@@ -1,4 +1,36 @@
-<section class="flat-spacing" id="Section-{{ section.id }}">
+{%- style -%}
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 12px;
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: calc((100% - ({{ section.settings.slides_mobile | default: 2 }} - 1) * 12px) / {{ section.settings.slides_mobile | default: 2 }});
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 24px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_tablet | default: 4 }} - 1) * 24px) / {{ section.settings.slides_tablet | default: 4 }});
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: {{ section.settings.space_lg | default: 48 }}px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - ({{ section.settings.slides_desktop | default: 6 }} - 1) * {{ section.settings.space_lg | default: 48 }}px) / {{ section.settings.slides_desktop | default: 6 }});
+    }
+  }
+{%- endstyle -%}
+
+<section class="flat-spacing section-{{ section.id }}-swiper" id="Section-{{ section.id }}">
   <div class="container">
     {%- if section.settings.title != blank -%}
       <div class="sect-title text-center wow fadeInUp">
