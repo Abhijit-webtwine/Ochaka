@@ -1,4 +1,36 @@
-<div class="tf-slideshow" id="slideshow-{{ section.id }}">
+<style>
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 0px;
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  @media (min-width: 575px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: 50%;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: 33.333%;
+    }
+  }
+</style>
+
+<div class="tf-slideshow section-{{ section.id }}-swiper" id="slideshow-{{ section.id }}">
   <div dir="ltr" class="swiper tf-swiper sw-slide-show slider_effect_scale-md slider_effect_fade-md" data-preview="3"
     data-tablet="2" data-mobile-sm="1" data-mobile="1" data-pagination="1" data-pagination-sm="1" data-pagination-md="2"
     data-pagination-lg="3">
