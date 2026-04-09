@@ -17,9 +17,39 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 12px;
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 24px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - 24px) / 2);
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 48px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - 2 * 48px) / 3);
+    }
+  }
 {%- endstyle -%}
 
-<section class="flat-spacing section-{{ section.id }}-padding">
+<section class="flat-spacing section-{{ section.id }}-padding section-{{ section.id }}-swiper">
   <div class="container">
     <div dir="ltr" class="swiper tf-swiper wrap-sw-over wow fadeInUp" 
       data-preview="3" 

@@ -1,7 +1,3 @@
-{% comment %}
-  Dynamic Deals Section
-{% endcomment %}
-
 <style>
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top_mobile }}px;
@@ -21,9 +17,39 @@
       padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
     }
   }
+
+  /* Pre-initialization Swiper styles to prevent layout shift */
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    gap: 12px;
+  }
+  .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+  
+  @media (min-width: 768px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 24px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: 100%;
+    }
+  }
+  
+  @media (min-width: 1200px) {
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-wrapper {
+      gap: 48px;
+    }
+    .section-{{ section.id }}-swiper .tf-swiper:not(.swiper-initialized) .swiper-slide {
+      width: calc((100% - (2 - 1) * 48px) / 2);
+    }
+  }
 </style>
 
-<section class="flat-spacing section-{{ section.id }}-padding">
+<section class="flat-spacing section-{{ section.id }}-padding section-{{ section.id }}-swiper">
   <div class="container">
     <div class="sect-title text-center wow fadeInUp">
       {%- if section.settings.title != blank -%}
