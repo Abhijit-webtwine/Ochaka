@@ -110,7 +110,7 @@
             </p>
           {%- endif -%}
 
-          {% form 'contact', class: 'form-contact style-border' %}
+          {% form 'contact', class: 'form-contact style-border position-static' %}
             {%- if form.posted_successfully? -%}
               <div class="form_message text-success mb-16">
                 {{ 'templates.contact.form.post_success' | t }}
