@@ -2430,3 +2430,7 @@ section#shopify-section-template--17449469051093__beauty_banner_ixynMg + section
   position: relative;
   align-items: center;
 }
+
+.hidden {
+  display: none !important;
+}
