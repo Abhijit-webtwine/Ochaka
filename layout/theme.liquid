@@ -14,9 +14,6 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://sibforms.com" crossorigin>
     {%- if template.suffix contains 'sample' -%}
       <meta name="robots" content="noindex,nofollow">
     {%- else -%}
@@ -49,8 +46,7 @@
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css"></noscript>
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 
     {%- if settings.predictive_search_enabled -%}
       <link
@@ -81,14 +77,11 @@
     {%- endif -%}
 
     {% comment %} google fonts import {% endcomment %}
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap">
-    </noscript>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap');
+    </style>
     {% comment %} google fonts import ends{% endcomment %}
 
     <style>
@@ -126,8 +119,7 @@
     <link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}">
     <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
-    <link rel="stylesheet" href="{{'animate.css' |  asset_url}}" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="{{'animate.css' |  asset_url}}"></noscript>
+    <link rel="stylesheet" href="{{'animate.css' |  asset_url}}">
     {% comment %} <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
     <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}">
     <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}"> {% endcomment %}
@@ -150,6 +142,10 @@
     <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script> {% endcomment %}
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
+    {%- liquid
+      render 'vite-tag' with 'main.scss'
+      render 'vite-tag' with 'main.js'
+    -%}
     {%- liquid
       render 'vite-tag' with 'main.scss'
       render 'vite-tag' with 'main.js'
