@@ -274,6 +274,19 @@ class SearchHistory extends HTMLElement {
 
   render() {
     const history = this.getHistory().slice(0, this.renderLimit);
+    const historyWrap = this.closest('.view-history-wrap');
+
+    if (history.length === 0) {
+      if (historyWrap) {
+        historyWrap.style.display = 'none';
+      }
+      this.innerHTML = '';
+      return;
+    }
+
+    if (historyWrap) {
+      historyWrap.style.display = '';
+    }
 
     this.innerHTML = history.map(item => `
       <a class="item text-main link h6" href="/search?q=${encodeURIComponent(item)}">
