@@ -51,7 +51,7 @@
 
 <footer class="tf-footer {{ section.settings.footer_style }} section-{{ section.id }}-footer">
   
-  {% if section.settings.show_border_top %}
+  {% if section.settings.show_border_top or template.name == 'product' %}
     <div class="container d-flex">
       <span class="br-line"></span>
     </div>
