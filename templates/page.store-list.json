@@ -42,6 +42,15 @@
               },
               "blocks": {}
             },
+            "store-open": {
+              "type": "store-open",
+              "static": true,
+              "settings": {
+                "heading": "We're Open",
+                "content": "Our store is now open for shopping and exchanges every day from 8AM to 7PM."
+              },
+              "blocks": {}
+            },
             "store-social": {
               "type": "store-social",
               "static": true,
@@ -80,6 +89,15 @@
                 "title": "Contact Us",
                 "phone": "+1 (800) 987 6543",
                 "email": "themesflat@support.com"
+              },
+              "blocks": {}
+            },
+            "store-open": {
+              "type": "store-open",
+              "static": true,
+              "settings": {
+                "heading": "We're Open",
+                "content": "Our store is now open for shopping and exchanges every day from 8AM to 7PM."
               },
               "blocks": {}
             },
@@ -124,6 +142,15 @@
               },
               "blocks": {}
             },
+            "store-open": {
+              "type": "store-open",
+              "static": true,
+              "settings": {
+                "heading": "We're Open",
+                "content": "Our store is now open for shopping and exchanges every day from 8AM to 7PM."
+              },
+              "blocks": {}
+            },
             "store-social": {
               "type": "store-social",
               "static": true,
@@ -146,7 +173,9 @@
         "show_header": true,
         "rotating_text": "Ochaka Store Fashion Style",
         "title": "Ochaka. Store",
-        "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta purus scelerisque felis condimentum."
+        "heading_style": "true",
+        "heading_weight": "none",
+        "subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta purus scelerisque felis condimentum, a lobortis\nmauris viverra. Sed et nisl maximus, gravida purus et, condimentum libero"
       }
     }
   },
