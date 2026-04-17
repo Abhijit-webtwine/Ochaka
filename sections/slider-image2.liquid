@@ -32,7 +32,7 @@
                     {%- if block.settings.heading != blank -%}
                       <h2 class="title_sld h2 fw-normal mb-16 fade-item fade-item-2">
                         <a href="{{ block.settings.link | default: '#' }}" class="link">
-                          {{ block.settings.heading }}
+                          {{ block.settings.heading |  newline_to_br }}
                         </a>
                       </h2>
                     {%- endif -%}
@@ -74,7 +74,7 @@
                 {%- if block.settings.heading != blank -%}
                   <h4 class="title fw-normal">
                     <a href="{{ block.settings.link | default: '#' }}" class="link">
-                      {{ block.settings.heading }}
+                      {{ block.settings.heading |  newline_to_br }}
                     </a>
                   </h4>
                 {%- endif -%}

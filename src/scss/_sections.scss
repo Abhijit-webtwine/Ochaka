@@ -137,6 +137,7 @@
     display: flex;
     position: relative;
     height: 100%;
+    flex-basis: 50%;
 
     .image {
         // aspect-ratio: calc(336/476);

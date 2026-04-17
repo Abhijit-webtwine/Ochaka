@@ -46,14 +46,19 @@
             {% endfor %}
             <div class="col-6">
               <ul class="list-hor">
+                {% if block.settings.mega_collection_1 != blank %}
                 {% render 'mega-menu-collection',
                   collection: block.settings.mega_collection_1,
                   btn: block.settings.mega_col_btn_text
                 %}
+                {% endif %}
+                
+                {% if block.settings.mega_collection_2 != blank %}
                 {% render 'mega-menu-collection',
                   collection: block.settings.mega_collection_2,
                   btn: block.settings.mega_col_btn_text
                 %}
+                {% endif %}
               </ul>
             </div>
           </div>
