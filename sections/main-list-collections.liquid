@@ -12,8 +12,8 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-collection-list.css' | asset_url | stylesheet_tag }}
 
-<div class="page-width section--padding">
-  <div class="title-wrapper{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %}">
+<div class="px-50 section--padding">
+  <div class="title-wrapper mb-40{% if section.settings.heading == blank %} title-wrapper--no-heading{% endif %}">
     <h1 class="title {{ section.settings.heading_size }}">{{ section.settings.heading | escape }}</h1>
   </div>
 
