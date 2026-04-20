@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --",
     "deploy": "run-s \"vite:build\" \"shopify:push -- {@}\" --",
-    "shopify:dev": "shopify theme dev",
+    "shopify:dev": "shopify theme dev --store=ochaka-multipurpose-ecommerce-theme",
     "shopify:push": "shopify theme push",
     "vite:dev": "vite",
     "vite:build": "vite build"
