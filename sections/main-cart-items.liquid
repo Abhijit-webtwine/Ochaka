@@ -132,7 +132,7 @@
                             {%- endif -%}
                           </td>
 
-                          <td class="medium-hide large-up-hide right">
+                          {% comment %} <td class="medium-hide large-up-hide right">
                             {%- if item.original_line_price != item.final_line_price -%}
                               <dl class="cart-item__discounted-prices">
                                 <dt class="visually-hidden">
@@ -170,7 +170,7 @@
                                 {{ item.variant.unit_price_measurement.reference_unit }}
                               </div>
                             {%- endif -%}
-                          </td>
+                          </td> {% endcomment %}
 
                           <td class="cart_quantity">
                             <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">

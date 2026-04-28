@@ -40,7 +40,7 @@
   stroke-dasharray: 280;
   stroke-dashoffset: 0;
   transform-origin: center;
-  stroke: rgb(var(--color-foreground));
+  stroke: #000;
   animation: dash 1.4s infinite ease;
 }
 
