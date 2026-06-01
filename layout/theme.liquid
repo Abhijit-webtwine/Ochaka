@@ -47,7 +47,7 @@
       endif
     -%}
     {% comment %} <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css"> {% endcomment %}
-{{ 'theme.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+    {{ 'theme.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
 
     {%- if settings.predictive_search_enabled -%}
       <link
