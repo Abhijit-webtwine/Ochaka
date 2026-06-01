@@ -43,10 +43,6 @@
     color: {{ section.settings.newsletter_btn_text_color }};
     border-color: {{ section.settings.newsletter_btn_bg_color }};
   }
-  .footer-newsletter .tf-btn:hover {
-    background-color: transparent;
-    color: {{ section.settings.newsletter_btn_bg_color }};
-  }
 {% endstyle %}
 
 <footer class="tf-footer {{ section.settings.footer_style }} section-{{ section.id }}-footer">
@@ -218,7 +214,7 @@
                             >
                           </fieldset>
 
-                          <button type="submit" class="tf-btn animate-btn type-small-2">
+                          <button type="submit" class="tf-btn animate-btn type-small-2{% if section.settings.newsletter_btn_animation == 'dark' %} animate-dark{% endif %}">
                             {{ block.settings.newsletter_button }}
                             <i class="icon icon-arrow-right"></i>
                           </button>
@@ -381,6 +377,22 @@
       "id": "newsletter_btn_text_color",
       "label": "Button Text Color",
       "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "newsletter_btn_animation",
+      "label": "Button Animation Style",
+      "options": [
+        {
+          "value": "white",
+          "label": "White"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        }
+      ],
+      "default": "white"
     },
     {
       "type": "header",
