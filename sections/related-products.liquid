@@ -53,13 +53,60 @@
             <div class="sw-dot-default tf-sw-pagination"></div>
           </div>
         </div>
+      {% elsif request.design_mode %}
+        <div class="container">
+          <h1 class="sect-title text-center">
+            {{ section.settings.heading }}
+          </h1>
+
+          <div dir="ltr"
+               class="swiper tf-swiper wrap-sw-over"
+               data-preview="4"
+               data-tablet="3"
+               data-mobile-sm="2"
+               data-mobile="2"
+               data-space-lg="48"
+               data-space-md="30"
+               data-space="12"
+               data-pagination="2"
+               data-pagination-sm="2"
+               data-pagination-md="3"
+               data-pagination-lg="4">
+
+            <div class="swiper-wrapper">
+              {% for i in (1..limit) %}
+                {%- capture current -%}{%- cycle 1, 2, 3, 4 -%}{%- endcapture -%}
+                <div class="swiper-slide">
+                  <div class="card-product">
+                    <div class="card-product_wrapper aspect-ratio-0 d-flex">
+                      <div class="product-img">
+                        {{ 'product-apparel-' | append: current | placeholder_svg_tag: 'w-100 placeholder-svg' }}
+                      </div>
+                    </div>
+                    <div class="card-product_info d-grid">
+                      <p class="tag-product text-small">Category</p>
+                      <h6 class="name-product">
+                        <a href="#" class="link">Product Title</a>
+                      </h6>
+                      <div class="price-wrap mb-0">
+                        <h4 class="price-new">$0.00</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="sw-dot-default tf-sw-pagination"></div>
+          </div>
+        </div>
       {% endif %}
     </product-recommendations>
 
-  {% elsif source == 'collection' and section.settings.collection != blank %}
+  {% elsif source == 'collection' %}
 
     {% assign collection = section.settings.collection %}
-    {% if collection.products_count > 0 %}
+    {% if collection != blank and collection.products_count > 0 %}
       <div class="container">
         <h1 class="sect-title text-center">
           {{ section.settings.heading }}
@@ -83,6 +130,53 @@
             {% for product in collection.products limit: limit %}
               <div class="swiper-slide">
                 {% render 'card-product', product: product, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="sw-dot-default tf-sw-pagination"></div>
+        </div>
+      </div>
+    {% else %}
+      <div class="container">
+        <h1 class="sect-title text-center">
+          {{ section.settings.heading }}
+        </h1>
+
+        <div dir="ltr"
+          class="swiper tf-swiper wrap-sw-over"
+          data-preview="4"
+          data-tablet="3"
+          data-mobile-sm="2"
+          data-mobile="2"
+          data-space-lg="48"
+          data-space-md="30"
+          data-space="12"
+          data-pagination="2"
+          data-pagination-sm="2"
+          data-pagination-md="3"
+          data-pagination-lg="4">
+
+          <div class="swiper-wrapper">
+            {% for i in (1..limit) %}
+              {%- capture current -%}{%- cycle 1, 2, 3, 4 -%}{%- endcapture -%}
+              <div class="swiper-slide">
+                <div class="card-product">
+                  <div class="card-product_wrapper aspect-ratio-0 d-flex">
+                    <div class="product-img">
+                      {{ 'product-apparel-' | append: current | placeholder_svg_tag: 'w-100 placeholder-svg' }}
+                    </div>
+                  </div>
+                  <div class="card-product_info d-grid">
+                    <p class="tag-product text-small">Category</p>
+                    <h6 class="name-product">
+                      <a href="#" class="link">Product Title</a>
+                    </h6>
+                    <div class="price-wrap mb-0">
+                      <h4 class="price-new">$0.00</h4>
+                    </div>
+                  </div>
+                </div>
               </div>
             {% endfor %}
           </div>
