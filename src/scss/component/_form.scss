@@ -1110,25 +1110,21 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-.sib-form-message-panel {
+// .sib-form-message-panel {
     // display: block !important;
     // border-radius: 999px;
     // border-color: var(--line-8);
-    margin-bottom: 8px;
-    padding: 0;
-    border: 0;
+    // margin-bottom: 8px;
+    // padding: 0;
+    // border: 0;
+// }
 
-    &#error-message {
-        .sib-form-message-panel__text {
-            color: var(--error);
-        }
-    }
+#error-message {
+    color: var(--error);
+}
 
-    &#success-message {
-        .sib-form-message-panel__text {
-            color: var(--success);
-        }
-    }
+#success-message {
+    color: var(--success);
 }
 
 .sib-form-message-panel__text .sib-notification__icon {
