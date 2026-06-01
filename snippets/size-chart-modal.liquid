@@ -7,8 +7,12 @@
       </div>
       {% assign size_chart_page_handle = 'size-chart' %}
       {% assign size_chart_page = pages[size_chart_page_handle] %}
-      {% if size_chart_page %}
+      {% if size_chart_page and size_chart_page.content != blank %}
         {{ size_chart_page.content }}
+      {% else %}
+        <div class="text-center py-5">
+          <p class="h6 text-muted">No size chart content available.</p>
+        </div>
       {% endif %}
     </div>
   </div>
