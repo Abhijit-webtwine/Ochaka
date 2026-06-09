@@ -4,7 +4,9 @@ import shopifyClean from '@by-association-only/vite-plugin-shopify-clean'
 
 export default defineConfig({
   plugins: [
-    shopify(),
+    shopify({
+      versionNumbers: true
+    }),
     shopifyClean()
   ],
   build: {
