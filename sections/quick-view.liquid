@@ -43,7 +43,7 @@
                       min="{{ settings.min_atc_count }}" 
                       max="{{ settings.max_atc_count }}">
                         
-                      <div class="add-to-cart-count-container d-flex align-items-center gap-1 w-100">
+                      <div class="add-to-cart-count-container d-flex align-items-baseline gap-1 w-100">
                         <i class="icon icon-shopping-cart-simple"></i>
                         <p id="view-count" class="visitor-count h6">
                           <span class="vc-number"></span> people just added this product to their cart
@@ -79,10 +79,11 @@
                 {% endif %}
               </div>
             </div>
-
-            <div class="product-infor-sub text-main h6">
-              {{ product.description | strip_html | truncatewords: 50 }}
-            </div>
+            {% if product.description != blank %}
+              <div class="product-infor-sub text-main h6">
+                {{ product.description | strip_html | truncatewords: 50 }}
+              </div>
+            {% endif %}
           </div>
 
             {% render 'product-variant-picker',
