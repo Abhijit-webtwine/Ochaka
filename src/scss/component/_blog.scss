@@ -244,7 +244,7 @@
     }
 
     &.active,
-    &:hover {
+    &:not([disabled]):hover {
         background-color: var(--black);
         color: var(--white);
     }
