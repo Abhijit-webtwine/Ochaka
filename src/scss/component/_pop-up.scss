@@ -212,16 +212,16 @@
     .modal-content {
         cursor: default !important;
         border-radius: 0px;
+        position: relative;
     }
 }
 
 .modal-heading {
-    position: relative;
+    // position: relative;
     margin-bottom: 30px;
 
     .icon-close-popup {
-        top: 50%;
-        transform: translateY(-50%);
+        top: 0;
         right: 0;
         left: unset;
         font-size: 24px;
