@@ -435,6 +435,7 @@
                         <input type="hidden" name="quantity" value="{{ block.settings.opt1_qty }}" class="volume-qty-input">
                         
                         <div id="volume-discount-list-{{ section.id }}" class="flat-check-list list-volume-discount">
+                          {% assign rendered_count = 0 %}
                           {% for i in (1..3) %}
                             {% capture qty_key %}opt{{ i }}_qty{% endcapture %}
                             {% capture disc_key %}opt{{ i }}_discount{% endcapture %}
@@ -443,11 +444,12 @@
                             {% assign disc = block.settings[disc_key] %}
                             
                             {% if qty > 0 %}
+                              {% assign rendered_count = rendered_count | plus: 1 %}
                               {% assign percent_mult = 100.0 | minus: disc | divided_by: 100.0 %}
                               {% assign discounted_unit = product.selected_or_first_available_variant.price | times: percent_mult %}
                               {% assign total_price = discounted_unit | times: qty %}
                               
-                              <div class="check-item volume-discount-item {% if forloop.first %}active{% endif %}" data-qty="{{ qty }}" data-discount="{{ disc }}">
+                              <div class="check-item volume-discount-item {% if rendered_count == 1 %}active{% endif %}" data-qty="{{ qty }}" data-discount="{{ disc }}">
                                 <div class="content">
                                   <div class="check"><span></span></div>
                                   <h5 class="name fw-6">Buy {{ qty }} item for {{ disc }}% OFF per item</h5>

@@ -1593,13 +1593,32 @@ class VariantSelects extends HTMLElement {
       const source = html.getElementById(id);
       if (source && destination) {
         // Preserve active index so user selection isn't lost during fast variant swaps
-        const activeIndex = Array.from(destination.children).findIndex(child => child.classList.contains('active'));
+        let activeIndex = Array.from(destination.children).findIndex(child => child.classList.contains('active'));
         destination.innerHTML = source.innerHTML;
-        if (activeIndex > -1 && destination.children[activeIndex]) {
-          Array.from(destination.children).forEach(c => c.classList.remove('active'));
-          destination.children[activeIndex].classList.add('active');
-          const qtyInput = destination.closest('product-volume-discount')?.querySelector('.volume-qty-input');
-          if (qtyInput) qtyInput.value = destination.children[activeIndex].dataset.qty;
+        
+        const volumeDiscountEl = destination.closest('product-volume-discount');
+        if (volumeDiscountEl) {
+          if (activeIndex === -1) {
+            activeIndex = 0; // Default to first item if none active
+          }
+          const activeItem = destination.children[activeIndex];
+          if (activeItem) {
+            if (typeof volumeDiscountEl.setActiveItem === 'function') {
+              volumeDiscountEl.setActiveItem(activeItem);
+            } else {
+              Array.from(destination.children).forEach(c => c.classList.remove('active'));
+              activeItem.classList.add('active');
+              const qtyInput = volumeDiscountEl.querySelector('.volume-qty-input');
+              if (qtyInput && activeItem.dataset.qty) qtyInput.value = activeItem.dataset.qty;
+              const idInputs = volumeDiscountEl.querySelectorAll('input[name="id"]');
+              if (idInputs.length > 0) {
+                idInputs[0].value = activeItem.dataset.id || idInputs[0].value;
+                for (let i = 1; i < idInputs.length; i++) {
+                  idInputs[i].remove();
+                }
+              }
+            }
+          }
         }
       }
     });
@@ -3841,22 +3860,32 @@ class ProductVolumeDiscount extends ProductForm {
       const item = e.target.closest('.volume-discount-item');
       if (!item) return;
 
-      const items = this.querySelectorAll('.volume-discount-item');
-      items.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-      
-      const qtyInput = this.querySelector('.volume-qty-input');
-      if (qtyInput && item.dataset.qty) qtyInput.value = item.dataset.qty;
-      
-      const idInputs = this.querySelectorAll('input[name="id"]');
-      if (idInputs.length > 0) {
-        idInputs[0].value = item.dataset.id || idInputs[0].value;
-        // Purge duplicates to avoid Array ID Shopify 422 conflicts
-        for (let i = 1; i < idInputs.length; i++) {
-          idInputs[i].remove();
-        }
-      }
+      this.setActiveItem(item);
     });
+
+    // Initialize/sync on page load
+    const activeItem = this.querySelector('.volume-discount-item.active') || this.querySelector('.volume-discount-item');
+    if (activeItem) {
+      this.setActiveItem(activeItem);
+    }
+  }
+
+  setActiveItem(item) {
+    const items = this.querySelectorAll('.volume-discount-item');
+    items.forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    
+    const qtyInput = this.querySelector('.volume-qty-input');
+    if (qtyInput && item.dataset.qty) qtyInput.value = item.dataset.qty;
+    
+    const idInputs = this.querySelectorAll('input[name="id"]');
+    if (idInputs.length > 0) {
+      idInputs[0].value = item.dataset.id || idInputs[0].value;
+      // Purge duplicates to avoid Array ID Shopify 422 conflicts
+      for (let i = 1; i < idInputs.length; i++) {
+        idInputs[i].remove();
+      }
+    }
   }
 }
 customElements.define('product-volume-discount', ProductVolumeDiscount);
