@@ -1189,6 +1189,12 @@
     .tf-product-info-wrap {
         position: relative;
         margin: 0;
+
+        .tf-product-total-quantity {
+            .group-btn {
+                flex-wrap: nowrap;
+            }
+        }
     }
 
     .tf-product-info-inner {

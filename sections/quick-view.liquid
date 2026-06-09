@@ -113,9 +113,9 @@
                   {% render 'quantity-input', product: product, product_form_id: product_form_id %}
 
                   {% if product.available %}
-                    <p class="h6 d-none d-sm-block">{{ product.selected_or_first_available_variant.inventory_quantity }} products available</p>
+                    <p class="h6">{{ product.selected_or_first_available_variant.inventory_quantity }} products available</p>
                   {% else %}
-                    <p class="h6 d-none d-sm-block">Sold Out</p>
+                    <p class="h6">Sold Out</p>
                   {% endif %}
                 </div>
 
