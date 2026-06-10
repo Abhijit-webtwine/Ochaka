@@ -143,6 +143,9 @@
     <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script> {% endcomment %}
     <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
 
+    {%- render 'theme-verification-config' -%}
+    <script src="{{ 'theme-verification.js' | asset_url }}" defer></script>
+
     {%- liquid
       render 'vite-tag' with 'main.scss'
       render 'vite-tag' with 'main.js'

@@ -8,6 +8,17 @@
     "theme_support_url": "https://xyz.com"
   },
   {
+    "name": "Theme Activation",
+    "settings": [
+      {
+        "type": "text",
+        "id": "purchase_code",
+        "label": "Purchase Code",
+        "info": "Enter your purchase code to activate the theme, donot forget to click save"
+      }
+    ]
+  },
+  {
     "name": "General",
     "settings": [
       {
