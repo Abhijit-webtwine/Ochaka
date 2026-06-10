@@ -9,6 +9,7 @@
  */
 {
   "current": {
+    "purchase_code": "01012026",
     "show_announcement_slider": false,
     "show_announcement_bar2": false,
     "show_scrolling_promotion": false,
@@ -519,6 +520,7 @@
           "border_color": "#000000",
           "newsletter_btn_bg_color": "#000000",
           "newsletter_btn_text_color": "#ffffff",
+          "newsletter_btn_animation": "white",
           "bottom_text_1": "Help & FAQs",
           "bottom_link_1": "",
           "bottom_text_2": "Factory",
