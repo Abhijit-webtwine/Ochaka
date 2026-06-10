@@ -46,3 +46,23 @@
 
 /*-------------- RTL ----------------- */
 @use "./rtl";
+
+/*-------------- Theme Bypass Prevention ----------------- */
+body.shopify-design-mode:not(.tf-loaded-state) {
+  > *:not(#theme-activation-overlay) {
+    display: none;
+  }
+  #theme-activation-overlay {
+    display: block;
+  }
+}
+
+#theme-activation-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #2b2b2b 0%, #121212 100%);
+  z-index: 99999999;
+  align-items: center;
+  justify-content: center;
+}

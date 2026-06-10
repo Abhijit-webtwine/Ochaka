@@ -28,7 +28,6 @@ class CartDiscount extends HTMLElement {
   }
 
   onRemove(event) {
-    console.log('done');
     event.preventDefault();
     
     // Clear the input field if it exists
