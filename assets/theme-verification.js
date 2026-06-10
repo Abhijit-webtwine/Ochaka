@@ -76,7 +76,7 @@
     const button = document.createElement("a");
     button.className = "activation-button";
     button.target = "_blank";
-    button.href = "https://codecanyon.net/downloads";
+    button.href = "https://themeforest.net/downloads";
     button.textContent = "ENVATO PURCHASE CODE";
 
     const warning = document.createElement("div");
