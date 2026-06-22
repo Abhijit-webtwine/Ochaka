@@ -22,13 +22,9 @@
 {%- endstyle -%}
 
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
-{{ 'component-cart-items.css' | asset_url | stylesheet_tag }}
-{% comment %} {{ 'component-totals.css' | asset_url | stylesheet_tag }} {% endcomment %}
-{% comment %} {{ 'component-price.css' | asset_url | stylesheet_tag }} {% endcomment %}
-{% comment %} {{ 'component-discounts.css' | asset_url | stylesheet_tag }} {% endcomment %}
 {{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 
-<div class="flat-spacing each-list-prd">
+<div class="each-list-prd">
   <div class="container">
     <cart-items class="{% if cart == empty %} is-empty{% endif %} section--padding">
       <div class="cart__warnings">
