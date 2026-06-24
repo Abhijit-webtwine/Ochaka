@@ -38,23 +38,11 @@
     {% render 'meta-tags' %}
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <link
-      rel="preload"
-      href="{{ 'icomoon.ttf' | asset_url }}"
-      as="font"
-      type="font/ttf"
-      crossorigin
-    >
     {%- liquid
-      echo 'base.css' | asset_url | stylesheet_tag: preload: true
-
       if text_direction == 'rtl'
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
-    
-    {% comment %} <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css"> {% endcomment %}
-    {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
 
     {%- if settings.predictive_search_enabled -%}
       <link
@@ -130,7 +118,6 @@
       href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Sora:wght@100..800&family=Ballet:opsz@16..72&display=swap"
       onload="this.onload=null;this.rel='stylesheet'"
     >
-
     <noscript>
       <link
         rel="stylesheet"
@@ -138,62 +125,12 @@
       >
     </noscript>
 
-    <link
-      rel="preload"
-      href="{{ 'bootstrap.min.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    >
-
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="{{ 'bootstrap.min.css' | asset_url }}"
-      >
-    </noscript>
-
-    <link
-      rel="preload"
-      href="{{ 'swiper-bundle.min.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    >
-
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="{{ 'swiper-bundle.min.css' | asset_url }}"
-      >
-    </noscript>
-    {% comment %} <link
-      rel="preload"
-      href="{{ 'icon-style.css' | asset_url }}"
-      as="style"
-      onload="this.media='all';this.rel='stylesheet'"
-    >
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="{{ 'icon-style.css' | asset_url }}"
-      >
-    </noscript> {% endcomment %}
-    <link
-      rel="preload"
-      href="{{ 'animate.css' | asset_url }}"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
-    >
-    
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="{{ 'animate.css' | asset_url }}"
-      >
-    </noscript>
-
-    <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
-    {% comment %} <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
-    <link rel="stylesheet" href="{{'animate.css' |  asset_url}}"> {% endcomment %}
+    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    {{ 'animate.css' | asset_url | stylesheet_tag }}
+    {{ 'icon-style.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
     {% comment %} <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
     <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}">
     <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}"> {% endcomment %}
