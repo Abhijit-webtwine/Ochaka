@@ -1,25 +1,14 @@
 .loading-overlay {
   position: absolute;
   z-index: 3;
-  width: 3rem;
+  width: 1.25rem;
   line-height: 1;
-}
-
-@media screen and (max-width: 749px) {
-  .loading-overlay {
-    top: 0;
-    right: 0;
-  }
-}
-
-@media screen and (min-width: 750px) {
-  .loading-overlay {
-    left: 0;
-  }
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .loading-overlay__spinner {
-  width: 3rem;
+  width: 1.25rem;
   display: inline-block;
 }
 

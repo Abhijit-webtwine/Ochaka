@@ -547,9 +547,9 @@
         }
 
         .loading-overlay {
-            position: static; 
             width: 1.4rem;
             line-height: 0;
+            right: 0;
         }
 
         .loading-overlay__spinner {

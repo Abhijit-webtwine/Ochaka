@@ -247,7 +247,13 @@ class CartItems extends HTMLElement {
         }));
       })
       .catch(() => {
-        this.querySelectorAll('.loading-overlay').forEach((overlay) => overlay.classList.add('hidden'));
+         this.querySelectorAll('.loading-overlay').forEach((overlay) => {
+          overlay.classList.add('hidden');
+          const parent = overlay.parentElement;
+          if (parent) {
+            parent.querySelectorAll('.cart-item__discounted-prices, .cart_total').forEach(el => el.classList.remove('hidden'));
+          }
+        });
         this.disableLoading();
         if (this.cartErrors) {
           this.cartErrors.textContent = window.cartStrings.error;
@@ -292,7 +298,13 @@ class CartItems extends HTMLElement {
     if (cartItems) cartItems.classList.add('cart__items--disabled');
 
     const loadingOverlay = this.querySelectorAll('.loading-overlay')[line - 1];
-    if (loadingOverlay) loadingOverlay.classList.remove('hidden');
+     if (loadingOverlay) {
+      loadingOverlay.classList.remove('hidden');
+      const parent = loadingOverlay.parentElement;
+      if (parent) {
+        parent.querySelectorAll('.cart-item__discounted-prices, .cart_total').forEach(el => el.classList.add('hidden'));
+      }
+    }
     
     document.activeElement.blur();
     if (this.lineItemStatusElement) this.lineItemStatusElement.setAttribute('aria-hidden', false);
