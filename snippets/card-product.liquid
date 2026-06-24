@@ -86,8 +86,8 @@
     {% render 'card-product-sizes', product: product, hover_style: hover_style %}
 
     {% liquid
-      assign show_tooltips = settings.show_tooltips
-      assign tooltip_direction = settings.tooltip_direction
+      assign show_tooltips = show_tooltips | default: settings.show_tooltips
+      assign tooltip_direction = tooltip_direction | default: settings.tooltip_direction
     %}
 
     {% render 'icon-action-list',

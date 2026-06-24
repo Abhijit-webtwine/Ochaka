@@ -38,7 +38,13 @@
     {% render 'meta-tags' %}
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-
+    <link
+      rel="preload"
+      href="{{ 'icomoon.ttf' | asset_url }}"
+      as="font"
+      type="font/ttf"
+      crossorigin
+    >
     {%- liquid
       echo 'base.css' | asset_url | stylesheet_tag: preload: true
 
@@ -46,6 +52,7 @@
         echo 'rtl.css' | asset_url | stylesheet_tag
       endif
     -%}
+    
     {% comment %} <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css"> {% endcomment %}
     {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
 
@@ -78,11 +85,11 @@
     {%- endif -%}
 
     {% comment %} google fonts import {% endcomment %}
-    <style>
+    {% comment %} <style>
       @import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
       @import url('https://fonts.googleapis.com/css2?family=Ballet:opsz@16..72&display=swap');
-    </style>
+    </style> {% endcomment %}
     {% comment %} google fonts import ends{% endcomment %}
 
     <style>
@@ -117,10 +124,76 @@
       }
     </style>
 
-    <link rel="stylesheet" href="{{ 'bootstrap.min.css' | asset_url }}">
-    <link rel="stylesheet" href="{{ 'swiper-bundle.min.css' | asset_url }}">
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Sora:wght@100..800&family=Ballet:opsz@16..72&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Sora:wght@100..800&family=Ballet:opsz@16..72&display=swap"
+      >
+    </noscript>
+
+    <link
+      rel="preload"
+      href="{{ 'bootstrap.min.css' | asset_url }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ 'bootstrap.min.css' | asset_url }}"
+      >
+    </noscript>
+
+    <link
+      rel="preload"
+      href="{{ 'swiper-bundle.min.css' | asset_url }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ 'swiper-bundle.min.css' | asset_url }}"
+      >
+    </noscript>
+    {% comment %} <link
+      rel="preload"
+      href="{{ 'icon-style.css' | asset_url }}"
+      as="style"
+      onload="this.media='all';this.rel='stylesheet'"
+    >
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ 'icon-style.css' | asset_url }}"
+      >
+    </noscript> {% endcomment %}
+    <link
+      rel="preload"
+      href="{{ 'animate.css' | asset_url }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+    
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="{{ 'animate.css' | asset_url }}"
+      >
+    </noscript>
+
     <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
-    <link rel="stylesheet" href="{{'animate.css' |  asset_url}}">
+    {% comment %} <link rel="stylesheet" href="{{ 'icon-style.css' | asset_url }}">
+    <link rel="stylesheet" href="{{'animate.css' |  asset_url}}"> {% endcomment %}
     {% comment %} <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
     <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}">
     <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}"> {% endcomment %}
@@ -148,6 +221,7 @@
 
     {%- liquid
       render 'vite-tag' with 'main.scss'
+      render 'vite-tag' with 'product.scss'
       render 'vite-tag' with 'main.js'
     -%}
 

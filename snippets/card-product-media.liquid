@@ -2,23 +2,45 @@
   {%- assign main_image = product.featured_image | default: product.images[0] -%}
   {%- assign hover_image = product.images[1] | default: main_image -%}
 
+<picture>
+  <source
+    media="(min-width: 768px)"
+    data-srcset="{{ main_image | image_url: width: 312 }}"
+  >
+  <source
+    media="(max-width: 767px)"
+    data-srcset="{{ main_image | image_url: width: 200 }}"
+  >
+
   <img
     class="lazyload img-product"
-    src="{{ main_image | image_url }}"
-    data-src="{{ main_image | image_url }}"
+    src="{{ main_image | image_url: width: 312 }}"
+    data-src="{{ main_image | image_url: width: 312 }}"
     alt="{{ main_image.alt | escape }}"
     loading="lazy"
-    width=""
-    height=""
+    width="{{ main_image.width }}"
+    height="{{ main_image.height }}"
+  >
+</picture>
+
+<picture>
+  <source
+    media="(min-width: 768px)"
+    data-srcset="{{ hover_image | image_url: width: 312 }}"
+  >
+  <source
+    media="(max-width: 767px)"
+    data-srcset="{{ hover_image | image_url: width: 200 }}"
   >
 
   <img
     class="lazyload img-hover"
-    src="{{ hover_image | image_url }}"
-    data-src="{{ hover_image | image_url }}"
+    src="{{ hover_image | image_url: width: 312 }}"
+    data-src="{{ hover_image | image_url: width: 312 }}"
     alt="{{ hover_image.alt | escape }}"
     loading="lazy"
-    width=""
-    height=""
+    width="{{ hover_image.width }}"
+    height="{{ hover_image.height }}"
   >
+</picture>
 </a>

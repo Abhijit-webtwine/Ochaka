@@ -22,20 +22,53 @@
 
 <div class="{{ slide_class }} {% if title_layout == 'layout-2' %}type-space-2{% endif %} d-flex hover-img">
   <a href="{{ collection.url | default: '#' }}" class="image img-style w-100">
-    {% if custom_image != blank %}
-      <img
-        class="lazyload"
-        src="{{ custom_image | image_url: width: 800 }}"
-        data-src="{{ custom_image | image_url: width: 800 }}"
-        alt="{{ collection.title | default: 'Collection' | escape }}"
-      >
-    {% elsif collection.featured_image != blank %}
-      <img
-        class="lazyload"
-        src="{{ collection.featured_image | image_url: width: 800 }}"
-        data-src="{{ collection.featured_image | image_url: width: 800 }}"
-        alt="{{ collection.title | escape }}"
-      >
+{% if custom_image != blank %}
+  <picture>
+    <source
+      media="(min-width: 768px)"
+      srcset="{{ custom_image | image_url: width: 448 }}"
+       data-srcset="{{ custom_image | image_url: width: 448 }}"
+    >
+    <source
+      media="(max-width: 767px)"
+      srcset="{{ custom_image | image_url: width: 360 }}"
+    >
+
+    <img
+      class="lazyload"
+      src="{{ custom_image | image_url: width: 448 }}"
+      data-src="{{ custom_image | image_url: width: 448 }}"
+      alt="{{ collection.title | default: 'Collection' | escape }}"
+      width="{{ custom_image.width }}"
+      height="{{ custom_image.height }}"
+      loading="lazy"
+    >
+  </picture>
+
+{% elsif collection.featured_image != blank %}
+
+  <picture>
+    <source
+      media="(min-width: 768px)"
+      srcset="{{ collection.featured_image | image_url: width: 448 }}"
+       data-srcset="{{ collection.featured_image | image_url: width: 448 }}"
+    >
+    <source
+      media="(max-width: 767px)"
+      srcset="{{ collection.featured_image | image_url: width: 360 }}"
+    >
+
+    <img
+      class="lazyload"
+      src="{{ collection.featured_image | image_url: width: 448 }}"
+      data-src="{{ collection.featured_image | image_url: width: 448 }}"
+      alt="{{ collection.title | escape }}"
+      width="{{ collection.featured_image.width }}"
+      height="{{ collection.featured_image.height }}"
+      loading="lazy"
+    >
+  </picture>
+
     {% else %}
       {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
     {% endif %}

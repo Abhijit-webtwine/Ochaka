@@ -14,10 +14,12 @@
   <div class="sld_image">
     {% if block.settings.slide_image != blank %}
       <img
-        src="{{ block.settings.slide_image | image_url: width: 1920 }}"
-        data-src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+        src="{{ block.settings.slide_image | image_url: width: 1400 }}"
+        data-src="{{ block.settings.slide_image | image_url: width: 1400 }}"
         alt="{{ block.settings.slide_title | escape }}"
         class="lazyload {{ image_ani_class }}"
+        fetchpriority="high"
+        loading="eager"
         width=""
         height=""
       >
