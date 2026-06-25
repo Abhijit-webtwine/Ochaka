@@ -19,6 +19,14 @@
 {%- assign collection = block.settings.collection -%}
 {%- assign custom_image = block.settings.custom_image -%}
 {%- assign button_text = block.settings.button_text | default: 'Shop now' -%}
+{% if section.index == 2 %}
+  {% assign loading = 'eager' %}
+  {% assign fetchpriority = 'high' %}
+{% else %}
+  {% assign loading = 'lazy' %}
+  {% assign fetchpriority = 'low' %}
+  {% assign class = 'lazyload' %}
+{% endif %}
 
 <div class="{{ slide_class }} {% if title_layout == 'layout-2' %}type-space-2{% endif %} d-flex hover-img">
   <a href="{{ collection.url | default: '#' }}" class="image img-style w-100">
@@ -43,8 +51,10 @@
         alt="{{ custom_image.alt | escape }}"
         height="{{ custom_image.height }}"
         width="{{ custom_image.width }}"
-        class="motion-reduce"
-      >
+        class="motion-reduce {{ class }}"
+        loading="{{ loading }}"
+        fetchpriority="{{ fetchpriority }}"
+        >
     {% elsif collection.featured_image != blank %}
       <img
         srcset="
@@ -66,7 +76,9 @@
         alt="{{ collection.featured_image.alt | escape }}"
         height="{{ collection.featured_image.height }}"
         width="{{ collection.featured_image.width }}"
-        class="motion-reduce"
+        class="motion-reduce {{ class }}"
+        loading="{{ loading }}"
+        fetchpriority="{{ fetchpriority }}"
       >
     {% else %}
       {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
