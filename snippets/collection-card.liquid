@@ -19,12 +19,7 @@
 {%- assign collection = block.settings.collection -%}
 {%- assign custom_image = block.settings.custom_image -%}
 {%- assign button_text = block.settings.button_text | default: 'Shop now' -%}
-{% if section.index == 2 %}
-  {% assign loading = 'eager' %}
-  {% assign fetchpriority = 'high' %}
-{% else %}
-  {% assign loading = 'lazy' %}
-  {% assign fetchpriority = 'low' %}
+{% if section.index >= 2 %}
   {% assign class = 'lazyload' %}
 {% endif %}
 
@@ -52,8 +47,6 @@
         height="{{ custom_image.height }}"
         width="{{ custom_image.width }}"
         class="motion-reduce {{ class }}"
-        loading="{{ loading }}"
-        fetchpriority="{{ fetchpriority }}"
         >
     {% elsif collection.featured_image != blank %}
       <img
@@ -77,8 +70,6 @@
         height="{{ collection.featured_image.height }}"
         width="{{ collection.featured_image.width }}"
         class="motion-reduce {{ class }}"
-        loading="{{ loading }}"
-        fetchpriority="{{ fetchpriority }}"
       >
     {% else %}
       {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
