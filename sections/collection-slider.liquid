@@ -58,13 +58,20 @@
     data-pagination-lg="3"
   >
     <div class="swiper-wrapper">
+      {%- liquid
+        assign columns = section.blocks.size
+        if columns > 3
+          assign columns = 3
+        endif
+      -%}
       {% for block in section.blocks %}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
           {% render 'collection-card', 
             block: block, 
             layout: section.settings.layout,
             content_style: section.settings.content_style,
-            title_layout: section.settings.title_layout
+            title_layout: section.settings.title_layout,
+            columns: columns,
           %}
         </div>
       {% endfor %}
