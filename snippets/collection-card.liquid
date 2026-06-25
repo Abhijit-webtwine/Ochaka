@@ -31,19 +31,18 @@
           {%- if custom_image.width >= 750 -%}{{ custom_image | image_url: width: 750 }} 750w,{%- endif -%}
           {%- if custom_image.width >= 1000 -%}{{ custom_image | image_url: width: 1000 }} 1000w,{%- endif -%}
           {%- if custom_image.width >= 1500 -%}{{ custom_image | image_url: width: 1500 }} 1500w,{%- endif -%}
-          {%- if custom_image.featured_image.width >= 3000 -%}{{ custom_image.featured_image | image_url: width: 3000 }} 3000w,{%- endif -%}
-          {{ custom_image.featured_image | image_url }} {{ custom_image.featured_image.width }}w
+          {%- if custom_image.width >= 3000 -%}{{ custom_image | image_url: width: 3000 }} 3000w,{%- endif -%}
+          {{ custom_image | image_url }} {{ custom_image.width }}w
         "
-        src="{{ custom_image.featured_image | image_url: width: 1500 }}"
+        src="{{ custom_image | image_url: width: 1500 }}"
         sizes="
           (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns }}px,
-          (min-width: 750px) calc(100vw - 10rem),
+          (min-width: 750px) {% if columns > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},
           calc(100vw - 3rem)
         "
-        alt="{{ custom_image.featured_image.alt | escape }}"
-        height="{{ custom_image.featured_image.height }}"
-        width="{{ custom_image.featured_image.width }}"
-        loading="lazy"
+        alt="{{ custom_image.alt | escape }}"
+        height="{{ custom_image.height }}"
+        width="{{ custom_image.width }}"
         class="motion-reduce"
       >
     {% elsif collection.featured_image != blank %}
@@ -61,13 +60,12 @@
         src="{{ collection.featured_image | image_url: width: 1500 }}"
         sizes="
           (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: columns }}px,
-          (min-width: 750px) calc((100vw - 10rem) / 2),
+          (min-width: 750px) {% if columns > 1 %}calc((100vw - 10rem) / 2){% else %}calc(100vw - 10rem){% endif %},
           calc(100vw - 3rem)
         "
         alt="{{ collection.featured_image.alt | escape }}"
         height="{{ collection.featured_image.height }}"
         width="{{ collection.featured_image.width }}"
-        loading="lazy"
         class="motion-reduce"
       >
     {% else %}
