@@ -10,33 +10,17 @@
   endif
 -%}
 
-{%- liquid
-  assign height = block.settings.slide_image.width | divided_by: block.settings.slide_image.aspect_ratio | round
-  assign sizes = '100vw'
-  assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
-  assign fetch_priority = 'auto'
-  if section.index == 1
-    assign fetch_priority = 'high'
-  endif
--%}
-
 <div class="slider-wrap {{ slider_style }}">
   <div class="sld_image">
     {% if block.settings.slide_image != blank %}
-      {%- if index == 0 %}
-        {{
-          block.settings.slide_image
-          | image_url: width: 3840
-          | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, class: image_ani_class, loading: 'eager'
-        }}
-      {%- else -%}
-        {%- assign lazy_class = image_ani_class | append: ' lazyload' -%}
-        {{
-          block.settings.slide_image
-          | image_url: width: 3840
-          | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths, class: lazy_class
-        }}
-      {%- endif -%}
+      <img
+        src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+        data-src="{{ block.settings.slide_image | image_url: width: 1920 }}"
+        alt="{{ block.settings.slide_title | escape }}"
+        class="lazyload {{ image_ani_class }}"
+        width=""
+        height=""
+      >
     {% else %}
       {% assign placeholder_index = index | modulo: 2 | plus: 1 %}
       {% assign placeholder_img = 'hero-apparel-' | append: placeholder_index %}

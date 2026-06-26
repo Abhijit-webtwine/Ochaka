@@ -48,24 +48,20 @@
               {% if section.settings.collection_image != blank %}
                 {{
                   section.settings.collection_image
-                  | image_url: width: 1500
+                  | image_url: width: 900
                   | image_tag:
-                    widths: '165, 360, 533, 720, 900, 1200, 1500',
-                    sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
                     loading: 'lazy',
-                    alt: collection.title,
-                    class: 'collection-card-image lazyload'
+                    class: 'lazyload',
+                    alt: collection.title
                 }}
               {% elsif collection.featured_image %}
                 {{
                   collection.featured_image
-                  | image_url: width: 1500
+                  | image_url: width: 900
                   | image_tag:
-                    widths: '165, 360, 533, 720, 900, 1200, 1500',
-                    sizes: '(min-width: 990px) 25vw, (min-width: 750px) 33vw, 50vw',
                     loading: 'lazy',
-                    alt: collection.title,
-                    class: 'collection-card-image lazyload'
+                    class: 'lazyload',
+                    alt: collection.title
                 }}
               {% endif %}
             </a>

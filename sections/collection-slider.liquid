@@ -41,7 +41,7 @@
   }
 {% endstyle %}
 
-<div class="s-collection {% if section.settings.spacing_style == 'style-2' %}type-2{% endif %}{% if section.settings.container_type == 'full-width' %}px-0{% endif %} section-{{ section.id }}-collection-slider section-{{ section.id }}-swiper">
+<div class="s-collection wow fadeInUp {% if section.settings.spacing_style == 'style-2' %}type-2{% endif %}{% if section.settings.container_type == 'full-width' %}px-0{% endif %} section-{{ section.id }}-collection-slider section-{{ section.id }}-swiper">
   <div
     dir="ltr"
     class="swiper tf-swiper"
@@ -58,20 +58,13 @@
     data-pagination-lg="3"
   >
     <div class="swiper-wrapper">
-      {%- liquid
-        assign columns = section.blocks.size
-        if columns > 3
-          assign columns = 3
-        endif
-      -%}
       {% for block in section.blocks %}
         <div class="swiper-slide" {{ block.shopify_attributes }}>
           {% render 'collection-card', 
             block: block, 
             layout: section.settings.layout,
             content_style: section.settings.content_style,
-            title_layout: section.settings.title_layout,
-            columns: columns,
+            title_layout: section.settings.title_layout
           %}
         </div>
       {% endfor %}

@@ -1,33 +1,5 @@
-{% comment %} {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
-{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }} {% endcomment %}
-<link
-  rel="preload"
-  href="{{ 'component-cart-drawer.css' | asset_url }}"
-  as="style"
-  onload="this.onload=null;this.rel='stylesheet'"
->
-
-<noscript>
-  <link
-    rel="stylesheet"
-    href="{{ 'component-cart-drawer.css' | asset_url }}"
-  >
-</noscript>    
-
-<link
-  rel="preload"
-  href="{{ 'component-loading-overlay.css' | asset_url }}"
-  as="style"
-  onload="this.onload=null;this.rel='stylesheet'"
->
-
-<noscript>
-  <link
-    rel="stylesheet"
-    href="{{ 'component-loading-overlay.css' | asset_url }}"
-  >
-</noscript>
-
+{{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
 {% if section.settings.remove_transparent_header %}
   {%- style -%}
     .tf-header {

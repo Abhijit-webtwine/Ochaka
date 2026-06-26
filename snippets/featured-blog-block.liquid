@@ -93,10 +93,8 @@
                 {% if article.image %}
                   {{
                     article.image
-                    | image_url: width: 2000
+                    | image_url: width: 900
                     | image_tag:
-                      widths: '300, 500, 700, 900, 1200, 1600, 2000',
-                      sizes: '(min-width: 1200px) 400px, (min-width: 768px) 33vw, 100vw',
                       loading: 'lazy',
                       class: 'lazyload aspect-ratio-0',
                       alt: article.title
