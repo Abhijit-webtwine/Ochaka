@@ -109,6 +109,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "clothing",
+            "custom_image": "shopify://shop_images/cls-1.jpg",
             "button_text": "Shop now"
           }
         },
@@ -116,6 +117,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "trending",
+            "custom_image": "shopify://shop_images/cls-2.jpg",
             "button_text": "Shop now"
           }
         },
@@ -123,6 +125,7 @@
           "type": "collection_item",
           "settings": {
             "collection": "dresses",
+            "custom_image": "shopify://shop_images/cls-3.jpg",
             "button_text": "Shop now"
           }
         }
@@ -240,7 +243,6 @@
       "name": "Shop This Look",
       "settings": {
         "spacing": false,
-        "collection_image": "shopify://shop_images/box-image-1.jpg",
         "heading": "Shop This Look",
         "collection": "trending",
         "collection_button_text": "EXPLORE NOW"
@@ -297,7 +299,6 @@
         "image_g7abax": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/gallery-1_a25d4efd-4333-477e-9cf0-201c0241f35f.jpg",
             "link": "shopify://collections",
             "tooltip_text": "View product"
           }
@@ -305,7 +306,6 @@
         "image_tCXVYq": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/gallery-2_05ca70ad-4a7a-43a1-a492-bee2a4119a61.jpg",
             "link": "shopify://collections",
             "tooltip_text": "View product"
           }
@@ -313,7 +313,6 @@
         "image_YGfYPR": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/gallery-3_7597afa5-4f54-4577-9a54-a20e86bc3958.jpg",
             "link": "shopify://collections",
             "tooltip_text": "View product"
           }
@@ -321,7 +320,6 @@
         "image_EarP6h": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/gallery-4_6bc1ff7a-0156-4c3e-9fd0-0b4d3409692d.jpg",
             "link": "shopify://collections",
             "tooltip_text": "View product"
           }
@@ -329,7 +327,6 @@
         "image_t49TDL": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/gallery-5_4b403f5f-3ca5-4566-8da2-f9afd211d485.jpg",
             "link": "shopify://collections",
             "tooltip_text": "View product"
           }
@@ -337,7 +334,6 @@
         "image_KMApKn": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/gallery-6_89e5ee59-16e2-4518-8d9d-2b72ba884769.jpg",
             "link": "shopify://collections",
             "tooltip_text": "View product"
           }
