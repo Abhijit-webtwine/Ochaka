@@ -243,6 +243,7 @@
       "name": "Shop This Look",
       "settings": {
         "spacing": false,
+        "collection_image": "shopify://shop_images/box-image-1.jpg",
         "heading": "Shop This Look",
         "collection": "trending",
         "collection_button_text": "EXPLORE NOW"
