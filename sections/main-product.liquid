@@ -50,7 +50,7 @@
                 assign product_form_id = 'product-form-' | append: section.id
                 assign has_group_product = false 
                 for block in section.blocks
-                  if block.type == 'group_product' and product.metafields.custom.group_product.value != blank
+                  if block.type == 'group_product' and product.metafields.custom.group_product.value != blank and product.metafields.custom.group_product.value.size > 0
                     assign has_group_product = true
                     break
                   endif
@@ -708,7 +708,7 @@
 
                   {% when 'group_product' %}
                     {%- assign products_to_show = product.metafields.custom.group_product.value -%}
-                    {% if products_to_show != blank %}
+                    {% if products_to_show != blank and products_to_show.size > 0 %}
                     <product-form class="tf-product-group-product-wrap d-block">
                       {%- liquid
                          assign form_group_id = 'product-form-group-' | append: section.id
