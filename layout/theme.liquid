@@ -38,6 +38,13 @@
     {% render 'meta-tags' %}
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <link
+      rel="preload"
+      href="{{ 'icomoon.woff' | asset_url }}"
+      as="font"
+      type="font/woff"
+      crossorigin
+    >
     {%- liquid
       if text_direction == 'rtl'
         echo 'rtl.css' | asset_url | stylesheet_tag
