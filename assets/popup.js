@@ -52,7 +52,7 @@ class PromoPopup extends HTMLElement {
       return;
     }
 
-    this.cookieName = 'beyours:promo-popup';
+    this.cookieName = 'ochaka:promo-popup';
 
     this.classes = {
       bodyClass: 'promo-popup--open',

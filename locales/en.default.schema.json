@@ -1202,7 +1202,6 @@
         "menu": { "label": "Menu" },
         "enable_dropdown_menu": {
           "label": "Enable dropdown menu",
-          "info": "[How to create a mega menu](https://roartheme.co/blogs/beyours/how-to-create-a-mega-menu)"
         },
         "show_line_separator": { "label": "Show separator line" },
         "cart_icon": {
@@ -1232,7 +1231,6 @@
         },
         "enable_transparent_header_custom": {
           "label": "Custom pages",
-          "info": "Pick a menu containing items linked to the pages you want to apply the transparent header. [Learn more](https://roartheme.co/blogs/beyours/enable-transparent-header-on-custom-pages)"
         },
         "show_transparent_header_border": { "label": "Show separator line" },
         "transparent_text_color": { "label": "Text color" },
@@ -1268,7 +1266,6 @@
             },
             "menu_title": {
               "label": "Menu item",
-              "info": "Enter the name of the menu item you'd like to apply a mega menu. [Learn more](https://roartheme.co/blogs/beyours/how-to-create-a-mega-menu)"
             },
             "narrow": { "label": "Make mega menu narrow" },
             "show_menu_image": { "label": "Show mega menu images" },
@@ -1645,9 +1642,6 @@
     "main-collection-subs": {
       "name": "Subcollections",
       "settings": {
-        "paragraph": {
-          "content": "Links to collections from your menu will appear here. [Learn more](https://roartheme.co/blogs/beyours/how-do-i-create-subcollections)"
-        },
         "menu": { "label": "Menu" },
         "per_row": { "label": "Items per row" },
         "horizontal_on_mobile": { "label": "Enable horizontal list on mobile" },
@@ -1790,7 +1784,6 @@
             },
             "enable_color_swatches": {
               "label": "Enable color swatches",
-              "info": "[Learn how to set up swatches](https://roartheme.co/blogs/beyours/how-to-set-up-color-swatches)"
             },
             "swatch_type": {
               "options__1": { "label": "Round" },
@@ -1798,9 +1791,6 @@
               "label": "Swatch type"
             },
             "header__2": { "content": "Size chart" },
-            "paragraph__2": {
-              "content": "Products that are eligible for size chart function [must have a Size option](https://roartheme.co/blogs/beyours/how-to-enable-size-chart-on-product-pages)"
-            },
             "size_chart": { "label": "Size chart page" }
           }
         },
@@ -2659,7 +2649,6 @@
         "video": {
           "label": "Video URL",
           "placeholder": "Paste a link",
-          "info": "Supports YouTube, Vimeo and .MP4. Not all features supported by Vimeo. [Learn more](https://roartheme.co/blogs/beyours/how-do-i-add-background-videos)"
         },
         "text_box_position": {
           "options__1": { "label": "Top left" },

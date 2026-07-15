@@ -4,7 +4,6 @@
   Access unminified JS in assets/global.js
 
   Use this event listener to run your own JS outside of this file.
-  Documentation - https://roartheme.co/blogs/beyours/javascript-events-for-developers
 
   document.addEventListener('page:loaded', function() {
     // Page has loaded and theme assets are ready
@@ -238,7 +237,7 @@ function isStorageSupported (type) {
     return false;
   }
 
-  const testKey = 'beyours:test';
+  const testKey = 'ochaka:test';
   let storage;
   if (type === 'session') {
     storage = window.sessionStorage;
@@ -2814,7 +2813,7 @@ class ProductRecentlyViewed extends HTMLElement {
     // We save the product ID in local storage to be eventually used for recently viewed section
     if (isStorageSupported('local')) {
       const productId = parseInt(this.dataset.productId);
-      const cookieName = 'beyours:recently-viewed';
+      const cookieName = 'ochaka:recently-viewed';
       const items = JSON.parse(window.localStorage.getItem(cookieName) || '[]');
 
       // We check if the current product already exists, and if it does not, we add it at the start
@@ -2857,7 +2856,7 @@ class RecentlyViewedProducts extends HTMLElement {
   }
 
   getQueryString() {
-    const cookieName = 'beyours:recently-viewed';
+    const cookieName = 'ochaka:recently-viewed';
     const items = JSON.parse(window.localStorage.getItem(cookieName) || "[]");
     if (this.dataset.productId && items.includes(parseInt(this.dataset.productId))) {
       items.splice(items.indexOf(parseInt(this.dataset.productId)), 1);
