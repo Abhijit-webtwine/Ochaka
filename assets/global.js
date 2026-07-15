@@ -2012,6 +2012,42 @@ class ProductFormFbt extends ProductFormMultiAdd {
 
 customElements.define('product-form-fbt', ProductFormFbt);
 
+class ProductFormGroup extends ProductForm {
+  constructor() {
+    super();
+  }
+
+  onSubmitHandler(evt) {
+    const submitter = evt.submitter || document.activeElement;
+    if (submitter && submitter.getAttribute('name') === 'checkout') {
+      evt.preventDefault();
+      
+      const items = [];
+      const idInputs = this.form.querySelectorAll('input[name^="items["][name$="][id]"]');
+      idInputs.forEach((idInput) => {
+        const match = idInput.name.match(/items\[(\d+)\]\[id\]/);
+        if (match) {
+          const idx = match[1];
+          const qtyInput = this.form.querySelector(`input[name="items[${idx}][quantity]"]`);
+          const quantity = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+          if (quantity > 0) {
+            items.push(`${idInput.value}:${quantity}`);
+          }
+        }
+      });
+
+      if (items.length > 0) {
+        window.location.href = `/cart/${items.join(',')}`;
+      }
+      return;
+    }
+
+    super.onSubmitHandler(evt);
+  }
+}
+
+customElements.define('product-form-group', ProductFormGroup);
+
 class ProgressBar extends HTMLElement {
   constructor() {
     super();

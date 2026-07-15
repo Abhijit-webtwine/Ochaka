@@ -709,7 +709,7 @@
                   {% when 'group_product' %}
                     {%- assign products_to_show = product.metafields.custom.group_product.value -%}
                     {% if products_to_show != blank and products_to_show.size > 0 %}
-                    <product-form class="tf-product-group-product-wrap d-block">
+                    <product-form-group class="tf-product-group-product-wrap d-block">
                       {%- liquid
                          assign form_group_id = 'product-form-group-' | append: section.id
                       -%}
@@ -760,7 +760,7 @@
                             <button type="submit" name="checkout" class="tf-btn btn-primary w-100">BUY IT NOW</button>
                         </div>
                       </form>
-                    </product-form>
+                    </product-form-group>
                     {% endif %}
                   {% when 'extra_links' %}
                     <div class="tf-product-extra-link">
