@@ -10,15 +10,64 @@
 {% endcomment %}
 {% assign excluded_suffixes = 'about-us,aboutus' | split: ',' %}
 {%- unless template.name == 'index' or template.name == 'article' or template.name == '404' or excluded_suffixes contains template.suffix -%}
+  {%- liquid
+    case template.name
+      when 'collection'
+        if settings.breadcrumb_collection_custom_title != blank
+          assign breadcrumb_title = settings.breadcrumb_collection_custom_title
+        else
+          assign breadcrumb_title = collection.title | default: 'Collection'
+        endif
+
+      when 'product'
+        if settings.breadcrumb_product_custom_title != blank
+          assign breadcrumb_title = settings.breadcrumb_product_custom_title
+        else
+          assign breadcrumb_title = product.title | default: 'Product'
+        endif
+
+      when 'page'
+        if page.title != blank
+          assign breadcrumb_title = page.title
+        else
+          assign breadcrumb_title = template.suffix | capitalize
+        endif
+
+      when 'blog'
+        if settings.breadcrumb_blog_custom_title != blank
+          assign breadcrumb_title = settings.breadcrumb_blog_custom_title
+        else
+          assign breadcrumb_title = blog.title | default: 'Blog'
+        endif
+
+      when 'search'
+        if settings.breadcrumb_search_custom_title != blank
+          assign breadcrumb_title = settings.breadcrumb_search_custom_title
+        else
+          assign breadcrumb_title = 'general.search.search' | t | default: 'Search'
+        endif
+
+      when 'cart'
+        if settings.breadcrumb_cart_custom_title != blank
+          assign breadcrumb_title = settings.breadcrumb_cart_custom_title
+        else
+          assign breadcrumb_title = 'sections.cart.title' | t | default: 'Cart'
+        endif
+
+      else
+        assign breadcrumb_title = template.name | replace: '-', ' ' | capitalize
+    endcase
+    assign breadcrumb_title = breadcrumb_title | strip
+  -%}
   <nav class="s-page-title">
     <div class="container">
       <div class="content">
-        <h1 class="title-page">{% unless template.name == 'page' %}{{ template.name | replace: '-', ' ' | capitalize }}{% else %}{{ template.suffix | capitalize }}{% endunless %}</h1>
-        <ul class="breadcrumbs-page">
-          <li><a href="{{ routes.root_url }}" class="h6 link">Home</a></li>
-          <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-          <li>
-            <h6 class="current-page fw-normal">{% unless template.name == 'page' %}{{ template.name | replace: '-', ' ' | capitalize }}{% else %}{{ template.suffix | capitalize }}{% endunless %}</h6>
+        <h1 class="title-page text-truncate" title="{{ breadcrumb_title | escape }}">{{ breadcrumb_title }}</h1>
+        <ul class="breadcrumbs-page flex-nowrap" style="max-width: 100%;">
+          <li class="flex-shrink-0"><a href="{{ routes.root_url }}" class="h6 link">Home</a></li>
+          <li class="d-flex flex-shrink-0"><i class="icon icon-caret-right"></i></li>
+          <li class="text-truncate" style="min-width: 0;">
+            <h6 class="current-page fw-normal text-truncate" title="{{ breadcrumb_title | escape }}">{{ breadcrumb_title }}</h6>
           </li>
         </ul>
       </div>
