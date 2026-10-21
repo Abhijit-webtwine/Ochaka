@@ -29,12 +29,12 @@
                 </div>
                 {%- if block.settings.alignment == 'left' -%}
                   <div class="sld_content type-3">
-                    {%- render 'slide_content' with slide_block: block -%}
+                    {%- render 'slide_content' with slide_block, slide_block: block -%}
                   </div>
                 {%- else -%}
                   <div class="sld_content text-center">
                     <div class="container">
-                      {%- render 'slide_content' with slide_block: block -%}
+                      {%- render 'slide_content' with slide_block, slide_block: block -%}
                     </div>
                   </div>
                 {%- endif -%}
@@ -198,3 +198,16 @@
   ]
 }
 {% endschema %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{%- render 'slide_content' with slide_block: block -%}"
+  to: "{%- render 'slide_content' with slide_block, slide_block: block -%}"
+  position: 1478..1545
+- from: "{%- render 'slide_content' with slide_block: block -%}"
+  to: "{%- render 'slide_content' with slide_block, slide_block: block -%}"
+  position: 1722..1789
+{% endcomment %}
