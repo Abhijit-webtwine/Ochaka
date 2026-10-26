@@ -75,16 +75,30 @@
 
       <div class="{{ logo_col }}">
         <div class="d-flex {{ logo_justify }}">
-          <a href="{{ routes.root_url }}" class="logo-site">
+          {%- assign has_sticky_logo = false -%}
+          {%- if section.settings.sticky_logo != blank -%}
+            {%- assign has_sticky_logo = true -%}
+          {%- endif -%}
+          <a href="{{ routes.root_url }}" class="logo-site{% if has_sticky_logo %} has-sticky-logo{% endif %}">
             {% if section.settings.logo != blank %}
               <img
+                class="logo-default"
                 src="{{ section.settings.logo | image_url }}"
-                alt="Logo"
+                alt="{{ section.settings.logo.alt | default: shop.name | escape }}"
                 width="{{ section.settings.logo.width }}"
                 height="{{ section.settings.logo.height }}"
               >
             {% else %}
-              {{ shop.name }}
+              <span class="logo-default">{{ shop.name }}</span>
+            {% endif %}
+            {% if has_sticky_logo %}
+              <img
+                class="logo-sticky"
+                src="{{ section.settings.sticky_logo | image_url }}"
+                alt="{{ section.settings.sticky_logo.alt | default: shop.name | escape }}"
+                width="{{ section.settings.sticky_logo.width }}"
+                height="{{ section.settings.sticky_logo.height }}"
+              >
             {% endif %}
           </a>
         </div>
@@ -221,6 +235,11 @@
       "label": "t:sections.header.settings.logo.label"
     },
     {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Logo Mobile Sidebar"
+    },
+    {
       "type": "link_list",
       "id": "menu",
       "default": "main-menu",
@@ -235,6 +254,12 @@
       "id": "enable_sticky_header",
       "default": true,
       "label": "t:sections.header.settings.enable_sticky_header.label"
+    },
+    {
+      "type": "image_picker",
+      "id": "sticky_logo",
+      "label": "Sticky Logo",
+      "visible_if": "{{ section.settings.enable_sticky_header == true }}"
     }
   ],
   "blocks": [
