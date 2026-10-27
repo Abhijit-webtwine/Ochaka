@@ -1667,6 +1667,48 @@
     }
 }
 
+.product-thumbs-slider {
+    .tf-sw-nav {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        opacity: 0;
+        visibility: hidden;
+        // pointer-events: auto;
+        @include transition3;
+
+        &.nav-prev-swiper,
+        &.nav-prev-thumbs {
+            left: 8px;
+        }
+
+        &.nav-next-swiper,
+        &.nav-next-thumbs {
+            right: 8px;
+        }
+
+        &:hover {
+            background-color: var(--black);
+            color: var(--white);
+        }
+    }
+
+    &:hover,
+    &:focus-within {
+        .tf-sw-nav {
+            opacity: 1;
+            visibility: visible;
+            &.swiper-button-disabled {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
 .flat-wrap-media-product {
     width: calc(100% - 115px - 8px);
     position: relative;

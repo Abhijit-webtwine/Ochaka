@@ -28,4 +28,20 @@
       </div>
     {% endfor %}
   </div>
+  {% if product.media.size > 1 %}
+    <div class="tf-sw-nav tf-sw-nav-thumb nav-prev-thumbs">
+      {% if direction == 'vertical' %}
+        <i class="icon icon-caret-up"></i>
+      {% else %}
+        <i class="icon icon-caret-left"></i>
+      {% endif %}
+    </div>
+    <div class="tf-sw-nav tf-sw-nav-thumb nav-next-thumbs">
+      {% if direction == 'vertical' %}
+        <i class="icon icon-caret-down"></i>
+      {% else %}
+        <i class="icon icon-caret-right"></i>
+      {% endif %}
+    </div>
+  {% endif %}
 </div>

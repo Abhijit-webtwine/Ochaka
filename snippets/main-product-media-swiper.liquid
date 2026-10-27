@@ -85,7 +85,13 @@
         </div>
       {% endfor %}
     </div>
-    <div class="swiper-button-prev thumbs-prev"></div>
-    <div class="swiper-button-next thumbs-next"></div>
+    {% if product.media.size > 1 %}
+      <div class="tf-sw-nav thumbs-prev nav-prev-swiper">
+        <i class="icon icon-caret-left"></i>
+      </div>
+      <div class="tf-sw-nav thumbs-next nav-next-swiper">
+        <i class="icon icon-caret-right"></i>
+      </div>
+    {% endif %}
   </div>
 </div>
