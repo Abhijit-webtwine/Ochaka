@@ -40,9 +40,52 @@
                     class: 'tf-video'
                 }}
               </div>
+            {% when 'external_video' %}
+              <div class="item">
+                {%- assign video_class = 'tf-video js-' | append: media.host -%}
+                {%- if media.host == 'youtube' -%}
+                  {{
+                    media
+                    | external_video_url: enablejsapi: 1, autoplay: false, loop: true, playlist: media.external_id
+                    | external_video_tag: class: video_class, loading: 'lazy'
+                  }}
+                {%- else -%}
+                  {{
+                    media
+                    | external_video_url: autoplay: false, loop: true
+                    | external_video_tag: class: video_class, loading: 'lazy'
+                  }}
+                {%- endif -%}
+              </div>
+            {% when 'model' %}
+              <div class="item slide-3d" data-media-id="{{ media.id }}">
+                <product-model
+                  class="deferred-media media swiper-no-swiping w-100"
+                  data-media-id="{{ media.id }}"
+                >
+                  <button id="Deferred-Poster-{{ media.id }}" class="deferred-media__poster" type="button" aria-label="{{ 'products.product.media.play_model' | t }}">
+                    <span class="deferred-media__poster-button motion-reduce">
+                      {% render 'icon', icon: '3d-model' %}
+                    </span>
+                    <img
+                      class="lazyload"
+                      data-src="{{ media.preview_image | image_url: width: 1200 }}"
+                      src="{{ media.preview_image | image_url: width: 1200 }}"
+                      alt="{{ media.preview_image.alt | default: product.title | escape }}"
+                      width="{{ media.preview_image.width }}"
+                      height="{{ media.preview_image.height }}"
+                    >
+                  </button>
+                  <template>
+                    {{ media | media_tag: image_size: '2048x', toggleable: true }}
+                  </template>
+                </product-model>
+              </div>
           {% endcase %}
         </div>
       {% endfor %}
     </div>
+    <div class="swiper-button-prev thumbs-prev"></div>
+    <div class="swiper-button-next thumbs-next"></div>
   </div>
 </div>

@@ -1681,6 +1681,10 @@
             overflow: hidden;
             max-height: 764px;
 
+            iframe {
+                width: 100%;
+            }
+
             img {
                 width: 100%;
                 height: 100%;
@@ -1692,7 +1696,6 @@
             height: auto;
         }
 
-        .slide-3d,
         .slide-video {
             height: auto;
         }

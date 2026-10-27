@@ -8,9 +8,13 @@
   <div class="swiper-wrapper stagger-wrap">
     {% for media in product.media %}
       <div class="swiper-slide stagger-item">
-        <div class="item {% if media.media_type == 'video' %}wrap-btn-viewer{% endif %}">
-          {% if media.media_type == 'video' %}
+        <div class="item {% if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' %}wrap-btn-viewer{% endif %}">
+          {% if media.media_type == 'video' or media.media_type == 'external_video' %}
             <i class="icon icon-video"></i>
+          {% elsif media.media_type == 'model' %}
+            <span class="icon icon-3d-model-thumb">
+              <i class="icon icon-view"></i>
+            </span>
           {% endif %}
           <img
             class="lazyload"
