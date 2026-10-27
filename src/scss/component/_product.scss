@@ -1682,13 +1682,28 @@
         @include transition3;
 
         &.nav-prev-swiper,
-        &.nav-prev-thumbs {
+        &.thumbs-horizontal.nav-prev-thumbs {
             left: 8px;
         }
 
         &.nav-next-swiper,
-        &.nav-next-thumbs {
+        &.thumbs-horizontal.nav-next-thumbs {
             right: 8px;
+        }
+
+        &.thumbs-vertical {
+            transform: translateY(0) translateX(-50%);
+            left: 50%;
+
+            &.nav-prev-thumbs {
+                top: 8px;   
+                bottom: unset;
+            }
+
+            &.nav-next-thumbs {
+                top: unset;
+                bottom: 8px;
+            }
         }
 
         &:hover {
