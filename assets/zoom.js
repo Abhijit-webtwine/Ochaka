@@ -10,8 +10,12 @@ if ($(".product-thumbs-slider").length > 0) {
         freeMode: false,
         // direction: "vertical",
         watchSlidesProgress: false,
-        observer: false,
-        observeParents: false,
+        observer: true,
+        observeParents: true,
+        navigation: {
+            nextEl: ".nav-next-thumbs",
+            prevEl: ".nav-prev-thumbs",
+        },
 
         breakpoints: {
             0: {
@@ -27,8 +31,8 @@ if ($(".product-thumbs-slider").length > 0) {
 
     var main = new Swiper(".tf-product-media-main", {
         spaceBetween: 0,
-        observer: false,
-        observeParents: false,
+        observer: true,
+        observeParents: true,
         // speed: 800,
         navigation: {
             nextEl: ".thumbs-next",
@@ -39,16 +43,67 @@ if ($(".product-thumbs-slider").length > 0) {
         },
     });
 
-    const modelViewer = document.querySelector(".slide-3d");
-    if (modelViewer) {
-        modelViewer.addEventListener("mouseenter", () => {
-            main.allowTouchMove = false;
+    function pauseGalleryMedia(swiper) {
+        if (!swiper || !swiper.el) return;
+        swiper.el.querySelectorAll("video").forEach((v) => v.pause());
+        swiper.el.querySelectorAll(".js-youtube").forEach((yt) => {
+            if (yt.contentWindow) yt.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
         });
-
-        modelViewer.addEventListener("mouseleave", () => {
-            main.allowTouchMove = true;
+        swiper.el.querySelectorAll(".js-vimeo").forEach((vm) => {
+            if (vm.contentWindow) vm.contentWindow.postMessage('{"method":"pause"}', '*');
+        });
+        swiper.el.querySelectorAll("product-model").forEach((model) => {
+            if (model.modelViewerUI) model.modelViewerUI.pause();
         });
     }
+
+    function playActiveSlideVideo(swiper) {
+        if (!swiper || !swiper.slides) return;
+        var activeIndex = swiper.activeIndex;
+        var activeSlide = swiper.slides[activeIndex] || $(".tf-product-media-main .swiper-slide").eq(activeIndex)[0];
+        if (!activeSlide) return;
+
+        // Skip queries if slide is an image
+        var mediaType = activeSlide.getAttribute("data-media-type");
+        if (mediaType === "image") return;
+
+        // 1. HTML5 Video
+        var video = activeSlide.querySelector("video");
+        if (video) {
+            video.muted = true;
+            video.playsInline = true;
+            video.currentTime = video.currentTime || 0;
+            var playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+            }
+            return;
+        }
+
+        // 2. YouTube iframe
+        var youtube = activeSlide.querySelector(".js-youtube");
+        if (youtube && youtube.contentWindow) {
+            youtube.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            return;
+        }
+
+        // 3. Vimeo iframe
+        var vimeo = activeSlide.querySelector(".js-vimeo");
+        if (vimeo && vimeo.contentWindow) {
+            vimeo.contentWindow.postMessage('{"method":"play"}', '*');
+        }
+    }
+
+    main.on("slideChange", function () {
+        pauseGalleryMedia(this);
+    });
+
+    main.on("slideChangeTransitionEnd", function () {
+        playActiveSlideVideo(this);
+    });
+
+    // Play if initial slide has a video
+    playActiveSlideVideo(main);
 
     function updateActiveButtonThumbs(type, activeIndex) {
         var btnClass = `.${type}-btn`;
