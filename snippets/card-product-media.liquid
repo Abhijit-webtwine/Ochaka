@@ -1,44 +1,113 @@
+{%- liquid
+  assign main_media = product.featured_media | default: product.media[0]
+  assign is_video = false
+  if main_media.media_type == 'video' or main_media.media_type == 'external_video'
+    assign is_video = true
+  endif
+
+  assign main_image = main_media.preview_image | default: product.featured_image | default: product.images[0]
+  assign hover_image = product.images[1] | default: main_image
+-%}
+
 <a href="{{ product.url }}" class="product-img w-100 h-100">
-  {%- assign main_image = product.featured_image | default: product.images[0] -%}
-  {%- assign hover_image = product.images[1] | default: main_image -%}
+  {%- if is_video -%}
+    {%- if main_media.media_type == 'video' -%}
+      {%- liquid
+        assign source_url = ''
+        for s in main_media.sources
+          if s.format == 'mp4'
+            assign source_url = s.url
+            break
+          endif
+        endfor
+      -%}
+      <video
+        playsinline
+        muted
+        loop
+        autoplay
+        preload="metadata"
+        class="motion-reduce card-video lazy-video-item"
+        data-src="{{ source_url }}"
+        data-poster="{{ main_image | image_url: width: 533 }}"
+        poster="{{ main_image | image_url: width: 533 }}"
+      ></video>
+    {%- elsif main_media.media_type == 'external_video' -%}
+      {%- if main_media.host == 'youtube' -%}
+        <iframe
+          src="https://www.youtube.com/embed/{{ main_media.external_id }}?enablejsapi=1&autoplay=1&mute=1&loop=1&controls=0&rel=0&playlist={{ main_media.external_id }}&playsinline=1"
+          class="motion-reduce card-video card-iframe"
+          loading="lazy"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      {%- else -%}
+        <iframe
+          src="https://player.vimeo.com/video/{{ main_media.external_id }}?autoplay=1&muted=1&loop=1&controls=0"
+          class="motion-reduce card-video card-iframe"
+          loading="lazy"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+        ></iframe>
+      {%- endif -%}
+    {%- endif -%}
 
-  <img
-    srcset="
-      {%- if main_image.width >= 165 -%}{{ main_image | image_url: width: 165 }} 165w,{%- endif -%}
-      {%- if main_image.width >= 360 -%}{{ main_image | image_url: width: 360 }} 360w,{%- endif -%}
-      {%- if main_image.width >= 533 -%}{{ main_image | image_url: width: 533 }} 533w,{%- endif -%}
-      {%- if main_image.width >= 720 -%}{{ main_image | image_url: width: 720 }} 720w,{%- endif -%}
-      {%- if main_image.width >= 940 -%}{{ main_image | image_url: width: 940 }} 940w,{%- endif -%}
-      {%- if main_image.width >= 1066 -%}{{ main_image | image_url: width: 1066 }} 1066w,{%- endif -%}
-      {{ main_image | image_url }} {{ main_image.width }}w
-    "
-    src="{{ main_image | image_url: width: 533 }}"
-    data-src="{{ main_image | image_url: width: 200 }}"
-    sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-    alt="{{ main_image.alt | escape }}"
-    class="motion-reduce img-product lazyload"
-    loading="lazy"
-    width="{{ main_image.width }}"
-    height="{{ main_image.height }}"
-  >
+    {%- comment -%} Hidden placeholder image for swatches to target {%- endcomment -%}
+    {%- if main_image != blank -%}
+      <img
+        src="{{ main_image | image_url: width: 533 }}"
+        alt="{{ main_image.alt | escape }}"
+        class="motion-reduce img-product"
+        style="display: none;"
+        width="{{ main_image.width }}"
+        height="{{ main_image.height }}"
+        loading="lazy"
+      >
+    {%- endif -%}
 
-  <img
-    srcset="
-      {%- if hover_image.width >= 165 -%}{{ hover_image | image_url: width: 165 }} 165w,{%- endif -%}
-      {%- if hover_image.width >= 360 -%}{{ hover_image | image_url: width: 360 }} 360w,{%- endif -%}
-      {%- if hover_image.width >= 533 -%}{{ hover_image | image_url: width: 533 }} 533w,{%- endif -%}
-      {%- if hover_image.width >= 720 -%}{{ hover_image | image_url: width: 720 }} 720w,{%- endif -%}
-      {%- if hover_image.width >= 940 -%}{{ hover_image | image_url: width: 940 }} 940w,{%- endif -%}
-      {%- if hover_image.width >= 1066 -%}{{ hover_image | image_url: width: 1066 }} 1066w,{%- endif -%}
-      {{ hover_image | image_url }} {{ hover_image.width }}w
-    "
-    src="{{ hover_image | image_url: width: 533 }}"
-    data-src="{{ hover_image | image_url: width: 200 }}"
-    sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-    alt="{{ hover_image.alt | escape }}"
-    class="motion-reduce img-hover lazyload"
-    loading="lazy"
-    width="{{ hover_image.width }}"
-    height="{{ hover_image.height }}"
-  >
+  {%- else -%}
+    {%- if main_image != blank -%}
+      <img
+        srcset="
+          {%- if main_image.width >= 165 -%}{{ main_image | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if main_image.width >= 360 -%}{{ main_image | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if main_image.width >= 533 -%}{{ main_image | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if main_image.width >= 720 -%}{{ main_image | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if main_image.width >= 940 -%}{{ main_image | image_url: width: 940 }} 940w,{%- endif -%}
+          {%- if main_image.width >= 1066 -%}{{ main_image | image_url: width: 1066 }} 1066w,{%- endif -%}
+          {{ main_image | image_url }} {{ main_image.width }}w
+        "
+        src="{{ main_image | image_url: width: 533 }}"
+        data-src="{{ main_image | image_url: width: 200 }}"
+        sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+        alt="{{ main_image.alt | escape }}"
+        class="motion-reduce img-product lazyload"
+        loading="lazy"
+        width="{{ main_image.width }}"
+        height="{{ main_image.height }}"
+      >
+    {%- endif -%}
+
+    {%- if hover_image != blank and hover_image != main_image -%}
+      <img
+        srcset="
+          {%- if hover_image.width >= 165 -%}{{ hover_image | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if hover_image.width >= 360 -%}{{ hover_image | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if hover_image.width >= 533 -%}{{ hover_image | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if hover_image.width >= 720 -%}{{ hover_image | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if hover_image.width >= 940 -%}{{ hover_image | image_url: width: 940 }} 940w,{%- endif -%}
+          {%- if hover_image.width >= 1066 -%}{{ hover_image | image_url: width: 1066 }} 1066w,{%- endif -%}
+          {{ hover_image | image_url }} {{ hover_image.width }}w
+        "
+        src="{{ hover_image | image_url: width: 533 }}"
+        data-src="{{ hover_image | image_url: width: 200 }}"
+        sizes="(min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+        alt="{{ hover_image.alt | escape }}"
+        class="motion-reduce img-hover lazyload"
+        loading="lazy"
+        width="{{ hover_image.width }}"
+        height="{{ hover_image.height }}"
+      >
+    {%- endif -%}
+  {%- endif -%}
 </a>
