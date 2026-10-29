@@ -23,6 +23,45 @@
       endif
     endif
   endif
+
+  assign first_video = null
+  for media in product.media
+    if media.media_type == 'video' or media.media_type == 'external_video'
+      assign first_video = media
+      break
+    endif
+  endfor
+
+  assign first_image = null
+  assign ordered_media_ids = ''
+  if first_video != null
+    if product.selected_or_first_available_variant.featured_media != null and product.selected_or_first_available_variant.featured_media.media_type == 'image'
+      assign first_image = product.selected_or_first_available_variant.featured_media
+    else
+      for media in product.media
+        if media.media_type == 'image'
+          assign first_image = media
+          break
+        endif
+      endfor
+    endif
+
+    if first_image != null
+      assign ordered_media_ids = first_image.id | append: ',' | append: first_video.id
+      for m in product.media
+        if m.id != first_image.id and m.id != first_video.id
+          assign ordered_media_ids = ordered_media_ids | append: ',' | append: m.id
+        endif
+      endfor
+    endif
+  endif
+
+  if ordered_media_ids == blank
+    for m in product.media
+      assign ordered_media_ids = ordered_media_ids | append: m.id | append: ','
+    endfor
+  endif
+  assign media_id_list = ordered_media_ids | split: ',' | compact
 -%}
 
 <div class="flat-wrap-media-product {{ wrapper_classes }}">
@@ -52,8 +91,11 @@
         </div>
       {%- endif -%}
 
-      {% for media in product.media %}
-        <div class="swiper-slide" data-media-type="{{ media.media_type }}">
+      {% for id_str in media_id_list %}
+        {% assign target_id = id_str | plus: 0 %}
+        {% for media in product.media %}
+          {% if media.id == target_id %}
+            <div class="swiper-slide" data-media-type="{{ media.media_type }}">
           {% case media.media_type %}
             {% when 'image' %}
               <a
@@ -133,7 +175,10 @@
                 </product-model>
               </div>
           {% endcase %}
-        </div>
+            </div>
+            {% break %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     </div>
     {% assign total_slides = product.media.size %}

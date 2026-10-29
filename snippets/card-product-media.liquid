@@ -3,9 +3,17 @@
   assign is_video = false
   if main_media.media_type == 'video' or main_media.media_type == 'external_video'
     assign is_video = true
+  else
+    for m in product.media
+      if m.media_type == 'video' or m.media_type == 'external_video'
+        assign main_media = m
+        assign is_video = true
+        break
+      endif
+    endfor
   endif
 
-  assign main_image = main_media.preview_image | default: product.featured_image | default: product.images[0]
+  assign main_image = product.featured_image | default: main_media.preview_image | default: product.images[0]
   assign hover_image = product.images[1] | default: main_image
 -%}
 
