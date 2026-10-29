@@ -982,6 +982,13 @@
 <script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
 <script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
 <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
+{%- assign enable_360 = product.metafields.custom.enable_image_360.value -%}
+{%- assign image_360_metafield = product.metafields.custom.image_360.value -%}
+{%- if enable_360 -%}
+  {%- if image_360_metafield != blank -%}
+    <script src="{{ 'js-cloudimage-360-view.min.js' | asset_url }}" defer></script>
+  {%- endif -%}
+{%- endif -%}
 {%- if first_3d_model -%}
   <script type="application/json" id="ProductJSON-{{ product.id }}">
     {{ product.media | where: 'media_type', 'model' | json }}

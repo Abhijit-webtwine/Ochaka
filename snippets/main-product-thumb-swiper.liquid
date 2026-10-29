@@ -1,3 +1,17 @@
+{%- liquid
+  assign enable_360 = product.metafields.custom.enable_image_360.value
+  assign image_360_metafield = product.metafields.custom.image_360.value
+  assign has_360 = false
+
+  if enable_360
+    if image_360_metafield != blank
+      assign has_360 = true
+    endif
+  endif
+
+  assign thumb_360_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image | default: product.media.first.preview_image
+-%}
+
 <div
   dir="ltr"
   class="swiper tf-product-media-thumbs other-image-zoom {{ classes }}"
@@ -6,6 +20,24 @@
   data-space="{{ space }}"
 >
   <div class="swiper-wrapper stagger-wrap">
+    {%- if has_360 -%}
+      <div class="swiper-slide stagger-item">
+        <div class="item wrap-btn-viewer">
+          <span class="icon icon-360-thumb">
+            <i class="icon icon-view"></i>
+          </span>
+          <img
+            class="lazyload"
+            data-src="{{ thumb_360_image | image_url: width: 150 }}"
+            src="{{ thumb_360_image | image_url: width: 150 }}"
+            alt="{{ product.title | escape }} - 360 view"
+            width="120"
+            height="120"
+          >
+        </div>
+      </div>
+    {%- endif -%}
+
     {% for media in product.media %}
       <div class="swiper-slide stagger-item">
         <div class="item {% if media.media_type == 'video' or media.media_type == 'external_video' or media.media_type == 'model' %}wrap-btn-viewer{% endif %}">
@@ -28,7 +60,11 @@
       </div>
     {% endfor %}
   </div>
-  {% if product.media.size > 1 %}
+  {% assign total_thumbs = product.media.size %}
+  {% if has_360 %}
+    {% assign total_thumbs = total_thumbs | plus: 1 %}
+  {% endif %}
+  {% if total_thumbs > 1 %}
     <div class="tf-sw-nav tf-sw-nav-thumb nav-prev-thumbs {% if direction == 'vertical' %}thumbs-vertical{% else %}thumbs-horizontal{% endif %}">
       {% if direction == 'vertical' %}
         <i class="icon icon-caret-up"></i>

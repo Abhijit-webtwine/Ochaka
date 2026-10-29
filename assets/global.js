@@ -1457,7 +1457,7 @@ class VariantSelects extends HTMLElement {
       
       const baseImg = imgSrc.split("?")[0];
       if (baseImg === baseTarget || baseImg.includes(baseTarget) || baseTarget.includes(baseImg)) {
-        foundIndex = index;
+        foundIndex = $(img).closest('.swiper-slide').index();
         return false; // Break loop
       }
     });

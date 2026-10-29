@@ -11,6 +11,7 @@ if ($(".product-thumbs-slider").length > 0) {
         // direction: "vertical",
         watchSlidesProgress: false,
         observer: true,
+        autoHeight: true,
         observeParents: true,
         navigation: {
             nextEl: ".nav-next-thumbs",
@@ -33,7 +34,8 @@ if ($(".product-thumbs-slider").length > 0) {
         spaceBetween: 0,
         observer: true,
         observeParents: true,
-        // speed: 800,
+        noSwiping: true,
+        noSwipingClass: "swiper-no-swiping",
         navigation: {
             nextEl: ".thumbs-next",
             prevEl: ".thumbs-prev",
@@ -100,6 +102,9 @@ if ($(".product-thumbs-slider").length > 0) {
 
     main.on("slideChangeTransitionEnd", function () {
         playActiveSlideVideo(this);
+        if (window.CI360) {
+            window.CI360.update();
+        }
     });
 
     // Play if initial slide has a video

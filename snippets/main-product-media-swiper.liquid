@@ -1,6 +1,57 @@
+{%- liquid
+  assign enable_360 = product.metafields.custom.enable_image_360.value
+  assign image_360_metafield = product.metafields.custom.image_360.value
+  assign image_360_list = ''
+  assign has_360 = false
+
+  if enable_360
+    if image_360_metafield != blank
+      for img in image_360_metafield
+        assign img_url = img | image_url: width: 1200
+        capture img_json
+          echo '"'
+          echo img_url
+          echo '"'
+          unless forloop.last
+            echo ','
+          endunless
+        endcapture
+        assign image_360_list = image_360_list | append: img_json
+      endfor
+      if image_360_list != blank
+        assign has_360 = true
+      endif
+    endif
+  endif
+-%}
+
 <div class="flat-wrap-media-product {{ wrapper_classes }}">
   <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
     <div class="swiper-wrapper">
+      {%- if has_360 -%}
+        <div class="swiper-slide" data-media-type="360">
+          <div class="item">
+            <div
+              class="cloudimage-360 swiper-no-swiping"
+              data-fullscreen="true"
+              data-image-list-x='[{{ image_360_list }}]'
+              data-autoplay="true"
+              data-play-once="true"
+              data-speed="150"
+            >
+              <div class="control_360">
+                <button type="button" class="cloudimage-360-left" aria-label="Rotate left">
+                  <i class="icon icon-caret-left"></i>
+                </button>
+                <button type="button" class="cloudimage-360-right" aria-label="Rotate right">
+                  <i class="icon icon-caret-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
       {% for media in product.media %}
         <div class="swiper-slide" data-media-type="{{ media.media_type }}">
           {% case media.media_type %}
@@ -85,7 +136,11 @@
         </div>
       {% endfor %}
     </div>
-    {% if product.media.size > 1 %}
+    {% assign total_slides = product.media.size %}
+    {% if has_360 %}
+      {% assign total_slides = total_slides | plus: 1 %}
+    {% endif %}
+    {% if total_slides > 1 %}
       <div class="tf-sw-nav thumbs-prev nav-prev-swiper">
         <i class="icon icon-caret-left"></i>
       </div>
