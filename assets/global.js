@@ -3738,54 +3738,109 @@ if (!customElements.get('localization-form')) {
 }
 
 class AddToCartCount extends HTMLElement {
-  connectedCallback() {
-    // read Liquid values
-    this.min = parseInt(this.getAttribute('min'), 10) || 1;
-    this.max = parseInt(this.getAttribute('max'), 10) || 50;
+  constructor() {
+    super();
+    this.timer = null;
+    this.animFrame = null;
+    this.currentValue = null;
+  }
 
-    // find the span INSIDE the wrapper
+  connectedCallback() {
+    const rawMin = parseInt(this.getAttribute('min'), 10);
+    const rawMax = parseInt(this.getAttribute('max'), 10);
+
+    const minVal = Number.isFinite(rawMin) ? rawMin : 1;
+    const maxVal = Number.isFinite(rawMax) ? rawMax : 50;
+
+    // Ensure min is never greater than max
+    this.min = Math.min(minVal, maxVal);
+    this.max = Math.max(minVal, maxVal);
+
     this.numberEl = this.querySelector('.vc-number');
     if (!this.numberEl) return;
 
-    // first run
-    this.updateAnimated();
+    // Set initial static value immediately without animation flash
+    const initial = this.randomValue();
+    this.currentValue = initial;
+    this.numberEl.textContent = initial;
 
-    // run every 10–30 seconds
-    this.interval = setInterval(
-      () => this.updateAnimated(), 
-      Math.floor(Math.random() * 20000) + 10000
-    );
+    // Schedule next random update
+    this.scheduleNext();
+
+    // Pause while tab is inactive to prevent timer accumulation
+    this.handleVisibility = () => {
+      if (document.hidden) {
+        clearTimeout(this.timer);
+        cancelAnimationFrame(this.animFrame);
+      } else {
+        this.scheduleNext();
+      }
+    };
+    document.addEventListener('visibilitychange', this.handleVisibility);
   }
 
   disconnectedCallback() {
-    if (this.interval) clearInterval(this.interval);
+    clearTimeout(this.timer);
+    cancelAnimationFrame(this.animFrame);
+    if (this.handleVisibility) {
+      document.removeEventListener('visibilitychange', this.handleVisibility);
+    }
   }
 
   randomValue() {
     return Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
   }
 
-  animateCount(current, target) {
-    const steps = 20;
-    const step = (target - current) / steps;
-    let value = current;
+  nextRandomTarget() {
+    if (this.min >= this.max) return this.min;
+    let target = this.currentValue;
+    let attempts = 0;
+    while (target === this.currentValue && attempts < 10) {
+      target = Math.floor(Math.random() * (this.max - this.min + 1)) + this.min;
+      attempts++;
+    }
+    if (target === this.currentValue) {
+      target = this.currentValue < this.max ? this.currentValue + 1 : this.currentValue - 1;
+    }
+    return target;
+  }
 
-    const interval = setInterval(() => {
-      value += step;
+  scheduleNext() {
+    clearTimeout(this.timer);
+    const delay = Math.floor(Math.random() * 3000) + 3000;
+    this.timer = setTimeout(() => {
+      this.updateAnimated();
+      this.scheduleNext();
+    }, delay);
+  }
 
-      if ((step > 0 && value >= target) || (step < 0 && value <= target)) {
-        value = target;
-        clearInterval(interval);
+  animateCount(start, end, duration = 600) {
+    cancelAnimationFrame(this.animFrame);
+    const startTime = performance.now();
+
+    const step = (now) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Smooth easeOutQuad interpolation
+      const ease = 1 - (1 - progress) * (1 - progress);
+      const val = Math.round(start + (end - start) * ease);
+
+      this.currentValue = val;
+      this.numberEl.textContent = val;
+
+      if (progress < 1) {
+        this.animFrame = requestAnimationFrame(step);
       }
+    };
 
-      this.numberEl.textContent = Math.round(value);
-    }, 50);
+    this.animFrame = requestAnimationFrame(step);
   }
 
   updateAnimated() {
-    const current = parseInt(this.numberEl.textContent) || this.randomValue();
-    const target = this.randomValue();
-    this.animateCount(current, target);
+    if (document.hidden) return;
+    const target = this.nextRandomTarget();
+    this.animateCount(this.currentValue, target);
   }
 }
 
