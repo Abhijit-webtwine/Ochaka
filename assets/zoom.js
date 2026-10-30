@@ -10,9 +10,9 @@ if ($(".product-thumbs-slider").length > 0) {
         freeMode: false,
         // direction: "vertical",
         watchSlidesProgress: false,
-        observer: true,
+        observer: false,
         autoHeight: true,
-        observeParents: true,
+        observeParents: false,
         navigation: {
             nextEl: ".nav-next-thumbs",
             prevEl: ".nav-prev-thumbs",
