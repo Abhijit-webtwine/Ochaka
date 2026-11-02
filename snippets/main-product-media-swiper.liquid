@@ -1,8 +1,101 @@
+{%- liquid
+  assign enable_360 = product.metafields.custom.enable_image_360.value
+  assign image_360_metafield = product.metafields.custom.image_360.value
+  assign image_360_list = ''
+  assign has_360 = false
+
+  if enable_360
+    if image_360_metafield != blank
+      for img in image_360_metafield
+        assign img_url = img | image_url: width: 1200
+        capture img_json
+          echo '"'
+          echo img_url
+          echo '"'
+          unless forloop.last
+            echo ','
+          endunless
+        endcapture
+        assign image_360_list = image_360_list | append: img_json
+      endfor
+      if image_360_list != blank
+        assign has_360 = true
+      endif
+    endif
+  endif
+
+  assign first_video = null
+  for media in product.media
+    if media.media_type == 'video' or media.media_type == 'external_video'
+      assign first_video = media
+      break
+    endif
+  endfor
+
+  assign first_image = null
+  assign ordered_media_ids = ''
+  if first_video != null
+    if product.selected_or_first_available_variant.featured_media != null and product.selected_or_first_available_variant.featured_media.media_type == 'image'
+      assign first_image = product.selected_or_first_available_variant.featured_media
+    else
+      for media in product.media
+        if media.media_type == 'image'
+          assign first_image = media
+          break
+        endif
+      endfor
+    endif
+
+    if first_image != null
+      assign ordered_media_ids = first_image.id | append: ',' | append: first_video.id
+      for m in product.media
+        if m.id != first_image.id and m.id != first_video.id
+          assign ordered_media_ids = ordered_media_ids | append: ',' | append: m.id
+        endif
+      endfor
+    endif
+  endif
+
+  if ordered_media_ids == blank
+    for m in product.media
+      assign ordered_media_ids = ordered_media_ids | append: m.id | append: ','
+    endfor
+  endif
+  assign media_id_list = ordered_media_ids | split: ',' | compact
+-%}
+
 <div class="flat-wrap-media-product {{ wrapper_classes }}">
   <div dir="ltr" class="swiper tf-product-media-main" id="gallery-swiper-started">
     <div class="swiper-wrapper">
-      {% for media in product.media %}
-        <div class="swiper-slide" data-media-type="{{ media.media_type }}">
+      {%- if has_360 -%}
+        <div class="swiper-slide" data-media-type="360">
+          <div class="item">
+            <div
+              class="cloudimage-360 swiper-no-swiping"
+              data-fullscreen="true"
+              data-image-list-x='[{{ image_360_list }}]'
+              data-autoplay="true"
+              data-play-once="true"
+              data-speed="150"
+            >
+              <div class="control_360">
+                <button type="button" class="cloudimage-360-left" aria-label="Rotate left">
+                  <i class="icon icon-caret-left"></i>
+                </button>
+                <button type="button" class="cloudimage-360-right" aria-label="Rotate right">
+                  <i class="icon icon-caret-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+
+      {% for id_str in media_id_list %}
+        {% assign target_id = id_str | plus: 0 %}
+        {% for media in product.media %}
+          {% if media.id == target_id %}
+            <div class="swiper-slide" data-media-type="{{ media.media_type }}">
           {% case media.media_type %}
             {% when 'image' %}
               <a
@@ -40,9 +133,65 @@
                     class: 'tf-video'
                 }}
               </div>
+            {% when 'external_video' %}
+              <div class="item">
+                {%- assign video_class = 'tf-video js-' | append: media.host -%}
+                {%- if media.host == 'youtube' -%}
+                  {{
+                    media
+                    | external_video_url: enablejsapi: 1, autoplay: false, loop: true, playlist: media.external_id
+                    | external_video_tag: class: video_class, loading: 'lazy'
+                  }}
+                {%- else -%}
+                  {{
+                    media
+                    | external_video_url: autoplay: false, loop: true
+                    | external_video_tag: class: video_class, loading: 'lazy'
+                  }}
+                {%- endif -%}
+              </div>
+            {% when 'model' %}
+              <div class="item slide-3d" data-media-id="{{ media.id }}">
+                <product-model
+                  class="deferred-media media swiper-no-swiping w-100"
+                  data-media-id="{{ media.id }}"
+                >
+                  <button id="Deferred-Poster-{{ media.id }}" class="deferred-media__poster" type="button" aria-label="{{ 'products.product.media.play_model' | t }}">
+                    <span class="deferred-media__poster-button motion-reduce">
+                      {% render 'icon', icon: '3d-model' %}
+                    </span>
+                    <img
+                      class="lazyload"
+                      data-src="{{ media.preview_image | image_url: width: 1200 }}"
+                      src="{{ media.preview_image | image_url: width: 1200 }}"
+                      alt="{{ media.preview_image.alt | default: product.title | escape }}"
+                      width="{{ media.preview_image.width }}"
+                      height="{{ media.preview_image.height }}"
+                    >
+                  </button>
+                  <template>
+                    {{ media | media_tag: image_size: '2048x', toggleable: true }}
+                  </template>
+                </product-model>
+              </div>
           {% endcase %}
-        </div>
+            </div>
+            {% break %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     </div>
+    {% assign total_slides = product.media.size %}
+    {% if has_360 %}
+      {% assign total_slides = total_slides | plus: 1 %}
+    {% endif %}
+    {% if total_slides > 1 %}
+      <div class="tf-sw-nav thumbs-prev nav-prev-swiper">
+        <i class="icon icon-caret-left"></i>
+      </div>
+      <div class="tf-sw-nav thumbs-next nav-next-swiper">
+        <i class="icon icon-caret-right"></i>
+      </div>
+    {% endif %}
   </div>
 </div>

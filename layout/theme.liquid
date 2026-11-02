@@ -37,7 +37,13 @@
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
+    <link rel="stylesheet" href="{{ 'animate.css' | asset_url }}" media="print" onload="this.media='all'">
+    <noscript>{{ 'animate.css' | asset_url | stylesheet_tag }}</noscript>
+    {{ 'icon-style.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+
     <link
       rel="preload"
       href="{{ 'icomoon.woff' | asset_url }}"
@@ -132,16 +138,26 @@
       >
     </noscript>
 
-    {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
-    {{ 'swiper-bundle.min.css' | asset_url | stylesheet_tag }}
-    {{ 'animate.css' | asset_url | stylesheet_tag }}
-    {{ 'icon-style.css' | asset_url | stylesheet_tag: preload: true }}
-    {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
-    {{ 'theme.css' | asset_url | stylesheet_tag: preload: true }}
     {% comment %} <link rel="stylesheet" href="{{'drift-basic.min.css' |  asset_url}}">
     <link rel="stylesheet" href="{{'photoswipe.css' |  asset_url}}">
     <link rel="stylesheet" href="{{ 'image-compare-viewer.min.css' | asset_url }}"> {% endcomment %}
 
+    {% comment %} <script src="{{ 'facets.js' |  asset_url }}" defer></script> {% endcomment %}
+    {% comment %} <script src="{{ 'zoom.js' |  asset_url}}" defer></script>
+    <script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
+    <script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
+    <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script> {% endcomment %}
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+
+    {%- render 'theme-verification-config' -%}
+
+    {%- liquid
+      render 'vite-tag' with 'main.scss'
+      render 'vite-tag' with 'product.scss'
+      render 'vite-tag' with 'main.js'
+    -%}
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'bootstrap.min.js' |  asset_url}}" defer></script>
     <script src="{{ 'jquery.min.js' | asset_url }}" defer></script>
     <script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
@@ -153,21 +169,7 @@
     <script src="{{ 'parallaxie.js' | asset_url}}" defer></script>
     <script src="{{ 'infinityslide.js' | asset_url}}" defer></script>
     <script src="{{ 'main.js' | asset_url}}" defer></script>
-    {% comment %} <script src="{{ 'facets.js' |  asset_url }}" defer></script> {% endcomment %}
-    {% comment %} <script src="{{ 'zoom.js' |  asset_url}}" defer></script>
-    <script src="{{ 'drift.min.js' |  asset_url}}" defer></script>
-    <script src="{{ 'photoswipe-lightbox.umd.min.js' |  asset_url}}" defer></script>
-    <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script> {% endcomment %}
-    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
-
-    {%- render 'theme-verification-config' -%}
     <script src="{{ 'theme-verification.js' | asset_url }}" defer></script>
-
-    {%- liquid
-      render 'vite-tag' with 'main.scss'
-      render 'vite-tag' with 'product.scss'
-      render 'vite-tag' with 'main.js'
-    -%}
 
     {{ content_for_header }}
   </head>

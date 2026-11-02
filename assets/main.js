@@ -1102,12 +1102,13 @@
             .off("click.swatchColor mouseover.swatchColor", ".color-swatch")
             .on("click.swatchColor mouseover.swatchColor", ".color-swatch", function () {
                 var $swatch = $(this);
-                var swatchColor = $swatch.data("image") || $swatch.find("img:not(.swatch-img)").attr("src");
+                var swatchColor = $swatch.attr("data-image") || $swatch.data("image");
                 var imgProduct = $swatch.closest(".card-product, .banner-card_product").find(".img-product");
                 var colorLabel = $swatch.find(".color-label").text().trim();
                 
-                if (swatchColor) {
-                    imgProduct.attr("src", swatchColor).removeAttr("srcset data-srcset");
+                if (swatchColor && imgProduct.length) {
+                    imgProduct.attr("src", swatchColor).removeAttr("srcset data-srcset").show();
+                    $swatch.closest(".card-product, .banner-card_product").find("video, iframe, .img-hover").hide();
                 }
                 
                 $swatch
@@ -1236,6 +1237,45 @@
         if ($("div").hasClass("video-wrap")) {
             $(".popup-youtube").magnificPopup({
                 type: "iframe",
+            });
+        }
+    };
+
+    /* Card Video Lazyload & Autoplay (Glozin style)
+    ------------------------------------------------------------------------------------- */
+    var initLazyloadVideo = function () {
+        var lazyVideos = document.querySelectorAll("video.lazy-video-item");
+        if (!lazyVideos.length) return;
+
+        if ("IntersectionObserver" in window) {
+            var observer = new IntersectionObserver(
+                function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var video = entry.target;
+                            var src = video.dataset.src;
+                            if (src) {
+                                video.src = src;
+                                video.removeAttribute("data-src");
+                            }
+                            video.classList.remove("lazy-video-item");
+                            video.play().catch(function () {});
+                            observer.unobserve(video);
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+
+            lazyVideos.forEach(function (video) {
+                observer.observe(video);
+            });
+        } else {
+            lazyVideos.forEach(function (video) {
+                if (video.dataset.src) {
+                    video.src = video.dataset.src;
+                }
+                video.play().catch(function () {});
             });
         }
     };
@@ -1461,6 +1501,7 @@
         scrollBottomSticky();
         writeReview();
         videoWrap();
+        initLazyloadVideo();
         showPassword();
         changeImageDash();
         preventDefault();
