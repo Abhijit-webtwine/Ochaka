@@ -19,9 +19,9 @@
       {% render 'mega-product-horizontal', product: product %}
       {%- endfor -%}
       <li id="predictive-search-option-search-keywords" class="predictive-search__list-item text-center" role="option">
-        <button type="submit" class="tf-btn predictive-search__item--term" tabindex="-1">
+        <a href="{{ routes.search_url }}?q={{ predictive_search.terms | url_param_escape }}" class="tf-btn predictive-search__item--term" tabindex="-1">
           {{ 'templates.search.search_for' | t: terms: predictive_search.terms }}
-        </button>
+        </a>
       </li> 
     </ul>
   </div>
