@@ -1,29 +1,37 @@
 {%- liquid
   assign enable_360 = product.metafields.custom.enable_image_360.value
   assign image_360_metafield = product.metafields.custom.image_360.value
-  assign image_360_list = ''
+  assign image_360_metafield_2 = product.metafields.custom.image_360_2.value
+  assign image_list = ''
+  assign filtered_images = ''
   assign has_360 = false
+-%}
 
-  if enable_360
-    if image_360_metafield != blank
-      for img in image_360_metafield
-        assign img_url = img | image_url: width: 1200
-        capture img_json
-          echo '"'
-          echo img_url
-          echo '"'
-          unless forloop.last
-            echo ','
-          endunless
-        endcapture
-        assign image_360_list = image_360_list | append: img_json
-      endfor
-      if image_360_list != blank
-        assign has_360 = true
-      endif
-    endif
-  endif
+{%- if enable_360 -%}
+  {%- if image_360_metafield != blank -%}
+    {%- for image in image_360_metafield -%}
+      {%- capture filtered_images -%}{{ filtered_images }}{{ image | image_url: width: 1200 }},{%- endcapture -%}
+    {%- endfor -%}
+  {%- endif -%}
+  {%- if image_360_metafield_2 != blank -%}
+    {%- for image in image_360_metafield_2 -%}
+      {%- capture filtered_images -%}{{ filtered_images }}{{ image | image_url: width: 1200 }},{%- endcapture -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}
 
+{%- assign filtered_images = filtered_images | split: ',' | compact -%}
+
+{%- for image in filtered_images -%}
+  {% capture image_json %}"{{ image }}"{%- unless forloop.last -%},{%- endunless -%}{% endcapture %}
+  {% capture image_list %}{{ image_list }}{{ image_json }}{% endcapture %}
+{%- endfor -%}
+
+{%- if image_list.size != 0 -%}
+  {%- assign has_360 = true -%}
+{%- endif -%}
+
+{%- liquid
   assign first_video = null
   for media in product.media
     if media.media_type == 'video' or media.media_type == 'external_video'
@@ -73,7 +81,7 @@
             <div
               class="cloudimage-360 swiper-no-swiping"
               data-fullscreen="true"
-              data-image-list-x='[{{ image_360_list }}]'
+              data-image-list-x='[{{ image_list }}]'
               data-autoplay="true"
               data-play-once="true"
               data-speed="150"

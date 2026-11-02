@@ -983,8 +983,9 @@
 <script src="{{ 'photoswipe.umd.min.js' |  asset_url}}" defer></script>
 {%- assign enable_360 = product.metafields.custom.enable_image_360.value -%}
 {%- assign image_360_metafield = product.metafields.custom.image_360.value -%}
+{%- assign image_360_metafield_2 = product.metafields.custom.image_360_2.value -%}
 {%- if enable_360 -%}
-  {%- if image_360_metafield != blank -%}
+  {%- if image_360_metafield != blank or image_360_metafield_2 != blank -%}
     <script src="{{ 'js-cloudimage-360-view.min.js' | asset_url }}" defer></script>
   {%- endif -%}
 {%- endif -%}
