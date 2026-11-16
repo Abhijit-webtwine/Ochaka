@@ -677,16 +677,7 @@
 
     /* Handle Sidebar Filter 
     -------------------------------------------------------------------------*/
-    var handleSidebarFilter = function () {
-        $("#filterShop,.sidebar-btn").on("click", function () {
-            if ($(window).width() <= 1200) {
-                $(".sidebar-filter,.overlay-filter").addClass("show");
-            }
-        });
-        $(".close-filter,.overlay-filter").on("click", function () {
-            $(".sidebar-filter,.overlay-filter").removeClass("show");
-        });
-    };
+
     /* Estimate Shipping
     -------------------------------------------------------------------------*/
     // var estimateShipping = function () {
@@ -1486,7 +1477,6 @@
         handleFooter();
         infiniteSlide();
         // addWishList();
-        handleSidebarFilter();
         // estimateShipping();
         textCopy();
         parallaxie();
