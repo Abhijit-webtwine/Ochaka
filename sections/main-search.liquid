@@ -1,3 +1,6 @@
+{{ 'component-loading-overlay.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'facets.js' | asset_url }}" defer></script>
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -13,53 +16,140 @@
 {%- endstyle -%}
 
 <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
-  {% if search.performed %}
-    {% paginate search.results by 12 %}
-      <div class="search-products">
-        <div class="container">
-          {% if search.results_count == 0 %}
-            <!-- No Results Found -->
-            <h1 class="text--left section-header__title">
-              We couldn't find any matching
-            </h1>
-            <p class="no-results-message">
-              Try adjusting your search or browse our collections for more options.
-            </p>
-          {% else %}
-            <!-- Search Results -->
-              <div class="search-result-product">
-                <div class="grid-uniform product-grid col-main">
-                  <div class="products-grid-view">
-                    <div class="tf-grid-layout tf-col-4">
-                      {% for item in search.results %}
-                        {% if item.object_type == 'product' %}
-                          {% render 'card-product', product: item, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
-                        {% elsif item.object_type == 'article' %}
-                          {% render 'card-article',item: item %}
-                        {% endif %}
-                      {% endfor %}
-                    </div>
-                  </div>
-                </div>
-              </div>
-          {% endif %}
-
-          {% if paginate.pages > 1 %}
-            <!-- Pagination -->
-            <div class="text-center pagination-wrap">
-              {% render 'pagination', paginate: paginate %}
-            </div>
-          {% endif %}
+  <div class="search-products">
+    <div class="container">
+      <!-- Search Header Bar -->
+      <div class="search-header-bar mb-16 mb-lg-5 text-center">
+        <h2 class="section-header__title mb-3">
+          {%- if search.performed -%}
+            {{ 'templates.search.title' | t }}
+          {%- else -%}
+            Search our store
+          {%- endif -%}
+        </h2>
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <form action="{{ routes.search_url }}" method="get" role="search" class="form-search style-2 position-relative z-1">
+              <input type="hidden" name="options[prefix]" value="last">
+              <fieldset class="text w-100">
+                <input
+                  type="text"
+                  placeholder="{{ 'general.search.search' | t | default: 'What are you looking for?' | escape }}"
+                  class="style-stroke"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                  required
+                  aria-label="{{ 'general.search.search' | t | default: 'Search' | escape }}"
+                >
+              </fieldset>
+              <button type="submit" class="link" aria-label="{{ 'general.search.search' | t | default: 'Search' | escape }}">
+                <i class="icon icon-magnifying-glass"></i>
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    {% endpaginate %}
-  {% endif %}
+
+      {% if search.performed %}
+        {%- assign products_per_page = section.settings.products_per_page | default: 12 -%}
+        {% paginate search.results by products_per_page %}
+          {%- assign search_terms = search.terms | url_encode -%}
+          {%- assign reset_url = routes.search_url | append: '?q=' | append: search_terms -%}
+
+          {%- assign has_active_filter = false -%}
+          {%- for filter in search.filters -%}
+            {%- if filter.active_values.size > 0 or filter.min_value.value != null or filter.max_value.value != null -%}
+              {%- assign has_active_filter = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {% if search.results_count == 0 and has_active_filter == false %}
+            <!-- No Results Found -->
+            <div class="text-center py-5">
+              <h2 class="section-header__title h3 mb-3">
+                {{ 'templates.search.no_results' | t: terms: search.terms }}
+              </h2>
+              <p class="no-results-message text-muted">
+                {{ 'templates.search.check_the_spelling' | t }}
+              </p>
+            </div>
+          {% else %}
+            <!-- Search Control: Filter, Count & Sort -->
+            <div class="tf-shop-control">
+              {% render 'facets-control-filter', results: search, collection: search, filter_class: 'full_width' %}
+
+              <div id="ProductCount" class="count-text d-flex align-items-center justify-content-center">
+                {%- if search.results_count -%}
+                  {{ 'templates.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+                {%- endif -%}
+              </div>
+
+              {% render 'facets-sorting-controller', results: search, collection: search %}
+            </div>
+
+            <!-- Product Grid Container for AJAX rendering -->
+            <div id="ProductGridContainer" class="position-relative">
+              <div class="collection-loading-overlay"></div>
+              <div id="product-grid" class="wrapper-control-shop" data-id="{{ section.id }}">
+                <div class="meta-filter-shop">
+                  {% render 'facets-active', results: search %}
+                </div>
+
+                {%- if search.results.size == 0 -%}
+                  <div class="text-center py-5">
+                    <h4>{{ 'templates.search.empty' | t }}</h4>
+                    <p class="text-muted">
+                      {{ 'templates.search.use_fewer_filters_html' | t: class: 'text-decoration-underline', link: reset_url }}
+                    </p>
+                  </div>
+                {%- else -%}
+                  <!-- Search Results Grid -->
+                  <div class="search-result-product">
+                    <div class="grid-uniform product-grid col-main">
+                      <div class="products-grid-view">
+                        <div class="tf-grid-layout tf-col-2 md-col-3 xl-col-4">
+                          {% for item in search.results %}
+                            {% if item.object_type == 'product' %}
+                              {% render 'card-product', product: item, show_wishlist: true, show_compare: true, show_quick_view: true, show_add_to_cart: true %}
+                            {% elsif item.object_type == 'article' %}
+                              {% render 'card-article', item: item %}
+                            {% endif %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+
+                {% if paginate.pages > 1 %}
+                  <!-- Pagination -->
+                  <div class="text-center pagination-wrap mt-30">
+                    {% render 'pagination', paginate: paginate %}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+        {% endpaginate %}
+      {% endif %}
+    </div>
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Search",
   "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 48,
+      "step": 4,
+      "label": "Products per page",
+      "default": 12
+    },
     {
       "type": "range",
       "id": "padding_top",

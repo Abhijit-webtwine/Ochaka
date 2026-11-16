@@ -6,10 +6,17 @@
       }
     }
   </style>
+  {%- assign results = results | default: collection | default: search -%}
+  {%- if results.url -%}
+    {%- assign reset_url = results.url -%}
+  {%- else -%}
+    {%- assign search_terms = results.terms | url_encode -%}
+    {%- assign reset_url = routes.search_url | append: '?q=' | append: search_terms -%}
+  {%- endif -%}
   {%- assign filter_scope = scope | default: 'Desktop' -%}
   <form id="{% if filter_scope == 'Mobile' %}FacetFiltersFormMobile{% else %}FacetFiltersForm{% endif %}" method="get" class="facet-filters-form position-static">
-    {%- if collection.terms -%}
-      <input type="hidden" name="q" value="{{ collection.terms | escape }}">
+    {%- if results.terms -%}
+      <input type="hidden" name="q" value="{{ results.terms | escape }}">
       <input name="options[prefix]" type="hidden" value="last">
     {%- endif -%}
     <div class="canvas-filter {{ filter_class }}" id="filterShop">
@@ -23,7 +30,7 @@
 
 
         <div class="canvas-body">
-          {% for filter in collection.filters %}
+          {% for filter in results.filters %}
             <div class="widget-facet js-filter" id="Filter-{% if filter_scope == 'Mobile' %}Mobile-{% endif %}{{ filter.param_name | handle }}">
               <div
                 class="facet-title"
@@ -148,8 +155,15 @@
         </div>
 
         <div class="canvas-bottom {{ bottom_class }}">
-          <facet-remove>
-            <a href="{{ collection.url }}" class="tf-btn btn-reset w-100"> Reset Filters </a>
+          <button
+            type="button"
+            class="tf-btn animate-btn btn-apply-filter w-100 d-xl-none"
+            aria-label="Apply Filter"
+          >
+            Apply Filter
+          </button>
+          <facet-remove class="w-100">
+            <a href="{{ reset_url }}" class="tf-btn style-line btn-reset text-center w-100">Reset Filters</a>
           </facet-remove>
         </div>
       </div>

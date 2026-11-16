@@ -872,6 +872,25 @@ class FacetDrawer extends MenuDrawer {
       });
     }
   }
+
+  bindEvents() {
+    super.bindEvents();
+    this.addEventListener('click', (event) => {
+      const applyBtn = event.target.closest('.btn-apply-filter');
+      if (applyBtn) {
+        event.preventDefault();
+        const facetFormComp = this.querySelector('facet-filters-form');
+        if (facetFormComp && typeof facetFormComp.onSubmitHandler === 'function') {
+          facetFormComp.onSubmitHandler(event);
+        }
+        this.closeMenuDrawer(event);
+      }
+    });
+  }
+
+  close() {
+    this.closeMenuDrawer(new CustomEvent('close'));
+  }
 }
 customElements.define('facet-drawer', FacetDrawer);
 

@@ -354,8 +354,41 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
         gap: 12px;
     }
 
+    .count-text {
+        font-size: 16px;
+        color: var(--text-2);
+
+        @include res(md) {
+            width: 100%;
+            order: 3;
+        }
+    }
+
     @include res(xl, min) {
         margin-bottom: 48px;
+    }
+}
+
+#filterShop .canvas-body {
+    overscroll-behavior-y: auto;
+}
+
+body.facet-drawer--open,
+body.facet-drawer--opening,
+body.facet-drawer--closing {
+    overflow: hidden;
+}
+
+.canvas-filter {
+    .canvas-bottom {
+        > * {
+            flex: 1 1 0;
+            min-width: 0;
+        }
+
+        facet-remove {
+            display: block;
+        }
     }
 }
 

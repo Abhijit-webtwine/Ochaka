@@ -10,9 +10,22 @@ class FacetFiltersForm extends HTMLElement {
 
     const facetForm = this.querySelector('form');
     if (facetForm) {
-      facetForm.addEventListener('input', this.debouncedOnSubmit.bind(this));
-      facetForm.addEventListener('change', this.debouncedOnSubmit.bind(this));
+      facetForm.addEventListener('input', (event) => {
+        if (window.innerWidth < 1200 || facetForm.id === 'FacetFiltersFormMobile') {
+          return;
+        }
+        this.debouncedOnSubmit(event);
+      });
     }
+
+    this.addEventListener('click', (event) => {
+      const applyBtn = event.target.closest('.btn-apply-filter');
+      if (applyBtn && !this.closest('facet-drawer')) {
+        event.preventDefault();
+        this.onSubmitHandler(event);
+        document.querySelectorAll('.sidebar-filter,.overlay-filter').forEach((el) => el.classList.remove('show'));
+      }
+    });
 
     const facetWrapper = this.querySelector('#FacetsWrapperDesktop');
     if (facetWrapper) facetWrapper.addEventListener('keyup', onKeyUpEscape);

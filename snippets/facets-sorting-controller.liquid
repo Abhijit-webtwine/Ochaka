@@ -1,16 +1,21 @@
+{%- assign results = results | default: collection | default: search -%}
 <facet-filters-form>
   <form id="FacetSortForm" method="get" class="facet-filters-form position-static">
+    {%- if results.terms -%}
+      <input type="hidden" name="q" value="{{ results.terms | escape }}">
+      <input name="options[prefix]" type="hidden" value="last">
+    {%- endif -%}
     <div class="tf-control-sorting">
       <p class="h6 d-none d-lg-block">Sort by:</p>
       <div class="tf-dropdown-sort" data-bs-toggle="dropdown">
-        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
-        {%- assign selected_option = collection.sort_options | where: 'value', sort_by | first -%}
+        {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+        {%- assign selected_option = results.sort_options | where: 'value', sort_by | first -%}
         <div class="btn-select">
           <span class="text-sort-value">{{ selected_option.name }}</span>
           <span class="icon icon-caret-down"></span>
         </div>
         <div class="dropdown-menu">
-          {%- for option in collection.sort_options -%}
+          {%- for option in results.sort_options -%}
             <div
               class="select-item{% if option.value == sort_by %} active{% endif %}"
               data-sort-value="{{ option.value | escape }}"
