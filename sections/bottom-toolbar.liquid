@@ -43,17 +43,19 @@
             <i class="icon icon-shopping-cart-simple"></i>
           </span>
           <span class="cart-icon-bubble position-relative">
-          {%- if cart != empty -%}
-          <span class="count toolbar-count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
-            {%- if cart.item_count < 100 -%} <span aria-hidden="true">{{ cart.item_count }}</span>
-          {%- endif -%}
-          <span class="visually-hidden">
-            {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+            {%- if cart != empty -%}
+              <span class="count toolbar-count {% if cart.item_count >= 100 %} cart-count-bubble--dot{% endif %}">
+                {%- if cart.item_count < 100 -%}
+                  <span aria-hidden="true">{{ cart.item_count }}</span>
+                {% else %}
+                  <span aria-hidden="true">99+</span>
+                {%- endif -%}
+                <span class="visually-hidden">
+                  {{- 'sections.header.cart_count' | t: count: cart.item_count -}}
+                </span>
+              </span>
+            {%- endif -%}
           </span>
-          </span>
-          {%- endif -%}
-          </span>
-
         </button>
       </cart-drawer-open>
       <span class="toolbar-label">Cart</span>
