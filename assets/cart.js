@@ -150,9 +150,157 @@ class CartItems extends HTMLElement {
     this.addEventListener('change', this.debouncedOnChange.bind(this));
   }
 
+  showToast(message, type = 'warning', title = null, duration = 5000) {
+    if (!message) return;
+
+    const template = document.getElementById('tf-toast-template');
+    const container = document.getElementById('tf-toast-container');
+    if (!template || !container) return;
+
+    // Prevent duplicate toast spam if exact message is currently active
+    const activeMessages = Array.from(container.querySelectorAll('.tf-toast:not(.tf-toast--hiding) .tf-toast__message'));
+    if (activeMessages.some((el) => el.textContent.trim() === message.trim())) {
+      return;
+    }
+
+    // Limit visible toasts to 3 (auto-dismiss oldest if limit reached)
+    const activeToasts = container.querySelectorAll('.tf-toast:not(.tf-toast--hiding)');
+    if (activeToasts.length >= 3) {
+      activeToasts[0].classList.add('tf-toast--hiding');
+      setTimeout(() => activeToasts[0].remove(), 350);
+    }
+
+    const defaultTitles = {
+      warning: 'Stock Limit',
+      error: 'Notice',
+      success: 'Updated',
+      info: 'Information'
+    };
+    const toastTitle = title || defaultTitles[type] || 'Stock Limit';
+
+    const toastNode = template.content.cloneNode(true);
+    const toast = toastNode.querySelector('.tf-toast');
+    toast.classList.add(`tf-toast--${type}`);
+    toast.style.setProperty('--toast-duration', `${duration}ms`);
+    if (type === 'error') {
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+    }
+
+    const tagEl = toast.querySelector('.tf-toast__tag');
+    if (tagEl) tagEl.textContent = toastTitle;
+
+    const msgEl = toast.querySelector('.tf-toast__message');
+    if (msgEl) msgEl.textContent = message;
+
+    container.appendChild(toast);
+
+    // Trigger smooth GPU entrance animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.add('tf-toast--visible');
+      });
+    });
+
+    let dismissTimer = null;
+    let remainingTime = duration;
+    let startTime = Date.now();
+
+    const removeToast = () => {
+      clearTimeout(dismissTimer);
+      toast.classList.remove('tf-toast--visible');
+      toast.classList.add('tf-toast--hiding');
+      setTimeout(() => {
+        toast.remove();
+      }, 350);
+    };
+
+    const startTimer = () => {
+      startTime = Date.now();
+      dismissTimer = setTimeout(removeToast, remainingTime);
+    };
+
+    const pauseTimer = () => {
+      clearTimeout(dismissTimer);
+      remainingTime -= (Date.now() - startTime);
+      if (remainingTime < 400) remainingTime = 400;
+    };
+
+    toast.querySelector('.tf-toast__close')?.addEventListener('click', removeToast, { once: true });
+    toast.addEventListener('mouseenter', pauseTimer);
+    toast.addEventListener('mouseleave', startTimer);
+
+    startTimer();
+  }
+
+  resetQuantityInput(id) {
+    const input = this.querySelector(`#Quantity-${id}`);
+    if (input) {
+      input.value = input.getAttribute('value');
+    }
+  }
+
+  validateQuantity(event) {
+    const input = event.target;
+    const inputValue = parseInt(input.value) || 0;
+    const index = input.dataset.index;
+    let message = '';
+    let targetQuantity = inputValue;
+
+    if (inputValue === 0) {
+      this.updateQuantity(
+        index,
+        0,
+        document.activeElement ? document.activeElement.getAttribute('name') : null,
+        input.dataset.quantityVariantId
+      );
+      return;
+    }
+
+    const min = input.dataset.min ? parseInt(input.dataset.min) : null;
+    const max = input.max ? parseInt(input.max) : null;
+    const step = input.step ? parseInt(input.step) : 1;
+
+    if (min !== null && inputValue < min) {
+      message = (window.cartStrings?.quantityError || 'Minimum quantity is [quantity]').replace('[quantity]', min);
+      targetQuantity = min;
+      input.value = min;
+    } else if (max !== null && max > 0 && inputValue > max) {
+      message = (window.cartStrings?.quantityError || 'You can only add [quantity] of this item').replace('[quantity]', max);
+      targetQuantity = max;
+      input.value = max;
+    } else if (step > 1 && inputValue % step !== 0) {
+      message = (window.cartStrings?.quantityError || 'Please select a valid quantity step').replace('[quantity]', step);
+      this.resetQuantityInput(index);
+      targetQuantity = parseInt(input.value) || 1;
+    }
+
+    const currentQuantity = parseInt(input.getAttribute('value')) || 0;
+
+    if (message) {
+      this.showToast(message, 'warning', 'Stock Limit');
+      this.updateLiveRegions(index, message);
+    }
+
+    if (targetQuantity === currentQuantity) {
+      input.value = currentQuantity;
+      return;
+    }
+
+    this.updateQuantity(
+      index,
+      targetQuantity,
+      document.activeElement ? document.activeElement.getAttribute('name') : null,
+      input.dataset.quantityVariantId
+    );
+  }
+
   onChange(event) {
     if (event.target === null) return;
-    this.updateQuantity(event.target.dataset.index, event.target.value, document.activeElement.getAttribute('name'));
+    
+    if (event.target.name === 'updates[]') {
+      this.validateQuantity(event);
+    }
   }
 
   getSectionsToRender() {
@@ -198,9 +346,10 @@ class CartItems extends HTMLElement {
     return sections;
   }
 
-  updateQuantity(line, quantity, name) {
+  updateQuantity(line, quantity, name, variantId) {
     this.enableLoading(line);
-    const sections = this.getSectionsToRender().map((section) => section.section);
+    const requestedQuantity = parseInt(quantity);
+    const sections = this.getSectionsToRender().map((section) => section.section || section.id);
 
     const body = JSON.stringify({
       line,
@@ -209,81 +358,88 @@ class CartItems extends HTMLElement {
       sections_url: window.location.pathname
     });
 
-    fetch(`${window.routes.cart_change_url}`, {...fetchConfig(), ...{ body }})
-      .then((response) => {
-        return response.text();
-      })
-      .then((state) => {
-        const parsedState = JSON.parse(state);
+    fetch(`${window.routes.cart_change_url}`, { ...fetchConfig(), body })
+      .then((response) => response.json())
+      .then((parsedState) => {
+        const quantityEl = document.getElementById(`Quantity-${line}`);
+        const errorMessage = parsedState.errors || parsedState.description || (parsedState.status === 422 ? parsedState.message : null);
+
+        if (errorMessage) {
+          const updatedValue = parsedState.items && parsedState.items[line - 1] ? parsedState.items[line - 1].quantity : undefined;
+          if (quantityEl && updatedValue !== undefined) {
+            quantityEl.value = updatedValue;
+          }
+          const errorStr = typeof errorMessage === 'string'
+            ? errorMessage
+            : (Array.isArray(errorMessage) ? errorMessage.join('; ') : (window.cartStrings?.error || 'Error updating cart'));
+          this.showToast(errorStr, 'warning', 'Stock Notice');
+          this.updateLiveRegions(line, errorStr);
+          this.disableLoading();
+          return;
+        }
+
         this.classList.toggle('is-empty', parsedState.item_count === 0);
         const cartFooter = document.getElementById('main-cart-footer');
-
         if (cartFooter) cartFooter.classList.toggle('is-empty', parsedState.item_count === 0);
 
-        this.getSectionsToRender().forEach((section => {
-          const element = document.querySelectorAll(`.${section.id}, #${section.id}`);
-          element.forEach((element) => {
-
-          if (element) {
-            const elementToReplace = element.querySelector(section.selector) || element;
-
-            if (elementToReplace && parsedState.sections[section.section]) {
-              elementToReplace.innerHTML =
-                this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
+        this.getSectionsToRender().forEach((section) => {
+          const elements = document.querySelectorAll(`.${section.id}, #${section.id}`);
+          elements.forEach((element) => {
+            if (element) {
+              const elementToReplace = element.querySelector(section.selector) || element;
+              if (elementToReplace && parsedState.sections && parsedState.sections[section.section || section.id]) {
+                elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section || section.id], section.selector);
+              }
             }
-          }
-        })
-        }));
+          });
+        });
 
-        this.updateLiveRegions(line, parsedState.item_count);
+        const lineItemEl = document.getElementById(`CartItem-${line}`);
+        const currentVariantId = variantId || lineItemEl?.dataset.variantId;
+        const updatedItem = (currentVariantId && parsedState.items?.find(i => i.variant_id?.toString() === currentVariantId?.toString() || i.id?.toString() === currentVariantId?.toString())) || (parsedState.items && parsedState.items[line - 1]);
+        const updatedValue = updatedItem ? updatedItem.quantity : undefined;
+
+        let message = '';
+        if (requestedQuantity > 0 && updatedValue !== undefined && updatedValue > 0 && updatedValue < requestedQuantity) {
+          message = (window.cartStrings?.quantityError || 'You can only add [quantity] of this item.').replace('[quantity]', updatedValue);
+          const freshQtyEl = document.getElementById(`Quantity-${line}`);
+          if (freshQtyEl) freshQtyEl.value = updatedValue;
+          this.showToast(message, 'warning', 'Stock Limit');
+        }
+        this.updateLiveRegions(line, message);
+
         const lineItem = document.getElementById(`CartItem-${line}`);
-        if (lineItem && name) lineItem.querySelector(`[name="${name}"]`).focus();
+        if (lineItem && name) {
+          const target = lineItem.querySelector(`[name="${name}"]`);
+          if (target) target.focus();
+        }
         this.disableLoading();
 
         document.dispatchEvent(new CustomEvent('cart:updated', {
-          detail: {
-            cart: state
-          }
+          detail: { cart: parsedState }
         }));
       })
       .catch(() => {
-         this.querySelectorAll('.loading-overlay').forEach((overlay) => {
-          overlay.classList.add('hidden');
-          const parent = overlay.parentElement;
-          if (parent) {
-            parent.querySelectorAll('.cart-item__discounted-prices, .cart_total').forEach(el => el.classList.remove('hidden'));
-          }
-        });
         this.disableLoading();
+        const err = window.cartStrings?.error || 'Error updating cart';
+        this.showToast(err, 'error', 'Error');
         if (this.cartErrors) {
-          this.cartErrors.textContent = window.cartStrings.error;
+          this.cartErrors.textContent = err;
         }
       });
   }
 
-  updateLiveRegions(line, itemCount) {
-    if (this.currentItemCount === itemCount) {
-      const quantityError = document.getElementById(`Line-item-error-${line}`);
-      if (quantityError) {
-        quantityError.querySelector('.cart-item__error-text')
-          .innerHTML = window.cartStrings.quantityError.replace(
-            '[quantity]',
-            document.getElementById(`Quantity-${line}`).value
-          ); 
-      }
-    }
-
-    this.currentItemCount = itemCount;
-    
+  updateLiveRegions(line, message = '') {
     if (this.lineItemStatusElement) this.lineItemStatusElement.setAttribute('aria-hidden', true);
 
     const cartStatus = document.getElementById('cart-live-region-text');
-    if (cartStatus) {
+    if (cartStatus && message) {
+      cartStatus.textContent = message;
       cartStatus.setAttribute('aria-hidden', false);
 
       setTimeout(() => {
         cartStatus.setAttribute('aria-hidden', true);
-      }, 1e3);
+      }, 1000);
     }
   }
 
@@ -343,6 +499,22 @@ class CartItems extends HTMLElement {
   }
 }
 customElements.define('cart-items', CartItems);
+
+window.showToast = function(message, type = 'warning', title = null, duration = 5000) {
+  const cartItems = document.querySelector('cart-items');
+  if (cartItems && typeof cartItems.showToast === 'function') {
+    cartItems.showToast(message, type, title, duration);
+  } else {
+    CartItems.prototype.showToast(message, type, title, duration);
+  }
+};
+
+document.addEventListener('toast:show', (e) => {
+  const { message, type, title, duration } = e.detail || {};
+  if (message && window.showToast) {
+    window.showToast(message, type, title, duration);
+  }
+});
 
 class CartNote extends HTMLElement {
   constructor() {

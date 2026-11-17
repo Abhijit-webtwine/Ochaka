@@ -1,0 +1,24 @@
+<div class="tf-toast-container" id="tf-toast-container">
+  <template id="tf-toast-template">
+    <div class="tf-toast" role="status" aria-live="polite">
+      <div class="tf-toast__icon">
+        {% render 'icon-toast', type: 'warning' %}
+        {% render 'icon-toast', type: 'error' %}
+        {% render 'icon-toast', type: 'success' %}
+        {% render 'icon-toast', type: 'info' %}
+      </div>
+      <div class="tf-toast__content">
+        <div class="tf-toast__header">
+          <span class="tf-toast__tag"></span>
+        </div>
+        <p class="tf-toast__message"></p>
+      </div>
+      <button type="button" class="tf-toast__close" aria-label="Close notification">
+        {% render 'icon-toast', type: 'close' %}
+      </button>
+      <div class="tf-toast__progress-track">
+        <div class="tf-toast__progress-bar"></div>
+      </div>
+    </div>
+  </template>
+</div>

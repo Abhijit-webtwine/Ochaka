@@ -2895,3 +2895,226 @@
 .compare-color_list .box-text_empty {
     display: none;
 }
+
+.tf-toast-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    pointer-events: none;
+    max-width: 420px;
+    width: calc(100vw - 32px);
+
+    @include res(sm) {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        width: auto;
+        max-width: none;
+    }
+}
+
+.tf-toast {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 18px 16px;
+    box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.5),
+        0 4px 12px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    background: var(--main);
+    border: 1px solid var(--black);
+    border-radius: 12px;
+    color: var(--white);
+    pointer-events: auto;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(110%);
+    transition: 
+        transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+        margin 0.3s ease;
+    will-change: transform, opacity;
+
+    &.tf-toast--visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    &.tf-toast--hiding {
+        opacity: 0;
+        transform: translateY(8px) scale(0.96);
+        pointer-events: none;
+    }
+
+    .tf-toast__icon {
+        flex-shrink: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        svg {
+            width: 18px;
+            height: 18px;
+            display: none;
+        }
+    }
+
+    &.tf-toast--warning {
+        .tf-toast__icon {
+            background: rgba(240, 167, 80, 0.35);
+            color: var(--yellow);
+            .tf-toast__svg--warning {
+                display: block;
+            }
+        }
+        .tf-toast__tag {
+            color: var(--critical);
+        }
+        .tf-toast__progress-bar {
+            background: var(--yellow);
+        }
+    }
+
+    &.tf-toast--error {
+        .tf-toast__icon {
+            background: rgba(240, 62, 62, 0.15);
+            color: var(--critical);
+            .tf-toast__svg--error {
+                display: block;
+            }
+        }
+        .tf-toast__tag {
+            color: var(--critical);
+        }
+        .tf-toast__progress-bar {
+            background: var(--critical);
+        }
+    }
+
+    &.tf-toast--success {
+        .tf-toast__icon {
+            background: rgba(61, 171, 37, 0.15);
+            color: var(--success);
+            .tf-toast__svg--success {
+                display: block;
+            }
+        }
+        .tf-toast__tag {
+            color: var(--success);
+        }
+        .tf-toast__progress-bar {
+            background: var(--success);
+        }
+    }
+
+    &.tf-toast--info {
+        .tf-toast__icon {
+            background: rgba(12, 116, 214, 0.15);
+            color: var(--blue);
+            .tf-toast__svg--info {
+                display: block;
+            }
+        }
+        .tf-toast__tag {
+            color: var(--blue);
+        }
+        .tf-toast__progress-bar {
+            background: var(--blue);
+        }
+    }
+
+    .tf-toast__content {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-top: 2px;
+    }
+
+    .tf-toast__header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 4px;
+    }
+
+    .tf-toast__tag {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        line-height: 1.2;
+    }
+
+    .tf-toast__message {
+        font-size: 13.5px;
+        line-height: 1.45;
+        color: var(--white);
+        font-weight: 400;
+        word-break: break-word;
+        margin: 0;
+    }
+
+    .tf-toast__close {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        border: none;
+        color: var(--secondary-2);
+        cursor: pointer;
+        padding: 0;
+
+        svg {
+            width: 13px;
+            height: 13px;
+            display: block;
+        }
+
+        &:hover {
+            color: var(--white);
+            transform: scale(1.08);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    .tf-toast__progress-track {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .tf-toast__progress-bar {
+        height: 100%;
+        width: 100%;
+        transform-origin: left center;
+        animation: tfToastProgress var(--toast-duration, 50000ms) linear forwards;
+    }
+
+    &:hover .tf-toast__progress-bar {
+        animation-play-state: paused;
+    }
+}
+
+@keyframes tfToastProgress {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}

@@ -614,8 +614,24 @@ class QuantityInput extends HTMLElement {
     event.preventDefault();
     const previousValue = this.input.value;
 
-    event.target.name === 'plus' ? this.input.stepUp() : this.input.stepDown();
+    const button = event.currentTarget || event.target.closest('.btn-quantity, button');
+    const isPlus = button ? (button.dataset.name === 'plus' || button.getAttribute('name') === 'plus') : false;
+
+    if (isPlus) {
+      if (parseInt(this.input.dataset.min) > parseInt(this.input.step || 1) && this.input.value == 0) {
+        this.input.value = this.input.dataset.min;
+      } else {
+        this.input.stepUp();
+      }
+    } else {
+      this.input.stepDown();
+    }
+
     if (previousValue !== this.input.value) this.input.dispatchEvent(this.changeEvent);
+
+    if (this.input.dataset.min === previousValue && !isPlus) {
+      this.input.value = parseInt(this.input.min || 0);
+    }
   }
 
   onInputFocus() {
@@ -1892,9 +1908,17 @@ class ProductForm extends HTMLElement {
         this.errorMessage.textContent = errorMessage;
       }
     }
-    else {
-      if (errorMessage) {
-        alert(errorMessage);
+    if (errorMessage) {
+      if (typeof window.showToast === 'function') {
+        window.showToast(errorMessage, 'warning', 'Stock Limit');
+      } else {
+        document.dispatchEvent(new CustomEvent('toast:show', {
+          detail: {
+            message: errorMessage,
+            type: 'warning',
+            title: 'Stock Limit'
+          }
+        }));
       }
     }
   }
@@ -2212,22 +2236,13 @@ class AddToCart extends HTMLElement {
   }
 
   onClickHandler() {
+    if (this.classList.contains('loading')) return;
     const variantId = this.dataset.variantId;
 
     if (variantId) {
-      if (document.body.classList.contains('template-cart') || !window.shopSettings.cartDrawer) {
-        Shopify.postLink(window.routes.cart_add_url, {
-          parameters: {
-            id: variantId,
-            quantity: 1
-          },
-        });
-        return;
-      }
-
       this.setAttribute('disabled', true);
       this.classList.add('loading');
-      const sections = this.miniCart ? this.miniCart.getSectionsToRender().map((section) => section.id) : [];
+      const sections = this.miniCart ? [...new Set(this.miniCart.getSectionsToRender().map((section) => section.section || section.id))] : [];
 
       const body = JSON.stringify({
         id: variantId,
@@ -2239,15 +2254,39 @@ class AddToCart extends HTMLElement {
       fetch(`${window.routes.cart_add_url}`, { ...fetchConfig('javascript'), body })
         .then((response) => response.json())
         .then((parsedState) => {
-          if (parsedState.status === 422) {
-             document.dispatchEvent(new CustomEvent('ajaxProduct:error', {
+          if (parsedState.status || parsedState.errors) {
+            const err = parsedState.description || parsedState.message || (parsedState.errors ? (typeof parsedState.errors === 'string' ? parsedState.errors : Object.values(parsedState.errors).join(', ')) : 'Error');
+            if (typeof window.showToast === 'function') {
+              window.showToast(err, 'warning', 'Stock Limit');
+            } else {
+              document.dispatchEvent(new CustomEvent('toast:show', {
                 detail: {
-                  errorMessage: parsedState.description
+                  message: err,
+                  type: 'warning',
+                  title: 'Stock Limit'
                 }
               }));
-           }
-           else {
-            this.miniCart && this.miniCart.renderContents(parsedState);
+            }
+            document.dispatchEvent(new CustomEvent('ajaxProduct:error', {
+              detail: {
+                errorMessage: err
+              }
+            }));
+            if (this.miniCart) {
+              const sectionsToFetch = [...new Set(this.miniCart.getSectionsToRender().map((s) => s.section || s.id))];
+              fetch(`${window.location.pathname}?sections=${sectionsToFetch.join(',')}`)
+                .then((res) => res.json())
+                .then((sectionsData) => {
+                  if (sectionsData) {
+                    this.miniCart.renderContents({ sections: sectionsData });
+                  }
+                })
+                .catch((e) => console.error(e));
+            }
+          }
+          else {
+            const miniCart = this.miniCart || document.querySelector('mini-cart');
+            miniCart && miniCart.renderContents(parsedState);
 
              document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
               detail: {
@@ -3210,133 +3249,6 @@ class BundleProduct extends HTMLElement {
   }
 }
 customElements.define('bundle-product', BundleProduct);
-
-class BundleProducts extends HTMLElement {
-  constructor() {
-    super();
-
-    this.classes = {
-      hover: 'is-hover',
-      active: 'is-active',
-    };
-
-    this.miniCart = document.querySelector('mini-cart');
-    this.button = this.querySelector('button');
-    if (this.button) this.button.addEventListener('click', this.onButtonClick.bind(this));
-
-    this.blocks = this.querySelectorAll('[data-block-id]');
-    this.blocks.forEach((block) => block.addEventListener('mouseenter', this.onEnterHandler.bind(this)));
-    this.blocks.forEach((block) => block.addEventListener('mouseleave', this.onLeaveHandler.bind(this)));
-  }
-
-  onEnterHandler(event) {
-    this.classList.add(this.classes.hover);
-
-    const target = event.target;
-    const blockId = target.dataset.blockId;
-    this.blocks.forEach((block) => {
-      if (target.nodeName === 'BUNDLE-PRODUCT') {
-        if (block.nodeName === 'BUNDLE-PRODUCT') {
-          block.classList.add(this.classes.active);
-          return;
-        }
-      }
-      if (block.dataset.blockId === blockId) {
-        block.classList.add(this.classes.active);
-      }
-    });
-  }
-
-  onLeaveHandler() {
-    this.classList.remove(this.classes.hover);
-    this.blocks.forEach((block) => block.classList.remove(this.classes.active));
-  }
-
-  onButtonClick(event) {
-    event.preventDefault();
-
-    const ids = this.querySelectorAll('[name="id"]');
-    const items = {
-      items: [...ids].map((e => e.value)).map((e => ({
-        id: e,
-        quantity: 1
-      })))
-    };
-
-    if (document.body.classList.contains('template-cart') || !window.shopSettings.cartDrawer) {
-      Shopify.postLink2(window.routes.cart_add_url, {
-        parameters: {
-          ...items
-        }
-      });
-      return;
-    }
-
-    this.handleErrorMessage();
-
-    this.button.setAttribute('disabled', true);
-    this.button.classList.add('loading');
-    const sections = this.miniCart ? this.miniCart.getSectionsToRender().map((section) => section.id) : [];
-
-    const body = JSON.stringify({
-      ...items,
-      sections: sections,
-      sections_url: window.location.pathname
-    });
-
-    fetch(`${window.routes.cart_add_url}`, { ...fetchConfig('javascript'), body })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.status) {
-          this.handleErrorMessage(response.description);
-          return;
-        }
-
-        if (response.status === 422) {
-          document.dispatchEvent(new CustomEvent('ajaxProduct:error', {
-            detail: {
-              errorMessage: response.description
-            }
-          }));
-        }
-        else {
-          this.miniCart && this.miniCart.renderContents(response);
-
-          document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
-            detail: {
-              product: response
-            }
-          }));
-        }
-      })
-      .catch((e) => {
-        console.error(e);
-      })
-      .finally(() => {
-        this.button.classList.remove('loading');
-        this.button.removeAttribute('disabled');
-      });
-  }
-
-  handleErrorMessage(errorMessage = false) {
-    this.errorMessageWrapper = this.errorMessageWrapper || this.querySelector('.product-form__error-message-wrapper');
-    
-    if (this.errorMessageWrapper) {
-      this.errorMessage = this.errorMessage || this.errorMessageWrapper.querySelector('.product-form__error-message');
-      this.errorMessageWrapper.toggleAttribute('hidden', !errorMessage);
-
-      if (errorMessage) {
-        this.errorMessage.textContent = errorMessage;
-      }
-    }
-    else {
-      if (errorMessage) {
-        alert(errorMessage);
-      }
-    }
-  }
-}
-customElements.define('bundle-products', BundleProducts);
 
 class ShopTheLook extends HTMLElement {
   constructor() {
