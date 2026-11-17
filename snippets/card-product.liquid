@@ -69,8 +69,21 @@
   "
   data-availability="{% if product.available %}In stock{% else %}Out of stock{% endif %}"
   data-brand="{{ product.vendor }}"
->
-  <div class="card-product_wrapper {{ settings.card_height }} {{ settings.card_corners }} {% if settings.show_border %} style-line-border {% endif %}">
+  >
+  {% liquid
+    assign is_video = false
+    if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video'
+      assign is_video = true
+    else
+      for m in product.media
+        if m.media_type == 'video' or m.media_type == 'external_video'
+          assign is_video = true
+          break
+        endif
+      endfor
+    endif
+  %}
+  <div class="card-product_wrapper {% unless is_video %}{{ settings.card_height }}{% endunless %} {{ settings.card_corners }} {% if settings.show_border %} style-line-border {% endif %}">
     {% render 'card-product-media', product: product %}
 
     {% if show_wishlist_remove %}
