@@ -1856,22 +1856,26 @@ class ProductForm extends HTMLElement {
     
     evt.preventDefault();
     const submitButton = this.querySelector('[type="submit"]');
-    if (submitButton.classList.contains('loading')) {
+    if (submitButton && submitButton.classList.contains('loading')) {
       return;
     }
 
     this.handleErrorMessage();
 
-    submitButton.setAttribute('aria-disabled', true);
-    submitButton.classList.add('loading');
+    if (submitButton) {
+      submitButton.setAttribute('aria-disabled', true);
+      submitButton.classList.add('loading');
+    }
 
     const config = fetchConfig('javascript');
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     delete config.headers['Content-Type'];
     const formData = new FormData(this.form);
 
+    this.miniCart = this.miniCart || document.querySelector('mini-cart');
     if (this.miniCart) {
-      formData.append('sections', this.miniCart.getSectionsToRender().map((section) => section.id));
+      const sectionsToRender = [...new Set(this.miniCart.getSectionsToRender().map((section) => section.section || section.id))];
+      formData.append('sections', sectionsToRender);
     }
     formData.append('sections_url', window.location.pathname);
     config.body = formData;
@@ -1881,6 +1885,17 @@ class ProductForm extends HTMLElement {
       .then((response) => {
         if (response.status || response.errors || response.message) {
           this.handleErrorMessage(response.description || response.message || (response.errors ? (typeof response.errors === 'string' ? response.errors : Object.values(response.errors).join(', ')) : 'Error'));
+          if (this.miniCart) {
+            const sections = [...new Set(this.miniCart.getSectionsToRender().map((s) => s.section || s.id))];
+            fetch(`${window.location.pathname}?sections=${sections.join(',')}`)
+              .then((res) => res.json())
+              .then((sectionsData) => {
+                if (sectionsData) {
+                  this.miniCart.renderContents({ sections: sectionsData });
+                }
+              })
+              .catch((e) => console.error(e));
+          }
           return;
         }
         this.dispatchEvent(new CustomEvent('productForm:added'));
@@ -1892,8 +1907,10 @@ class ProductForm extends HTMLElement {
         console.error(e);
       })
       .finally(() => {
-        submitButton.classList.toggle('loading');
-        submitButton.toggleAttribute('aria-disabled');
+        if (submitButton) {
+          submitButton.classList.remove('loading');
+          submitButton.removeAttribute('aria-disabled');
+        }
       });
   }
 
@@ -1969,9 +1986,10 @@ class ProductFormMultiAdd extends ProductForm {
     delete config.headers['Content-Type'];
     config.headers['Content-Type'] = 'application/json';
 
+    this.miniCart = this.miniCart || document.querySelector('mini-cart');
     const payload = {
       items,
-      sections: this.miniCart ? this.miniCart.getSectionsToRender().map(s => s.id) : [],
+      sections: this.miniCart ? [...new Set(this.miniCart.getSectionsToRender().map(s => s.section || s.id))] : [],
       sections_url: window.location.pathname
     };
     config.body = JSON.stringify(payload);
@@ -1979,8 +1997,19 @@ class ProductFormMultiAdd extends ProductForm {
     fetch(`${window.routes.cart_add_url}`, config)
       .then((response) => response.json())
       .then((response) => {
-        if (response.status) {
-          this.handleErrorMessage(response.description);
+        if (response.status || response.errors || response.message) {
+          this.handleErrorMessage(response.description || response.message || (response.errors ? (typeof response.errors === 'string' ? response.errors : Object.values(response.errors).join(', ')) : 'Error'));
+          if (this.miniCart) {
+            const sections = [...new Set(this.miniCart.getSectionsToRender().map((s) => s.section || s.id))];
+            fetch(`${window.location.pathname}?sections=${sections.join(',')}`)
+              .then((res) => res.json())
+              .then((sectionsData) => {
+                if (sectionsData) {
+                  this.miniCart.renderContents({ sections: sectionsData });
+                }
+              })
+              .catch((e) => console.error(e));
+          }
           return;
         }
 
@@ -1992,8 +2021,10 @@ class ProductFormMultiAdd extends ProductForm {
         console.error(e);
       })
       .finally(() => {
-        submitButton.classList.toggle('loading');
-        submitButton.toggleAttribute('aria-disabled');
+        if (submitButton) {
+          submitButton.classList.remove('loading');
+          submitButton.removeAttribute('aria-disabled');
+        }
       });
   }
 }
@@ -2242,6 +2273,7 @@ class AddToCart extends HTMLElement {
     if (variantId) {
       this.setAttribute('disabled', true);
       this.classList.add('loading');
+      this.miniCart = this.miniCart || document.querySelector('mini-cart');
       const sections = this.miniCart ? [...new Set(this.miniCart.getSectionsToRender().map((section) => section.section || section.id))] : [];
 
       const body = JSON.stringify({
@@ -2254,7 +2286,7 @@ class AddToCart extends HTMLElement {
       fetch(`${window.routes.cart_add_url}`, { ...fetchConfig('javascript'), body })
         .then((response) => response.json())
         .then((parsedState) => {
-          if (parsedState.status || parsedState.errors) {
+          if (parsedState.status || parsedState.errors || parsedState.message) {
             const err = parsedState.description || parsedState.message || (parsedState.errors ? (typeof parsedState.errors === 'string' ? parsedState.errors : Object.values(parsedState.errors).join(', ')) : 'Error');
             if (typeof window.showToast === 'function') {
               window.showToast(err, 'warning', 'Stock Limit');
@@ -2272,13 +2304,14 @@ class AddToCart extends HTMLElement {
                 errorMessage: err
               }
             }));
-            if (this.miniCart) {
-              const sectionsToFetch = [...new Set(this.miniCart.getSectionsToRender().map((s) => s.section || s.id))];
+            const miniCart = this.miniCart || document.querySelector('mini-cart');
+            if (miniCart) {
+              const sectionsToFetch = [...new Set(miniCart.getSectionsToRender().map((s) => s.section || s.id))];
               fetch(`${window.location.pathname}?sections=${sectionsToFetch.join(',')}`)
                 .then((res) => res.json())
                 .then((sectionsData) => {
                   if (sectionsData) {
-                    this.miniCart.renderContents({ sections: sectionsData });
+                    miniCart.renderContents({ sections: sectionsData });
                   }
                 })
                 .catch((e) => console.error(e));

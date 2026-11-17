@@ -47,42 +47,78 @@ class MiniCart extends HTMLElement {
   }
 
   open() {
-    // const detailsElement = this.drawer?.querySelector('details');
-    // if (!detailsElement || detailsElement.hasAttribute('open')) {
-    //   return;
-    // }
-    
-    this.drawer.openDrawer();
+    // Close other drawers/modals first
+    document.body.classList.remove('wishlist-drawer--open');
+    const qv = document.getElementById('quickView');
+    if (qv && window.bootstrap?.Modal) {
+      bootstrap.Modal.getInstance(qv)?.hide();
+    }
 
+    const drawer = this.drawer || document.querySelector('cart-drawer-open');
+    if (drawer && typeof drawer.openDrawer === 'function') {
+      drawer.openDrawer();
+    } else {
+      document.body.classList.add('cart-drawer--open', 'overflow-hidden');
+    }
   }
-// required function in other js
+
   renderContents(parsedState) {
     this.productId = parsedState.id;
+
+    const mainCartItems = document.getElementById('main-cart-items');
+    if (mainCartItems) {
+      const isCartEmpty = parsedState.item_count !== undefined ? parsedState.item_count === 0 : false;
+      mainCartItems.classList.toggle('is-empty', isCartEmpty);
+      const cartFooter = document.getElementById('main-cart-footer');
+      if (cartFooter) cartFooter.classList.toggle('is-empty', isCartEmpty);
+    }
+
     this.getSectionsToRender().forEach((section) => {
       // Find ALL elements that match either class or ID for this section
       // This handles both single and multiple instances (like sticky header + main header)
       const elements = document.querySelectorAll(`.${section.id}, #${section.id}`);
       elements.forEach((element) => {
         if (element) {
-          element.innerHTML = this.getSectionInnerHTML(
-            parsedState.sections[section.id], 
-            section.selector
-          );
+          const html = parsedState.sections?.[section.section] || parsedState.sections?.[section.id];
+          if (html) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            if (element.tagName === 'CART-ITEMS' || element.id === 'main-cart-items') {
+              const newCartItems = doc.querySelector('cart-items, #main-cart-items');
+              if (newCartItems) {
+                element.className = newCartItems.className;
+              } else {
+                element.classList.remove('is-empty');
+              }
+            }
+
+            const target = element.querySelector(section.selector) || element;
+            const newContent = doc.querySelector(section.selector);
+            if (target && newContent) {
+              target.innerHTML = newContent.innerHTML;
+            } else {
+              target.innerHTML = this.getSectionInnerHTML(html, section.selector);
+            }
+          }
         }
       });
     });
 
-    this.open();
+    const isCartPage = document.body.classList.contains('template-cart') || (window.shopSettings && window.shopSettings.cartDrawer === false);
+    if (!isCartPage) {
+      this.open();
+    }
+
+    document.dispatchEvent(new CustomEvent('cart:updated', {
+      detail: { cart: parsedState }
+    }));
   }
 
-// required function in other js
   getSectionsToRender() {
-    return [
-      {
-        id: 'mini-cart',
-        section: 'mini-cart',
-        selector: '.shopify-section'
-      },
+    const mainCartElement = document.getElementById('main-cart-items');
+    const isCartPage = document.body.classList.contains('template-cart') || !!mainCartElement || (window.shopSettings && window.shopSettings.cartDrawer === false);
+    const mainCartSectionId = mainCartElement?.dataset.id || 'main-cart-items';
+
+    const sections = [
       {
         id: 'cart-icon-bubble',
         section: 'cart-icon-bubble',
@@ -99,6 +135,34 @@ class MiniCart extends HTMLElement {
         selector: '.shopify-section'
       }
     ];
+
+    if (isCartPage) {
+      sections.push({
+        id: 'main-cart-items',
+        section: mainCartSectionId,
+        selector: '.js-contents'
+      });
+      sections.push({
+        id: 'js-cart-summary',
+        section: mainCartSectionId,
+        selector: '.js-summary-contents'
+      });
+      if (document.querySelector('#main-cart-footer .free-shipping')) {
+        sections.push({
+          id: 'main-cart-footer',
+          section: 'main-cart-footer',
+          selector: '.free-shipping'
+        });
+      }
+    } else {
+      sections.push({
+        id: 'mini-cart',
+        section: 'mini-cart',
+        selector: '.shopify-section'
+      });
+    }
+
+    return sections;
   }
 
   getSectionInnerHTML(html, selector = '.shopify-section') {
