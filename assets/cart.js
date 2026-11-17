@@ -297,22 +297,39 @@ class CartItems extends HTMLElement {
     const cartItems = document.getElementById('main-cart-items');
     if (cartItems) cartItems.classList.add('cart__items--disabled');
 
-    const loadingOverlay = this.querySelectorAll('.loading-overlay')[line - 1];
-     if (loadingOverlay) {
-      loadingOverlay.classList.remove('hidden');
+    const miniCartItem = document.querySelector('#mini-cart .tf-mini-cart-items');
+    if (miniCartItem) miniCartItem.classList.add('cart__items--disabled');
+
+    const loadingOverlay = this.querySelectorAll('.tf-loading')[line - 1];
+    if (loadingOverlay) {
+      loadingOverlay.classList.add('loading');
       const parent = loadingOverlay.parentElement;
       if (parent) {
-        parent.querySelectorAll('.cart-item__discounted-prices, .cart_total').forEach(el => el.classList.add('hidden'));
+        parent.querySelectorAll('.cart-item__discounted-prices, .cart_total').forEach((el) => el.classList.add('hidden'));
       }
     }
     
-    document.activeElement.blur();
+    document.activeElement?.blur?.();
     if (this.lineItemStatusElement) this.lineItemStatusElement.setAttribute('aria-hidden', false);
   }
 
   disableLoading() {
     const cartItems = document.getElementById('main-cart-items');
     if (cartItems) cartItems.classList.remove('cart__items--disabled');
+
+    const miniCartItem = document.querySelector('#mini-cart .tf-mini-cart-items');
+    if (miniCartItem) miniCartItem.classList.remove('cart__items--disabled');
+
+    this.querySelectorAll('.tf-loading.loading, .loading-overlay').forEach((el) => {
+      el.classList.remove('loading');
+      el.classList.add('hidden');
+      const parent = el.parentElement;
+      if (parent) {
+        parent.querySelectorAll('.cart-item__discounted-prices, .cart_total').forEach((p) => p.classList.remove('hidden'));
+      }
+    });
+
+    if (this.lineItemStatusElement) this.lineItemStatusElement.setAttribute('aria-hidden', true);
   }
 
   renderContents(parsedState) {

@@ -360,12 +360,34 @@ button.animate-btn::after,
 
 
 .tf-loading {
-    font-size: 14px;
-    line-height: 20px;
-    width: auto;
-    height: 42px;
-    min-width: 118px;
-    padding: 10px;
+    position: relative;
+    &::before {
+        width: 18px;
+        height: 18px;
+        content: "";
+        position: absolute;
+        z-index: 2;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        border-radius: 50%;
+        animation: tf_rotator 0.6s linear infinite paused;
+        opacity: 0;
+    }
+    .text-btn {
+        color: inherit;
+    }
+    &.loading {
+        display: flex;
+        &::before {
+            border: solid 2px currentColor;
+            border-top-color: transparent;
+            opacity: 1;
+            animation-play-state: running;
+        }
+    }
 
     &.loadmore {
         .spinner-circle {
@@ -396,6 +418,24 @@ button.animate-btn::after,
                 @include transition3;
             }
         }
+    }
+}
+
+.tf-loading.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.tf-loading.loading span:not(.tooltip) {
+    color: transparent ;
+}
+
+@keyframes tf_rotator {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }
 

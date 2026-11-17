@@ -181,11 +181,7 @@
                             </span>
                           </div>
 
-                          <div class="loading-overlay hidden">
-                            <div class="loading-overlay__spinner">
-                              {% render 'icon', icon: 'spinner' %}
-                            </div>
-                          </div>
+                          <span class="tf-loading"></span>
 
                           <cart-remove-button id="Remove-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
                             <a href="{{ item.url_to_remove }}" class="block delete-button icon link icon-close remove" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">

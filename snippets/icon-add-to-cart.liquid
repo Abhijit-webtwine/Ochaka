@@ -54,7 +54,7 @@
     {% if product.available %}
       <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
         <button type="button" class="tf-btn animate-btn add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-          Add to Cart
+          <span class="text">Add to Cart</span>
           <i class="icon icon-shopping-cart-simple"></i>
         </button>
       </add-to-cart>
@@ -62,14 +62,14 @@
         <button type="button" class="tf-btn animate-btn add-to-cart button--soldout"
           disabled="disabled"
           data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-          Add to Cart
+          <span class="text">Add to Cart</span>
           <i class="icon icon-shopping-cart-simple"></i>
         </button>
     {% endif %}
   {% when 'quick_add' %}
     <add-to-cart class="{% if style_7 %} w-100 mt-auto {% endif %} {% if style_8 %} product-btn_quick {% endif %}" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
       <button class="tf-btn rounded-0 animate-btn type-very-small {% if style_7 %}card-product_action-bot w-100{% endif %}">
-        Quick Add
+        <span class="text">Quick Add</span>
         <i class="icon icon-shopping-cart-simple"></i>
       </button>
     </add-to-cart>
@@ -77,12 +77,12 @@
     {% if product.available %}
       <add-to-cart data-variant-id="{{ product.selected_or_first_available_variant.id }}">
         <button type="button" class="tf-btn type-small-4 w-100 animate-btn add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
-          Add to cart
+          <span class="text">Add to cart</span>
         </button>
       </add-to-cart>
     {% else %}
       <button type="button" class="tf-btn type-small-4 w-100 button--soldout" disabled="disabled">
-        Add to cart
+        <span class="text">Add to cart</span>
       </button>
     {% endif %}
 {% endcase %}

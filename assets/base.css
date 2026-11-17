@@ -1020,11 +1020,12 @@ input[type=radio][disabled] + label {
 }
 
 .quick-view.loading::before, 
-add-to-cart.loading .icon:before,
+add-to-cart.loading .box-icon .icon:before,
 .wishlist-toggle.loading:not(.remove)::before, 
 compare-remove.loading .icon::before {
   content: '';
   position: absolute;
+  opacity: 0.5;
   top: 50%;
   left: 50%;
   width: 20px;
@@ -1051,7 +1052,9 @@ add-to-cart.loading .icon-atc-horizontal::before {
   transition: opacity 0.3s ease;
 }
 
-.quick-view.loading, .wishlist-toggle.loading {
+.quick-view.loading, .wishlist-toggle.loading,
+add-to-cart.loading,
+add-to-cart[disabled] {
   pointer-events: none;
   position: relative;
 }
