@@ -7,9 +7,7 @@
   var ochaka_app = {
     shop: '{{ shop.permanent_domain }}',
     domain: '{{ shop.domain }}',
-    {%- if admin_vi == true -%}
-      lic: '{{ settings.purchase_code | escape }}',
-    {%- endif -%}
+    lic: '{{ settings.purchase_code | escape }}',
     is_design_mode: {{ admin_vi | json }}
   };
 </script>
