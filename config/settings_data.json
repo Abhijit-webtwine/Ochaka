@@ -630,7 +630,7 @@
           "description": "<p>Use the code below at checkout to enjoy 10% off your order today.</p>",
           "coupon_code": "save10",
           "coupon_btn_label": "Copy Code",
-          "collection": "trending-copy",
+          "collection": "trending",
           "recommended_heading": "You May Also Like",
           "products_limit": 3,
           "continue_btn_label": "Continue Shopping"
