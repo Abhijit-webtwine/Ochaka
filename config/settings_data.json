@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "purchase_code": "01012026",
+    "purchase_code": "02012026",
     "show_announcement_slider": false,
     "show_announcement_bar2": false,
     "show_scrolling_promotion": false,
@@ -614,6 +614,25 @@
           "newsletter_popup_image": "shopify://shop_images/newletter.jpg",
           "newsletter_popup_sub_title": "Subscribe to our newsletter!",
           "newsletter_popup_title": "Receive 20% off your next order, along with exclusive offers and more!"
+        }
+      },
+      "exit-popup": {
+        "type": "exit-popup",
+        "settings": {
+          "show_popup": false,
+          "trigger": "exit_intent",
+          "time_delay": 15,
+          "scroll_depth": 50,
+          "frequency_days": 7,
+          "subheading": "WAIT! BEFORE YOU LEAVE...",
+          "heading": "Claim Your 10% Off!",
+          "description": "<p>Use the code below at checkout to enjoy 10% off your order today.</p>",
+          "coupon_code": "save10",
+          "coupon_btn_label": "Copy Code",
+          "collection": "",
+          "recommended_heading": "You May Also Like",
+          "products_limit": 4,
+          "continue_btn_label": "Continue Shopping"
         }
       }
     },
