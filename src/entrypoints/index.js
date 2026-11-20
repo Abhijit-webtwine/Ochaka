@@ -1,3 +1,4 @@
+import initThemeVerification from '../js/components/theme-verification.js'
 import initFaqSidebar from '../js/components/faq-sidebar.js'
 import initFaqSearch from '../js/components/faq-search.js'
 import WishlistToggle from '../js/components/wishlist-toggle.js'
@@ -11,7 +12,11 @@ import CompareCount from '../js/components/compare-count.js'
 import QuickView from '../js/components/quick-view.js'
 import GlobalPagination from '../js/components/global-pagination.js'
 
-function onPageLoad () {
+async function onPageLoad () {
+  const isVerified = await initThemeVerification()
+  if (isVerified === false) {
+    return
+  }
   initFaqSidebar()
   initFaqSearch()
   new WishlistToggle()
@@ -23,8 +28,7 @@ function onPageLoad () {
   new CompareClear()
   new CompareCount()
   new QuickView()
-  new GlobalPagination();
+  new GlobalPagination()
 }
 
 onPageLoad()
-
