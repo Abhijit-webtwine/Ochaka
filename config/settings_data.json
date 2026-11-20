@@ -619,19 +619,20 @@
       "exit-popup": {
         "type": "exit-popup",
         "settings": {
-          "show_popup": false,
+          "show_popup": true,
           "trigger": "exit_intent",
           "time_delay": 15,
           "scroll_depth": 50,
           "frequency_days": 7,
+          "banner_image": "shopify://shop_images/side-banner.jpg",
           "subheading": "WAIT! BEFORE YOU LEAVE...",
           "heading": "Claim Your 10% Off!",
           "description": "<p>Use the code below at checkout to enjoy 10% off your order today.</p>",
           "coupon_code": "save10",
           "coupon_btn_label": "Copy Code",
-          "collection": "",
+          "collection": "clothing",
           "recommended_heading": "You May Also Like",
-          "products_limit": 4,
+          "products_limit": 3,
           "continue_btn_label": "Continue Shopping"
         }
       }
