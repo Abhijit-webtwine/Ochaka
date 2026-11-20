@@ -4017,3 +4017,41 @@
         flex-direction: column;
     }
 }
+
+.card-product.list-st-2 {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+
+    .card-product-info {
+        flex: 1 1 auto;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: self-start;
+        gap: 10px;
+        max-width: 68%;
+    }
+
+    .card-product-wrapper {
+        max-width: 210px;
+        width: 32%;
+
+        &.type-width-2 {
+            max-width: 105px;
+        }
+    }
+
+    .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .box-icon {
+        flex-shrink: 0;
+        background-color: var(--surface);
+    }
+}

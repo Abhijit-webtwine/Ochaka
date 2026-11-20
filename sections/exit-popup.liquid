@@ -1,0 +1,269 @@
+{%- comment -%}
+  Exit Popup (Before You Leave) Modal - Ochaka Theme
+  High-performance lazy-rendered modal featuring 1-click discount copy and recommended products.
+{%- endcomment -%}
+
+{%- liquid
+  assign show_popup = section.settings.show_popup
+  assign trigger = section.settings.trigger
+  assign time_delay = section.settings.time_delay
+  assign scroll_depth = section.settings.scroll_depth
+  assign frequency_days = section.settings.frequency_days
+
+  assign banner_image = section.settings.banner_image
+  assign subheading = section.settings.subheading
+  assign heading = section.settings.heading
+  assign description = section.settings.description
+  assign coupon_code = section.settings.coupon_code
+  assign coupon_btn_label = section.settings.coupon_btn_label
+
+  assign collection = section.settings.collection
+  assign recommended_heading = section.settings.recommended_heading
+  assign products_limit = section.settings.products_limit
+  assign continue_btn_label = section.settings.continue_btn_label
+
+  assign has_products = false
+  if collection != blank and collection.products_count > 0
+    assign has_products = true
+  endif
+-%}
+
+{%- if show_popup -%}
+  {{ 'exit-popup.css' | asset_url | stylesheet_tag }}
+
+  {%- style -%}
+    {%- if banner_image != blank -%}
+      #ExitPopup-{{ section.id }} .exit-popup__banner {
+        background-image: url('{{ banner_image | image_url: width: 800 }}');
+      }
+    {%- endif -%}
+  {%- endstyle -%}
+
+  <exit-popup
+    id="ExitPopup-{{ section.id }}"
+    class="modal modalCentered fade exit-popup"
+    tabindex="-1"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ExitPopupHeading-{{ section.id }}"
+  >
+    <div class="modal-dialog modal-dialog-centered{% unless has_products %} exit-popup--single{% endunless %}">
+      <div class="modal-content exit-popup__dialog">
+        <span class="icon icon-close btn-hide-popup icon-close" data-exit-popup-close data-bs-dismiss="modal" aria-label="Close"></span>
+        <div class="d-flex flex-column flex-md-row">
+          <div class="{% if has_products %}col-md-6{% endif %} col-12">
+            <div class="exit-popup__banner text-center">
+              {%- if subheading != blank -%}
+                <p class="exit-popup__subheading text-small-2 text-uppercase text-primary fw-6 mb-2">{{ subheading | escape }}</p>
+              {%- endif -%}
+
+              {%- if heading != blank -%}
+                <h4 class="exit-popup__heading h4 fw-7 text-black mb-2" id="ExitPopupHeading-{{ section.id }}">{{ heading | escape }}</h4>
+              {%- endif -%}
+
+              {%- if description != blank -%}
+                <div class="exit-popup__description text-small text-main mb-3">{{ description }}</div>
+              {%- endif -%}
+
+              {%- if coupon_code != blank -%}
+                <div class="exit-popup__coupon d-flex align-items-center justify-content-between gap-2 mt-2">
+                  <span class="exit-popup__code fw-7 text-black">{{ coupon_code | escape }}</span>
+                  <button
+                    type="button"
+                    class="exit-popup__btn exit-popup__btn--sm radius-12 py-2 px-3 flex-shrink-0"
+                    data-exit-popup-copy="{{ coupon_code | escape }}"
+                  >
+                    <span class="text text-uppercase fw-6">{{ coupon_btn_label | default: 'Copy Code' | escape }}</span>
+                  </button>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+
+          {%- if has_products -%}
+            <div class="col-md-6 col-12">
+              <div class="exit-popup__products">
+                <div>
+                  {%- if recommended_heading != blank -%}
+                    <h6 class="exit-popup__products-title h6 fw-6 text-black mb-3">{{ recommended_heading | escape }}</h6>
+                  {%- endif -%}
+
+                  <div class="exit-popup__products-list">
+                    {%- for product in collection.products limit: products_limit -%}
+                      {% render 'card-product-list-2', product: product %}
+                    {%- endfor -%}
+                  </div>
+                </div>
+
+                <a
+                  href="{{ collection.url | default: routes.all_products_collection_url }}"
+                  class="exit-popup__btn radius-12 w-100 justify-content-center mt-3"
+                >
+                  <span class="text text-uppercase fw-6">{{ continue_btn_label | default: 'Continue Shopping' | escape }}</span>
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <script type="application/json">
+      {
+        "enabled": {{ show_popup | json }},
+        "trigger": {{ trigger | json }},
+        "timeDelay": {{ time_delay | json }},
+        "scrollDepth": {{ scroll_depth | json }},
+        "frequencyDays": {{ frequency_days | json }}
+      }
+    </script>
+  </exit-popup>
+
+  <script src="{{ 'exit-popup.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Exit Popup",
+  "tag": "section",
+  "limit": 1,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_popup",
+      "label": "Enable Exit Popup",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Trigger & Behavior"
+    },
+    {
+      "type": "select",
+      "id": "trigger",
+      "label": "Trigger Event",
+      "options": [
+        {
+          "value": "exit_intent",
+          "label": "Exit Intent (Cursor leaves window)"
+        },
+        {
+          "value": "time",
+          "label": "Time Delay"
+        },
+        {
+          "value": "scroll",
+          "label": "Scroll Depth"
+        }
+      ],
+      "default": "exit_intent"
+    },
+    {
+      "type": "range",
+      "id": "time_delay",
+      "min": 5,
+      "max": 60,
+      "step": 5,
+      "unit": "sec",
+      "label": "Time Delay",
+      "default": 15,
+      "info": "Used for Time trigger and mobile fallback"
+    },
+    {
+      "type": "range",
+      "id": "scroll_depth",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Scroll Depth",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "frequency_days",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "unit": "day",
+      "label": "Frequency Capping",
+      "default": 7,
+      "info": "Number of days before showing the popup again after user dismisses it"
+    },
+    {
+      "type": "header",
+      "content": "Promo Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Background Image"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "WAIT! BEFORE YOU LEAVE..."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Claim Your 10% Off!"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Use the code below at checkout to enjoy 10% off your order today.</p>"
+    },
+    {
+      "type": "text",
+      "id": "coupon_code",
+      "label": "Discount Coupon Code",
+      "default": "save10"
+    },
+    {
+      "type": "text",
+      "id": "coupon_btn_label",
+      "label": "Coupon Button Label",
+      "default": "Copy Code"
+    },
+    {
+      "type": "header",
+      "content": "Product Recommendations"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Recommended Collection"
+    },
+    {
+      "type": "text",
+      "id": "recommended_heading",
+      "label": "Recommendations Heading",
+      "default": "You May Also Like"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "label": "Products to Show",
+      "default": 4
+    },
+    {
+      "type": "text",
+      "id": "continue_btn_label",
+      "label": "Button Label",
+      "default": "Continue Shopping"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Exit Popup"
+    }
+  ]
+}
+{% endschema %}

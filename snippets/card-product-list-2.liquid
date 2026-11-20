@@ -1,0 +1,48 @@
+<div class="card-product list-st-2{% if has_border or enable_border %} has-border{% endif %}{% if custom_class != blank %} {{ custom_class }}{% endif %}" data-wow-delay="{{ delay | default: '0.2s' }}">
+  <div class="card-product-wrapper{% if wrapper_class != blank %} {{ wrapper_class }}{% endif %}">
+    {% render 'card-product-media', product: product, cols: cols, cols_tablet: cols_tablet, cols_mobile: cols_mobile %}
+
+    {%- if settings.show_sale_badge and product.compare_at_price > product.price -%}
+      {%- assign discount = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price | round -%}
+      <div class="on-sale-wrap">
+        <span class="on-sale-item">-{{ discount }}%</span>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="card-product-info">
+    <a href="{{ product.url | default: '#' }}" class="title link">{{ product.title | default: 'Example Product Title' }}</a>
+
+    <div class="bottom">
+      <div class="inner-left">
+        {% if settings.show_product_rating %}
+          {% render 'rating', product: product %}
+        {% endif %}
+
+        <span class="price">
+          {% if product.compare_at_price > product.price %}
+            <span class="old-price">{{ product.compare_at_price | money }}</span>
+          {% endif %}
+          {{ product.price | default: 5999 | money }}
+        </span>
+      </div>
+
+      {%- if product.available or product == nil -%}
+        <add-to-cart class="tf-loading box-icon add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}">
+          <span class="icon icon-shopping-cart-simple"></span>
+          <span class="tooltip">Add to cart</span>
+        </add-to-cart>
+      {%- else -%}
+        <button
+          type="button"
+          class="p-0 box-icon add-to-cart button--soldout"
+          disabled="disabled"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          <span class="icon icon-shopping-cart-simple"></span>
+          <span class="tooltip">Sold out</span>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
