@@ -177,6 +177,7 @@
             space_mobile: section.settings.space_mobile,
             show_stock: section.settings.show_stock,
             stock_position: section.settings.stock_position,
+            total_stock: section.settings.total_stock,
             swiper_classes: ''
           %}
         </div>
@@ -456,10 +457,16 @@
       "id": "stock_position",
       "label": "Stock Status Position",
       "options": [
-        { "value": "top-left", "label": "Top Left" },
-        { "value": "top-right", "label": "Top Right" }
+        { "value": "below_price", "label": "Below Price" },
+        { "value": "above_price", "label": "Above Price" }
       ],
-      "default": "top-left"
+      "default": "below_price"
+    },
+    {
+      "type": "number",
+      "id": "total_stock",
+      "label": "Total Stock (for Progress Bar)",
+      "default": 100
     }
   ],
   "blocks": [

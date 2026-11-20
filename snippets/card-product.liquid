@@ -213,7 +213,7 @@
     %}
 
     {% if show_stock and stock_position == 'above_price' %}
-      {% render 'product-stock', product: product %}
+      {% render 'product-stock', product: product, total_stock: total_stock %}
     {% endif %}
 
     <div class="price-wrap {% unless stock_position == 'below_price' or product.variants.size > 0 %}mb-0{% endunless %}">
@@ -234,8 +234,8 @@
       {% render 'card-product-swatches', product: product %}
     {% endif %}
 
-    {% if show_stock and stock_position == 'below_price' %}
-      {% render 'product-stock', product: product %}
+    {% if show_stock and stock_position == 'below_price'%}
+      {% render 'product-stock', product: product, total_stock: total_stock %}
     {% endif %}
   </div>
 

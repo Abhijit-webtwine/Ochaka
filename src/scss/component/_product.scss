@@ -3849,23 +3849,26 @@
 
 .product-progress_sold {
     display: grid;
-    gap: 12px;
+    gap: 8px;
+
+    .progress,
+    .progress-sold {
+        height: 9px;
+        .progress-bar {
+            height: 100%;
+            border-radius: 999px;
+            background-color: var(--primary);
+            transition: width 0.4s ease;
+        }
+    }
 
     .box-quantity {
         @include flex(center, space-between);
         flex-wrap: wrap;
+        gap: 6px;
     }
 }
 
-.progress {
-    height: 9px;
-    border-radius: 999px;
-
-    .progress-bar {
-        border-radius: 999px;
-        background-color: var(--primary);
-    }
-}
 
 .product-btn_quick {
     position: absolute;

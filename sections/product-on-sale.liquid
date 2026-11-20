@@ -78,6 +78,7 @@
                     show_add_to_cart: true,
                     show_stock: section.settings.show_stock,
                     stock_position: section.settings.stock_position,
+                    total_stock: section.settings.total_stock,
                     show_sale_badge: false,
                     show_custom_badge: false
                   %}
@@ -183,6 +184,12 @@
         }
       ],
       "default": "above_price"
+    },
+    {
+      "type": "number",
+      "id": "total_stock",
+      "label": "Total Stock (for Progress Bar)",
+      "default": 100
     },
     {
       "type": "header",

@@ -13,6 +13,7 @@
   @param {number} space_mobile - Space between slides on mobile
   @param {boolean} show_stock - Show stock
   @param {string} stock_position - Stock position
+  @param {number} total_stock - Total stock for progress bar
   @param {string} swiper_classes - Additional classes
 {% enddoc %}
 
@@ -50,7 +51,8 @@
             show_add_to_cart: true,
             countdown_size: countdown_size,
             show_stock: show_stock,
-            stock_position: stock_position
+            stock_position: stock_position,
+            total_stock: total_stock
           %}
         </div>
       {% endfor %}

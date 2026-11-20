@@ -1,14 +1,59 @@
 {% liquid
-  assign stock_available = product.variants.first.inventory_quantity | default: 0
+  assign target_total_stock = total_stock | default: 100 | plus: 0
+  if target_total_stock <= 0
+    assign target_total_stock = 100
+  endif
+
+  assign variant = product.selected_or_first_available_variant | default: product.variants.first
+  assign stock_available = variant.inventory_quantity | default: 0
+
+  if stock_available < 0 or product.available == false
+    assign stock_available = 0
+  endif
+
+  assign total_stock_calc = target_total_stock
+  if stock_available > total_stock_calc
+    assign total_stock_calc = stock_available
+  endif
+
+  assign stock_sold = total_stock_calc | minus: stock_available
+  if stock_sold < 0
+    assign stock_sold = 0
+  endif
+
+  if total_stock_calc > 0
+    assign progress_percent = stock_sold | times: 100 | divided_by: total_stock_calc
+  else
+    assign progress_percent = 0
+  endif
+
+  if progress_percent > 100
+    assign progress_percent = 100
+  elsif progress_percent < 0
+    assign progress_percent = 0
+  endif
 %}
-<div class="product-progress_sold">
-  <div class="box-quantity">
-    <p class="text-avaiable">
-      {% if stock_available > 0 %}
+
+{% if stock_available > 0 %}
+  <div class="product-progress_sold">
+    <div class="progress-sold progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ progress_percent }}">
+      <div class="progress-bar" style="width: {{ progress_percent }}%"></div>
+    </div>
+    <div class="box-quantity">
+      <p class="text-avaiable">
         Available: <span class="fw-bold text-black">{{ stock_available }}</span>
-      {% else %}
-        <span class="fw-bold text-black">{{ 'products.product.sold_out' | t }}</span>
-      {% endif %}
-    </p>
+      </p>
+      <p class="text-avaiable">
+        Sold: <span class="fw-bold text-black">{{ stock_sold }}</span>
+      </p>
+    </div>
   </div>
-</div>
+{% else %}
+  <div class="product-progress_sold">
+    <div class="box-quantity">
+      <p class="text-avaiable">
+        <span class="fw-bold text-black">{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
+      </p>
+    </div>
+  </div>
+{% endif %}
