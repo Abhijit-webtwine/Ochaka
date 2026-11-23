@@ -90,7 +90,13 @@
 
                   <div class="exit-popup__products-list">
                     {%- for product in collection.products limit: products_limit -%}
-                      {% render 'card-product-list-2', product: product %}
+                      {% render 'card-product-mini',
+                        product: product,
+                        show_wishlist: true,
+                        show_compare: true,
+                        show_quick_view: true,
+                        show_add_to_cart: true
+                      %}
                     {%- endfor -%}
                   </div>
                 </div>
