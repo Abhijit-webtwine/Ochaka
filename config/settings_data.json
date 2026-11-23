@@ -41,6 +41,7 @@
     "social_tiktok_link": "https://www.tiktok.com/@ochaka",
     "favicon": "shopify://shop_images/favicon.svg",
     "gift_card_logo_height": 70,
+    "age_gate_enable": true,
     "image_zoom_effect_enabled": false,
     "image_loading_bar_enabled": true,
     "predictive_search_show_vendor": false,
