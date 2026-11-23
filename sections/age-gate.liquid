@@ -1,0 +1,170 @@
+{%- comment -%}
+  Renders the global Age Gate modal feature for age verification across storefront pages.
+{%- endcomment -%}
+
+{%- liquid
+  assign enabled = settings.age_gate_enable
+  assign method = settings.age_gate_method
+  assign min_age = settings.age_gate_min_age
+  assign heading = settings.age_gate_heading
+  assign description = settings.age_gate_description
+  assign text_alignment = settings.age_gate_text_alignment
+  assign dob_label = settings.age_gate_dob_label
+  assign dob_btn_text = settings.age_gate_dob_button_text
+  assign yes_text = settings.age_gate_yes_text
+  assign no_text = settings.age_gate_no_text
+  assign rejection_action = settings.age_gate_rejection_action
+  assign rejection_message = settings.age_gate_rejection_message
+  assign rejection_url = settings.age_gate_rejection_url
+  assign persistence = settings.age_gate_persistence
+  assign duration_days = settings.age_gate_duration_days
+  assign underage_error = settings.age_gate_underage_error
+  assign invalid_date_error = settings.age_gate_invalid_date_error
+-%}
+
+{%- if enabled and request.design_mode == false -%}
+  <script>
+    (function () {
+      var persistence = {{ persistence | json }};
+      var storage = persistence === 'session' ? window.sessionStorage : window.localStorage;
+      try {
+        var data = storage.getItem('theme-age-gate');
+        if (data) {
+          var parsed = JSON.parse(data);
+          if (parsed && parsed.verified) {
+            if (!parsed.expiresAt || parsed.expiresAt > Date.now()) {
+              document.documentElement.classList.add('age-gate-verified');
+            }
+          }
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <div
+    class="age-gate"
+    id="AgeGateModal-{{ section.id }}"
+    data-age-gate
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="AgeGateHeading-{{ section.id }}"
+    aria-describedby="AgeGateDescription-{{ section.id }}"
+    {% if request.design_mode %}hidden{% endif %}
+  >
+    <div class="age-gate__backdrop"></div>
+
+    <div class="age-gate__wrapper">
+      <div class="age-gate__modal">
+        <header class="mb-16 text-{{ text_alignment | replace: 'left', 'start' | replace: 'right', 'end' }}">
+          {%- if heading != blank -%}
+            <h4 class="heading-5 fw-7 text-main mb-4" id="AgeGateHeading-{{ section.id }}">
+              {{ heading | escape }}
+            </h4>
+          {%- endif -%}
+
+          {%- if description != blank -%}
+            <p class="text-main" id="AgeGateDescription-{{ section.id }}">
+              {{ description | escape }}
+            </p>
+          {%- endif -%}
+        </header>
+
+        <div class="age-gate__body">
+          {%- if method == 'dob' -%}
+            <div class="d-flex flex-column gap-3">
+              <div class="d-flex flex-column gap-1 text-start">
+                <label class="fw-6 text-main" for="AgeGateDob-{{ section.id }}">
+                  {{ dob_label | escape }}
+                </label>
+                <input
+                  type="date"
+                  name="dob"
+                  id="AgeGateDob-{{ section.id }}"
+                  class="age-gate__input form-control"
+                  min="1900-01-01"
+                  max="{{ 'now' | date: '%Y-%m-%d' }}"
+                  required
+                  aria-describedby="AgeGateError-{{ section.id }}"
+                >
+              </div>
+
+              <div class="mt-3">
+                <a
+                  href="javascript:void(0)"
+                  role="button"
+                  class="tf-btn btn-primary w-100 justify-content-center"
+                  data-age-gate-submit
+                >
+                  <span class="text text-btn-uppercase">{{ dob_btn_text | escape }}</span>
+                </a>
+              </div>
+            </div>
+          {%- else -%}
+            <div class="row g-2 mt-3">
+              <div class="col-6">
+                <a
+                  href="javascript:void(0)"
+                  role="button"
+                  class="tf-btn btn-primary w-100 justify-content-center"
+                  data-age-gate-confirm
+                >
+                  <span class="text text-btn-uppercase">{{ yes_text | escape }}</span>
+                </a>
+              </div>
+
+              <div class="col-6">
+                <a
+                  href="javascript:void(0)"
+                  role="button"
+                  class="tf-btn style-line w-100 justify-content-center"
+                  data-age-gate-reject
+                >
+                  <span class="text text-btn-uppercase">{{ no_text | escape }}</span>
+                </a>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div
+          class="age-gate__error alert alert-danger d-flex align-items-center gap-2 mb-0 mt-3 py-2 px-3"
+          id="AgeGateError-{{ section.id }}"
+          role="alert"
+          aria-live="polite"
+          hidden
+        >
+          <span class="age-gate__error-text"></span>
+        </div>
+
+        <div class="age-gate__rejection alert alert-danger text-center d-flex flex-column gap-2 mb-0 mt-3 p-3" hidden>
+          <div class="age-gate__rejection-title fw-7 text-danger">Access Denied</div>
+          <div class="age-gate__rejection-text">
+            {{ rejection_message | escape }}
+          </div>
+          {%- if rejection_url != blank -%}
+            <a href="{{ rejection_url }}" class="tf-btn style-line w-auto mx-auto mt-2">
+              <span class="text text-btn-uppercase">Exit Site</span>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    <script type="application/json" id="AgeGateConfig">
+      {
+        "enabled": {{ enabled | json }},
+        "method": {{ method | json }},
+        "minAge": {{ min_age | json }},
+        "persistence": {{ persistence | json }},
+        "durationDays": {{ duration_days | json }},
+        "rejectionAction": {{ rejection_action | json }},
+        "rejectionUrl": {{ rejection_url | json }},
+        "underageError": {{ underage_error | json }},
+        "invalidDateError": {{ invalid_date_error | json }},
+        "rejectionMessage": {{ rejection_message | json }}
+      }
+    </script>
+  </div>
+
+  <script src="{{ 'age-gate.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}

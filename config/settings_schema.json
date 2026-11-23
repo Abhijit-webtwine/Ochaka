@@ -779,5 +779,188 @@
         "info": "Leave blank to use default Search title"
       }
     ]
+  },
+  {
+    "name": "Age Gate",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "age_gate_enable",
+        "label": "Enable Age Gate",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Verification Method"
+      },
+      {
+        "type": "select",
+        "id": "age_gate_method",
+        "label": "Verification Method",
+        "options": [
+          {
+            "value": "buttons",
+            "label": "Confirmation Buttons"
+          },
+          {
+            "value": "dob",
+            "label": "Date of Birth Verification"
+          }
+        ],
+        "default": "buttons"
+      },
+      {
+        "type": "range",
+        "id": "age_gate_min_age",
+        "label": "Minimum Required Age",
+        "min": 13,
+        "max": 25,
+        "step": 1,
+        "default": 18,
+        "info": "Minimum age required to enter the store"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_heading",
+        "label": "Heading",
+        "default": "Are you 18 or older?"
+      },
+      {
+        "type": "textarea",
+        "id": "age_gate_description",
+        "label": "Description",
+        "default": "You must be of legal age to view and purchase products on this website."
+      },
+      {
+        "type": "select",
+        "id": "age_gate_text_alignment",
+        "label": "Text Alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "center"
+      },
+      {
+        "type": "header",
+        "content": "Date of Birth Settings"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_dob_label",
+        "label": "DOB Input Label",
+        "default": "Enter your date of birth"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_dob_button_text",
+        "label": "DOB Submit Button Text",
+        "default": "Enter Site"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_underage_error",
+        "label": "Underage Error Message",
+        "default": "Sorry, you must be at least [min_age] years old to enter.",
+        "info": "Use [min_age] to dynamically display the required age"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_invalid_date_error",
+        "label": "Invalid Date Error Message",
+        "default": "Please enter a valid date of birth."
+      },
+      {
+        "type": "header",
+        "content": "18+ Confirmation Buttons Settings"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_yes_text",
+        "label": "Confirm Button Text (18+)",
+        "default": "YES, ENTER SITE"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_no_text",
+        "label": "Reject Button Text (Under 18)",
+        "default": "NO, EXIT"
+      },
+      {
+        "type": "header",
+        "content": "Rejection Action Settings"
+      },
+      {
+        "type": "select",
+        "id": "age_gate_rejection_action",
+        "label": "Rejection Action",
+        "options": [
+          {
+            "value": "message",
+            "label": "Show Rejection Message"
+          },
+          {
+            "value": "redirect",
+            "label": "Redirect to URL"
+          }
+        ],
+        "default": "message"
+      },
+      {
+        "type": "textarea",
+        "id": "age_gate_rejection_message",
+        "label": "Rejection Message",
+        "default": "Access denied. You do not meet the minimum age requirement to enter this website."
+      },
+      {
+        "type": "url",
+        "id": "age_gate_rejection_url",
+        "label": "Rejection Redirect URL",
+        "info": "URL to redirect if visitor is under age"
+      },
+      {
+        "type": "header",
+        "content": "Verification Persistence"
+      },
+      {
+        "type": "select",
+        "id": "age_gate_persistence",
+        "label": "Remember Verification",
+        "options": [
+          {
+            "value": "session",
+            "label": "During current session"
+          },
+          {
+            "value": "days",
+            "label": "Remember for specified days"
+          }
+        ],
+        "default": "days"
+      },
+      {
+        "type": "range",
+        "id": "age_gate_duration_days",
+        "label": "Remember Duration (Days)",
+        "min": 1,
+        "max": 90,
+        "step": 1,
+        "default": 30
+      }
+    ]
   }
 ]

@@ -227,6 +227,10 @@
         {% render 'compare-modal' %}
       {% endif %}
 
+      {% if settings.age_gate_enable %}
+        {% section 'age-gate' %}
+      {% endif %}
+
       {% if settings.show_collection_sidebar %}
         {% render 'global-collection-sidebar' %}
       {% endif %}
