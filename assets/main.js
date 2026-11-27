@@ -1099,7 +1099,7 @@
                 
                 if (swatchColor && imgProduct.length) {
                     imgProduct.attr("src", swatchColor).removeAttr("srcset data-srcset").show();
-                    $swatch.closest(".card-product, .banner-card_product").find("video, iframe, .img-hover").hide();
+                    $swatch.closest(".card-product, .banner-card_product").find("video, iframe").hide();
                 }
                 
                 $swatch
